@@ -1,0 +1,36 @@
+---
+title: "Estadística"
+subtitle: "Carrera en Ciencias Navales · Tercer Año"
+author: "Dr. Daniel Lagos Llaguno"
+toc: false
+---
+
+## Contenido del curso
+
+### Unidad 1 · Estadística descriptiva y probabilidades
+
+::: {.tarjeta}
+#### [Tema 1.1 · Introducción a la Estadística](unidad-1/tema-1-1.qmd)
+
+- **1.1.1** Definiciones básicas
+- **1.1.2** Proceso de medición
+- **1.1.3** Escalas de medición
+- **1.1.4** Introducción al muestreo
+- **1.1.5** Práctica
+:::
+
+## Cómo se usa este material
+
+Cada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.
+
+Las celdas de código son **ejecutables en el navegador**. No hace falta instalar R ni ningún programa: al pulsar *Run Code* la primera vez, el navegador descarga el motor de R y a partir de ahí todo corre en su propio equipo. Funciona igual en la laptop que en la tablet.
+
+::: {.predice}
+Cada celda va precedida de una pregunta. Escriba su respuesta en el cuaderno **antes** de ejecutar. Una celda ejecutada sin haber predicho el resultado no enseña nada.
+:::
+
+## Fuentes del curso
+
+Illowsky, B., & Dean, S. *Introducción a la estadística.* OpenStax, Rice University. Licencia CC BY 4.0.
+
+Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa.* Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.

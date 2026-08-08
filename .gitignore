@@ -1,0 +1,19 @@
+# Salida renderizada: se regenera con `quarto render`
+/_site/
+/.quarto/
+
+# Archivos intermedios de knitr
+*_files/
+*.knit.md
+*.utf8.md
+
+# R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Sistema
+Thumbs.db
+.DS_Store
+desktop.ini

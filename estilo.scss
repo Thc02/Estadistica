@@ -1,0 +1,107 @@
+/*-- scss:defaults --*/
+
+// Paleta del curso (la misma de las diapositivas del Tema 1.1)
+$navy:  #21295C;
+$deep:  #065A82;
+$teal:  #1C7293;
+$ice:   #CADCFC;
+$card:  #F4F8FB;
+$ink:   #1B1B1F;
+$muted: #5B6570;
+
+$body-color:  $ink;
+$link-color:  $deep;
+$primary:     $deep;
+
+$font-family-sans-serif: Calibri, "Segoe UI", system-ui, -apple-system, sans-serif;
+$headings-font-family:   Cambria, Georgia, "Times New Roman", serif;
+$font-size-root:         17px;
+$headings-font-weight:   700;
+$headings-color:         $navy;
+
+$toc-color:        $navy;
+$toc-active-border: $teal;
+
+/*-- scss:rules --*/
+
+h1, h2 { color: $navy; }
+h3, h4 { color: $deep; }
+
+// Separador claro entre subtemas
+h2 {
+  border-bottom: 1px solid #E3EAF1;
+  padding-bottom: 0.25rem;
+  margin-top: 2.4rem;
+}
+
+// Numeración del subtema, en el estilo del epígrafe de las diapositivas
+.subtema {
+  color: $teal;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: -0.6rem;
+}
+
+// Tarjeta clara, equivalente a las del deck
+.tarjeta {
+  background: $card;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  height: 100%;
+}
+
+.tarjeta h4 { margin-top: 0; color: $deep; }
+
+// Tarjeta oscura para bloques de énfasis
+.tarjeta-oscura {
+  background: $navy;
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  height: 100%;
+}
+
+.tarjeta-oscura h4 { margin-top: 0; color: #FFFFFF; }
+.tarjeta-oscura a  { color: $ice; }
+
+// Ejemplo naval
+.ejemplo {
+  color: $muted;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+// Franja de síntesis
+.franja {
+  background: $navy;
+  color: #FFFFFF;
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  margin: 1.2rem 0;
+}
+
+// Bloque "predice antes de ejecutar"
+.predice {
+  border-left: 4px solid $teal;
+  background: $card;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+  color: $navy;
+}
+
+.predice::before {
+  content: "Antes de ejecutar";
+  display: block;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $teal;
+  margin-bottom: 0.2rem;
+}
+
+table { font-size: 0.92rem; }
+thead th { background: $navy !important; color: #FFFFFF !important; }
