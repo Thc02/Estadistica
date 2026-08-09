@@ -1,14 +1,18 @@
 /*-- scss:defaults --*/
 
-// Paleta del curso (la misma de las diapositivas del Tema 1.1)
-$navy:  #21295C;
-$deep:  #065A82;
-$teal:  #1C7293;
-$ice:   #CADCFC;
-$card:  #F4F8FB;
-$ink:   #1B1B1F;
-$muted: #5B6570;
+// Paleta del curso.
+// Regla: el texto siempre oscuro sobre fondo claro. Nunca a la inversa.
+// Contrastes verificados contra el mínimo WCAG de 4.5.
+$navy:   #21295C;   // titulares y bordes estructurales
+$deep:   #0B4F71;   // enlaces y subtítulos          8.2 sobre fondo claro
+$rojo:   #8B1A1A;   // resalte y advertencias        8.6 sobre fondo claro
+$ink:    #1B1B1F;   // texto                        15.9 sobre fondo claro
+$muted:  #55607A;   // texto secundario              5.8 sobre fondo claro
+$linea:  #D8DEE6;   // bordes finos
+$claro:  #F4F6F8;   // fondo de tarjeta
+$tinte:  #EEF1F6;   // fondo de énfasis
 
+$body-bg:     #FFFFFF;
 $body-color:  $ink;
 $link-color:  $deep;
 $primary:     $deep;
@@ -19,89 +23,279 @@ $font-size-root:         17px;
 $headings-font-weight:   700;
 $headings-color:         $navy;
 
-$toc-color:        $navy;
-$toc-active-border: $teal;
+$table-striped-bg:   #F4F6F8;
+$table-border-color: $linea;
+
+$toc-color:         $navy;
+$toc-active-border: $deep;
 
 /*-- scss:rules --*/
 
-h1, h2 { color: $navy; }
-h3, h4 { color: $deep; }
+h1 { color: $navy; }
 
-// Separador claro entre subtemas
 h2 {
-  border-bottom: 1px solid #E3EAF1;
-  padding-bottom: 0.25rem;
-  margin-top: 2.4rem;
+  color: $navy;
+  border-bottom: 2px solid $linea;
+  padding-bottom: 0.3rem;
+  margin-top: 2.6rem;
 }
 
-// Numeración del subtema, en el estilo del epígrafe de las diapositivas
-.subtema {
-  color: $teal;
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: -0.6rem;
+h3 { color: $deep; margin-top: 1.9rem; }
+h4 { color: $navy; }
+
+.navbar { border-bottom: 3px solid $navy; }
+
+// ---------- Tarjetas ----------
+// Las tres variantes se distinguen por el color del borde, no por el fondo.
+
+.tarjeta, .tarjeta-media, .tarjeta-oscura, .tarjeta-teal {
+  border-radius: 8px;
+  padding: 0.85rem 1.05rem;
+  height: 100%;
+  color: $ink;
 }
 
-// Tarjeta clara, equivalente a las del deck
 .tarjeta {
-  background: $card;
-  border-radius: 8px;
-  padding: 0.9rem 1.1rem;
-  height: 100%;
+  background: $claro;
+  border: 1px solid $linea;
 }
 
-.tarjeta h4 { margin-top: 0; color: $deep; }
+.tarjeta-media {
+  background: $tinte;
+  border: 1px solid $linea;
+  border-left: 4px solid $deep;
+}
 
-// Tarjeta oscura para bloques de énfasis
 .tarjeta-oscura {
-  background: $navy;
-  color: #FFFFFF;
-  border-radius: 8px;
-  padding: 0.9rem 1.1rem;
-  height: 100%;
+  background: $tinte;
+  border: 1px solid $linea;
+  border-left: 4px solid $navy;
 }
 
-.tarjeta-oscura h4 { margin-top: 0; color: #FFFFFF; }
-.tarjeta-oscura a  { color: $ice; }
+// Variante de atención: rojo oscuro
+.tarjeta-teal {
+  background: #FCF6F5;
+  border: 1px solid #E8D6D4;
+  border-left: 4px solid $rojo;
+}
 
-// Ejemplo naval
+.tarjeta h4          { margin-top: 0; color: $deep; }
+.tarjeta-media h4    { margin-top: 0; color: $deep; }
+.tarjeta-oscura h4   { margin-top: 0; color: $navy; }
+.tarjeta-teal h4     { margin-top: 0; color: $rojo; }
+
+.tarjeta a, .tarjeta-media a, .tarjeta-oscura a, .tarjeta-teal a { color: $deep; }
+
 .ejemplo {
   color: $muted;
   font-style: italic;
   font-size: 0.9em;
 }
 
-// Franja de síntesis
+// ---------- Bloques de énfasis ----------
+
 .franja {
-  background: $navy;
-  color: #FFFFFF;
-  border-radius: 6px;
-  padding: 0.7rem 1rem;
-  margin: 1.2rem 0;
+  background: $tinte;
+  border-left: 4px solid $navy;
+  border-radius: 0 8px 8px 0;
+  padding: 0.75rem 1.05rem;
+  margin: 1.3rem 0;
+  color: $ink;
 }
 
-// Bloque "predice antes de ejecutar"
+.franja strong { color: $navy; }
+.franja a      { color: $deep; }
+
 .predice {
-  border-left: 4px solid $teal;
-  background: $card;
-  padding: 0.6rem 1rem;
-  margin: 1rem 0;
-  color: $navy;
+  border-left: 4px solid $deep;
+  background: $claro;
+  border-radius: 0 8px 8px 0;
+  padding: 0.7rem 1.05rem;
+  margin: 1.2rem 0;
+  color: $ink;
 }
 
 .predice::before {
   content: "Antes de ejecutar";
   display: block;
   font-weight: 700;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: $teal;
-  margin-bottom: 0.2rem;
+  color: $deep;
+  margin-bottom: 0.25rem;
 }
 
+// Término nuevo: definición al pie del concepto
+.definicion {
+  border-left: 5px solid $deep;
+  background: #FFFFFF;
+  border-top: 1px solid #DCE8F5;
+  border-right: 1px solid #DCE8F5;
+  border-bottom: 1px solid #DCE8F5;
+  border-radius: 0 8px 8px 0;
+  padding: 0.7rem 1.1rem;
+  margin: 1.1rem 0;
+}
+
+.definicion::before {
+  content: "Término nuevo";
+  display: block;
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $deep;
+  margin-bottom: 0.25rem;
+}
+
+.definicion p:last-child { margin-bottom: 0; }
+
+// Enunciado de ejercicio
+.ejercicio {
+  background: #FFFFFF;
+  border: 1px solid #CBDCEF;
+  border-top: 5px solid $deep;
+  border-radius: 0 0 8px 8px;
+  padding: 0.9rem 1.2rem;
+  margin: 1.4rem 0 0.9rem;
+}
+
+.ejercicio::before {
+  content: "Ejercicio";
+  display: block;
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $rojo;
+  margin-bottom: 0.3rem;
+}
+
+// ---------- Tablas ----------
+
 table { font-size: 0.92rem; }
-thead th { background: $navy !important; color: #FFFFFF !important; }
+
+thead th {
+  background: $claro !important;
+  color: $navy !important;
+  border-bottom: 2px solid $navy !important;
+}
+
+tbody tr:nth-child(even) { background: $claro; }
+
+// Las tablas anchas se desplazan en lugar de romper la página
+.tabla-ancha {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+}
+
+.tabla-ancha > table { margin: 0; min-width: 620px; }
+
+// ---------- Impresión y exportación a PDF ----------
+
+@media print {
+
+  // Fuera todo lo que no es contenido
+  #quarto-sidebar, .sidebar, #TOC, #quarto-margin-sidebar,
+  .navbar, .nav-footer, .page-footer, .quarto-title-banner,
+  .toc-actions, .quarto-code-copy-button,
+  .exercise-runbutton, .exercise-hintbutton, .exercise-solutionbutton,
+  button, .btn { display: none !important; }
+
+  body {
+    background: #FFFFFF !important;
+    font-size: 10.5pt;
+    color: #000000;
+  }
+
+  #quarto-content, main, .content, .page-columns {
+    display: block !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    grid-template-columns: none !important;
+  }
+
+  // Los títulos no quedan huérfanos al pie de página
+  h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+  h2 { background: none; border-left: 3px solid $navy; }
+
+  // Las tarjetas y bloques no se parten entre páginas
+  .tarjeta, .tarjeta-media, .tarjeta-oscura, .tarjeta-teal,
+  .franja, .predice, .ejercicio, .definicion, table, pre, figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  // En papel todo va sobre blanco; el borde izquierdo distingue el bloque
+  .tarjeta, .tarjeta-media, .tarjeta-oscura, .tarjeta-teal,
+  .franja, .predice, .definicion {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border: 0.5pt solid #999999;
+    border-left: 2pt solid #000000;
+  }
+
+  // Las celdas de código se imprimen como texto, sin el editor
+  .cell, .sourceCode, pre, .cm-editor {
+    border: 0.5pt solid #999999;
+    background: #FFFFFF !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: none !important;
+    overflow: visible !important;
+    font-size: 9pt;
+  }
+
+  // En papel el enlace no se puede pulsar: se escribe
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #444444;
+    word-break: break-all;
+  }
+
+  // Salvo en la navegación interna, donde estorbaría
+  .sidebar a[href^="http"]::after,
+  nav a[href^="http"]::after { content: ""; }
+
+  table { display: table !important; white-space: normal !important; }
+  thead th { background: #FFFFFF !important; color: #000000 !important;
+             border-bottom: 1.5pt solid #000000 !important; }
+  tbody tr:nth-child(even) { background: #F4F4F4 !important; }
+
+  @page { margin: 2cm 1.8cm; }
+}
+
+// ---------- Móvil ----------
+
+@media (max-width: 767.98px) {
+
+  body { font-size: 15.5px; }
+
+  h1 { font-size: 1.55rem; }
+  h2 { font-size: 1.25rem; padding: 0.4rem 0.6rem; margin-top: 2rem; }
+  h3 { font-size: 1.1rem; }
+
+  .tarjeta,
+  .tarjeta-media,
+  .tarjeta-oscura,
+  .tarjeta-teal {
+    padding: 0.8rem 0.9rem;
+    height: auto;
+    margin-bottom: 0.75rem;
+  }
+
+  .franja, .predice, .ejercicio { padding: 0.7rem 0.85rem; }
+
+  // Cualquier tabla se vuelve desplazable en pantalla estrecha
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  table td, table th { white-space: normal; min-width: 8.5rem; }
+
+  // El editor de código no debe desbordar
+  .cell, pre, .sourceCode { max-width: 100%; overflow-x: auto; }
+
+  blockquote { margin-left: 0; padding-left: 0.8rem; }
+}

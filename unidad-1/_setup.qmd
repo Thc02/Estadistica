@@ -1,0 +1,88 @@
+```{webr}
+#| include: false
+#| autorun: true
+
+# Semilla derivada del correo institucional: cada guardiamarina recibe su propia flota
+semilla_desde <- function(correo) {
+  cs <- utf8ToInt(tolower(trimws(correo)))
+  as.integer(sum(cs * seq_along(cs)) %% 99991L)
+}
+
+generar_flota <- function(correo) {
+  set.seed(semilla_desde(correo))
+  n <- 40
+  data.frame(
+    id      = 1:n,
+    tipo    = sample(rep(c("Fragata", "Corbeta", "Patrullera", "Lancha"),
+                         times = c(6, 10, 16, 8))),
+    puerto  = sample(c("Guayaquil", "Manta", "Esmeraldas"), n, replace = TRUE),
+    nudos   = round(rnorm(n, runif(1, 16.5, 19.5), 3), 1),
+    calado  = round(rnorm(n, runif(1, 4.0, 4.8), 0.9), 2),
+    consumo = round(rnorm(n, runif(1, 85, 99), 18), 1),
+    averias = rpois(n, runif(1, 1.0, 1.9)),
+    mar     = factor(sample(c("calma", "moderado", "agitado"), n, replace = TRUE),
+                     levels = c("calma", "moderado", "agitado"), ordered = TRUE),
+    stringsAsFactors = FALSE
+  )
+}
+
+mi_correo <- "demostracion@espe.edu.ec"
+flota <- generar_flota(mi_correo)
+
+# --- Autoverificación -------------------------------------------------------
+
+verificar <- function(valor, esperado, tol = 0.01, pista = "") {
+  if (missing(valor) || length(valor) != 1 || !is.numeric(valor) || is.na(valor)) {
+    cat("Aún no hay un número que comprobar.\n"); return(invisible(FALSE))
+  }
+  ok <- abs(valor - esperado) <= tol * max(1, abs(esperado))
+  if (ok) {
+    cat("Correcto.  Tu valor:", round(valor, 4), "\n")
+  } else {
+    cat("Todavía no.  Tu valor:", round(valor, 4), "\n")
+    if (nzchar(pista)) cat(pista, "\n")
+  }
+  invisible(ok)
+}
+
+.claves <- list(
+  p1 = list(op = "b",
+            por = "La media poblacional es fija: no cambia porque cambie la muestra. Lo que varía es el estadístico."),
+  p2 = list(op = "c",
+            por = "La mediana ordinal devuelve una categoría, no un número: 'moderado' es una respuesta legítima; 2.1 no lo es."),
+  p3 = list(op = "a",
+            por = "Tomar los primeros de la lista no es azar. El orden del listado puede estar relacionado con lo que se mide."),
+  p4 = list(op = "b",
+            por = "Como D = B²/4, dividir B entre dos divide D entre cuatro. En una población grande eso cuadruplica n. En una población pequeña como esta flota el efecto es menor, porque la corrección finita topa el crecimiento: no se puede necesitar más unidades de las que existen."),
+  p5 = list(op = "c",
+            por = "Scheaffer, Mendenhall y Ott son explícitos: las sustituciones caprichosas modifican la estructura probabilística del diseño y pueden hacer imposible estimar el error de muestreo.")
+)
+
+revisar <- function(id, letra) {
+  k <- .claves[[id]]
+  letra <- tolower(trimws(as.character(letra)))
+  if (identical(letra, k$op)) {
+    cat("Correcto.\n", k$por, "\n")
+  } else {
+    cat("No es la", toupper(letra), ". Vuelve a leer la salida y prueba otra opción.\n")
+  }
+  invisible(identical(letra, k$op))
+}
+
+verificar_media_calado <- function(x)
+  verificar(x, mean(flota$calado), pista = "Suma los 40 calados y divide entre 40.")
+
+verificar_prop_rapidas <- function(x)
+  verificar(x, mean(flota$nudos > 20),
+            pista = "Cuenta cuántas unidades superan los 20 nudos y divide entre 40.")
+
+verificar_rango_consumo <- function(x)
+  verificar(x, diff(range(flota$consumo)),
+            pista = "El rango es el mayor menos el menor.")
+
+verificar_tamano <- function(x) {
+  s <- sd(flota$consumo); N <- 40; D <- 3^2 / 4
+  verificar(x, ceiling(N * s^2 / ((N - 1) * D + s^2)), tol = 0.02,
+            pista = "n = N·s²/((N-1)·D + s²), con D = B²/4 y B = 3. Redondea hacia arriba.")
+}
+```

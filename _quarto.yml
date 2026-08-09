@@ -3,8 +3,8 @@ project:
   output-dir: _site
 
 website:
-  title: "Estadística"
-  description: "Carrera en Ciencias Navales · Tercer Año"
+  title: "Estadística para Ciencias Navales"
+  description: "EXCT-A0509 · NRC 2998 · Tercer nivel"
   page-navigation: true
   reader-mode: true
   navbar:
@@ -13,10 +13,8 @@ website:
     left:
       - href: index.qmd
         text: Inicio
-      - text: "Unidad 1"
-        menu:
-          - href: unidad-1/tema-1-1.qmd
-            text: "Tema 1.1 · Introducción a la Estadística"
+      - href: plan.qmd
+        text: Plan semanal
   sidebar:
     style: docked
     background: light
@@ -24,10 +22,16 @@ website:
     contents:
       - href: index.qmd
         text: "Presentación del curso"
-      - section: "Unidad 1 · Estadística descriptiva y probabilidades"
+      - href: plan.qmd
+        text: "Plan semanal"
+      - href: bibliografia.qmd
+        text: "Bibliografía"
+      - section: "UC 1 · Estadística descriptiva y probabilidad"
         contents:
           - href: unidad-1/tema-1-1.qmd
-            text: "Tema 1.1 · Introducción a la Estadística"
+            text: "1.1 Introducción a la Estadística"
+          - href: unidad-1/tema-1-2.qmd
+            text: "1.2 Muestreo"
   page-footer:
     background: light
     left: "Estadística · Ciencias Navales · Unidad 1"

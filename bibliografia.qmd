@@ -1,0 +1,91 @@
+---
+title: "Bibliografía"
+subtitle: "Textos del curso y cómo usarlos"
+toc: true
+toc-depth: 2
+---
+
+Los tres primeros textos están **disponibles en la carpeta del curso**. El cuarto es de acceso libre en línea. No hay que comprar nada.
+
+## Texto guía
+
+::: {.tarjeta}
+#### Estadística para la Seguridad y Defensa
+
+Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa* (1.ª ed.). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8. Disponible para consulta en el repositorio institucional: <https://repositorio.espe.edu.ec>
+
+Es el texto de referencia de la asignatura y el único escrito para el ámbito de defensa y seguridad. Sus ejemplos son militares y usa R en todos los capítulos, igual que este curso. **Empiece siempre por aquí.**
+
+- Capítulo I — introducción, medición, escalas y muestreo
+- Capítulo II — estadística descriptiva
+- Capítulo III — teoría de la probabilidad
+- Capítulo IV — distribuciones de probabilidad
+:::
+
+## Textos complementarios
+
+::: {.tarjeta-media}
+#### Probabilidad y estadística para ingeniería y ciencias
+
+Devore, J. L. (2016). *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.
+
+Más exigente en el desarrollo matemático que el texto guía. Útil cuando una demostración del Ordóñez le sepa a poco, o cuando quiera ver el mismo concepto tratado con más profundidad formal.
+
+- Cap. 1 «Generalidades y estadística descriptiva» — §1.1 Poblaciones, muestras y procesos (pp. 3–13); §1.3 Medidas de ubicación (p. 29); §1.4 Medidas de variabilidad (p. 36)
+- Cap. 2 «Probabilidad» — §2.3 Técnicas de conteo (p. 66); §2.4 Probabilidad condicional (p. 75)
+:::
+
+::: {.tarjeta-media}
+#### Miller y Freund. Probabilidad y estadística para ingenieros
+
+Johnson, R. A. (2012). *Probabilidad y estadística para ingenieros* (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.
+
+El más orientado a la aplicación de los tres impresos: casi todos sus ejemplos vienen de casos reales de ingeniería y control de calidad, que es el vecino más próximo al problema naval.
+
+- Cap. 5 «Densidades de probabilidad» — §5.2 La distribución normal (p. 125); §5.5 La distribución uniforme (p. 135)
+- Cap. 6 «Distribuciones muestrales» — §6.1 Poblaciones y muestras (p. 175); §6.2 La distribución muestral de la media (p. 179)
+- Cap. 11 «Análisis de regresión» — §11.1 El método de mínimos cuadrados (p. 301); §11.6 Correlación (p. 335)
+:::
+
+::: {.tarjeta-media}
+#### Elementos de muestreo
+
+Scheaffer, R. L., Mendenhall, W., III, & Ott, R. L. (2007). *Elementos de muestreo* (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de *Elementary Survey Sampling*, 6.ª ed.
+
+El único de la lista dedicado íntegramente al muestreo, y el más práctico: cada capítulo presenta un diseño, resuelve un caso con detalle y ofrece las fórmulas necesarias sin desarrollo teórico. De él proviene el tratamiento del tema 1.2.
+
+- Cap. 2 «Elementos del problema de muestreo» — §2.4 Fuentes de error en las encuestas (pp. 19–31); §2.5 Diseño de un cuestionario (p. 31)
+- Cap. 4 «Muestreo aleatorio simple» — §4.4 Selección del tamaño de muestra (p. 95); §4.5 Estimación de una proporción (p. 97)
+- Cap. 5 «Muestreo aleatorio estratificado» — §5.5 Afijación de la muestra (p. 137)
+- Cap. 7 «Muestreo sistemático» y Cap. 8 «Muestreo por conglomerados»
+- Cap. 12 «Resumen» — §12.2 Comparaciones entre los diseños y métodos
+:::
+
+::: {.tarjeta-teal}
+#### Introducción a la estadística — OpenStax
+
+Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio>
+
+Gratuito, en línea y en español. Es el más accesible de los cuatro: explica con menos formalismo y muchos más ejemplos. Si un concepto no le entra con el texto guía, búsquelo aquí antes de rendirse.
+
+- Cap. 1 «Muestreo y datos» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
+- Cap. 2 «Estadística descriptiva» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva>
+:::
+
+## Lecturas por semana
+
+::: {.tabla-ancha}
+| Semana | Tema | Lectura mínima | Ampliación |
+|---|---|---|---|
+| 1 | 1.1 Introducción | Ordóñez, cap. I §§1.1–1.4 | OpenStax cap. 1; Devore §1.1 |
+| 2 | 1.2.1–1.2.3 Muestreo | Ordóñez, cap. I §§1.5–1.7 | **Scheaffer §2.4** (fuentes de error); Johnson §6.1 |
+| 3–5 | 1.3 Descriptiva | Ordóñez, cap. II | Devore §§1.2–1.4; OpenStax cap. 2 |
+| 5 | 1.2.4 Tamaño de muestra | Ordóñez, cap. I §1.7 | **Scheaffer §4.4** (pp. 95–97) |
+| 6–7 | 1.4 Conteo y probabilidad | Ordóñez, cap. III | Devore §§2.3–2.4 |
+| 8–12 | 2.x Modelos estocásticos | Ordóñez, cap. IV | Johnson cap. 5; Devore caps. 3–4 |
+| 13–16 | 3.x Inferencia y regresión | Ordóñez, cap. IV y apéndices | Johnson caps. 6 y 11; Devore caps. 5–7 |
+:::
+
+::: {.franja}
+**Cómo leer.** La lectura mínima es la que se da por hecha en clase: si no la trae hecha, la sesión activa no le rendirá. La ampliación es para cuando quiera ir más lejos en un tema concreto, no para leerla entera.
+:::

@@ -1,0 +1,108 @@
+---
+title: "Plan semanal"
+subtitle: "Estadística para Ciencias Navales · EXCT-A0509 · NRC 2998"
+toc: true
+toc-depth: 2
+---
+
+## Cómo está repartido el curso
+
+48 horas en total: **32 presenciales** —a dos horas por semana, dieciséis semanas— y **16 autónomas** que el guardiamarina trabaja fuera de clase, sobre esta misma página.
+
+| Unidad | Contenido | Semanas | Horas presenciales |
+|---|---|---|---|
+| **UC 1** | Estadística descriptiva y probabilidad | 1 – 7 | 14 |
+| **UC 2** | Modelos estocásticos | 8 – 12 | 10 |
+| **UC 3** | Inferencia y regresión | 13 – 16 | 8 |
+
+::: {.franja}
+El **Proyecto Integrador** atraviesa las tres unidades y es la columna del curso: en la UC 1 se construye la base de datos naval, en la UC 2 se le aplica un modelo probabilístico, y en la UC 3 se cierra con inferencia y conclusiones. Cada fase se apoya en lo que ya se hizo, de modo que ninguna semana queda suelta.
+:::
+
+## Unidad 1 · Estadística descriptiva y probabilidad
+
+**Resultado de aprendizaje.** Organiza, resume e interpreta información proveniente de operaciones navales mediante técnicas de estadística descriptiva y probabilidad para generar indicadores que apoyen la toma de decisiones.
+
+| Sem. | Tema del sílabo | En clase (2 h) | Trabajo autónomo |
+|---|---|---|---|
+| **1** | 1.1 Introducción a la Estadística | Importancia en ciencias navales; población, muestra, parámetro y estadístico; variables y escalas; organización y recolección | Taller 1.1 — identificar variables, escalas y tipos de dato en una base naval |
+| **2** | 1.2.1 – 1.2.3 Muestreo | Técnicas; muestreo probabilístico y no probabilístico; fuentes de error de una encuesta | Investigación bibliográfica 1.1 — aplicaciones en operaciones, logística y seguridad marítima |
+| **3** | 1.3.1 – 1.3.2 Descriptiva: organización | Tablas de distribución de frecuencias; representaciones gráficas | Taller 1.2 — construir tablas y gráficos de operaciones navales |
+| **4** | 1.3.3 – 1.3.4 Descriptiva: centro y dispersión | Medidas de tendencia central; medidas de dispersión | Actividad autónoma 1.1 — ejercicios sobre la base proporcionada |
+| **5** | **1.2.4** + 1.3.5 – 1.3.7 | **Determinación del tamaño de muestra**; medidas de posición; medidas de forma; interpretación de indicadores | Taller 1.3 — calcular e interpretar indicadores operacionales |
+| **6** | 1.4.1 – 1.4.4 Conteo y probabilidad | Técnicas de conteo; permutaciones; combinaciones; probabilidad clásica | Taller 1.4 — conteo y probabilidad en navegación y seguridad marítima |
+| **7** | 1.4.5 – 1.4.7 Probabilidad condicional | Probabilidad condicional; probabilidad total; teorema de Bayes | **Proyecto Fase I** — base de datos naval e identificación de variables |
+
+::: {.definicion}
+**Por qué 1.2.4 se imparte en la semana 5 y no en la 2**
+
+El sílabo agrupa el tamaño de muestra dentro del tema 1.2, pero su fórmula depende de la **desviación típica**, que no se enseña hasta el tema 1.3.4, en la semana 4. Impartirlo en la semana 2 obligaría a usar un concepto tres semanas antes de definirlo.
+
+Se imparte por tanto al inicio de la semana 5, inmediatamente después de la sesión de dispersión. Además de resolver la dependencia, esto le da a la desviación típica un propósito operativo inmediato —de ella depende cuántas unidades hay que inspeccionar—, que es la mejor defensa contra que quede como una fórmula sin destino.
+
+El mismo orden sigue *Elementos de muestreo* de Scheaffer, Mendenhall y Ott: su capítulo 3 cubre los conceptos descriptivos básicos y sólo el capítulo 4 aborda el muestreo aleatorio simple.
+
+**La numeración no cambia:** el apartado se sigue llamando 1.2.4 y vive en la página del tema 1.2. Lo único que se altera es la semana en que se trabaja.
+:::
+
+::: {.predice}
+El tema **1.5 Aplicaciones con software estadístico** no ocupa semana propia: está distribuido en todas. Cada sesión incluye celdas de R ejecutables, de modo que importar datos, obtener descriptivos, graficar e interpretar se practica desde la primera semana en lugar de quedar relegado al final.
+:::
+
+## Unidad 2 · Modelos estocásticos
+
+**Resultado de aprendizaje.** Modela fenómenos aleatorios relacionados con operaciones marítimas mediante distribuciones de probabilidad para estimar riesgos y apoyar decisiones operacionales.
+
+| Sem. | Tema del sílabo | En clase (2 h) | Trabajo autónomo |
+|---|---|---|---|
+| **8** | 2.1 Variables aleatorias | Discretas y continuas; funciones de probabilidad; esperanza y varianza | Ejercicios de esperanza y varianza |
+| **9** | 2.2 Modelos discretos I | Binomial; hipergeométrica | Taller 2.1 — elegir el modelo apropiado para escenarios navales |
+| **10** | 2.2 Modelos discretos II | Poisson; aplicaciones: inspecciones, accidentes marítimos, eventos de mantenimiento | Taller 2.2 — ejercicios de distribuciones discretas |
+| **11** | 2.3 Modelos continuos I | Uniforme; exponencial; tiempo entre fallas y tiempo de respuesta | Investigación bibliográfica 2.1 — modelos estocásticos en gestión del riesgo marítimo |
+| **12** | 2.3 Modelos continuos II | Normal; vida útil de equipos; simulación | **Proyecto Fase II** — aplicar un modelo probabilístico a la base de la UC 1 |
+
+## Unidad 3 · Inferencia y regresión
+
+**Resultado de aprendizaje.** Aplica técnicas de inferencia estadística y modelos de regresión lineal para analizar datos y sustentar decisiones estratégicas y operacionales en el ámbito naval.
+
+| Sem. | Tema del sílabo | En clase (2 h) | Trabajo autónomo |
+|---|---|---|---|
+| **13** | 3.1 Distribuciones muestrales | Distribución muestral de la media; teorema central del límite | Simulación del TCL sobre la flota propia |
+| **14** | 3.2 Estimación | Estimación puntual; intervalos de confianza para la media | Taller 3.1 — estimaciones e intervalos para variables navales |
+| **15** | 3.3 Contraste de hipótesis | Formulación; nivel de significancia; valor-p; errores tipo I y II; pruebas para la media | Taller 3.2 — plantear y contrastar hipótesis con datos de caso |
+| **16** | 3.4 Regresión lineal | Correlación; modelo simple; interpretación; predicción | **Proyecto Fase III** — informe final y exposición |
+
+## Cómo se trabaja cada semana
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta}
+#### Antes de clase
+El guardiamarina lee el tema en esta página y ejecuta las celdas de exploración. Cada una va precedida de una predicción que debe escribir antes de ejecutar.
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-media}
+#### En clase, 2 horas
+Arranque con una pregunta que revela lo que no quedó claro; exposición corta y dirigida a eso; trabajo en parejas sobre la página; puesta en común. Pausa real a la mitad.
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-teal}
+#### Después
+Taller o actividad autónoma sobre la flota propia de cada guardiamarina. Los datos son individuales: se comparte el razonamiento, no el resultado.
+:::
+:::
+:::
+
+::: {.franja}
+**Los datos son distintos para cada guardiamarina.** La flota de cuarenta unidades con la que se trabaja se genera a partir del correo institucional `@espe.edu.ec`. Treinta guardiamarinas, treinta flotas. Copiar un número ajeno no sirve, y el docente puede regenerar la flota de cualquiera para comprobar que el resultado entregado corresponde de verdad a sus datos.
+:::
+
+## Bibliografía
+
+**Texto guía.** Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa.* Universidad de las Fuerzas Armadas–ESPE. ISBN 978-9942-652-21-8.
+
+**Lecturas principales.** Bologna, E. (2018). *Métodos Estadísticos de Investigación.* Editorial Brujas & Encuentro Grupo Editor — «Los datos estadísticos» (pp. 17–35), «Obtención de la muestra» (pp. 155–171), «Probabilidad – Modelos» (pp. 197–224).
+
+**Complementaria.** Monroy Saldívar, S. (2024). *Estadística y probabilidad.* · Klinger Angarita, R. (2024). *Muestreo estadístico: métodos básicos.* · García Pérez, A. (2023). *Estadísticas con R.*

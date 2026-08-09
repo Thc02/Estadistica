@@ -1,47 +1,49 @@
 ---
-title: "Tema 1.1 · Introducción a la Estadística"
-subtitle: "Unidad 1 · Estadística descriptiva y probabilidades"
+title: "1.1 Introducción a la Estadística"
+subtitle: "UC 1 · Estadística descriptiva y probabilidad · Semana 1"
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-```{webr}
-#| include: false
-#| autorun: true
-set.seed(2026)
+{{< include _setup.qmd >}}
 
-flota <- data.frame(
-  id      = 1:40,
-  tipo    = rep(c("Fragata", "Corbeta", "Patrullera", "Lancha"),
-                times = c(6, 10, 16, 8)),
-  puerto  = sample(c("Guayaquil", "Manta", "Esmeraldas"), 40, replace = TRUE),
-  nudos   = round(rnorm(40, 18, 3), 1),
-  calado  = round(rnorm(40, 4.4, 0.9), 2),
-  consumo = round(rnorm(40, 92, 18), 1),
-  averias = rpois(40, 1.4),
-  mar     = factor(sample(c("calma", "moderado", "agitado"), 40, replace = TRUE),
-                   levels = c("calma", "moderado", "agitado"), ordered = TRUE)
-)
+## Su flota
+
+Todo el material trabaja sobre una flota de 40 unidades. **La suya no es igual a la de sus compañeros:** se genera a partir de su correo institucional, así que los números que obtenga son sólo suyos.
+
+Escriba su correo `@espe.edu.ec` entre las comillas y ejecute la celda. Hágalo una sola vez al empezar.
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+head(flota, 6)
 ```
 
-## Presentación del tema
+Escríbalo tal como aparece en su cuenta institucional, en minúsculas y sin espacios. Si lo cambia a mitad de la sesión, sus resultados anteriores dejarán de coincidir.
+
+::: {.franja}
+Copiar el resultado de un compañero no sirve de nada: su flota tiene otras velocidades, otros calados y otro reparto de tipos. Lo único que se puede compartir es el razonamiento, que es precisamente lo que interesa.
+:::
+
+## 1.1.1 Importancia de la Estadística en las Ciencias Navales
 
 La dirección estratégica de una institución es más exitosa cuando sus análisis y decisiones se sustentan en cifras e indicadores medibles y reales. En el ámbito militar esto no es un lujo académico: es una condición de eficacia.
 
 ::: {.grid}
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-oscura}
 #### Recursos limitados
 Los medios de que disponen las Fuerzas Armadas son limitados frente a las innumerables operaciones que deben ejecutar. El empleo adecuado de los principios estadísticos permite usarlos de forma mucho más eficiente.
 :::
 :::
-::: {.g-col-4}
-::: {.tarjeta-oscura}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-teal}
 #### Fines, modos y medios
 El líder militar debe sincronizar esa trilogía en la estrategia. No lo logrará sin un proceso riguroso de recolección, organización, análisis e interpretación de resultados.
 :::
 :::
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-oscura}
 #### Alto costo y alto riesgo
 El material bélico tiene un costo elevado y un alto riesgo de operación. Medir bien, y saber qué tan confiable es esa medida, forma parte de la seguridad de la operación.
@@ -49,22 +51,12 @@ El material bélico tiene un costo elevado y un alto riesgo de operación. Medir
 :::
 :::
 
-### La flota de referencia
-
-Todo el material trabaja sobre el mismo conjunto de 40 unidades. Ejecute la celda para verlo.
-
-```{webr}
-head(flota, 8)
-```
-
-## 1.1.1 Definiciones básicas
-
 ### ¿Qué es la Estadística?
 
 **La Estadística** es la ciencia que recopila, clasifica, resume, analiza e interpreta datos —siempre que la variabilidad, es decir la incertidumbre, sea una causa intrínseca de ellos— para ayudar a la toma de decisiones y, en su caso, formular predicciones.
 
 ::: {.grid}
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta}
 #### Estadística Descriptiva
 Organiza y resume los datos disponibles mediante tablas, gráficos y números.
@@ -72,15 +64,15 @@ Organiza y resume los datos disponibles mediante tablas, gráficos y números.
 [Ej.: reportar la velocidad promedio de una flota durante las maniobras de un mes.]{.ejemplo}
 :::
 :::
-::: {.g-col-4}
-::: {.tarjeta}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-media}
 #### Estadística Inferencial
 Usa la probabilidad para extender a toda la población lo observado en una muestra.
 
 [Ej.: estimar, a partir de 30 lecturas de sonar, la profundidad promedio de toda una bahía.]{.ejemplo}
 :::
 :::
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-oscura}
 #### Probabilidad
 Herramienta matemática para estudiar el azar: mide la oportunidad de que ocurra un evento. Es el puente que hace válido el salto de la muestra a la población.
@@ -89,7 +81,7 @@ Herramienta matemática para estudiar el azar: mide la oportunidad de que ocurra
 :::
 
 ::: {.predice}
-La primera línea de la celda describe toda la flota; la segunda infiere a partir de doce unidades. Ejecute la celda **cuatro veces seguidas**. ¿Cuál de los dos números cambia, y por qué?
+La primera línea de la celda describe toda la flota; la segunda infiere a partir de doce unidades. Ejecútela **cuatro veces seguidas**. ¿Cuál de los dos números cambia, y por qué?
 :::
 
 ```{webr}
@@ -99,10 +91,10 @@ muestra <- sample(flota$nudos, 12)   # inferencial: sólo 12 unidades
 mean(muestra)
 ```
 
-### Población y muestra
+## 1.1.2 Población, muestra, parámetros y estadísticos
 
 ::: {.grid}
-::: {.g-col-6}
+::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta}
 #### Población
 Conjunto de **todas** las personas, cosas u objetos que se desea estudiar. Es el universo sobre el que se quiere concluir.
@@ -110,18 +102,14 @@ Conjunto de **todas** las personas, cosas u objetos que se desea estudiar. Es el
 [Ejemplo naval: todas las embarcaciones de la Armada que realizan patrullaje costero durante el presente año.]{.ejemplo}
 :::
 :::
-::: {.g-col-6}
-::: {.tarjeta}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
 #### Muestra
 Subconjunto de la población, seleccionado con un procedimiento explícito para obtener información sobre ella.
 
 [Ejemplo naval: 12 buques elegidos al azar de esa flota, para inspeccionar su consumo de combustible.]{.ejemplo}
 :::
 :::
-:::
-
-::: {.franja}
-El puente entre ambas es el muestreo (§1.1.4): cómo se elige la muestra decide si las conclusiones son válidas para toda la población.
 :::
 
 ```{webr}
@@ -137,14 +125,14 @@ nrow(muestra)
 Un **estadístico** es un número que resume una propiedad de la muestra; es una estimación de un **parámetro**, que es la característica numérica de toda la población.
 
 ::: {.grid}
-::: {.g-col-6}
+::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta}
 #### Población → Parámetro
 Valor fijo pero, en la práctica, desconocido.
 :::
 :::
-::: {.g-col-6}
-::: {.tarjeta}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
 #### Muestra → Estadístico
 Se calcula a partir de los datos observados.
 :::
@@ -169,33 +157,41 @@ round(c(parametro = parametro, estadisticos), 1)
 
 La dispersión de esos diez estadísticos alrededor del parámetro es el objeto central de la estadística inferencial.
 
-### Variables: numéricas y categóricas
+::: {.ejercicio}
+**Interpretar sin calcular.** Mire la salida anterior, sin hacer ninguna cuenta. ¿Cuál de estas afirmaciones es correcta?
+
+**a)** El parámetro cambia en cada muestra, porque cada muestra da un promedio distinto.
+**b)** El parámetro es el mismo siempre; lo que cambia de muestra en muestra es el estadístico.
+**c)** Si los diez estadísticos fueran iguales entre sí, la muestra estaría mal tomada.
+:::
+
+```{webr}
+revisar("p1", "escriba aquí a, b o c")
+```
+
+## 1.1.3 Variables estadísticas y escalas de medición
 
 Una **variable** (usualmente denotada con X o Y) es una característica o medida que puede determinarse para cada miembro de una población.
 
 ::: {.grid}
-::: {.g-col-6}
+::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta}
 #### Variable numérica (cuantitativa)
-Toma valores con unidades comparables: se pueden hacer cálculos, como sumas, promedios y dispersiones.
+Toma valores con unidades comparables: se pueden hacer cálculos.
 
-- **Discreta** — resulta de contar: número de averías en la singladura, unidades zarpadas en el mes.
-- **Continua** — resulta de medir: calado 4.37 m, velocidad 18.6 nudos, consumo 92.4 gal/h.
+- **Discreta** — resulta de contar: número de averías, unidades zarpadas en el mes.
+- **Continua** — resulta de medir: calado 4.37 m, velocidad 18.6 nudos.
 :::
 :::
-::: {.g-col-6}
-::: {.tarjeta}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
 #### Variable categórica (cualitativa)
-Ubica al individuo en una categoría; no tiene sentido calcular un promedio con ella, sólo contar y comparar frecuencias.
+Ubica al individuo en una categoría; sólo cabe contar y comparar frecuencias.
 
-- **Nominal** — sin orden: tipo de embarcación, puerto base, bandera del buque.
-- **Ordinal** — con orden: rango del oficial a cargo, nivel de alistamiento.
+- **Nominal** — sin orden: tipo de embarcación, puerto base.
+- **Ordinal** — con orden: nivel de alistamiento, estado del mar.
 :::
 :::
-:::
-
-::: {.franja}
-El tipo de variable no es una etiqueta arbitraria: determina qué gráficos, qué resúmenes y qué pruebas estadísticas son legítimos más adelante.
 :::
 
 ::: {.predice}
@@ -208,42 +204,239 @@ mean(flota$nudos)      # numérica: el promedio tiene sentido
 table(flota$tipo)      # categórica: sólo cabe contar
 ```
 
+### Escalas cualitativas: nominal y ordinal
+
+Los datos de escala nominal y ordinal son cualitativos: no se usan en cálculos aritméticos.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Nominal
+Los números sirven solamente como **etiqueta** para catalogar o identificar. No se puede establecer prioridad alguna entre las categorías.
+
+- Tipo de nave (fragata, submarino, patrullera)
+- Puerto de matrícula · bandera del buque
+
+[No tiene sentido decir que un tipo de nave es "mayor" que otro.]{.ejemplo}
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Ordinal
+Define una relación de **orden**: mide si hay más o menos de la característica, pero no cuánto más.
+
+- Jerarquía de mando (Alférez < Teniente < Capitán)
+- Estado del mar (calma, moderado, agitado)
+
+[Capitán (4) tiene más de algo que Teniente (3), pero no es "su doble".]{.ejemplo}
+:::
+:::
+:::
+
+::: {.franja}
+En el nivel ordinal ya tienen sentido el conteo y la acumulación de elementos ordenados: de ahí nacen las medidas de posición basadas en cuartiles, que veremos en el tema 1.3.
+:::
+
+```{webr}
+table(flota$mar)      # ordinal: contar y ordenar, sí
+
+median(flota$mar)     # ordinal: la mediana tiene sentido
+```
+
+::: {.ejercicio}
+**Detectar el error.** Un oficial quiere resumir el estado del mar de la singladura y escribe el código de abajo. Le sale un número y lo reporta como "estado del mar promedio: 2.1". Ejecútelo y decida qué está mal.
+:::
+
+```{webr}
+codigos <- as.numeric(flota$mar)   # calma = 1, moderado = 2, agitado = 3
+mean(codigos)
+```
+
+::: {.ejercicio}
+¿Cuál es el problema con ese 2.1?
+
+**a)** Ninguno: los códigos son números y su promedio es válido.
+**b)** El cálculo está bien pero habría que redondearlo a un entero.
+**c)** Codificar como 1, 2 y 3 no convierte la escala en cuantitativa: la distancia entre "calma" y "moderado" no es la misma que entre "moderado" y "agitado", así que promediarlas no significa nada.
+:::
+
+```{webr}
+revisar("p2", "escriba aquí a, b o c")
+```
+
+::: {.franja}
+Este error es de los más frecuentes en informes reales, porque el computador nunca se queja: en cuanto una escala ordinal se codifica con números, cualquier operación aritmética **se ejecuta sin error**. Que el resultado exista no significa que signifique algo.
+:::
+
+### Escalas cuantitativas: intervalar y de razón
+
+Ambas permiten cálculos numéricos porque la distancia entre los números corresponde a la distancia real entre los sucesos. La diferencia clave es si existe un **cero absoluto**.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Intervalar
+Orden definido y diferencias medibles, pero el cero es arbitrario: no significa "ausencia".
+
+[Temperatura del agua en °C: 0 °C es el punto de congelación (= 32 °F), no la ausencia de temperatura; por eso 20 °C no es "el doble de caliente" que 10 °C. También los números índice: IPC, IPM, PIB.]{.ejemplo}
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### De razón (cociente)
+Todo lo anterior más un **cero absoluto real**. Sólo se asigna arbitrariamente la unidad de medida.
+
+[Velocidad en nudos: 20 nudos es exactamente el doble de 10, porque 0 nudos significa "sin movimiento". Igual el calado, el consumo y el tonelaje.]{.ejemplo}
+:::
+:::
+:::
+
+::: {.franja}
+Prueba rápida: si la frase "A es el doble de B" tiene sentido físico, la escala es de razón. Si no lo tiene, es intervalar.
+:::
+
+### Cuadro resumen
+
+::: {.tabla-ancha}
+| Escala | ¿Ordena? | ¿Diferencias medibles? | ¿Cero absoluto? | Tipo de dato | Resumen típico | Ejemplo naval |
+|---|---|---|---|---|---|---|
+| **Nominal** | No | No | — | Cualitativo | Frecuencias, moda | Tipo de embarcación |
+| **Ordinal** | Sí | No | — | Cualitativo | + mediana, cuartiles | Jerarquía de mando |
+| **Intervalar** | Sí | Sí | No | Cuantitativo | + media, desviación | Temperatura del mar (°C) |
+| **De razón** | Sí | Sí | Sí | Cuantitativo | + cocientes, C.V. | Velocidad del buque (nudos) |
+:::
+
+A mayor nivel de escala, más operaciones estadísticas se pueden aplicar válidamente. Cada nivel hereda todo lo permitido en los anteriores.
+
+[Adaptado de Illowsky & Dean (OpenStax, §1.3) y Ordóñez et al. (2025, §1.3).]{.ejemplo}
+
+## 1.1.4 Organización y recolección de datos
+
+### ¿Qué significa medir?
+
+**Medir** es asignar símbolos —generalmente números— a sucesos, hechos u objetos del mundo empírico, sobre la base de reglas y procedimientos de un mundo abstracto como es la matemática.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-5}
+::: {.tarjeta}
+#### Mundo empírico
+La característica tal como existe en la realidad:
+
+- la profundidad de una zona de fondeo
+- el desgaste real de un motor principal
+- la percepción de la dotación sobre el rancho
+:::
+:::
+::: {.g-col-12 .g-col-md-2}
+::: {.tarjeta-teal}
+#### El instrumento
+y la regla: ecosonda, micrómetro, cuestionario, bitácora.
+:::
+:::
+::: {.g-col-12 .g-col-md-5}
+::: {.tarjeta}
+#### Mundo abstracto
+El símbolo registrado, ya operable:
+
+- 37.4 m
+- 1 240 horas de servicio
+- 4 sobre 5 en la escala de satisfacción
+:::
+:::
+:::
+
+::: {.franja}
+En términos de investigación, la medición es la parte trascendental para migrar del empirismo a la ciencia exacta. — Ordóñez et al. (2025), §1.2
+:::
+
+### Los cuatro pasos de la recolección
+
+::: {.tabla-ancha}
+| Paso | Qué se hace | Ejemplo naval |
+|---|---|---|
+| **1. Definir la variable** | ¿Qué característica se va a observar y sobre qué elemento? | La profundidad del mar en una zona de fondeo |
+| **2. Elegir instrumento y unidad** | Seleccionar el aparato y la unidad de registro | Ecosonda en metros o brazas; velocímetro en nudos |
+| **3. Aplicar la regla** | Registrar el valor como lo indica el instrumento, en condiciones controladas y siempre del mismo modo | Mismo aparato, mismo procedimiento |
+| **4. Registrar el dato** | Anotar el valor con su unidad, la fecha y quién lo tomó | 37.4 m, fecha y responsable |
+:::
+
+### Advertencia: el indicador no es la realidad
+
+Los informes citan indicadores como si fueran un reflejo puro de la realidad. No lo son: son el producto de un instrumento aplicado bajo una regla, en un instante.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta}
+#### El instrumento
+¿Está calibrado? ¿La pregunta del cuestionario mide de verdad lo que dice medir?
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-media}
+#### La regla y las condiciones
+¿Se aplicó siempre el mismo procedimiento, en condiciones comparables?
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta}
+#### El momento
+El indicador vale para el instante en que se midió, no para siempre.
+:::
+:::
+:::
+
+::: {.franja}
+Regla práctica para el oficial: antes de decidir con un indicador, pregunte quién lo midió, con qué instrumento, bajo qué regla y cuándo.
+:::
+
 ### Datos, media y proporción
 
 ::: {.grid}
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta}
 #### Dato
-Es el valor único de una variable; puede ser un número o una palabra.
+El valor único de una variable; puede ser un número o una palabra.
 
 [Ej.: "18 nudos" es un dato de la variable velocidad.]{.ejemplo}
 :::
 :::
-::: {.g-col-4}
-::: {.tarjeta}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-media}
 #### Media
-Promedio: la suma de los valores dividida entre el número de datos.
+La suma de los valores dividida entre el número de datos.
 
-[Ej.: velocidades 16, 18 y 20 nudos → media = 18 nudos.]{.ejemplo}
+[Ej.: 16, 18 y 20 nudos → media = 18 nudos.]{.ejemplo}
 :::
 :::
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta}
 #### Proporción
-Fracción de la muestra que cumple una condición dada.
+Fracción de la muestra que cumple una condición.
 
-[Ej.: de 40 tripulantes, 25 son oficiales → proporción = 25/40 = 0.625.]{.ejemplo}
+[Ej.: de 40 tripulantes, 25 son oficiales → 25/40 = 0.625.]{.ejemplo}
 :::
 :::
 :::
 
-La media resume variables numéricas; la proporción resume variables categóricas. Cada una tiene su propia versión poblacional (parámetro) y muestral (estadístico).
+::: {.ejercicio}
+**Calcular a mano y verificar.** Ejecute la primera celda para ver los datos. Con papel y calculadora obtenga el **rango del consumo** —el mayor menos el menor— y sólo después compruebe su resultado.
+:::
+
+```{webr}
+range(flota$consumo)
+```
+
+```{webr}
+mi_rango <- 0        # sustituya por su resultado
+
+verificar_rango_consumo(mi_rango)
+```
 
 :::: {.panel-tabset}
 
 ## Ejercicio
 
-Calcule la media del calado de la flota y la proporción de unidades que superan los 20 nudos.
+Ahora en código: calcule la media del calado y la proporción de unidades que superan los 20 nudos.
 
 ```{webr}
 #| exercise: ex_media
@@ -273,428 +466,61 @@ proporcion_rapidas <- mean(flota$nudos > 20)
 
 ::::
 
-## 1.1.2 Proceso de medición
-
-### ¿Qué significa medir?
-
-**Medir** es asignar símbolos —generalmente números— a sucesos, hechos u objetos del mundo empírico, sobre la base de reglas y procedimientos de un mundo abstracto como es la matemática.
+## Para la próxima semana
 
 ::: {.grid}
-::: {.g-col-5}
-::: {.tarjeta}
-#### Mundo empírico
-La característica tal como existe en la realidad:
-
-- la profundidad de una zona de fondeo
-- el desgaste real de un motor principal
-- la percepción de la dotación sobre el rancho
-:::
-:::
-::: {.g-col-2}
-::: {.tarjeta-oscura}
-#### El instrumento
-y la regla de medición: ecosonda, micrómetro, cuestionario, bitácora. Es lo que traduce un mundo en el otro.
-:::
-:::
-::: {.g-col-5}
-::: {.tarjeta}
-#### Mundo abstracto
-El símbolo registrado, ya operable:
-
-- 37.4 m
-- 1 240 horas de servicio
-- 4 sobre 5 en la escala de satisfacción
-:::
-:::
-:::
-
-::: {.franja}
-En términos de investigación, la medición es la parte trascendental para migrar del empirismo a la ciencia exacta. — Ordóñez et al. (2025), §1.2
-:::
-
-### ¿Cómo se mide una variable? Cuatro pasos
-
-Una regla clara y consistente es lo que permite que el valor obtenido sea comparable con otros y, por tanto, analizable como dato.
-
-| Paso | Qué se hace | Ejemplo naval |
-|---|---|---|
-| **1. Definir la variable** | ¿Qué característica se va a observar y sobre qué elemento? | La profundidad del mar en una zona de fondeo |
-| **2. Elegir el instrumento y la unidad** | Seleccionar el aparato y la unidad de registro | Ecosonda calibrada en metros o brazas; termómetro en °C; velocímetro en nudos |
-| **3. Aplicar la regla de medición** | Registrar el valor exactamente como lo indica el instrumento, bajo condiciones controladas y siempre del mismo modo | Misma ecosonda, mismo procedimiento, condiciones comparables |
-| **4. Registrar el dato** | Anotar el valor en la bitácora o base de datos junto con su unidad | 37.4 m, fecha, y quién lo tomó |
-
-### Advertencia: el indicador no es la realidad
-
-Los medios y los informes citan indicadores como si fueran un reflejo puro de la realidad. No lo son: son el producto de un instrumento aplicado bajo una regla, en un instante. Tratarlos como verdad absoluta puede inducir decisiones no adecuadas.
-
-::: {.grid}
-::: {.g-col-4}
-::: {.tarjeta}
-#### El instrumento
-¿Está calibrado? ¿La pregunta del cuestionario mide de verdad lo que dice medir?
-
-[Un cuestionario mal redactado produce cifras impecables sobre algo que nadie preguntó.]{.ejemplo}
-:::
-:::
-::: {.g-col-4}
-::: {.tarjeta}
-#### La regla y las condiciones
-¿Se aplicó siempre el mismo procedimiento, en condiciones comparables?
-
-[Medir el consumo con mar calmo y con mar agitado no produce cifras comparables.]{.ejemplo}
-:::
-:::
-::: {.g-col-4}
-::: {.tarjeta}
-#### El momento
-El indicador vale para el instante en que se midió, no para siempre.
-
-["Disponibilidad operativa del 92 %": ¿de qué unidades, con qué criterio, en qué fecha?]{.ejemplo}
-:::
-:::
-:::
-
-::: {.franja}
-Regla práctica para el oficial: antes de decidir con un indicador, pregunte quién lo midió, con qué instrumento, bajo qué regla y cuándo.
-:::
-
-## 1.1.3 Escalas de medición
-
-### Escalas cualitativas: nominal y ordinal
-
-Los datos de escala nominal y ordinal son cualitativos (categóricos): no se usan en cálculos aritméticos.
-
-::: {.grid}
-::: {.g-col-6}
-::: {.tarjeta}
-#### Nominal
-Los números sirven solamente como **etiqueta** para catalogar o identificar objetos o sucesos. No se puede establecer prioridad alguna entre las categorías.
-
-- Tipo de nave (fragata, submarino, patrullera)
-- Puerto de matrícula · bandera del buque
-- Sistema de armas · tipo de unidad militar
-
-[No tiene sentido decir que un tipo de nave es "mayor" que otro.]{.ejemplo}
-:::
-:::
-::: {.g-col-6}
-::: {.tarjeta}
-#### Ordinal
-Además de identificar, define una relación de **orden**: mide si hay más o menos de la característica respecto de los otros objetos, pero no cuánto más.
-
-- Jerarquía de mando (Alférez < Teniente < Capitán)
-- Estado del mar (calma, moderado, agitado)
-- Nivel de alistamiento (bajo, medio, alto)
-
-[Capitán (4) tiene más de algo que Teniente (3), pero no es "su doble".]{.ejemplo}
-:::
-:::
-:::
-
-::: {.franja}
-En el nivel ordinal ya tienen sentido el conteo y la acumulación de elementos ordenados: de ahí nacen las medidas de posición basadas en cuartiles, que veremos en la Unidad 2.
-:::
-
-::: {.predice}
-La celda cuenta y ordena una variable ordinal. Después pruebe `mean(flota$mar)`: ¿qué debería ocurrir, y por qué está bien que ocurra?
-:::
-
-```{webr}
-table(flota$mar)      # ordinal: contar y ordenar, sí
-
-median(flota$mar)     # ordinal: la mediana tiene sentido
-```
-
-### Escalas cuantitativas: intervalar y de razón
-
-Ambas permiten cálculos numéricos porque la distancia entre los números corresponde a la distancia real entre los sucesos. La diferencia clave es si existe un **cero absoluto**.
-
-::: {.grid}
-::: {.g-col-6}
-::: {.tarjeta}
-#### Intervalar
-Orden definido y diferencias medibles, pero el cero es arbitrario: no significa "ausencia" de la característica. Se pueden sumar y restar valores, no dividirlos.
-
-[Temperatura del agua de mar en °C o °F: 0 °C es el punto de congelación del agua (= 32 °F), no la ausencia de temperatura; por eso 20 °C no es "el doble de caliente" que 10 °C. También los números índice: IPC, IPM, PIB.]{.ejemplo}
-:::
-:::
-::: {.g-col-6}
-::: {.tarjeta}
-#### De razón (cociente)
-Tiene todas las propiedades de la escala intervalar más un **cero absoluto real**. Sólo se asigna arbitrariamente la unidad de medida; fijada esta, las demás asignaciones quedan determinadas.
-
-[Velocidad de un buque en nudos: 20 nudos es exactamente el doble de 10, porque 0 nudos significa "sin movimiento". Igual ocurre con el calado en metros, el consumo en gal/h y el tonelaje de carga.]{.ejemplo}
-:::
-:::
-:::
-
-::: {.franja}
-Prueba rápida: si la frase "A es el doble de B" tiene sentido físico, la escala es de razón. Si no lo tiene, es intervalar.
-:::
-
-### Cuadro resumen
-
-De menor a mayor nivel:
-
-| Escala | ¿Ordena? | ¿Diferencias medibles? | ¿Cero absoluto? | Tipo de dato | Resumen típico | Ejemplo naval |
-|---|---|---|---|---|---|---|
-| **Nominal** | No | No | — | Cualitativo | Frecuencias, moda | Tipo de embarcación |
-| **Ordinal** | Sí | No | — | Cualitativo | + mediana, cuartiles | Jerarquía de mando |
-| **Intervalar** | Sí | Sí | No | Cuantitativo | + media, desviación | Temperatura del mar (°C) |
-| **De razón** | Sí | Sí | Sí | Cuantitativo | + cocientes, C.V. | Velocidad del buque (nudos) |
-
-A mayor nivel de escala, más operaciones estadísticas se pueden aplicar válidamente a los datos. Cada nivel hereda todo lo permitido en los niveles anteriores.
-
-[Adaptado de Illowsky & Dean (OpenStax, §1.3) y Ordóñez et al. (2025, §1.3).]{.ejemplo}
-
-### De la escala al tipo de dato
-
-La escala es una característica del dato, no del fenómeno. De ella se desprende directamente si el dato es cualitativo o cuantitativo —y, en este último caso, si es discreto o continuo.
-
-::: {.grid}
-::: {.g-col-6}
-::: {.tarjeta}
-#### Datos cualitativos
-Escala **nominal** u **ordinal**.
-
-No admiten operaciones aritméticas. Se resumen contando: tablas de frecuencia, gráficos de barras y de pastel, moda.
-:::
-:::
-::: {.g-col-6}
-::: {.tarjeta}
-#### Datos cuantitativos
-Escala **intervalar** o **de razón**.
-
-Admiten cálculo. Se subdividen en **discretos** (se cuentan: averías, unidades) y **continuos** (se miden: calado, temperatura).
-:::
-:::
-:::
-
-::: {.franja}
-Lo que cada nivel autoriza a calcular, heredando el anterior: **Nominal** moda, frecuencias y proporciones › **Ordinal** + mediana, cuartiles y percentiles › **Intervalar** + media, desviación estándar y diferencias › **De razón** + cocientes, tasas y coeficiente de variación.
-:::
-
-## 1.1.4 Introducción al muestreo
-
-### ¿Por qué —y cómo— se muestrea?
-
-Las técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés de la forma más confiable y al más bajo costo posible.
-
-::: {.grid}
-::: {.g-col-6}
-::: {.tarjeta-oscura}
-#### Muestreo NO probabilístico
-Es el muestreo típico que se hace a la salida de un centro comercial, del metro o en una esquina: se encuesta a quien esté disponible. Los resultados representan sólo el pensamiento de los encuestados, no necesariamente el de la población en estudio.
-
-*No habilita inferencia: sirve para explorar, no para concluir.*
-:::
-:::
-::: {.g-col-6}
-::: {.tarjeta-oscura}
-#### Muestreo probabilístico
-Cada elemento de la población objetivo tiene una probabilidad conocida —y frecuentemente igual— de ser elegido. La aleatorización es vital: una mala aleatorización, o el incumplimiento de lo que ella establece, produce muestras sesgadas y conclusiones erróneas.
-
-*Es el único que permite extender los resultados a toda la población.*
-:::
-:::
-:::
-
-::: {.franja}
-Dependiendo del tipo de problema, escoger una adecuada técnica de muestreo es resolver parte importante del mismo. — Ordóñez et al. (2025), §1.5
-:::
-
-### Técnicas probabilísticas (1): simple y sistemático
-
-::: {.grid}
-::: {.g-col-6}
-::: {.tarjeta}
-#### m.a.s. — Muestreo aleatorio simple
-También llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.
-
-[Ejemplo naval: numerar las 60 patrulleras del listado y sortear 12 con un generador de números aleatorios.]{.ejemplo}
-:::
-:::
-::: {.g-col-6}
-::: {.tarjeta}
-#### m.a.s.t. — Muestreo aleatorio sistemático
-Se eligen los elementos a intervalos uniformes a partir de un listado: cada k-ésimo elemento después de un arranque aleatorio. Su principal razón de uso es la sencillez de aplicación y de supervisión.
-
-[Ejemplo naval: rol de 240 tripulantes, muestra de 24 → k = 10. Arranque aleatorio en el 7 → se eligen el 7, 17, 27, 37, …]{.ejemplo}
-:::
-:::
-:::
-
-```{webr}
-sort(sample(flota$id, 8))          # m.a.s.: ocho unidades al azar
-
-arranque <- sample(1:5, 1)         # m.a.s.t. con k = 5
-seq(from = arranque, to = 40, by = 5)
-```
-
-::: {.franja}
-En la práctica, la selección al azar no se hace "a mano": se usa un generador de números aleatorios que identifica los elementos numerados de la población.
-:::
-
-### Técnicas probabilísticas (2): estratificado y por conglomerados
-
-::: {.grid}
-::: {.g-col-6}
-::: {.tarjeta}
-#### m.a.e. — Muestreo aleatorio estratificado
-Se usa cuando la característica medida presenta mucha dispersión y en la población se distinguen grupos o estratos.
-
-1. Dividir la población en estratos distintos y excluyentes.
-2. Extraer dentro de cada estrato una muestra aleatoria simple o sistemática.
-
-[Ventaja: para una precisión dada requiere menos muestra que el m.a.s., con la consiguiente reducción de costos.]{.ejemplo}
-:::
-:::
-::: {.g-col-6}
-::: {.tarjeta}
-#### m.a.c. — Muestreo aleatorio por conglomerados
-La unidad de muestreo contiene más de un elemento de la población. Se usa cuando los elementos se agrupan de forma natural en masas difíciles de descomponer o de acceder directamente.
-
-1. Elegir al azar los conglomerados.
-2. Tomar los elementos dentro de los conglomerados seleccionados.
-
-[Cada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.]{.ejemplo}
-:::
-:::
-:::
-
-::: {.franja}
-Estratos vs. conglomerados: en el estratificado se muestrea DENTRO de TODOS los grupos; en el de conglomerados se sortean PRIMERO los grupos y sólo esos se estudian.
-:::
-
-```{webr}
-# Estratificado: dos unidades de cada tipo
-estratos <- split(flota$id, flota$tipo)
-sapply(estratos, function(g) sample(g, 2))
-```
-
-```{webr}
-# Conglomerados: se sortean dos puertos y se toma toda su dotación
-puertos <- sample(unique(flota$puerto), 2)
-subset(flota, puerto %in% puertos)$id
-```
-
-### ¿Qué técnica conviene en cada caso?
-
-| Técnica | Cuándo conviene | Cómo se selecciona | Ejemplo naval |
-|---|---|---|---|
-| **Aleatorio simple** | La característica se distribuye de forma homogénea en toda la población | Sorteo al azar sobre el listado completo, con generador de números aleatorios | Sortear 12 de las 60 patrulleras del listado de la flota |
-| **Sistemático** | Existe un listado ordenado y se busca sencillez de aplicación y supervisión | Arranque aleatorio y luego cada k-ésimo elemento del listado | Rol de 240 tripulantes, k = 10, arranque en el 7 |
-| **Estratificado** | La característica presenta mucha dispersión y se distinguen grupos claros | Dividir en estratos excluyentes y extraer una muestra dentro de cada uno | Estratificar por tipo de unidad y muestrear en fragatas, corbetas y patrulleras |
-| **Por conglomerados** | Los elementos vienen agrupados de forma natural y son difíciles de separar | Sortear conglomerados completos y estudiar los elementos que contienen | Sortear 5 buques y encuestar a toda la dotación de esos 5 |
-
-::: {.franja}
-Ninguna de las cuatro corrige un mal marco muestral: si el listado de partida está incompleto, la aleatorización no salva la inferencia.
-:::
-
-## 1.1.5 Práctica
-
-### Ejercicio 1 · Escalas de medición
-
-Durante una singladura se registran en la bitácora las siguientes variables. Clasifique la escala de medición de cada una y justifique.
-
-| Variable registrada | Escala | Tipo de dato | ¿Por qué? |
-|---|---|---|---|
-| **Puerto de zarpe** | Nominal | Cualitativo | Sólo identifica; no hay orden entre puertos |
-| **Estado del mar** (calma / moderado / agitado) | Ordinal | Cualitativo | Hay orden, pero la distancia entre categorías no es medible |
-| **Temperatura del agua** (°C) | Intervalar | Cuantitativo continuo | Diferencias medibles, pero 0 °C no es ausencia de temperatura |
-| **Consumo de combustible** (gal/h) | De razón | Cuantitativo continuo | 0 gal/h es ausencia real: 20 gal/h es el doble de 10 |
-| **Número de averías reportadas** | De razón | Cuantitativo discreto | Cero absoluto y resultado de contar unidades enteras |
-
-::: {.franja}
-Atención al último caso: "de razón" y "discreto" no se excluyen — la escala y la naturaleza discreta/continua son dos clasificaciones distintas del mismo dato.
-:::
-
-### Ejercicio 2 · Técnicas de muestreo
-
-:::: {.panel-tabset}
-
-## Ejercicio
-
-Complete el código para extraer una muestra **estratificada** de tres unidades por tipo de embarcación.
-
-```{webr}
-#| exercise: ex_muestreo
-estratos <- split(flota$id, flota$______)
-
-sapply(estratos, function(g) sample(g, ______))
-```
-
-## Pistas
-
-::: {.hint exercise="ex_muestreo"}
-Los estratos deben ser grupos **excluyentes**: cada unidad pertenece a uno y sólo a uno. ¿Qué columna de `flota` divide la población de esa manera?
-:::
-
-## Solución
-
-::: {.solution exercise="ex_muestreo"}
-```r
-estratos <- split(flota$id, flota$tipo)
-sapply(estratos, function(g) sample(g, 3))
-```
-
-Cada unidad pertenece a un solo tipo, de modo que los estratos son excluyentes. Se muestrea dentro de **todos** los grupos: eso es lo que distingue al estratificado del muestreo por conglomerados, donde se sortean primero los grupos y sólo esos se estudian.
-:::
-
-::::
-
-### Tres casos para discutir en clase
-
-Para cada situación: identifique la técnica empleada y diga si permite inferir sobre toda la población.
-
-::: {.grid}
-::: {.g-col-4}
-::: {.tarjeta}
-#### Caso A
-De un rol de 240 tripulantes se elige al azar al número 7 y luego cada décimo nombre de la lista.
-:::
-:::
-::: {.g-col-4}
-::: {.tarjeta}
-#### Caso B
-Se sortean 5 de las 40 unidades de la flota y se encuesta a toda la dotación de esas 5 unidades.
-:::
-:::
-::: {.g-col-4}
-::: {.tarjeta}
-#### Caso C
-Se pregunta a los tripulantes que van saliendo del comedor a la hora del almuerzo.
-:::
-:::
-:::
-
-### Para la próxima clase
-
-::: {.grid}
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-oscura}
 #### 1. Niveles de medición
-Traiga 5 características observables en un buque de nuestra Armada e identifique el nivel de medición de cada una (nominal, ordinal, intervalar o de razón).
+Traiga 5 características observables en un buque de nuestra Armada e identifique el nivel de medición de cada una.
 :::
 :::
-::: {.g-col-4}
-::: {.tarjeta-oscura}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-teal}
 #### 2. Auditoría de un indicador
 Elija un indicador que su unidad reporte y explique: ¿qué instrumento lo produce, bajo qué regla, en qué momento, y qué podría distorsionarlo?
 :::
 :::
-::: {.g-col-4}
+::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-oscura}
-#### 3. Diseño de un muestreo
-Proponga un plan para estimar el consumo promedio de combustible de la flota: elija una de las cuatro técnicas y justifique por qué es la adecuada.
+#### 3. Lectura
+La lectura mínima de la semana, detallada abajo. Tráigala hecha: la sesión siguiente parte de ella.
 :::
 :::
 :::
 
-## Fuentes
+## Para leer esta semana
 
-Illowsky, B., & Dean, S. *Introducción a la estadística.* OpenStax, Rice University. Capítulo 1: Muestreo y datos — §1.1 (definiciones de estadística, probabilidad y términos clave) y §1.3 (frecuencia, tablas de frecuencia y niveles de medición). Licencia CC BY 4.0.
+::: {.tarjeta}
+#### Texto guía
+**Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025).** *Estadística para la Seguridad y Defensa* (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.
 
-Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa.* Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8. Capítulo I: §1.2 proceso de medición, §1.3 escalas, §1.4 estadística y ciencia, §§1.5–1.7 muestreo.
+**Lea el Capítulo I, §§1.1 a 1.4, páginas 21 a 25.** Son cinco páginas: la introducción, el proceso de medición y las cuatro escalas, con la Figura 1.1 que resume cómo la escala determina el tipo de dato.
+:::
+
+::: {.tarjeta-media}
+#### Lectura de la unidad
+**Bologna, E. (2018).** «Los datos estadísticos», en *Métodos Estadísticos de Investigación*, pp. 17–35. Córdoba: Editorial Brujas & Encuentro Grupo Editor.
+
+Disponible en ProQuest Ebook Central con su cuenta `@espe.edu.ec`: <https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586>
+:::
+
+::: {.tarjeta-media}
+#### Si quiere más rigor
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). México: Cengage Learning.
+
+Está en la carpeta del curso. Para esta semana, su **§1.1 «Poblaciones, muestras y procesos»**, páginas 3 a 13, trata lo mismo con más desarrollo formal. Junto a él encontrará **Johnson, R. A. (2012).** *Miller y Freund. Probabilidad y estadística para ingenieros* (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7.
+:::
+
+::: {.tarjeta-teal}
+#### Gratuito y en línea
+**Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+**Capítulo 1, «Muestreo y datos»**: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
+
+No hace falta cuenta ni descarga. Es el más accesible de los cuatro: explica con menos formalismo y muchos más ejemplos resueltos. Si un concepto no le entra con el texto guía, búsquelo aquí antes de rendirse.
+:::
+
+La lista completa, con qué capítulo corresponde a cada semana, está en la [bibliografía del curso](../bibliografia.qmd).
 
 [Los ejemplos navales son adaptaciones propias de los casos militares del texto de Ordóñez et al.]{.ejemplo}

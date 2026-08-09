@@ -1,0 +1,385 @@
+---
+title: "1.2 Muestreo"
+subtitle: "UC 1 · Estadística descriptiva y probabilidad · Semana 2 (§1.2.4 en la semana 5)"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include _setup.qmd >}}
+
+Casi nunca se puede observar a todos los elementos de interés. El muestreo es el procedimiento que decide **qué parte se observa**, y de esa decisión depende que las conclusiones valgan para el conjunto o sólo para los observados.
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+head(flota, 6)
+```
+
+## 1.2.1 Técnicas de muestreo
+
+Las técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés **de la forma más confiable y al más bajo costo posible**. Esas dos exigencias tiran en direcciones opuestas, y toda la disciplina del muestreo consiste en equilibrarlas.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Lo que se busca
+Que el estadístico calculado sobre la muestra se parezca al parámetro de la población. A eso se le llama que la muestra sea **representativa**.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Lo que se paga
+Cada unidad observada cuesta tiempo, combustible, personal y disponibilidad operativa. Una muestra mayor da más precisión, pero la precisión no crece proporcionalmente al costo.
+:::
+:::
+:::
+
+::: {.franja}
+Dependiendo del tipo de problema, escoger una adecuada técnica de muestreo es resolver parte importante del mismo. — Ordóñez et al. (2025), §1.5
+:::
+
+### Las fuentes de error de una encuesta
+
+Aquí conviene desmontar una creencia común: que el único error de un muestreo es el de muestreo. Scheaffer, Mendenhall y Ott clasifican los errores en dos familias, y **sólo una de ellas está bajo su control**.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Ajenos al proceso de observación
+Aparecen porque se observó una parte y no el todo.
+
+- **Error de muestreo** — la desviación entre lo que da una muestra ideal y el valor verdadero. Existe por el mero hecho de muestrear, se puede medir teóricamente y **se reduce con buen diseño y tamaño adecuado**. Es el único que usted controla.
+- **Error de cobertura** — el marco muestral no coincide con la población objetivo.
+- **No respuesta** — el elemento seleccionado no se localiza, no sabe responder o se niega.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Del proceso de observación
+Aparecen porque el dato registrado se desvía de la verdad.
+
+Se atribuyen al encuestador, al entrevistado, al instrumento o al método de recolección.
+
+[Es exactamente la advertencia del tema 1.1: el indicador es el producto de un instrumento aplicado bajo una regla. Aquí esa advertencia deja de ser una precaución general y pasa a ser una categoría de error con nombre propio.]{.ejemplo}
+:::
+:::
+:::
+
+::: {.definicion}
+**Población objetivo** es el conjunto sobre el que queremos concluir: por ejemplo, todas las unidades de la Armada en servicio este año.
+
+**Marco muestral** es la lista concreta de la que efectivamente sorteamos: el registro, el padrón, la base de datos que tenemos a mano.
+
+Idealmente coinciden. En la práctica casi nunca lo hacen, y a esa diferencia se le llama **error de cobertura**.
+:::
+
+**El error de cobertura no se nota**, y por eso es el más traicionero. Si el listado de unidades se actualizó en enero, las que entraron a dique en marzo no están en su marco. Ninguna aleatorización las recupera.
+
+::: {.definicion}
+**Sesgo**: error que se repite siempre en la misma dirección. Más datos no lo corrigen, porque cada dato nuevo lo arrastra igual.
+
+Una balanza descalibrada que suma dos kilos a todo produce sesgo. Una balanza que oscila produce error aleatorio, y ese sí se compensa al promediar.
+:::
+
+**La no respuesta suele ser el error más grave.** Dos cosas que conviene retener:
+
+- Una tasa baja **no garantiza nada**. Importa **quiénes** faltan, no cuántos: si el 5 % ausente son todas las unidades de un tipo, se perdió una parte entera de la población.
+- **Nunca se sustituye** al elemento sorteado. Cambiarlo por el que está atracado al lado destruye la estructura probabilística del diseño, y con ella la posibilidad de estimar el error.
+
+::: {.franja}
+Gallup, citado por los mismos autores: sin selección aleatoria, **una encuesta a un millón puede representar peor que una de mil bien elegida**. El tamaño no compra representatividad; el azar sí.
+:::
+
+::: {.ejercicio}
+**Detectar el error.** Un guardiamarina debe encuestar a 20 unidades sorteadas de la flota. Tres de ellas están en dique seco y no puede contactarlas, así que las reemplaza por otras tres del mismo puerto, «para no perder el tamaño de muestra». Entrega las 20 respuestas.
+
+¿Cuál es el problema de fondo?
+
+**a)** Ninguno: mantuvo el tamaño de muestra y las reemplazó por unidades parecidas.
+**b)** Que las tres sustitutas están en el mismo puerto, y debió tomarlas de otro.
+**c)** Que la sustitución rompe el diseño probabilístico y hace imposible estimar el error; además las unidades en dique probablemente difieren justo en lo que se está midiendo.
+:::
+
+```{webr}
+revisar("p5", "escriba aquí a, b o c")
+```
+
+## 1.2.2 Muestreo probabilístico
+
+Cada elemento de la población objetivo tiene una **probabilidad conocida** —y frecuentemente igual— de ser elegido. La aleatorización es vital: una mala aleatorización, o el incumplimiento de lo que ella establece, produce muestras sesgadas y conclusiones erróneas.
+
+Es el único tipo que permite extender los resultados a toda la población.
+
+### Muestreo aleatorio simple
+
+También llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.
+
+```{webr}
+sort(sample(flota$id, 8))
+```
+
+### Muestreo aleatorio sistemático
+
+Se eligen los elementos a intervalos uniformes a partir de un listado: cada k-ésimo elemento después de un arranque aleatorio. Su principal razón de uso es la sencillez de aplicación y de supervisión.
+
+::: {.predice}
+Con 40 unidades y k = 5, ¿cuántas unidades entrarán en la muestra? Escríbalo antes de ejecutar.
+:::
+
+```{webr}
+arranque <- sample(1:5, 1)
+seq(from = arranque, to = 40, by = 5)
+```
+
+### Muestreo aleatorio estratificado
+
+Se usa cuando la característica medida presenta **mucha dispersión** y en la población se distinguen grupos o estratos.
+
+1. Dividir la población en estratos distintos y excluyentes.
+2. Extraer dentro de cada estrato una muestra aleatoria simple o sistemática.
+
+Ventaja: para una precisión dada requiere menos muestra que el aleatorio simple, con la consiguiente reducción de costos.
+
+```{webr}
+estratos <- split(flota$id, flota$tipo)
+sapply(estratos, function(g) sample(g, 2))
+```
+
+**Cuántas de cada estrato: la afijación.** Tomar dos de cada tipo, como hace la celda anterior, es cómodo pero rara vez óptimo. Los estratos no tienen el mismo tamaño: en esta flota hay dieciséis patrulleras y seis fragatas, así que darles la misma cuota sobrerrepresenta a las fragatas.
+
+La **afijación proporcional** reparte la muestra según el peso de cada estrato en la población: $n_i = n \cdot N_i / N$.
+
+::: {.predice}
+Con una muestra total de 12 sobre esta flota de 40, ¿cuántas patrulleras espera que le toquen? Calcúlelo antes de ejecutar.
+:::
+
+```{webr}
+n_total <- 12
+tamanos <- table(flota$tipo)
+
+n_por_estrato <- round(n_total * tamanos / sum(tamanos))
+n_por_estrato
+```
+
+[Scheaffer, Mendenhall y Ott dedican su §5.5 a la afijación y muestran que la proporcional no siempre es la mejor: cuando un estrato es mucho más variable, o más caro de medir, conviene desviarse de ella. Ese refinamiento —la afijación de Neyman— excede este curso, pero conviene saber que existe.]{.ejemplo}
+
+### Muestreo aleatorio por conglomerados
+
+La unidad de muestreo contiene más de un elemento de la población. Se usa cuando los elementos se agrupan de forma natural en masas difíciles de descomponer o de acceder directamente. Se eligen al azar primero los conglomerados y luego los elementos dentro de ellos.
+
+Cada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.
+
+```{webr}
+puertos <- sample(unique(flota$puerto), 2)
+subset(flota, puerto %in% puertos)$id
+```
+
+::: {.franja}
+Estratos vs. conglomerados: en el estratificado se muestrea DENTRO de TODOS los grupos; en el de conglomerados se sortean PRIMERO los grupos y sólo esos se estudian.
+:::
+
+::: {.ejercicio}
+**Detectar el error.** Se encarga a un guardiamarina que tome una muestra aleatoria de 12 unidades para inspeccionar el consumo. Entrega este código y afirma que la muestra es aleatoria simple.
+:::
+
+```{webr}
+muestra_dudosa <- flota[1:12, ]        # "las doce primeras del listado"
+mean(muestra_dudosa$consumo)
+```
+
+::: {.ejercicio}
+¿Por qué esa muestra no es aleatoria simple?
+
+**a)** Porque no interviene el azar: se toman siempre las mismas doce, y si el listado está ordenado por algún criterio —antigüedad, tipo, puerto— la muestra queda sesgada por ese criterio.
+**b)** Porque doce unidades son pocas para una flota de cuarenta.
+**c)** Porque habría que haber usado `sample()` con reemplazo.
+:::
+
+```{webr}
+revisar("p3", "escriba aquí a, b o c")
+```
+
+## 1.2.3 Muestreo no probabilístico
+
+Es el muestreo típico que se hace a la salida de un centro comercial, del metro o en una esquina: se encuesta a quien esté disponible. Los resultados representan **sólo el pensamiento de los encuestados**, no necesariamente el de la población en estudio.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-oscura}
+#### Para qué sirve
+Explorar. Detectar qué preguntas vale la pena hacer, cómo se entiende un cuestionario, qué respuestas aparecen. Es barato y rápido.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-teal}
+#### Para qué no sirve
+Concluir. No hay probabilidad conocida de selección, así que no existe forma de cuantificar el error ni de extender el resultado a la población.
+:::
+:::
+:::
+
+### ¿Qué técnica conviene en cada caso?
+
+::: {.tabla-ancha}
+| Técnica | Cuándo conviene | Cómo se selecciona | Ejemplo naval |
+|---|---|---|---|
+| **Aleatorio simple** | La característica se distribuye de forma homogénea | Sorteo al azar sobre el listado completo | Sortear 12 de las 60 patrulleras |
+| **Sistemático** | Existe un listado ordenado; se busca sencillez | Arranque aleatorio y cada k-ésimo elemento | Rol de 240 tripulantes, k = 10 |
+| **Estratificado** | Mucha dispersión y grupos claros | Dividir en estratos y muestrear en cada uno | Estratificar por tipo de unidad |
+| **Por conglomerados** | Elementos agrupados y difíciles de separar | Sortear conglomerados completos | Sortear 5 buques y encuestar toda la dotación |
+| **No probabilístico** | Sólo exploración previa | Por conveniencia o disponibilidad | Preguntar a quien sale del comedor |
+:::
+
+::: {.franja}
+Ninguna de ellas corrige un mal marco muestral: si el listado de partida está incompleto, la aleatorización no salva la inferencia. Eso es error de cobertura, y ya vimos que no se arregla con más muestra.
+:::
+
+## 1.2.4 Determinación del tamaño de muestra
+
+::: {.franja}
+**Este apartado se trabaja en la semana 5, no en la semana 2.** Su fórmula necesita la **desviación típica**, que se estudia en el tema 1.3.4 durante la semana 4. Si está leyendo esta página en la semana 2, deténgase aquí: vuelva después de la sesión de dispersión y encontrará que el cálculo se explica solo.
+:::
+
+La pregunta operativa no es *qué técnica* sino **cuántas unidades**. Y tiene respuesta cuantitativa: el tamaño depende de tres cosas que el oficial decide antes de salir a medir.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta}
+#### Confianza
+Qué tan seguro se quiere estar. Al 95 % corresponde z = 1.96; al 99 %, z = 2.576.
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-media}
+#### Error admisible
+Cuánto se tolera equivocarse, en las unidades de la variable. Es la decisión operativa, no estadística.
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-teal}
+#### Variabilidad
+Cuánto varía la característica en la población. Se estima con una muestra piloto o con datos históricos.
+:::
+:::
+:::
+
+::: {.definicion}
+**Desviación típica** —$\sigma$ en la población, $s$ en la muestra— mide **cuánto se separan los datos de su promedio**. Vale cero si todos son iguales; crece con la dispersión. La **varianza** es su cuadrado, $\sigma^2$.
+
+Se estudia en el tema 1.3.4. Aquí basta la idea operativa: **medir algo uniforme requiere pocas unidades; medir algo disperso requiere muchas.**
+:::
+
+Scheaffer, Mendenhall y Ott fijan un **límite para el error de estimación** $B$: el valor que el error no debe superar. Como el límite se pone en dos desviaciones típicas del estimador, se resuelve $2\sqrt{V(\bar{y})} = B$ y se despeja $n$.
+
+::: {.definicion}
+**¿Por qué dos desviaciones típicas?** En una distribución acampanada, cerca del 95 % de los valores caen dentro de esa distancia del centro. «El error no supera $B$» significa entonces «no lo supera en el 95 % de los casos», no «nunca».
+
+El valor exacto es 1.96; los autores redondean a 2. La diferencia en el tamaño resultante es del orden del 2 %.
+:::
+
+Para estimar una **media poblacional** $\mu$ con límite de error $B$:
+
+$$n = \frac{N\sigma^{2}}{(N-1)\,D + \sigma^{2}}, \qquad D = \frac{B^{2}}{4}$$
+
+Esta expresión ya lleva incorporada la **corrección por población finita** —el ajuste que reconoce que muestrear 30 de 40 unidades da mucha más información que muestrear 30 de 40 000—, así que no hace falta aplicarla aparte. Cuando $N$ es grande, $(N-1)$ puede sustituirse por $N$ sin consecuencia práctica.
+
+::: {.tarjeta-media}
+#### ¿Y si no conozco σ?
+
+Es el caso normal la primera vez que se mide algo. Los autores dan una regla práctica: **la amplitud de variación de los datos abarca aproximadamente cuatro desviaciones típicas**, de modo que
+
+$$\sigma \approx \frac{\text{rango}}{4}$$
+
+Su ejemplo: si las cuentas de un hospital caen en una amplitud de 100 $, entonces $\sigma \approx 25$.
+
+**Úsela con cuidado.** El 4 solo acierta con muestras piloto de unas 25 o 30 observaciones. Con más, el rango crece y la regla sobrestima $\sigma$: sale una muestra mayor de la necesaria, error del lado seguro. Con muy pocas, la subestima y el tamaño se queda corto. Ese es el lado peligroso.
+:::
+
+```{webr}
+N <- 40                       # tamaño de la población
+s <- sd(flota$consumo)        # variabilidad estimada de su flota
+B <- 3                        # límite para el error: 3 gal/h
+
+D <- B^2 / 4
+n <- N * s^2 / ((N - 1) * D + s^2)
+
+round(c(desviacion = s, D = D, n_necesario = ceiling(n)), 2)
+```
+
+::: {.predice}
+Compare `n_necesario` con el tamaño de su flota. ¿Le está diciendo la fórmula que inspeccione casi toda la población? Si es así, la pregunta operativa no es cuántas medir sino si vale la pena muestrear en lugar de censar.
+:::
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Con la desviación que acaba de obtener, calcule a mano el tamaño de muestra **sin corregir** para un error admisible de 3 gal/h al 95 % de confianza. Redondee hacia arriba, porque no se pueden inspeccionar fracciones de buque.
+
+Escriba su número antes de ejecutar la comprobación.
+:::
+
+```{webr}
+mi_n <- 0        # sustituya por su resultado
+
+verificar_tamano(mi_n)
+```
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Suponga que quiere reducir el error admisible de 3 gal/h a 1.5 gal/h, manteniendo la confianza. ¿Qué pasa con el tamaño de muestra?
+
+**a)** Se duplica.
+**b)** Se cuadruplica.
+**c)** No cambia, porque la confianza es la misma.
+:::
+
+```{webr}
+revisar("p4", "escriba aquí a, b o c")
+```
+
+::: {.franja}
+Ahí está la razón económica del muestreo estratificado: si reducir el error a la mitad cuesta cuadruplicar la muestra, cualquier técnica que gane precisión sin aumentar el número de unidades observadas se traduce directamente en combustible y horas de tripulación ahorrados.
+:::
+
+## Para leer esta semana
+
+::: {.tarjeta}
+#### Texto guía
+**Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025).** *Estadística para la Seguridad y Defensa* (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.
+
+**Lea el Capítulo I, §§1.5 a 1.7, páginas 25 a 30.** Son seis páginas y traen los cuatro esquemas de muestreo dibujados, que ayudan a fijar la diferencia entre estratos y conglomerados mejor que cualquier explicación en prosa.
+:::
+
+::: {.tarjeta-media}
+#### Lectura de la unidad
+**Bologna, E. (2018).** «Obtención de la muestra», en *Métodos Estadísticos de Investigación*, pp. 155–171. Córdoba: Editorial Brujas & Encuentro Grupo Editor.
+
+Disponible en ProQuest Ebook Central con su cuenta `@espe.edu.ec`: <https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586>
+:::
+
+::: {.tarjeta-media}
+#### Si quiere más ejercicios
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). México: Cengage Learning.
+
+Está en la carpeta del curso, junto con **Johnson, R. A. (2012).** *Miller y Freund. Probabilidad y estadística para ingenieros* (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7. Para esta semana, su **§6.1 «Poblaciones y muestras»**, página 175, conecta el muestreo con lo que veremos en el tema 3.1.
+:::
+
+::: {.tarjeta-media}
+#### El texto especializado en muestreo
+**Scheaffer, R. L., Mendenhall, W., III, & Ott, R. L. (2007).** *Elementos de muestreo* (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de *Elementary Survey Sampling*, 6.ª ed.
+
+Está en la carpeta del curso. Es el único de los cuatro dedicado íntegramente a este tema, y de él salen la taxonomía de errores y la fórmula del tamaño de muestra que usa esta página.
+
+- **§2.4 «Fuentes de error en las encuestas»** (pp. 19–31)
+- **§4.4 «Selección del tamaño de muestra para estimar las medias y totales»** (pp. 95–97)
+- **§5.5 «Afijación de la muestra»** (p. 137), si quiere ir más allá de la afijación proporcional
+:::
+
+::: {.tarjeta-teal}
+#### Gratuito y en línea
+**Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+**Capítulo 1, «Muestreo y datos»**: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
+
+No hace falta cuenta ni descarga. Es el más accesible de los cuatro y trae varios casos de muestras mal tomadas con el análisis de qué falló en cada una.
+:::
+
+La lista completa, con qué capítulo corresponde a cada semana, está en la [bibliografía del curso](../bibliografia.qmd).
