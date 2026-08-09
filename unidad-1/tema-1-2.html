@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.2 Muestreo – Estadística para Ciencias Navales</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../unidad-1/tema-1-1.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b913237c815fd3ea74a3e9c5906c4354.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística para Ciencias Navales</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../plan.html"> 
+<span class="menu-text">Plan semanal</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad-1/tema-1-1.html">UC 1 · Estadística descriptiva y probabilidad</a></li><li class="breadcrumb-item"><a href="../unidad-1/tema-1-2.html">1.2 Muestreo</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plan semanal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliografía</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">UC 1 · Estadística descriptiva y probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Introducción a la Estadística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">1.2 Muestreo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#técnicas-de-muestreo" id="toc-técnicas-de-muestreo" class="nav-link active" data-scroll-target="#técnicas-de-muestreo">1.2.1 Técnicas de muestreo</a>
+  <ul class="collapse">
+  <li><a href="#las-fuentes-de-error-de-una-encuesta" id="toc-las-fuentes-de-error-de-una-encuesta" class="nav-link" data-scroll-target="#las-fuentes-de-error-de-una-encuesta">Las fuentes de error de una encuesta</a></li>
+  </ul></li>
+  <li><a href="#muestreo-probabilístico" id="toc-muestreo-probabilístico" class="nav-link" data-scroll-target="#muestreo-probabilístico">1.2.2 Muestreo probabilístico</a>
+  <ul class="collapse">
+  <li><a href="#muestreo-aleatorio-simple" id="toc-muestreo-aleatorio-simple" class="nav-link" data-scroll-target="#muestreo-aleatorio-simple">Muestreo aleatorio simple</a></li>
+  <li><a href="#muestreo-aleatorio-sistemático" id="toc-muestreo-aleatorio-sistemático" class="nav-link" data-scroll-target="#muestreo-aleatorio-sistemático">Muestreo aleatorio sistemático</a></li>
+  <li><a href="#muestreo-aleatorio-estratificado" id="toc-muestreo-aleatorio-estratificado" class="nav-link" data-scroll-target="#muestreo-aleatorio-estratificado">Muestreo aleatorio estratificado</a></li>
+  <li><a href="#muestreo-aleatorio-por-conglomerados" id="toc-muestreo-aleatorio-por-conglomerados" class="nav-link" data-scroll-target="#muestreo-aleatorio-por-conglomerados">Muestreo aleatorio por conglomerados</a></li>
+  </ul></li>
+  <li><a href="#muestreo-no-probabilístico" id="toc-muestreo-no-probabilístico" class="nav-link" data-scroll-target="#muestreo-no-probabilístico">1.2.3 Muestreo no probabilístico</a>
+  <ul class="collapse">
+  <li><a href="#qué-técnica-conviene-en-cada-caso" id="toc-qué-técnica-conviene-en-cada-caso" class="nav-link" data-scroll-target="#qué-técnica-conviene-en-cada-caso">¿Qué técnica conviene en cada caso?</a></li>
+  </ul></li>
+  <li><a href="#determinación-del-tamaño-de-muestra" id="toc-determinación-del-tamaño-de-muestra" class="nav-link" data-scroll-target="#determinación-del-tamaño-de-muestra">1.2.4 Determinación del tamaño de muestra</a></li>
+  <li><a href="#para-leer-esta-semana" id="toc-para-leer-esta-semana" class="nav-link" data-scroll-target="#para-leer-esta-semana">Para leer esta semana</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad-1/tema-1-1.html">UC 1 · Estadística descriptiva y probabilidad</a></li><li class="breadcrumb-item"><a href="../unidad-1/tema-1-2.html">1.2 Muestreo</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">1.2 Muestreo</h1>
+<p class="subtitle lead">UC 1 · Estadística descriptiva y probabilidad · Semana 2 (§1.2.4 en la semana 5)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiXG4jIFNlbWlsbGEgZGVyaXZhZGEgZGVsIGNvcnJlbyBpbnN0aXR1Y2lvbmFsOiBjYWRhIGd1YXJkaWFtYXJpbmEgcmVjaWJlIHN1IHByb3BpYSBmbG90YVxuc2VtaWxsYV9kZXNkZSA8LSBmdW5jdGlvbihjb3JyZW8pIHtcbiAgY3MgPC0gdXRmOFRvSW50KHRvbG93ZXIodHJpbXdzKGNvcnJlbykpKVxuICBhcy5pbnRlZ2VyKHN1bShjcyAqIHNlcV9hbG9uZyhjcykpICUlIDk5OTkxTClcbn1cblxuZ2VuZXJhcl9mbG90YSA8LSBmdW5jdGlvbihjb3JyZW8pIHtcbiAgc2V0LnNlZWQoc2VtaWxsYV9kZXNkZShjb3JyZW8pKVxuICBuIDwtIDQwXG4gIGRhdGEuZnJhbWUoXG4gICAgaWQgICAgICA9IDE6bixcbiAgICB0aXBvICAgID0gc2FtcGxlKHJlcChjKFwiRnJhZ2F0YVwiLCBcIkNvcmJldGFcIiwgXCJQYXRydWxsZXJhXCIsIFwiTGFuY2hhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgIHRpbWVzID0gYyg2LCAxMCwgMTYsIDgpKSksXG4gICAgcHVlcnRvICA9IHNhbXBsZShjKFwiR3VheWFxdWlsXCIsIFwiTWFudGFcIiwgXCJFc21lcmFsZGFzXCIpLCBuLCByZXBsYWNlID0gVFJVRSksXG4gICAgbnVkb3MgICA9IHJvdW5kKHJub3JtKG4sIHJ1bmlmKDEsIDE2LjUsIDE5LjUpLCAzKSwgMSksXG4gICAgY2FsYWRvICA9IHJvdW5kKHJub3JtKG4sIHJ1bmlmKDEsIDQuMCwgNC44KSwgMC45KSwgMiksXG4gICAgY29uc3VtbyA9IHJvdW5kKHJub3JtKG4sIHJ1bmlmKDEsIDg1LCA5OSksIDE4KSwgMSksXG4gICAgYXZlcmlhcyA9IHJwb2lzKG4sIHJ1bmlmKDEsIDEuMCwgMS45KSksXG4gICAgbWFyICAgICA9IGZhY3RvcihzYW1wbGUoYyhcImNhbG1hXCIsIFwibW9kZXJhZG9cIiwgXCJhZ2l0YWRvXCIpLCBuLCByZXBsYWNlID0gVFJVRSksXG4gICAgICAgICAgICAgICAgICAgICBsZXZlbHMgPSBjKFwiY2FsbWFcIiwgXCJtb2RlcmFkb1wiLCBcImFnaXRhZG9cIiksIG9yZGVyZWQgPSBUUlVFKSxcbiAgICBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0VcbiAgKVxufVxuXG5taV9jb3JyZW8gPC0gXCJkZW1vc3RyYWNpb25AZXNwZS5lZHUuZWNcIlxuZmxvdGEgPC0gZ2VuZXJhcl9mbG90YShtaV9jb3JyZW8pXG5cbiMgLS0tIEF1dG92ZXJpZmljYWNpw7NuIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxudmVyaWZpY2FyIDwtIGZ1bmN0aW9uKHZhbG9yLCBlc3BlcmFkbywgdG9sID0gMC4wMSwgcGlzdGEgPSBcIlwiKSB7XG4gIGlmIChtaXNzaW5nKHZhbG9yKSB8fCBsZW5ndGgodmFsb3IpICE9IDEgfHwgIWlzLm51bWVyaWModmFsb3IpIHx8IGlzLm5hKHZhbG9yKSkge1xuICAgIGNhdChcIkHDum4gbm8gaGF5IHVuIG7Dum1lcm8gcXVlIGNvbXByb2Jhci5cXG5cIik7IHJldHVybihpbnZpc2libGUoRkFMU0UpKVxuICB9XG4gIG9rIDwtIGFicyh2YWxvciAtIGVzcGVyYWRvKSA8PSB0b2wgKiBtYXgoMSwgYWJzKGVzcGVyYWRvKSlcbiAgaWYgKG9rKSB7XG4gICAgY2F0KFwiQ29ycmVjdG8uICBUdSB2YWxvcjpcIiwgcm91bmQodmFsb3IsIDQpLCBcIlxcblwiKVxuICB9IGVsc2Uge1xuICAgIGNhdChcIlRvZGF2w61hIG5vLiAgVHUgdmFsb3I6XCIsIHJvdW5kKHZhbG9yLCA0KSwgXCJcXG5cIilcbiAgICBpZiAobnpjaGFyKHBpc3RhKSkgY2F0KHBpc3RhLCBcIlxcblwiKVxuICB9XG4gIGludmlzaWJsZShvaylcbn1cblxuLmNsYXZlcyA8LSBsaXN0KFxuICBwMSA9IGxpc3Qob3AgPSBcImJcIixcbiAgICAgICAgICAgIHBvciA9IFwiTGEgbWVkaWEgcG9ibGFjaW9uYWwgZXMgZmlqYTogbm8gY2FtYmlhIHBvcnF1ZSBjYW1iaWUgbGEgbXVlc3RyYS4gTG8gcXVlIHZhcsOtYSBlcyBlbCBlc3RhZMOtc3RpY28uXCIpLFxuICBwMiA9IGxpc3Qob3AgPSBcImNcIixcbiAgICAgICAgICAgIHBvciA9IFwiTGEgbWVkaWFuYSBvcmRpbmFsIGRldnVlbHZlIHVuYSBjYXRlZ29yw61hLCBubyB1biBuw7ptZXJvOiAnbW9kZXJhZG8nIGVzIHVuYSByZXNwdWVzdGEgbGVnw610aW1hOyAyLjEgbm8gbG8gZXMuXCIpLFxuICBwMyA9IGxpc3Qob3AgPSBcImFcIixcbiAgICAgICAgICAgIHBvciA9IFwiVG9tYXIgbG9zIHByaW1lcm9zIGRlIGxhIGxpc3RhIG5vIGVzIGF6YXIuIEVsIG9yZGVuIGRlbCBsaXN0YWRvIHB1ZWRlIGVzdGFyIHJlbGFjaW9uYWRvIGNvbiBsbyBxdWUgc2UgbWlkZS5cIiksXG4gIHA0ID0gbGlzdChvcCA9IFwiYlwiLFxuICAgICAgICAgICAgcG9yID0gXCJDb21vIEQgPSBCwrIvNCwgZGl2aWRpciBCIGVudHJlIGRvcyBkaXZpZGUgRCBlbnRyZSBjdWF0cm8uIEVuIHVuYSBwb2JsYWNpw7NuIGdyYW5kZSBlc28gY3VhZHJ1cGxpY2Egbi4gRW4gdW5hIHBvYmxhY2nDs24gcGVxdWXDsWEgY29tbyBlc3RhIGZsb3RhIGVsIGVmZWN0byBlcyBtZW5vciwgcG9ycXVlIGxhIGNvcnJlY2Npw7NuIGZpbml0YSB0b3BhIGVsIGNyZWNpbWllbnRvOiBubyBzZSBwdWVkZSBuZWNlc2l0YXIgbcOhcyB1bmlkYWRlcyBkZSBsYXMgcXVlIGV4aXN0ZW4uXCIpLFxuICBwNSA9IGxpc3Qob3AgPSBcImNcIixcbiAgICAgICAgICAgIHBvciA9IFwiU2NoZWFmZmVyLCBNZW5kZW5oYWxsIHkgT3R0IHNvbiBleHBsw61jaXRvczogbGFzIHN1c3RpdHVjaW9uZXMgY2FwcmljaG9zYXMgbW9kaWZpY2FuIGxhIGVzdHJ1Y3R1cmEgcHJvYmFiaWzDrXN0aWNhIGRlbCBkaXNlw7FvIHkgcHVlZGVuIGhhY2VyIGltcG9zaWJsZSBlc3RpbWFyIGVsIGVycm9yIGRlIG11ZXN0cmVvLlwiKVxuKVxuXG5yZXZpc2FyIDwtIGZ1bmN0aW9uKGlkLCBsZXRyYSkge1xuICBrIDwtIC5jbGF2ZXNbW2lkXV1cbiAgbGV0cmEgPC0gdG9sb3dlcih0cmltd3MoYXMuY2hhcmFjdGVyKGxldHJhKSkpXG4gIGlmIChpZGVudGljYWwobGV0cmEsIGskb3ApKSB7XG4gICAgY2F0KFwiQ29ycmVjdG8uXFxuXCIsIGskcG9yLCBcIlxcblwiKVxuICB9IGVsc2Uge1xuICAgIGNhdChcIk5vIGVzIGxhXCIsIHRvdXBwZXIobGV0cmEpLCBcIi4gVnVlbHZlIGEgbGVlciBsYSBzYWxpZGEgeSBwcnVlYmEgb3RyYSBvcGNpw7NuLlxcblwiKVxuICB9XG4gIGludmlzaWJsZShpZGVudGljYWwobGV0cmEsIGskb3ApKVxufVxuXG52ZXJpZmljYXJfbWVkaWFfY2FsYWRvIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCBtZWFuKGZsb3RhJGNhbGFkbyksIHBpc3RhID0gXCJTdW1hIGxvcyA0MCBjYWxhZG9zIHkgZGl2aWRlIGVudHJlIDQwLlwiKVxuXG52ZXJpZmljYXJfcHJvcF9yYXBpZGFzIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCBtZWFuKGZsb3RhJG51ZG9zID4gMjApLFxuICAgICAgICAgICAgcGlzdGEgPSBcIkN1ZW50YSBjdcOhbnRhcyB1bmlkYWRlcyBzdXBlcmFuIGxvcyAyMCBudWRvcyB5IGRpdmlkZSBlbnRyZSA0MC5cIilcblxudmVyaWZpY2FyX3JhbmdvX2NvbnN1bW8gPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIGRpZmYocmFuZ2UoZmxvdGEkY29uc3VtbykpLFxuICAgICAgICAgICAgcGlzdGEgPSBcIkVsIHJhbmdvIGVzIGVsIG1heW9yIG1lbm9zIGVsIG1lbm9yLlwiKVxuXG52ZXJpZmljYXJfdGFtYW5vIDwtIGZ1bmN0aW9uKHgpIHtcbiAgcyA8LSBzZChmbG90YSRjb25zdW1vKTsgTiA8LSA0MDsgRCA8LSAzXjIgLyA0XG4gIHZlcmlmaWNhcih4LCBjZWlsaW5nKE4gKiBzXjIgLyAoKE4gLSAxKSAqIEQgKyBzXjIpKSwgdG9sID0gMC4wMixcbiAgICAgICAgICAgIHBpc3RhID0gXCJuID0gTsK3c8KyLygoTi0xKcK3RCArIHPCsiksIGNvbiBEID0gQsKyLzQgeSBCID0gMy4gUmVkb25kZWEgaGFjaWEgYXJyaWJhLlwiKVxufSJ9
+</script>
+</div>
+</div>
+<p>Casi nunca se puede observar a todos los elementos de interés. El muestreo es el procedimiento que decide <strong>qué parte se observa</strong>, y de esa decisión depende que las conclusiones valgan para el conjunto o sólo para los observados.</p>
+<div class="cell">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBlbGxpZG8ubm9tYnJlQGVzcGUuZWR1LmVjXCJcblxuZmxvdGEgPC0gZ2VuZXJhcl9mbG90YShtaV9jb3JyZW8pXG5oZWFkKGZsb3RhLCA2KSJ9
+</script>
+</div>
+</div>
+<section id="técnicas-de-muestreo" class="level2">
+<h2 class="anchored" data-anchor-id="técnicas-de-muestreo">1.2.1 Técnicas de muestreo</h2>
+<p>Las técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés <strong>de la forma más confiable y al más bajo costo posible</strong>. Esas dos exigencias tiran en direcciones opuestas, y toda la disciplina del muestreo consiste en equilibrarlas.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="lo-que-se-busca" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="lo-que-se-busca">Lo que se busca</h4>
+<p>Que el estadístico calculado sobre la muestra se parezca al parámetro de la población. A eso se le llama que la muestra sea <strong>representativa</strong>.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="lo-que-se-paga" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="lo-que-se-paga">Lo que se paga</h4>
+<p>Cada unidad observada cuesta tiempo, combustible, personal y disponibilidad operativa. Una muestra mayor da más precisión, pero la precisión no crece proporcionalmente al costo.</p>
+</section>
+</div>
+</div>
+<div class="franja">
+<p>Dependiendo del tipo de problema, escoger una adecuada técnica de muestreo es resolver parte importante del mismo. — Ordóñez et al.&nbsp;(2025), §1.5</p>
+</div>
+<section id="las-fuentes-de-error-de-una-encuesta" class="level3">
+<h3 class="anchored" data-anchor-id="las-fuentes-de-error-de-una-encuesta">Las fuentes de error de una encuesta</h3>
+<p>Aquí conviene desmontar una creencia común: que el único error de un muestreo es el de muestreo. Scheaffer, Mendenhall y Ott clasifican los errores en dos familias, y <strong>sólo una de ellas está bajo su control</strong>.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="ajenos-al-proceso-de-observación" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="ajenos-al-proceso-de-observación">Ajenos al proceso de observación</h4>
+<p>Aparecen porque se observó una parte y no el todo.</p>
+<ul>
+<li><strong>Error de muestreo</strong> — la desviación entre lo que da una muestra ideal y el valor verdadero. Existe por el mero hecho de muestrear, se puede medir teóricamente y <strong>se reduce con buen diseño y tamaño adecuado</strong>. Es el único que usted controla.</li>
+<li><strong>Error de cobertura</strong> — el marco muestral no coincide con la población objetivo.</li>
+<li><strong>No respuesta</strong> — el elemento seleccionado no se localiza, no sabe responder o se niega.</li>
+</ul>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="del-proceso-de-observación" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="del-proceso-de-observación">Del proceso de observación</h4>
+<p>Aparecen porque el dato registrado se desvía de la verdad.</p>
+<p>Se atribuyen al encuestador, al entrevistado, al instrumento o al método de recolección.</p>
+<p><span class="ejemplo">Es exactamente la advertencia del tema 1.1: el indicador es el producto de un instrumento aplicado bajo una regla. Aquí esa advertencia deja de ser una precaución general y pasa a ser una categoría de error con nombre propio.</span></p>
+</section>
+</div>
+</div>
+<div class="definicion">
+<p><strong>Población objetivo</strong> es el conjunto sobre el que queremos concluir: por ejemplo, todas las unidades de la Armada en servicio este año.</p>
+<p><strong>Marco muestral</strong> es la lista concreta de la que efectivamente sorteamos: el registro, el padrón, la base de datos que tenemos a mano.</p>
+<p>Idealmente coinciden. En la práctica casi nunca lo hacen, y a esa diferencia se le llama <strong>error de cobertura</strong>.</p>
+</div>
+<p><strong>El error de cobertura no se nota</strong>, y por eso es el más traicionero. Si el listado de unidades se actualizó en enero, las que entraron a dique en marzo no están en su marco. Ninguna aleatorización las recupera.</p>
+<div class="definicion">
+<p><strong>Sesgo</strong>: error que se repite siempre en la misma dirección. Más datos no lo corrigen, porque cada dato nuevo lo arrastra igual.</p>
+<p>Una balanza descalibrada que suma dos kilos a todo produce sesgo. Una balanza que oscila produce error aleatorio, y ese sí se compensa al promediar.</p>
+</div>
+<p><strong>La no respuesta suele ser el error más grave.</strong> Dos cosas que conviene retener:</p>
+<ul>
+<li>Una tasa baja <strong>no garantiza nada</strong>. Importa <strong>quiénes</strong> faltan, no cuántos: si el 5 % ausente son todas las unidades de un tipo, se perdió una parte entera de la población.</li>
+<li><strong>Nunca se sustituye</strong> al elemento sorteado. Cambiarlo por el que está atracado al lado destruye la estructura probabilística del diseño, y con ella la posibilidad de estimar el error.</li>
+</ul>
+<div class="franja">
+<p>Gallup, citado por los mismos autores: sin selección aleatoria, <strong>una encuesta a un millón puede representar peor que una de mil bien elegida</strong>. El tamaño no compra representatividad; el azar sí.</p>
+</div>
+<div class="ejercicio">
+<p><strong>Detectar el error.</strong> Un guardiamarina debe encuestar a 20 unidades sorteadas de la flota. Tres de ellas están en dique seco y no puede contactarlas, así que las reemplaza por otras tres del mismo puerto, «para no perder el tamaño de muestra». Entrega las 20 respuestas.</p>
+<p>¿Cuál es el problema de fondo?</p>
+<p><strong>a)</strong> Ninguno: mantuvo el tamaño de muestra y las reemplazó por unidades parecidas. <strong>b)</strong> Que las tres sustitutas están en el mismo puerto, y debió tomarlas de otro. <strong>c)</strong> Que la sustitución rompe el diseño probabilístico y hace imposible estimar el error; además las unidades en dique probablemente difieren justo en lo que se está midiendo.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA1XCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="muestreo-probabilístico" class="level2">
+<h2 class="anchored" data-anchor-id="muestreo-probabilístico">1.2.2 Muestreo probabilístico</h2>
+<p>Cada elemento de la población objetivo tiene una <strong>probabilidad conocida</strong> —y frecuentemente igual— de ser elegido. La aleatorización es vital: una mala aleatorización, o el incumplimiento de lo que ella establece, produce muestras sesgadas y conclusiones erróneas.</p>
+<p>Es el único tipo que permite extender los resultados a toda la población.</p>
+<section id="muestreo-aleatorio-simple" class="level3">
+<h3 class="anchored" data-anchor-id="muestreo-aleatorio-simple">Muestreo aleatorio simple</h3>
+<p>También llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.</p>
+<div class="cell">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic29ydChzYW1wbGUoZmxvdGEkaWQsIDgpKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="muestreo-aleatorio-sistemático" class="level3">
+<h3 class="anchored" data-anchor-id="muestreo-aleatorio-sistemático">Muestreo aleatorio sistemático</h3>
+<p>Se eligen los elementos a intervalos uniformes a partir de un listado: cada k-ésimo elemento después de un arranque aleatorio. Su principal razón de uso es la sencillez de aplicación y de supervisión.</p>
+<div class="predice">
+<p>Con 40 unidades y k = 5, ¿cuántas unidades entrarán en la muestra? Escríbalo antes de ejecutar.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYXJyYW5xdWUgPC0gc2FtcGxlKDE6NSwgMSlcbnNlcShmcm9tID0gYXJyYW5xdWUsIHRvID0gNDAsIGJ5ID0gNSkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="muestreo-aleatorio-estratificado" class="level3">
+<h3 class="anchored" data-anchor-id="muestreo-aleatorio-estratificado">Muestreo aleatorio estratificado</h3>
+<p>Se usa cuando la característica medida presenta <strong>mucha dispersión</strong> y en la población se distinguen grupos o estratos.</p>
+<ol type="1">
+<li>Dividir la población en estratos distintos y excluyentes.</li>
+<li>Extraer dentro de cada estrato una muestra aleatoria simple o sistemática.</li>
+</ol>
+<p>Ventaja: para una precisión dada requiere menos muestra que el aleatorio simple, con la consiguiente reducción de costos.</p>
+<div class="cell">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZXN0cmF0b3MgPC0gc3BsaXQoZmxvdGEkaWQsIGZsb3RhJHRpcG8pXG5zYXBwbHkoZXN0cmF0b3MsIGZ1bmN0aW9uKGcpIHNhbXBsZShnLCAyKSkifQ==
+</script>
+</div>
+</div>
+<p><strong>Cuántas de cada estrato: la afijación.</strong> Tomar dos de cada tipo, como hace la celda anterior, es cómodo pero rara vez óptimo. Los estratos no tienen el mismo tamaño: en esta flota hay dieciséis patrulleras y seis fragatas, así que darles la misma cuota sobrerrepresenta a las fragatas.</p>
+<p>La <strong>afijación proporcional</strong> reparte la muestra según el peso de cada estrato en la población: <span class="math inline">\(n_i = n \cdot N_i / N\)</span>.</p>
+<div class="predice">
+<p>Con una muestra total de 12 sobre esta flota de 40, ¿cuántas patrulleras espera que le toquen? Calcúlelo antes de ejecutar.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibl90b3RhbCA8LSAxMlxudGFtYW5vcyA8LSB0YWJsZShmbG90YSR0aXBvKVxuXG5uX3Bvcl9lc3RyYXRvIDwtIHJvdW5kKG5fdG90YWwgKiB0YW1hbm9zIC8gc3VtKHRhbWFub3MpKVxubl9wb3JfZXN0cmF0byJ9
+</script>
+</div>
+</div>
+<p><span class="ejemplo">Scheaffer, Mendenhall y Ott dedican su §5.5 a la afijación y muestran que la proporcional no siempre es la mejor: cuando un estrato es mucho más variable, o más caro de medir, conviene desviarse de ella. Ese refinamiento —la afijación de Neyman— excede este curso, pero conviene saber que existe.</span></p>
+</section>
+<section id="muestreo-aleatorio-por-conglomerados" class="level3">
+<h3 class="anchored" data-anchor-id="muestreo-aleatorio-por-conglomerados">Muestreo aleatorio por conglomerados</h3>
+<p>La unidad de muestreo contiene más de un elemento de la población. Se usa cuando los elementos se agrupan de forma natural en masas difíciles de descomponer o de acceder directamente. Se eligen al azar primero los conglomerados y luego los elementos dentro de ellos.</p>
+<p>Cada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.</p>
+<div class="cell">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHVlcnRvcyA8LSBzYW1wbGUodW5pcXVlKGZsb3RhJHB1ZXJ0byksIDIpXG5zdWJzZXQoZmxvdGEsIHB1ZXJ0byAlaW4lIHB1ZXJ0b3MpJGlkIn0=
+</script>
+</div>
+</div>
+<div class="franja">
+<p>Estratos vs.&nbsp;conglomerados: en el estratificado se muestrea DENTRO de TODOS los grupos; en el de conglomerados se sortean PRIMERO los grupos y sólo esos se estudian.</p>
+</div>
+<div class="ejercicio">
+<p><strong>Detectar el error.</strong> Se encarga a un guardiamarina que tome una muestra aleatoria de 12 unidades para inspeccionar el consumo. Entrega este código y afirma que la muestra es aleatoria simple.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibXVlc3RyYV9kdWRvc2EgPC0gZmxvdGFbMToxMiwgXSAgICAgICAgIyBcImxhcyBkb2NlIHByaW1lcmFzIGRlbCBsaXN0YWRvXCJcbm1lYW4obXVlc3RyYV9kdWRvc2EkY29uc3VtbykifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p>¿Por qué esa muestra no es aleatoria simple?</p>
+<p><strong>a)</strong> Porque no interviene el azar: se toman siempre las mismas doce, y si el listado está ordenado por algún criterio —antigüedad, tipo, puerto— la muestra queda sesgada por ese criterio. <strong>b)</strong> Porque doce unidades son pocas para una flota de cuarenta. <strong>c)</strong> Porque habría que haber usado <code>sample()</code> con reemplazo.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAzXCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="muestreo-no-probabilístico" class="level2">
+<h2 class="anchored" data-anchor-id="muestreo-no-probabilístico">1.2.3 Muestreo no probabilístico</h2>
+<p>Es el muestreo típico que se hace a la salida de un centro comercial, del metro o en una esquina: se encuesta a quien esté disponible. Los resultados representan <strong>sólo el pensamiento de los encuestados</strong>, no necesariamente el de la población en estudio.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="para-qué-sirve" class="level4 tarjeta-oscura">
+<h4 class="anchored" data-anchor-id="para-qué-sirve">Para qué sirve</h4>
+<p>Explorar. Detectar qué preguntas vale la pena hacer, cómo se entiende un cuestionario, qué respuestas aparecen. Es barato y rápido.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="para-qué-no-sirve" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="para-qué-no-sirve">Para qué no sirve</h4>
+<p>Concluir. No hay probabilidad conocida de selección, así que no existe forma de cuantificar el error ni de extender el resultado a la población.</p>
+</section>
+</div>
+</div>
+<section id="qué-técnica-conviene-en-cada-caso" class="level3">
+<h3 class="anchored" data-anchor-id="qué-técnica-conviene-en-cada-caso">¿Qué técnica conviene en cada caso?</h3>
+<div class="tabla-ancha">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Técnica</th>
+<th>Cuándo conviene</th>
+<th>Cómo se selecciona</th>
+<th>Ejemplo naval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Aleatorio simple</strong></td>
+<td>La característica se distribuye de forma homogénea</td>
+<td>Sorteo al azar sobre el listado completo</td>
+<td>Sortear 12 de las 60 patrulleras</td>
+</tr>
+<tr class="even">
+<td><strong>Sistemático</strong></td>
+<td>Existe un listado ordenado; se busca sencillez</td>
+<td>Arranque aleatorio y cada k-ésimo elemento</td>
+<td>Rol de 240 tripulantes, k = 10</td>
+</tr>
+<tr class="odd">
+<td><strong>Estratificado</strong></td>
+<td>Mucha dispersión y grupos claros</td>
+<td>Dividir en estratos y muestrear en cada uno</td>
+<td>Estratificar por tipo de unidad</td>
+</tr>
+<tr class="even">
+<td><strong>Por conglomerados</strong></td>
+<td>Elementos agrupados y difíciles de separar</td>
+<td>Sortear conglomerados completos</td>
+<td>Sortear 5 buques y encuestar toda la dotación</td>
+</tr>
+<tr class="odd">
+<td><strong>No probabilístico</strong></td>
+<td>Sólo exploración previa</td>
+<td>Por conveniencia o disponibilidad</td>
+<td>Preguntar a quien sale del comedor</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="franja">
+<p>Ninguna de ellas corrige un mal marco muestral: si el listado de partida está incompleto, la aleatorización no salva la inferencia. Eso es error de cobertura, y ya vimos que no se arregla con más muestra.</p>
+</div>
+</section>
+</section>
+<section id="determinación-del-tamaño-de-muestra" class="level2">
+<h2 class="anchored" data-anchor-id="determinación-del-tamaño-de-muestra">1.2.4 Determinación del tamaño de muestra</h2>
+<div class="franja">
+<p><strong>Este apartado se trabaja en la semana 5, no en la semana 2.</strong> Su fórmula necesita la <strong>desviación típica</strong>, que se estudia en el tema 1.3.4 durante la semana 4. Si está leyendo esta página en la semana 2, deténgase aquí: vuelva después de la sesión de dispersión y encontrará que el cálculo se explica solo.</p>
+</div>
+<p>La pregunta operativa no es <em>qué técnica</em> sino <strong>cuántas unidades</strong>. Y tiene respuesta cuantitativa: el tamaño depende de tres cosas que el oficial decide antes de salir a medir.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-4">
+<section id="confianza" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="confianza">Confianza</h4>
+<p>Qué tan seguro se quiere estar. Al 95 % corresponde z = 1.96; al 99 %, z = 2.576.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="error-admisible" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="error-admisible">Error admisible</h4>
+<p>Cuánto se tolera equivocarse, en las unidades de la variable. Es la decisión operativa, no estadística.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="variabilidad" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="variabilidad">Variabilidad</h4>
+<p>Cuánto varía la característica en la población. Se estima con una muestra piloto o con datos históricos.</p>
+</section>
+</div>
+</div>
+<div class="definicion">
+<p><strong>Desviación típica</strong> —<span class="math inline">\(\sigma\)</span> en la población, <span class="math inline">\(s\)</span> en la muestra— mide <strong>cuánto se separan los datos de su promedio</strong>. Vale cero si todos son iguales; crece con la dispersión. La <strong>varianza</strong> es su cuadrado, <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Se estudia en el tema 1.3.4. Aquí basta la idea operativa: <strong>medir algo uniforme requiere pocas unidades; medir algo disperso requiere muchas.</strong></p>
+</div>
+<p>Scheaffer, Mendenhall y Ott fijan un <strong>límite para el error de estimación</strong> <span class="math inline">\(B\)</span>: el valor que el error no debe superar. Como el límite se pone en dos desviaciones típicas del estimador, se resuelve <span class="math inline">\(2\sqrt{V(\bar{y})} = B\)</span> y se despeja <span class="math inline">\(n\)</span>.</p>
+<div class="definicion">
+<p><strong>¿Por qué dos desviaciones típicas?</strong> En una distribución acampanada, cerca del 95 % de los valores caen dentro de esa distancia del centro. «El error no supera <span class="math inline">\(B\)</span>» significa entonces «no lo supera en el 95 % de los casos», no «nunca».</p>
+<p>El valor exacto es 1.96; los autores redondean a 2. La diferencia en el tamaño resultante es del orden del 2 %.</p>
+</div>
+<p>Para estimar una <strong>media poblacional</strong> <span class="math inline">\(\mu\)</span> con límite de error <span class="math inline">\(B\)</span>:</p>
+<p><span class="math display">\[n = \frac{N\sigma^{2}}{(N-1)\,D + \sigma^{2}}, \qquad D = \frac{B^{2}}{4}\]</span></p>
+<p>Esta expresión ya lleva incorporada la <strong>corrección por población finita</strong> —el ajuste que reconoce que muestrear 30 de 40 unidades da mucha más información que muestrear 30 de 40 000—, así que no hace falta aplicarla aparte. Cuando <span class="math inline">\(N\)</span> es grande, <span class="math inline">\((N-1)\)</span> puede sustituirse por <span class="math inline">\(N\)</span> sin consecuencia práctica.</p>
+<section id="y-si-no-conozco-σ" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="y-si-no-conozco-σ">¿Y si no conozco σ?</h4>
+<p>Es el caso normal la primera vez que se mide algo. Los autores dan una regla práctica: <strong>la amplitud de variación de los datos abarca aproximadamente cuatro desviaciones típicas</strong>, de modo que</p>
+<p><span class="math display">\[\sigma \approx \frac{\text{rango}}{4}\]</span></p>
+<p>Su ejemplo: si las cuentas de un hospital caen en una amplitud de 100 $, entonces <span class="math inline">\(\sigma \approx 25\)</span>.</p>
+<p><strong>Úsela con cuidado.</strong> El 4 solo acierta con muestras piloto de unas 25 o 30 observaciones. Con más, el rango crece y la regla sobrestima <span class="math inline">\(\sigma\)</span>: sale una muestra mayor de la necesaria, error del lado seguro. Con muy pocas, la subestima y el tamaño se queda corto. Ese es el lado peligroso.</p>
+</section>
+<div class="cell">
+<div>
+<div id="webr-11" class="exercise-cell">
+
+</div>
+<script type="webr-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTiA8LSA0MCAgICAgICAgICAgICAgICAgICAgICAgIyB0YW1hw7FvIGRlIGxhIHBvYmxhY2nDs25cbnMgPC0gc2QoZmxvdGEkY29uc3VtbykgICAgICAgICMgdmFyaWFiaWxpZGFkIGVzdGltYWRhIGRlIHN1IGZsb3RhXG5CIDwtIDMgICAgICAgICAgICAgICAgICAgICAgICAjIGzDrW1pdGUgcGFyYSBlbCBlcnJvcjogMyBnYWwvaFxuXG5EIDwtIEJeMiAvIDRcbm4gPC0gTiAqIHNeMiAvICgoTiAtIDEpICogRCArIHNeMilcblxucm91bmQoYyhkZXN2aWFjaW9uID0gcywgRCA9IEQsIG5fbmVjZXNhcmlvID0gY2VpbGluZyhuKSksIDIpIn0=
+</script>
+</div>
+</div>
+<div class="predice">
+<p>Compare <code>n_necesario</code> con el tamaño de su flota. ¿Le está diciendo la fórmula que inspeccione casi toda la población? Si es así, la pregunta operativa no es cuántas medir sino si vale la pena muestrear en lugar de censar.</p>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Con la desviación que acaba de obtener, calcule a mano el tamaño de muestra <strong>sin corregir</strong> para un error admisible de 3 gal/h al 95 % de confianza. Redondee hacia arriba, porque no se pueden inspeccionar fracciones de buque.</p>
+<p>Escriba su número antes de ejecutar la comprobación.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-12" class="exercise-cell">
+
+</div>
+<script type="webr-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfbiA8LSAwICAgICAgICAjIHN1c3RpdHV5YSBwb3Igc3UgcmVzdWx0YWRvXG5cbnZlcmlmaWNhcl90YW1hbm8obWlfbikifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar sin calcular.</strong> Suponga que quiere reducir el error admisible de 3 gal/h a 1.5 gal/h, manteniendo la confianza. ¿Qué pasa con el tamaño de muestra?</p>
+<p><strong>a)</strong> Se duplica. <strong>b)</strong> Se cuadruplica. <strong>c)</strong> No cambia, porque la confianza es la misma.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-13" class="exercise-cell">
+
+</div>
+<script type="webr-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA0XCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+<div class="franja">
+<p>Ahí está la razón económica del muestreo estratificado: si reducir el error a la mitad cuesta cuadruplicar la muestra, cualquier técnica que gane precisión sin aumentar el número de unidades observadas se traduce directamente en combustible y horas de tripulación ahorrados.</p>
+</div>
+</section>
+<section id="para-leer-esta-semana" class="level2">
+<h2 class="anchored" data-anchor-id="para-leer-esta-semana">Para leer esta semana</h2>
+<section id="texto-guía" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="texto-guía">Texto guía</h4>
+<p><strong>Ordóñez Moreno, F. M., Rosero Camacho, W. N., &amp; Paredes Calderón, D. M. (2025).</strong> <em>Estadística para la Seguridad y Defensa</em> (1.ª ed.&nbsp;electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.</p>
+<p><strong>Lea el Capítulo I, §§1.5 a 1.7, páginas 25 a 30.</strong> Son seis páginas y traen los cuatro esquemas de muestreo dibujados, que ayudan a fijar la diferencia entre estratos y conglomerados mejor que cualquier explicación en prosa.</p>
+</section>
+<section id="lectura-de-la-unidad" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="lectura-de-la-unidad">Lectura de la unidad</h4>
+<p><strong>Bologna, E. (2018).</strong> «Obtención de la muestra», en <em>Métodos Estadísticos de Investigación</em>, pp.&nbsp;155–171. Córdoba: Editorial Brujas &amp; Encuentro Grupo Editor.</p>
+<p>Disponible en ProQuest Ebook Central con su cuenta <code>@espe.edu.ec</code>: <a href="https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586" class="uri">https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586</a></p>
+</section>
+<section id="si-quiere-más-ejercicios" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="si-quiere-más-ejercicios">Si quiere más ejercicios</h4>
+<p><strong>Devore, J. L. (2016).</strong> <em>Probabilidad y estadística para ingeniería y ciencias</em> (9.ª ed.). México: Cengage Learning.</p>
+<p>Está en la carpeta del curso, junto con <strong>Johnson, R. A. (2012).</strong> <em>Miller y Freund. Probabilidad y estadística para ingenieros</em> (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7. Para esta semana, su <strong>§6.1 «Poblaciones y muestras»</strong>, página 175, conecta el muestreo con lo que veremos en el tema 3.1.</p>
+</section>
+<section id="el-texto-especializado-en-muestreo" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="el-texto-especializado-en-muestreo">El texto especializado en muestreo</h4>
+<p><strong>Scheaffer, R. L., Mendenhall, W., III, &amp; Ott, R. L. (2007).</strong> <em>Elementos de muestreo</em> (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de <em>Elementary Survey Sampling</em>, 6.ª ed.</p>
+<p>Está en la carpeta del curso. Es el único de los cuatro dedicado íntegramente a este tema, y de él salen la taxonomía de errores y la fórmula del tamaño de muestra que usa esta página.</p>
+<ul>
+<li><strong>§2.4 «Fuentes de error en las encuestas»</strong> (pp.&nbsp;19–31)</li>
+<li><strong>§4.4 «Selección del tamaño de muestra para estimar las medias y totales»</strong> (pp.&nbsp;95–97)</li>
+<li><strong>§5.5 «Afijación de la muestra»</strong> (p.&nbsp;137), si quiere ir más allá de la afijación proporcional</li>
+</ul>
+</section>
+<section id="gratuito-y-en-línea" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="gratuito-y-en-línea">Gratuito y en línea</h4>
+<p><strong>Illowsky, B., &amp; Dean, S. (2022).</strong> <em>Introducción a la estadística</em>. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.</p>
+<p><strong>Capítulo 1, «Muestreo y datos»</strong>: <a href="https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion" class="uri">https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion</a></p>
+<p>No hace falta cuenta ni descarga. Es el más accesible de los cuatro y trae varios casos de muestras mal tomadas con el análisis de qué falló en cada una.</p>
+</section>
+<p>La lista completa, con qué capítulo corresponde a cada semana, está en la <a href="../bibliografia.html">bibliografía del curso</a>.</p>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzEgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTEtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiMVwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../unidad-1";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Thc02\.github\.io\/Estadistica\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../unidad-1/tema-1-1.html" class="pagination-link" aria-label="1.1 Introducción a la Estadística">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1.1 Introducción a la Estadística</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Estadística · Ciencias Navales · Unidad 1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Dr.&nbsp;Daniel Lagos Llaguno</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
