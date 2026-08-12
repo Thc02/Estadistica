@@ -26,6 +26,8 @@ website:
         text: "Plan semanal"
       - href: bibliografia.qmd
         text: "Bibliografía"
+      - href: discrepancias.qmd
+        text: "Discrepancias entre textos y R"
       - section: "UC 1 · Estadística descriptiva y probabilidad"
         contents:
           - href: unidad-1/tema-1-1.qmd

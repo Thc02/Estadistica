@@ -72,6 +72,21 @@ Gratuito, en línea y en español. Es el más accesible de los cuatro: explica c
 - Cap. 2 «Estadística descriptiva» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva>
 :::
 
+## Obra citada por el texto guía
+
+::: {.tarjeta}
+#### Estadística: métodos y aplicaciones
+
+Galindo, E. (2011). *Estadística: métodos y aplicaciones*. Quito: Prociencia Editores. Ejemplar consultado en el Internet Archive: <https://archive.org/details/EstadisticaMetodosYAplicacionesEdwinGalindo>
+
+El texto guía cita la edición de **2015** y toma de esta obra el criterio del coeficiente de variación y los coeficientes de asimetría y curtosis. El ejemplar disponible en línea es el de **2011**; no se ha comprobado si el contenido cambia entre ediciones.
+
+No es lectura obligatoria del curso. Se consulta sólo para verificar en su fuente los criterios que el texto guía cita de segunda mano, según se detalla en [Discrepancias entre los textos y R](discrepancias.qmd).
+
+- §1.9.3 Coeficiente de variación
+- §1.10 Medidas de forma: asimetría y curtosis
+:::
+
 ## Lecturas por semana
 
 ::: {.tabla-ancha}

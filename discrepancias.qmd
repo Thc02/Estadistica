@@ -1,0 +1,207 @@
+---
+title: "Discrepancias entre los textos y R"
+subtitle: "Estadística para Ciencias Navales · dónde los libros no coinciden entre sí, ni con el computador"
+toc: true
+toc-depth: 2
+---
+
+{{< include _extensions/r-wasm/live/_knitr.qmd >}}
+
+Una fórmula estadística no siempre tiene una única forma correcta. Hay puntos en los que los tres textos del curso hacen cosas distintas, y otros en los que R hace algo distinto de los tres. Ninguno está equivocado: son **convenciones**, y lo que importa es declarar cuál se usa.
+
+Esta página reúne las que se han verificado numéricamente. Cada una indica qué adopta este curso.
+
+::: {.franja}
+**Por qué existe esta página.** Un guardiamarina que calcule un cuartil a mano con el texto guía y luego lo compruebe con `quantile()` obtendrá dos números distintos y creerá que se equivocó. No se equivocó: son dos convenciones. Saber eso es parte de la formación.
+:::
+
+## Resumen
+
+| # | Asunto | Discrepancia | Qué adopta el curso |
+|---|---|---|---|
+| 1 | **Cuartiles y percentiles** | Cuatro convenciones distintas entre Ordóñez, Johnson, Devore y R | Ordóñez a mano; en R, `type = 6` |
+| 2 | **Regla de Sturges** | Ordóñez redondea; R toma el techo. Difieren justo en $n = 40$ | La fórmula del texto guía; se declara la diferencia |
+| 3 | **`hist()` y el número de clases** | R trata `breaks` como sugerencia, no como orden | Se acepta; se comprueba siempre el resultado |
+| 4 | **Asimetría** | Tres estimadores en uso, con hasta 8 % de diferencia | El de Ordóñez, escrito a mano |
+| 5 | **Umbral del coeficiente de variación** | El umbral del texto guía no concuerda con su propia fórmula. **Resuelto en la fuente original** | El CV como fracción si se compara con umbrales |
+| 6 | **Errata en el texto guía** | El cuerpo del texto y su propia tabla no coinciden | Prevalece la tabla |
+
+: Discrepancias verificadas {.striped}
+
+## 1. Cuartiles y percentiles
+
+Es la discrepancia más visible, porque aparece en cuanto se compara el cálculo a mano con el del computador.
+
+| Fuente | Regla | Equivalente en R |
+|---|---|---|
+| **Ordóñez et al.** (§2.5.1) | Posición $p(n+1)$, interpolando la fracción | `type = 6` |
+| **Johnson** (§2.6) | $np$; si no es entero se redondea hacia arriba, si lo es se promedian las posiciones $k$ y $k+1$ | `type = 2` |
+| **Devore** (§1.4) | «Cuartos»: mediana de cada mitad, incluyendo la mediana si $n$ es impar | ≈ `type = 2` |
+| **R** | Interpolación sobre $1 + (n-1)p$ | `type = 7` *(por omisión)* |
+
+: Cuatro reglas para el mismo cuartil {.striped}
+
+Con los 15 pagos del ejercicio 2.13 del texto guía, Ordóñez obtiene $Q_3 = 24\,500$. R, si no se le dice nada, devuelve 19 050.
+
+```{webr}
+pagos <- c(1500,1500,2800,2800,2800,3900,4100,5300,9200,
+           12900,13600,24500,27500,30900,41500)
+
+sapply(1:9, function(t) quantile(pagos, 0.75, type = t, names = FALSE))
+```
+
+::: {.inferencia}
+Las equivalencias no son casualidad de este conjunto de datos. Se comprobaron sobre **400 muestras aleatorias** de tamaños y percentiles distintos: la regla de Ordóñez coincide con `type = 6` y la de Johnson con `type = 2` hasta el error de redondeo del computador, en todos los casos.
+:::
+
+::: {.franja}
+Devore lo dice en su propio libro, y su ejemplo lo demuestra: para los 40 turbocompresores, sus «cuartos» valen 5.05 y 7.85, mientras que la salida de Minitab que él mismo reproduce da $Q_1 = 5.025$ y $Q_3 = 7.875$. **La discrepancia está impresa dentro de un mismo texto.**
+:::
+
+::: {.recomendacion}
+Calcule a mano con la regla del texto guía. Cuando compruebe en R, escriba `type = 6`. Y en cualquier informe, declare la convención: sin ella, el número no es reproducible.
+:::
+
+## 2. La regla de Sturges
+
+El texto guía da $K = 1 + 3.32\log_{10}(n)$ y redondea al entero más próximo. R implementa `nclass.Sturges()` como $\lceil \log_2 n \rceil + 1$, es decir, **toma el techo del logaritmo antes de sumar**.
+
+| $n$ | Ordóñez | R |
+|---|---|---|
+| 20 | 5 | 6 |
+| 30 | 6 | 6 |
+| **40** | **6** | **7** |
+| 50 | 7 | 7 |
+| 100 | 8 | 8 |
+
+: Número de clases según cada regla {.striped}
+
+Coinciden en la mayoría de los tamaños, pero **no en 40**, que es justamente el tamaño de la flota del curso.
+
+```{webr}
+n <- 40
+c(Ordonez = round(1 + 3.32 * log10(n)),
+  R       = ceiling(log2(n)) + 1)
+```
+
+::: {.recomendacion}
+Use la fórmula del texto guía cuando construya la tabla a mano. Si en R deja que `hist()` elija, obtendrá una clase más: no es un error, es otra regla. Declare cuál usó.
+:::
+
+## 3. `hist()` no obedece el número de clases
+
+Aunque se le pida un número exacto de intervalos, R lo trata como una **sugerencia** y ajusta los cortes a valores «redondos».
+
+```{webr}
+set.seed(7)
+x <- round(rnorm(40, 98, 18), 1)
+
+h <- hist(x, breaks = 7, plot = FALSE)
+c(pedidos = 7, obtenidos = length(h$counts))
+h$breaks
+```
+
+Se piden siete intervalos y salen ocho, con cortes en 70, 80, 90… porque R prefiere límites legibles a obedecer la cifra.
+
+::: {.recomendacion}
+Nunca dé por hecho el número de clases de un histograma de R: compruébelo con `length(h$counts)`. Si necesita clases exactas, constrúyalas usted con `seq()` y pásalas como vector a `breaks`.
+:::
+
+## 4. Asimetría: tres estimadores
+
+El coeficiente de Fisher tiene al menos tres formas de estimarse a partir de una muestra, y los programas no usan la misma.
+
+| Estimador | Denominador | Dónde aparece |
+|---|---|---|
+| $b_1$ | $n\,s^3$, con $s$ calculado sobre $n-1$ | Ordóñez et al. (§2.6.2) |
+| $g_1$ | momentos puros, todo sobre $n$ | `e1071::skewness(type = 1)` |
+| $G_1$ | $g_1\sqrt{n(n-1)}/(n-2)$ | SAS, SPSS, Excel, `type = 2` |
+
+: Tres estimadores del mismo coeficiente {.striped}
+
+Sobre los mismos 40 datos dan 0.5250, 0.5453 y 0.5668: **una diferencia de casi el 8 %** entre el primero y el último.
+
+```{webr}
+set.seed(7); x <- round(rnorm(40, 98, 18), 1); n <- length(x)
+
+b1 <- sum((x - mean(x))^3) / (n * sd(x)^3)
+m2 <- sum((x - mean(x))^2) / n
+g1 <- (sum((x - mean(x))^3) / n) / m2^1.5
+G1 <- g1 * sqrt(n * (n - 1)) / (n - 2)
+
+round(c(texto_guia = b1, momentos = g1, corregido = G1), 4)
+```
+
+::: {.inferencia}
+Para el uso que se le da en este curso —**leer el signo** para saber hacia dónde se estira la distribución— los tres coinciden siempre, porque comparten el numerador. La discrepancia sólo importa si se compara el valor numérico con el de otro programa.
+:::
+
+::: {.franja}
+Esta discrepancia no es un descuido: está reconocida en la propia fuente. Galindo, de quien el texto guía toma estos coeficientes, advierte en una nota al pie de su §1.10 que en la definición de las medidas de forma **«no hay unidad de criterios entre los especialistas»**, y que por eso existe una amplia variedad de fórmulas.
+:::
+
+## 5. El umbral del coeficiente de variación
+
+Ordóñez et al. (§2.5.2) definen el coeficiente de variación (CV) multiplicando por 100, es decir **en porcentaje**, y a continuación recogen de Galindo el criterio de que si $CV \le 1$ los datos son homogéneos y si supera 1.5 son heterogéneos. Esos umbrales sólo tienen sentido si el CV se expresa **como fracción**.
+
+Se consultó la fuente original y el asunto queda aclarado.
+
+::: {.franja}
+**Galindo define el CV como fracción, sin multiplicar por 100.** En su §1.9.3 lo escribe como $CV = s/\bar{x}$, y su ejemplo lo confirma: para diez sueldos con $\bar{x} = 171$ y $s = 5.1$ obtiene $CV = 0.0298$, y concluye que los datos son homogéneos. Con esa definición, los umbrales 1 y 1.5 son coherentes.
+
+**La incoherencia la introduce el texto guía**, que añade el $\times 100$ a la fórmula pero conserva los umbrales de la fuente. No es un error de Galindo.
+:::
+
+Quedan dos matices menores, y ambos son de la fuente original:
+
+- Galindo **nota el símbolo como «CV %»** aunque su fórmula no multiplica por 100. Es una inconsistencia de notación, no de cálculo.
+- Galindo enuncia que *si un conjunto es homogéneo, entonces $CV < 1$*. El texto guía lo invierte: *si $CV \le 1$, los datos son homogéneos*. **No son la misma afirmación**, y de las dos, la del texto guía es la que no se sigue de la fuente.
+
+::: {.pendiente}
+La franja $1 < CV \le 1.5$ sigue sin definirse: tampoco la define Galindo.
+
+El ejemplar consultado es la edición de **2011** (Prociencia Editores); el texto guía cita la de 2015. No se ha verificado si el criterio cambia entre ediciones.
+:::
+
+::: {.recomendacion}
+Calcule el CV **como fracción** si va a compararlo con los umbrales, y como porcentaje sólo para comunicarlo. Y úselo sobre todo para lo que no admite discusión: **comparar la dispersión de dos variables medidas en unidades distintas**.
+:::
+
+Galindo añade cuatro observaciones sobre el CV que conviene retener, y la última es la más olvidada: es adimensional; intervienen todas las observaciones, de modo que los valores atípicos lo alteran; puede ser difícil de interpretar; y **pierde todo significado si el promedio vale cero**.
+
+```{webr}
+sueldos <- c(170,172,168,165,173,178,180,165,167,172)   # ejemplo de Galindo §1.9.3
+
+c(media = mean(sueldos), s = sd(sueldos),
+  CV_fraccion   = sd(sueldos) / mean(sueldos),          # el libro reporta 0.02982
+  CV_porcentaje = 100 * sd(sueldos) / mean(sueldos))
+```
+
+## 6. Una errata del texto guía
+
+En el ejercicio de la moda para datos agrupados (§2.5.1), el cuerpo del texto indica que el límite inferior de la clase modal es **68.27**, mientras que su propia Tabla 2.8 lo fija en **68.67**.
+
+La tabla es la correcta: los intervalos van de 10 en amplitud 14.67, de modo que la quinta clase empieza en $54.00 + 14.67 = 68.67$. Reproduciendo la tabla completa se obtienen exactamente la media 63.81, la varianza 405.85 y la desviación 20.15 que el libro reporta, lo que confirma que el resto del ejercicio está bien y que 68.27 es un error de transcripción.
+
+```{webr}
+LI <- c(10, 24.67, 39.33, 54.00, 68.67, 83.33); C <- 14.67
+x  <- c(17.33, 32.00, 46.67, 61.33, 76.00, 90.67)
+f  <- c(4, 6, 9, 17, 25, 10); n <- sum(f)
+
+media <- sum(f * x) / n
+s2    <- (sum(f * x^2) - n * media^2) / (n - 1)
+
+round(c(media = media, varianza = s2, desviacion = sqrt(s2)), 2)
+```
+
+::: {.franja}
+Encontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: **ningún texto es infalible, y toda fórmula se comprueba antes de usarse.** Esa comprobación cabe en cuatro líneas de código.
+:::
+
+## Cómo citar una convención en un informe
+
+Cuando entregue un análisis, basta una línea al pie de la tabla:
+
+> Cuartiles calculados según la convención de posición $p(n+1)$ (Ordóñez et al., 2025, §2.5.1), equivalente a `quantile(type = 6)` en R 4.x.
+
+Sin esa línea, otro analista con los mismos datos puede obtener otro número y ninguno de los dos sabrá por qué.

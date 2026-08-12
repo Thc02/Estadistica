@@ -7,16 +7,36 @@ toc: false
 
 ## Contenido del curso
 
-### Unidad 1 · Estadística descriptiva y probabilidades
+### Unidad curricular 1 (UC 1) · Estadística descriptiva y probabilidad
 
 ::: {.tarjeta}
-#### [Tema 1.1 · Introducción a la Estadística](unidad-1/tema-1-1.qmd)
+#### [Tema 1.1 · Introducción a la Estadística](unidad-1/tema-1-1.qmd) · Semana 1
 
-- **1.1.1** Definiciones básicas
-- **1.1.2** Proceso de medición
-- **1.1.3** Escalas de medición
-- **1.1.4** Introducción al muestreo
-- **1.1.5** Práctica
+- **1.1.1** Importancia de la Estadística en las Ciencias Navales
+- **1.1.2** Población, muestra, parámetros y estadísticos
+- **1.1.3** Variables estadísticas y escalas de medición
+- **1.1.4** Organización y recolección de datos
+:::
+
+::: {.tarjeta}
+#### [Tema 1.2 · Muestreo](unidad-1/tema-1-2.qmd) · Semana 2
+
+- **1.2.1** Técnicas de muestreo
+- **1.2.2** Muestreo probabilístico
+- **1.2.3** Muestreo no probabilístico
+- **1.2.4** Determinación del tamaño de muestra · *se trabaja en la semana 5*
+:::
+
+::: {.tarjeta}
+#### [Tema 1.3 · Estadística descriptiva](unidad-1/tema-1-3.qmd) · Semanas 3, 4 y 5
+
+- **1.3.1** Tablas de distribución de frecuencias
+- **1.3.2** Representaciones gráficas
+- **1.3.3** Medidas de tendencia central
+- **1.3.4** Medidas de dispersión
+- **1.3.5** Medidas de posición
+- **1.3.6** Medidas de forma
+- **1.3.7** Interpretación de indicadores estadísticos
 :::
 
 ## Cómo se usa este material

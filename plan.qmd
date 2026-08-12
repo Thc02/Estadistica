@@ -9,6 +9,8 @@ toc-depth: 2
 
 48 horas en total: **32 presenciales** —a dos horas por semana, dieciséis semanas— y **16 autónomas** que el guardiamarina trabaja fuera de clase, sobre esta misma página.
 
+El sílabo reparte el contenido en tres **unidades curriculares (UC)**, que son los bloques en que se organiza y se evalúa la asignatura.
+
 | Unidad | Contenido | Semanas | Horas presenciales |
 |---|---|---|---|
 | **UC 1** | Estadística descriptiva y probabilidad | 1 – 7 | 14 |
@@ -67,7 +69,7 @@ El tema **1.5 Aplicaciones con software estadístico** no ocupa semana propia: e
 
 | Sem. | Tema del sílabo | En clase (2 h) | Trabajo autónomo |
 |---|---|---|---|
-| **13** | 3.1 Distribuciones muestrales | Distribución muestral de la media; teorema central del límite | Simulación del TCL sobre la flota propia |
+| **13** | 3.1 Distribuciones muestrales | Distribución muestral de la media; teorema central del límite (TCL) | Simulación del TCL sobre la flota propia |
 | **14** | 3.2 Estimación | Estimación puntual; intervalos de confianza para la media | Taller 3.1 — estimaciones e intervalos para variables navales |
 | **15** | 3.3 Contraste de hipótesis | Formulación; nivel de significancia; valor-p; errores tipo I y II; pruebas para la media | Taller 3.2 — plantear y contrastar hipótesis con datos de caso |
 | **16** | 3.4 Regresión lineal | Correlación; modelo simple; interpretación; predicción | **Proyecto Fase III** — informe final y exposición |

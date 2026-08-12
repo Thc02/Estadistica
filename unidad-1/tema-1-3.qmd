@@ -366,7 +366,7 @@ Dos flotas pueden tener el mismo consumo medio y comportarse de forma completame
 
 El **rango** es la diferencia entre el mayor y el menor valor. Es la medida más simple y también la más frágil: depende sólo de dos datos, y basta un valor atípico para inflarlo.
 
-El **rango intercuartílico** ($IQR$) es la diferencia entre el tercer y el primer cuartil. Al descartar el 25 % inferior y el 25 % superior, elimina el efecto de los valores extremos y mide la dispersión de la mitad central de los datos.
+El **rango intercuartílico (IQR)** es la diferencia entre el tercer y el primer cuartil. Al descartar el 25 % inferior y el 25 % superior, elimina el efecto de los valores extremos y mide la dispersión de la mitad central de los datos.
 
 $$IQR = Q_3 - Q_1$$
 
@@ -425,20 +425,22 @@ round(c(k1 = dentro(1), k2 = dentro(2), k3 = dentro(3)), 3)
 
 ### Coeficiente de variación
 
-Permite analizar la variabilidad **relativa**: expresa la desviación estándar como fracción de la media, de modo que se puedan comparar dos conjuntos con unidades distintas.
+El **coeficiente de variación (CV)** permite analizar la variabilidad **relativa**: expresa la desviación estándar como fracción de la media, de modo que se puedan comparar dos conjuntos con unidades distintas.
 
 $$CV = \frac{s}{\bar{x}} \qquad\text{(muestra)} \qquad\qquad CV = \frac{\sigma}{\mu} \qquad\text{(población)}$$
 
 Ordóñez et al. (§2.5.2) recogen el criterio siguiente: si $CV \le 1$ los datos son homogéneos; si es mayor que 1.5 podrán ser heterogéneos. El criterio lo atribuyen a Galindo (2015).
 
-::: {.pendiente}
-El texto guía no indica qué ocurre en la franja $1 < CV \le 1.5$, ni de dónde salen esos dos umbrales. Tampoco aclara si el $CV$ se expresa como fracción o como porcentaje, aunque los umbrales 1 y 1.5 sólo tienen sentido como fracción.
+::: {.franja}
+**Cuidado con las unidades del umbral.** Se consultó a Galindo, la fuente del criterio, y allí el CV se define como fracción: $CV = s/\bar{x}$, sin multiplicar por 100. Con esa definición los umbrales 1 y 1.5 son coherentes.
 
-No se ha localizado la obra de Galindo (2015) para verificar el criterio en su fuente original. **Hasta entonces, este curso lo usa como referencia orientativa y no como umbral de decisión.**
+El texto guía añade el $\times 100$ a la fórmula pero conserva los umbrales de la fuente, y eso los deja descolocados en un factor de cien. **Si va a compararlo con un umbral, use la fracción.** La franja entre 1 y 1.5 queda sin definir en ambos textos.
+
+El detalle completo está en [Discrepancias entre los textos y R](../discrepancias.qmd).
 :::
 
 ::: {.recomendacion}
-Use el $CV$ para lo que no admite discusión: **comparar la dispersión de dos variables medidas en unidades distintas**, como nudos y galones por hora. Para eso sirve, y para eso lo usan los tres textos. Evite apoyarse en el umbral de 1 para afirmar que una flota «es homogénea» sin más argumento.
+Use el $CV$ para lo que no admite discusión: **comparar la dispersión de dos variables medidas en unidades distintas**, como nudos y metros cúbicos por día. Para eso sirve, y para eso lo usan los tres textos. Evite apoyarse en el umbral de 1 para afirmar que una flota «es homogénea» sin más argumento.
 :::
 
 ```{webr}
