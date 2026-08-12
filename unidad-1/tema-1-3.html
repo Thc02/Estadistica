@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35be41c77121769438aa2aadf97518ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-81cb3f419646fa24e098701434926e96.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -178,6 +178,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bibliografía</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discrepancias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discrepancias entre textos y R</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -665,7 +671,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZmxvdGEkY29uc3Vtb19tM19k
 <section id="rango-y-rango-intercuartílico" class="level3">
 <h3 class="anchored" data-anchor-id="rango-y-rango-intercuartílico">Rango y rango intercuartílico</h3>
 <p>El <strong>rango</strong> es la diferencia entre el mayor y el menor valor. Es la medida más simple y también la más frágil: depende sólo de dos datos, y basta un valor atípico para inflarlo.</p>
-<p>El <strong>rango intercuartílico</strong> (<span class="math inline">\(IQR\)</span>) es la diferencia entre el tercer y el primer cuartil. Al descartar el 25 % inferior y el 25 % superior, elimina el efecto de los valores extremos y mide la dispersión de la mitad central de los datos.</p>
+<p>El <strong>rango intercuartílico (IQR)</strong> es la diferencia entre el tercer y el primer cuartil. Al descartar el 25 % inferior y el 25 % superior, elimina el efecto de los valores extremos y mide la dispersión de la mitad central de los datos.</p>
 <p><span class="math display">\[IQR = Q_3 - Q_1\]</span></p>
 <p><span class="fuente">Ordóñez et al., 2025, §2.5.2. Los cuartiles se tratan en el apartado 1.3.5.</span></p>
 </section>
@@ -714,15 +720,16 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibSA8LSBtZWFuKGZsb3RhJGNv
 </section>
 <section id="coeficiente-de-variación" class="level3">
 <h3 class="anchored" data-anchor-id="coeficiente-de-variación">Coeficiente de variación</h3>
-<p>Permite analizar la variabilidad <strong>relativa</strong>: expresa la desviación estándar como fracción de la media, de modo que se puedan comparar dos conjuntos con unidades distintas.</p>
+<p>El <strong>coeficiente de variación (CV)</strong> permite analizar la variabilidad <strong>relativa</strong>: expresa la desviación estándar como fracción de la media, de modo que se puedan comparar dos conjuntos con unidades distintas.</p>
 <p><span class="math display">\[CV = \frac{s}{\bar{x}} \qquad\text{(muestra)} \qquad\qquad CV = \frac{\sigma}{\mu} \qquad\text{(población)}\]</span></p>
 <p>Ordóñez et al.&nbsp;(§2.5.2) recogen el criterio siguiente: si <span class="math inline">\(CV \le 1\)</span> los datos son homogéneos; si es mayor que 1.5 podrán ser heterogéneos. El criterio lo atribuyen a Galindo (2015).</p>
-<div class="pendiente">
-<p>El texto guía no indica qué ocurre en la franja <span class="math inline">\(1 &lt; CV \le 1.5\)</span>, ni de dónde salen esos dos umbrales. Tampoco aclara si el <span class="math inline">\(CV\)</span> se expresa como fracción o como porcentaje, aunque los umbrales 1 y 1.5 sólo tienen sentido como fracción.</p>
-<p>No se ha localizado la obra de Galindo (2015) para verificar el criterio en su fuente original. <strong>Hasta entonces, este curso lo usa como referencia orientativa y no como umbral de decisión.</strong></p>
+<div class="franja">
+<p><strong>Cuidado con las unidades del umbral.</strong> Se consultó a Galindo, la fuente del criterio, y allí el CV se define como fracción: <span class="math inline">\(CV = s/\bar{x}\)</span>, sin multiplicar por 100. Con esa definición los umbrales 1 y 1.5 son coherentes.</p>
+<p>El texto guía añade el <span class="math inline">\(\times 100\)</span> a la fórmula pero conserva los umbrales de la fuente, y eso los deja descolocados en un factor de cien. <strong>Si va a compararlo con un umbral, use la fracción.</strong> La franja entre 1 y 1.5 queda sin definir en ambos textos.</p>
+<p>El detalle completo está en <a href="../discrepancias.html">Discrepancias entre los textos y R</a>.</p>
 </div>
 <div class="recomendacion">
-<p>Use el <span class="math inline">\(CV\)</span> para lo que no admite discusión: <strong>comparar la dispersión de dos variables medidas en unidades distintas</strong>, como nudos y galones por hora. Para eso sirve, y para eso lo usan los tres textos. Evite apoyarse en el umbral de 1 para afirmar que una flota «es homogénea» sin más argumento.</p>
+<p>Use el <span class="math inline">\(CV\)</span> para lo que no admite discusión: <strong>comparar la dispersión de dos variables medidas en unidades distintas</strong>, como nudos y metros cúbicos por día. Para eso sirve, y para eso lo usan los tres textos. Evite apoyarse en el umbral de 1 para afirmar que una flota «es homogénea» sin más argumento.</p>
 </div>
 <div class="cell">
 <div>
