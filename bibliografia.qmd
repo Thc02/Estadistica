@@ -66,7 +66,7 @@ El único de la lista dedicado íntegramente al muestreo, y el más práctico: c
 
 Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio>
 
-Gratuito, en línea y en español. Es el más accesible de los cuatro: explica con menos formalismo y muchos más ejemplos. Si un concepto no le entra con el texto guía, búsquelo aquí antes de rendirse.
+De acceso libre, en línea y en español. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.
 
 - Cap. 1 «Muestreo y datos» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
 - Cap. 2 «Estadística descriptiva» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva>

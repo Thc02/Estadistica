@@ -574,7 +574,7 @@ Está en la carpeta del curso. Para esta semana, su **§1.1 «Poblaciones, muest
 
 **Capítulo 1, «Muestreo y datos»**: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
 
-No hace falta cuenta ni descarga. Es el más accesible de los cuatro: explica con menos formalismo y muchos más ejemplos resueltos. Si un concepto no le entra con el texto guía, búsquelo aquí antes de rendirse.
+No requiere registro ni descarga. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos resueltos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.
 :::
 
 La lista completa, con qué capítulo corresponde a cada semana, está en la [bibliografía del curso](../bibliografia.qmd).
