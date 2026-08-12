@@ -16,6 +16,10 @@ flota <- generar_flota(mi_correo)
 head(flota, 6)
 ```
 
+::: {.franja}
+¿No recuerda qué mide cada columna? Ejecute `diccionario_flota` en cualquier celda: devuelve el campo, su significado, su unidad y su escala. Las unidades son parte del resultado, no un adorno.
+:::
+
 ## 1.2.1 Técnicas de muestreo
 
 Las técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés **de la forma más confiable y al más bajo costo posible**. Esas dos exigencias tiran en direcciones opuestas, y toda la disciplina del muestreo consiste en equilibrarlas.
@@ -92,12 +96,12 @@ Gallup, citado por los mismos autores: sin selección aleatoria, **una encuesta 
 :::
 
 ::: {.ejercicio}
-**Detectar el error.** Un guardiamarina debe encuestar a 20 unidades sorteadas de la flota. Tres de ellas están en dique seco y no puede contactarlas, así que las reemplaza por otras tres del mismo puerto, «para no perder el tamaño de muestra». Entrega las 20 respuestas.
+**Detectar el error.** Un guardiamarina debe encuestar a 20 unidades sorteadas de la flota. Tres de ellas están en dique seco y no puede contactarlas, así que las reemplaza por otras tres de la misma base, «para no perder el tamaño de muestra». Entrega las 20 respuestas.
 
 ¿Cuál es el problema de fondo?
 
 **a)** Ninguno: mantuvo el tamaño de muestra y las reemplazó por unidades parecidas.
-**b)** Que las tres sustitutas están en el mismo puerto, y debió tomarlas de otro.
+**b)** Que las tres sustitutas están en la misma base, y debió tomarlas de otra.
 **c)** Que la sustitución rompe el diseño probabilístico y hace imposible estimar el error; además las unidades en dique probablemente difieren justo en lo que se está midiendo.
 :::
 
@@ -116,7 +120,7 @@ Es el único tipo que permite extender los resultados a toda la población.
 También llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.
 
 ```{webr}
-sort(sample(flota$id, 8))
+sort(sample(flota$distintivo, 8))
 ```
 
 ### Muestreo aleatorio sistemático
@@ -142,7 +146,7 @@ Se usa cuando la característica medida presenta **mucha dispersión** y en la p
 Ventaja: para una precisión dada requiere menos muestra que el aleatorio simple, con la consiguiente reducción de costos.
 
 ```{webr}
-estratos <- split(flota$id, flota$tipo)
+estratos <- split(flota$distintivo, flota$tipo)
 sapply(estratos, function(g) sample(g, 2))
 ```
 
@@ -171,8 +175,8 @@ La unidad de muestreo contiene más de un elemento de la población. Se usa cuan
 Cada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.
 
 ```{webr}
-puertos <- sample(unique(flota$puerto), 2)
-subset(flota, puerto %in% puertos)$id
+bases <- sample(unique(flota$base), 2)
+subset(flota, base %in% bases)$distintivo
 ```
 
 ::: {.franja}
@@ -185,13 +189,13 @@ Estratos vs. conglomerados: en el estratificado se muestrea DENTRO de TODOS los 
 
 ```{webr}
 muestra_dudosa <- flota[1:12, ]        # "las doce primeras del listado"
-mean(muestra_dudosa$consumo)
+mean(muestra_dudosa$consumo_m3_dia)
 ```
 
 ::: {.ejercicio}
 ¿Por qué esa muestra no es aleatoria simple?
 
-**a)** Porque no interviene el azar: se toman siempre las mismas doce, y si el listado está ordenado por algún criterio —antigüedad, tipo, puerto— la muestra queda sesgada por ese criterio.
+**a)** Porque no interviene el azar: se toman siempre las mismas doce, y si el listado está ordenado por algún criterio —antigüedad, tipo, base— la muestra queda sesgada por ese criterio.
 **b)** Porque doce unidades son pocas para una flota de cuarenta.
 **c)** Porque habría que haber usado `sample()` con reemplazo.
 :::
@@ -298,8 +302,8 @@ Su ejemplo: si las cuentas de un hospital caen en una amplitud de 100 $, entonce
 
 ```{webr}
 N <- 40                       # tamaño de la población
-s <- sd(flota$consumo)        # variabilidad estimada de su flota
-B <- 3                        # límite para el error: 3 gal/h
+s <- sd(flota$consumo_m3_dia)        # variabilidad estimada de su flota
+B <- 3                        # límite para el error: 3 m³/día
 
 D <- B^2 / 4
 n <- N * s^2 / ((N - 1) * D + s^2)
@@ -312,7 +316,7 @@ Compare `n_necesario` con el tamaño de su flota. ¿Le está diciendo la fórmul
 :::
 
 ::: {.ejercicio}
-**Calcular a mano y verificar.** Con la desviación que acaba de obtener, calcule a mano el tamaño de muestra **sin corregir** para un error admisible de 3 gal/h al 95 % de confianza. Redondee hacia arriba, porque no se pueden inspeccionar fracciones de buque.
+**Calcular a mano y verificar.** Con la desviación que acaba de obtener, calcule a mano el tamaño de muestra **sin corregir** para un error admisible de 3 m³/día al 95 % de confianza. Redondee hacia arriba, porque no se pueden inspeccionar fracciones de buque.
 
 Escriba su número antes de ejecutar la comprobación.
 :::
@@ -324,7 +328,7 @@ verificar_tamano(mi_n)
 ```
 
 ::: {.ejercicio}
-**Interpretar sin calcular.** Suponga que quiere reducir el error admisible de 3 gal/h a 1.5 gal/h, manteniendo la confianza. ¿Qué pasa con el tamaño de muestra?
+**Interpretar sin calcular.** Suponga que quiere reducir el error admisible de 3 m³/día a 1.5 m³/día, manteniendo la confianza. ¿Qué pasa con el tamaño de muestra?
 
 **a)** Se duplica.
 **b)** Se cuadruplica.

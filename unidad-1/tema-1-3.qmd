@@ -1,0 +1,821 @@
+---
+title: "1.3 Estadística descriptiva"
+subtitle: "UC 1 · Estadística descriptiva y probabilidad · Semanas 3, 4 y 5"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include _setup.qmd >}}
+
+Una flota de cuarenta unidades produce demasiados números para leerlos de corrido. La estadística descriptiva los reduce a unos pocos resúmenes —tablas, gráficos e indicadores— que dejan ver lo esencial sin tener que mirar el dato por dato.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística. Lo que va en **Información pendiente** es un vacío declarado: falta la fuente y así se dice.
+:::
+
+Empiece cargando su flota. Los datos son suyos: nadie más tiene estos cuarenta buques.
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+str(flota)
+```
+
+::: {.franja}
+¿No recuerda qué mide cada columna? Ejecute `diccionario_flota` en cualquier celda: devuelve el campo, su significado, su unidad y su escala. Las unidades son parte del resultado, no un adorno.
+:::
+
+# Semana 3
+
+## 1.3.1 Tablas de distribución de frecuencias
+
+Organizar los datos es acomodarlos para que revelen sus características informativas y simplifiquen el análisis. Cuando hay pocos datos basta con ordenarlos; cuando son muchos, el arreglo ordenado se vuelve difícil de manejar y se recurre a una **tabla de frecuencias**.
+
+[Ordóñez et al., 2025, §2.2.]{.fuente}
+
+### Las cuatro frecuencias
+
+Las respuestas observadas se llaman **clases**, y se simbolizan $C_1, C_2, \dots, C_k$, donde $k$ es la cantidad de categorías distintas. Cada clase lleva asociadas cuatro frecuencias.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Absoluta $f_i$
+Número de elementos que pertenecen a la clase $C_i$. Su suma es $n$, el tamaño de la muestra.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Relativa $h_i$
+Elementos de la clase $C_i$ respecto del total. La suma de todas las frecuencias relativas es 1.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-oscura}
+#### Absoluta acumulada $F_i$
+Número total de elementos que pertenecen a las clases $C_1, C_2, \dots, C_i$.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Relativa acumulada $H_i$
+Lo mismo, en proporción del total. La última vale 1.
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, §§2.3.1–2.3.4.]{.fuente}
+
+Las acumuladas responden preguntas de tipo «hasta»: en el ejemplo del texto guía, *69 oficiales se han atrasado hasta en 4 ocasiones*, o *el 74 % de ellos se ha atrasado hasta en 3*.
+
+Con su flota, las cuatro frecuencias del número de averías salen en cuatro líneas:
+
+::: {.predice}
+`averias_anio` cuenta averías por unidad. Antes de ejecutar: ¿cuál cree que será el valor más frecuente, y cuántas clases distintas espera ver?
+:::
+
+```{webr}
+f  <- table(flota$averias_anio)          # absoluta
+h  <- prop.table(f)                 # relativa
+F_ <- cumsum(f)                     # absoluta acumulada
+H  <- cumsum(h)                     # relativa acumulada
+
+round(rbind(f, h, F_, H), 3)
+```
+
+### Cuando la variable es continua
+
+Con variables continuas casi ningún valor se repite, así que las clases dejan de ser valores y pasan a ser **intervalos**. Cada intervalo necesita un representante: la **marca de clase**, que es el valor medio del intervalo.
+
+::: {.definicion}
+**Marca de clase.** Punto medio del intervalo. Sustituye a todos los datos que caen dentro de él en los cálculos posteriores. Si el intervalo es $[80, 90)$, su marca de clase es 85.
+
+Esto explica por qué la media calculada desde una tabla agrupada no coincide exactamente con la media de los datos originales: se han reemplazado los datos por sus marcas de clase.
+:::
+
+Lo primero es decidir **cuántos intervalos**. Se usan reglas como Scott o Sturges; el texto guía usa habitualmente la de Sturges:
+
+$$K = 1 + 3.32 \log(n)$$
+
+[Ordóñez et al., 2025, §2.3, citando a D'Alessio, 2021. El logaritmo es decimal.]{.fuente}
+
+Y la **amplitud** de cada intervalo se obtiene repartiendo el rango entre las $K$ clases:
+
+$$C = \frac{x_{\max} - x_{\min}}{K}$$
+
+Los intervalos se construyen sumando la amplitud al valor mínimo, y así sucesivamente hasta cubrir el máximo.
+
+::: {.franja}
+**Cuántas clases conviene.** Ordóñez et al. (§2.3) recomiendan entre 5 y 15: menos da poca información, más da demasiada. Johnson (2012, §2.2) llega a la misma cifra por su cuenta —«rara vez es redituable utilizar menos de 5 o más de 15»— y añade la excepción de los conjuntos de varios cientos o miles de datos. **Dos textos independientes coinciden en el rango.**
+:::
+
+Verifiquemos que la regla de Sturges y la que trae R son la misma:
+
+```{webr}
+n <- nrow(flota)
+
+K_formula <- 1 + 3.32 * log10(n)     # Ordóñez
+K_log2    <- 1 + log2(n)             # forma equivalente, base 2
+K_R       <- nclass.Sturges(flota$consumo_m3_dia)
+
+c(Ordonez = K_formula, log2 = K_log2, R = K_R)
+```
+
+::: {.inferencia}
+Las dos primeras coinciden hasta la tercera cifra porque $\log_2 n = 3.3219 \log_{10} n$, y 3.32 es ese factor redondeado. La constante 3.32 del texto guía **no es un número arbitrario**: es el cambio de base. R redondea el resultado a entero, que es lo que hace falta para contar intervalos.
+:::
+
+### Los límites tienen que ser inequívocos
+
+Si se toman las clases 205–245, 245–285, 285–325, aparece una ambigüedad: ¿el 245 va en la primera o en la segunda? Johnson (2012, §2.2) resuelve esto con una **convención de puntos extremos**: se decide de antemano a cuál de los dos intervalos pertenece el límite, y se aplica igual en toda la tabla. Los límites deben darse con tantos decimales como los datos originales.
+
+```{webr}
+# right = TRUE  ->  intervalos (a, b] , el extremo derecho entra
+# right = FALSE ->  intervalos [a, b) , el extremo izquierdo entra
+tabla <- table(cut(flota$consumo_m3_dia, breaks = K_R, right = TRUE))
+tabla
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Aplique la regla de Sturges al consumo de su flota: obtenga $K$ con la fórmula, redondéelo al entero más próximo, y calcule después la amplitud $C$ con el rango de sus datos.
+
+Escriba sus dos números antes de comprobar.
+:::
+
+```{webr}
+mi_K <- 0        # sustituya
+mi_C <- 0        # sustituya
+
+verificar_sturges(mi_K)
+verificar_amplitud(mi_C)
+```
+
+## 1.3.2 Representaciones gráficas
+
+Un gráfico hace evidentes características que en una tabla pasan inadvertidas. La elección del gráfico **la impone la escala de medición**, no el gusto.
+
+[Ordóñez et al., 2025, §2.4.]{.fuente}
+
+| Escala | Gráfico | Regla que la escala impone |
+|---|---|---|
+| Nominal | Barras, pastel | El orden de las clases es arbitrario |
+| Ordinal | Barras | Las clases **deben** mantener el orden de la escala |
+| Continua | Histograma, polígono | Las barras se tocan: el eje es continuo |
+
+: Gráfico según la escala {.striped}
+
+::: {.definicion}
+**Histograma.** Gráfico de rectángulos cuyas bases se extienden entre fronteras de clase sucesivas. A diferencia del gráfico de barras, **los rectángulos se tocan**, porque el eje horizontal es una variable continua sin huecos entre las clases.
+
+Al unir los puntos medios de las cimas —las marcas de clase— se obtiene el **polígono de frecuencias**.
+
+[Ordóñez et al., 2025, §2.4; Johnson, 2012, §2.3.]{.fuente}
+:::
+
+```{webr}
+op <- par(mfrow = c(1, 2))
+
+barplot(table(flota$tipo), main = "Tipo de unidad (nominal)",
+        ylab = "unidades", col = "grey85")
+
+hist(flota$consumo_m3_dia, breaks = "Sturges", main = "Consumo (continua)",
+     xlab = "m3/dia", ylab = "unidades", col = "grey85")
+
+par(op)
+```
+
+::: {.predice}
+`estado_mar` es ordinal: calma < moderado < agitado. Antes de ejecutar la celda siguiente, diga qué error cometería el gráfico si R ordenase las categorías alfabéticamente.
+:::
+
+```{webr}
+barplot(table(flota$estado_mar), main = "Estado de la mar (ordinal)",
+        ylab = "singladuras", col = "grey85")
+
+levels(flota$estado_mar)      # el orden lo fija el factor, no el alfabeto
+```
+
+### Cuando los intervalos no son iguales
+
+Si las clases tienen anchos distintos, la altura del rectángulo ya no puede ser la frecuencia: un intervalo doble de ancho parecería el doble de importante sin serlo. Johnson (2012, §2.3) resuelve esto con el **histograma de densidad**, donde la altura se escala de modo que el **área total valga 1**. Entonces el área de cada rectángulo —no su altura— representa la proporción de datos.
+
+```{webr}
+hist(flota$consumo_m3_dia, breaks = "Sturges", freq = FALSE,
+     main = "Histograma de densidad", xlab = "m3/dia",
+     ylab = "densidad", col = "grey85")
+```
+
+### Otras dos representaciones que conviene conocer
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Tallo y hoja
+Se ubican decenas y centenas a la izquierda y unidades a la derecha. Permite contar los datos con facilidad **sin perder los valores originales**, cosa que el histograma sí hace.
+
+[Ordóñez et al., 2025, ej. 2.4, instrucción `stem`.]{.fuente}
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Diagrama de Pareto
+Ordena los tipos de falla de mayor a menor frecuencia y añade el porcentaje acumulado. Identifica los defectos importantes: por lo general dos o tres elementos representan más de la mitad del total.
+
+[Johnson, 2012, §2.1.]{.fuente}
+:::
+:::
+:::
+
+```{webr}
+stem(flota$consumo_m3_dia)
+```
+
+::: {.ejercicio}
+**Interpretar una salida sin calcular.** Observe el histograma de su consumo y responda: ¿tiene un solo pico o más de uno?
+
+**a)** Un histograma con dos picos sugiere que la muestra mezcla dos grupos con comportamientos distintos.
+**b)** Un histograma con dos picos indica que hay errores de medición.
+**c)** El número de picos no significa nada; depende sólo del número de clases.
+:::
+
+```{webr}
+revisar("p6", "escriba aquí a, b o c")
+```
+
+# Semana 4
+
+## 1.3.3 Medidas de tendencia central
+
+Una medida de posición es un valor simple, calculado sobre un grupo de datos, que se usa para resumirlos. Cuando ese valor está en el centro se llama **de tendencia central**.
+
+[Ordóñez et al., 2025, §2.5.1.]{.fuente}
+
+::: {.definicion}
+**Parámetro y estadístico, en símbolos.** Es costumbre representar las medidas de una **población** con letras griegas y las de una **muestra** con letras romanas. La media poblacional es $\mu$; la media muestral es $\bar{x}$.
+
+Por eso las dos fórmulas de la media se escriben distinto aunque hagan lo mismo: lo que cambia no es el cálculo, sino sobre qué conjunto se calcula.
+
+[Ordóñez et al., 2025, §2.5.1.]{.fuente}
+:::
+
+### La media aritmética
+
+Cociente de la suma de todos los valores entre el número total de valores:
+
+$$\mu = \frac{1}{N}\sum_{i=1}^{N} x_i \qquad\qquad \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+
+Su gran desventaja es la **sensibilidad a los datos extremos**: un solo dato extremo se manifiesta de inmediato en el promedio y pone en duda que sea un valor representativo del centro.
+
+Para datos agrupados, cada dato se sustituye por la marca de clase $x_i$ de su intervalo, ponderada por la frecuencia $f_i$:
+
+$$\bar{x} = \frac{\sum f_i x_i}{n}$$
+
+### La mediana
+
+Valor que ocupa el lugar central una vez ordenados los datos. Si $n$ es par, es el promedio de los dos valores centrales. **No la afecta un dato extremo**, y por eso se dice que es un indicador robusto.
+
+Para datos agrupados en intervalos:
+
+$$M_e = LI_{me} + \left(\frac{n/2 - F_{ant}}{f_{me}}\right) C$$
+
+donde $LI_{me}$ es el límite inferior de la clase mediana; $F_{ant}$, la frecuencia acumulada de la clase que la antecede; $f_{me}$, la frecuencia absoluta de la clase mediana; y $C$, la amplitud del intervalo. La **clase mediana** es aquella fila donde la frecuencia acumulada alcanza por primera vez $n/2$.
+
+[Ordóñez et al., 2025, §2.5.1.]{.fuente}
+
+### La moda
+
+Valor o clase que se presenta con mayor frecuencia. Si varios valores empatan, la distribución es **multimodal**. Para datos agrupados:
+
+$$M_o = LI_{Mo} + \left(\frac{D_a}{D_a + D_b}\right) C$$
+
+con $D_a$ la diferencia entre la frecuencia de la clase modal y la de la anterior, y $D_b$ la diferencia con la siguiente.
+
+[Ordóñez et al., 2025, §2.5.1.]{.fuente}
+
+::: {.predice}
+Su flota tiene una media y una mediana de consumo. Antes de ejecutar: ¿cuál de las dos espera que sea mayor, y qué le diría eso sobre la forma de la distribución?
+:::
+
+```{webr}
+c(media   = mean(flota$consumo_m3_dia),
+  mediana = median(flota$consumo_m3_dia))
+
+# La moda no está en R base: se busca la clase más frecuente
+tf <- table(cut(flota$consumo_m3_dia, breaks = nclass.Sturges(flota$consumo_m3_dia)))
+tf[which.max(tf)]
+```
+
+### Dos medias para casos particulares
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Media geométrica
+Raíz $n$-ésima del producto de los $n$ términos. **Se utiliza cuando las variables son porcentajes**, por ejemplo tasas de interés.
+
+$$G = \sqrt[n]{x_1 x_2 \cdots x_n}$$
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Media armónica
+Tamaño de la muestra dividido entre la suma de los recíprocos. El texto guía la aplica a **velocidades promedio** por tramos.
+
+$$H = \frac{n}{\sum 1/x_i}$$
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, §2.5.1, ejercicios 2.11 y 2.12.]{.fuente}
+
+::: {.inferencia}
+El ejercicio 2.12 del texto guía —un pelotón que recorre cuatro tramos a 8, 9, 10 y 6 km/h— pide comparar la media aritmética con la armónica. La armónica sale menor. La razón es que a menor velocidad se tarda más, de modo que el tramo lento pesa más tiempo en el total: promediar velocidades directamente le da a cada tramo el mismo peso, que no es lo que ocurre. El texto plantea la comparación pero no explica el mecanismo; esta lectura se sigue de sus datos.
+:::
+
+### Una tercera vía: la media recortada
+
+Devore (2016, §1.3) señala que la media y la mediana están en extremos opuestos de una misma familia: la media no recorta nada de los extremos, la mediana recorta todo lo posible. La **media recortada** es un compromiso: se elimina un porcentaje de cada extremo y se promedia lo que queda. Un recorte moderado, entre el 5 y el 25 %, da una medida ni tan sensible a los valores atípicos como la media ni tan insensible como la mediana.
+
+```{webr}
+c(media_0   = mean(flota$consumo_m3_dia),
+  recorte10 = mean(flota$consumo_m3_dia, trim = 0.10),
+  mediana   = median(flota$consumo_m3_dia))
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Tome las cinco primeras unidades de su flota y calcule la media de su consumo con papel y lápiz. Sume los cinco valores y divida entre cinco.
+:::
+
+```{webr}
+flota$consumo_m3_dia[1:5]
+
+mi_media <- 0      # sustituya por su resultado
+verificar_media5(mi_media)
+```
+
+## 1.3.4 Medidas de dispersión
+
+Las medidas de tendencia central identifican un valor típico; las de variabilidad describen **la dispersión de los datos respecto de ese centro**. Ordóñez et al. (§2.5.2) las llaman también medidas de riesgo o de precisión, y advierten que son muy importantes.
+
+::: {.franja}
+Dos flotas pueden tener el mismo consumo medio y comportarse de forma completamente distinta: una con todas las unidades cerca del promedio, otra con la mitad muy por debajo y la mitad muy por encima. **La media sola no distingue esos dos casos.** Para eso hace falta la dispersión.
+:::
+
+### Rango y rango intercuartílico
+
+El **rango** es la diferencia entre el mayor y el menor valor. Es la medida más simple y también la más frágil: depende sólo de dos datos, y basta un valor atípico para inflarlo.
+
+El **rango intercuartílico** ($IQR$) es la diferencia entre el tercer y el primer cuartil. Al descartar el 25 % inferior y el 25 % superior, elimina el efecto de los valores extremos y mide la dispersión de la mitad central de los datos.
+
+$$IQR = Q_3 - Q_1$$
+
+[Ordóñez et al., 2025, §2.5.2. Los cuartiles se tratan en el apartado 1.3.5.]{.fuente}
+
+### Varianza y desviación estándar
+
+La varianza mide la dispersión promedio de los datos alrededor de la media. Para una población de tamaño $N$:
+
+$$\sigma^2 = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N} \qquad\qquad \sigma = \sqrt{\sigma^2}$$
+
+Para una muestra **el divisor no es el mismo**:
+
+$$s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1} \qquad\qquad s = \sqrt{s^2}$$
+
+[Ordóñez et al., 2025, §2.5.2; Devore, 2016, §1.4.]{.fuente}
+
+::: {.definicion}
+**Por qué se divide entre $n-1$ y no entre $n$.** Devore (2016, §1.4) lo explica así: las observaciones de la muestra tienden a estar más cerca de su propia media $\bar{x}$ que de la media poblacional $\mu$. Si se dividiera entre $n$, el resultado **subestimaría** sistemáticamente a $\sigma^2$. Dividir entre un número algo más pequeño corrige esa subestimación.
+
+Se dice que $s^2$ tiene $n-1$ **grados de libertad**, porque las $n$ desviaciones $x_i - \bar{x}$ suman cero: fijadas $n-1$ de ellas, la última queda determinada. Sólo $n-1$ son libres.
+:::
+
+::: {.predice}
+Antes de ejecutar: ¿cree que la diferencia entre dividir por $n$ y por $n-1$ es grande con sus 40 unidades? ¿Y si fueran 5?
+:::
+
+```{webr}
+x <- flota$consumo_m3_dia
+n <- length(x)
+
+s2_muestral   <- sum((x - mean(x))^2) / (n - 1)
+s2_poblacional<- sum((x - mean(x))^2) / n
+
+c(a_mano = sqrt(s2_muestral), R = sd(x),          # deben coincidir
+  poblacional = sqrt(s2_poblacional))
+```
+
+### La regla empírica
+
+En distribuciones normales, aproximadamente el **68 %** de las observaciones se encuentra entre $\bar{x} \pm \sigma$; el **95.5 %** entre $\bar{x} \pm 2\sigma$; y el **99.7 %** entre $\bar{x} \pm 3\sigma$.
+
+[Ordóñez et al., 2025, §2.5.2.]{.fuente}
+
+::: {.inferencia}
+Los valores exactos son 68.27 %, 95.45 % y 99.73 %. El texto guía redondea, y el redondeo es correcto en los tres casos. Conviene retener que **la regla vale sólo si la distribución es aproximadamente normal**: aplicada a datos muy asimétricos da porcentajes equivocados. Ordóñez et al. lo enuncian condicionado a la normalidad; el subrayado es de este curso, porque es el error más frecuente al usarla.
+:::
+
+```{webr}
+m <- mean(flota$consumo_m3_dia); s <- sd(flota$consumo_m3_dia)
+
+dentro <- function(k) mean(abs(flota$consumo_m3_dia - m) <= k * s)
+
+round(c(k1 = dentro(1), k2 = dentro(2), k3 = dentro(3)), 3)
+```
+
+### Coeficiente de variación
+
+Permite analizar la variabilidad **relativa**: expresa la desviación estándar como fracción de la media, de modo que se puedan comparar dos conjuntos con unidades distintas.
+
+$$CV = \frac{s}{\bar{x}} \qquad\text{(muestra)} \qquad\qquad CV = \frac{\sigma}{\mu} \qquad\text{(población)}$$
+
+Ordóñez et al. (§2.5.2) recogen el criterio siguiente: si $CV \le 1$ los datos son homogéneos; si es mayor que 1.5 podrán ser heterogéneos. El criterio lo atribuyen a Galindo (2015).
+
+::: {.pendiente}
+El texto guía no indica qué ocurre en la franja $1 < CV \le 1.5$, ni de dónde salen esos dos umbrales. Tampoco aclara si el $CV$ se expresa como fracción o como porcentaje, aunque los umbrales 1 y 1.5 sólo tienen sentido como fracción.
+
+No se ha localizado la obra de Galindo (2015) para verificar el criterio en su fuente original. **Hasta entonces, este curso lo usa como referencia orientativa y no como umbral de decisión.**
+:::
+
+::: {.recomendacion}
+Use el $CV$ para lo que no admite discusión: **comparar la dispersión de dos variables medidas en unidades distintas**, como nudos y galones por hora. Para eso sirve, y para eso lo usan los tres textos. Evite apoyarse en el umbral de 1 para afirmar que una flota «es homogénea» sin más argumento.
+:::
+
+```{webr}
+cv <- function(x) sd(x) / mean(x)
+
+round(c(consumo = cv(flota$consumo_m3_dia),
+        nudos   = cv(flota$velocidad_nudos),
+        calado  = cv(flota$calado_m)), 4)
+```
+
+::: {.ejercicio}
+**Interpretar una salida sin calcular.** Mire los tres coeficientes de variación que acaba de obtener. ¿Qué permite afirmar la comparación?
+
+**a)** Que la variable con mayor $CV$ está peor medida que las otras dos.
+**b)** Que la variable con mayor $CV$ es, en términos relativos a su propio promedio, la más dispersa de las tres.
+**c)** Nada: al tener unidades distintas, los tres coeficientes no son comparables entre sí.
+:::
+
+```{webr}
+revisar("p7", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Obtenga la desviación típica del consumo de su flota **sin usar `sd()`**: calcule la media, las desviaciones respecto de ella, elévelas al cuadrado, súmelas, divida entre $n-1$ y saque la raíz.
+
+Después calcule el coeficiente de variación con ese resultado.
+:::
+
+```{webr}
+mi_s  <- 0       # sustituya
+mi_cv <- 0       # sustituya
+
+verificar_sd_consumo(mi_s)
+verificar_cv(mi_cv)
+```
+
+# Semana 5
+
+::: {.franja}
+La semana 5 empieza con el apartado **1.2.4, Determinación del tamaño de muestra**, que vive en la [página del tema 1.2](tema-1-2.qmd) y depende de la desviación estándar que se acaba de estudiar. Vuelva allí antes de seguir con 1.3.5.
+:::
+
+## 1.3.5 Medidas de posición
+
+La mediana divide los datos en dos partes iguales. Para obtener divisiones más finas se usan más puntos de corte: los **cuartiles** dividen en cuatro partes, los **quintiles** en cinco, los **deciles** en diez y los **percentiles** en cien.
+
+La mediana es el segundo cuartil. Bajo ella queda acumulado el 50 % de los datos. Los cuartiles requieren que los datos estén **al menos en escala ordinal**.
+
+[Ordóñez et al., 2025, §2.5.1; Devore, 2016, §1.3; Johnson, 2012, §2.6.]{.fuente}
+
+### Los tres libros dan tres respuestas distintas, y los tres tienen razón
+
+Este es el punto más delicado del tema, y conviene enfrentarlo de frente en lugar de descubrirlo en un examen.
+
+**Ordóñez et al.** sitúan el cuantil en la posición $p(n+1)$ del conjunto ordenado. Si la posición es fraccionaria, interpolan: suman al valor de la posición entera la parte decimal multiplicada por la diferencia con el dato siguiente.
+
+**Johnson** (§2.6) calcula $np$: si no es entero, lo redondea hacia arriba y toma ese valor ordenado; si es entero $k$, promedia las observaciones $k$ y $k+1$.
+
+**Devore** (§1.4) evita el problema usando **cuartos** en vez de cuartiles: separa la mitad inferior de la superior —incluyendo la mediana en ambas si $n$ es impar— y toma la mediana de cada mitad.
+
+Y R, por omisión, usa una cuarta convención distinta de las tres.
+
+::: {.tarjeta-teal}
+#### Devore lo dice en su propio texto
+
+«existen diferentes maneras razonables para calcular los cuartiles» —y por eso los valores pueden variar de un programa a otro.
+
+El mismo ejemplo 1.19 de Devore lo demuestra sin querer: sus cuartos dan 5.05 y 7.85, mientras que la salida de Minitab que él reproduce en la figura 1.19 da 5.025 y 7.875. **Dos cifras distintas para los mismos 40 datos, en la misma página del libro.**
+:::
+
+Esto no es un error de los libros. Es que la pregunta «¿cuál es el valor bajo el cual queda el 25 % de los datos?» no tiene respuesta única cuando $n$ no es múltiplo de 4. Cada convención elige un modo razonable de repartir la ambigüedad.
+
+R permite reproducir las tres con el argumento `type`. Se comprobó numéricamente sobre los datos publicados en cada libro:
+
+| Convención | `type` en R | Comprobación |
+|---|---|---|
+| Ordóñez, posición $p(n+1)$ | `type = 6` | Reproduce sus $Q_3 = 24500$ y $D_4 = 3980$ |
+| Johnson, regla de $np$ | `type = 2` | Reproduce sus $Q_1 = 278$, $Q_2 = 304.5$, $Q_3 = 330$, $P_{93} = 366$ |
+| Devore, cuartos | `type = 2` | Reproduce sus 5.05 y 7.85 |
+| Minitab, citado por Devore | `type = 6` | Reproduce sus 5.025 y 7.875 |
+| **R por omisión** | `type = 7` | No coincide con ninguno de los libros |
+
+: Cada convención y su equivalente en R {.striped}
+
+```{webr}
+# Los 15 pagos del ejercicio 2.13 del texto guía. Ordóñez obtiene Q3 = 24500
+pagos <- c(1500, 1500, 2800, 2800, 2800, 3900, 4100, 5300,
+           9200, 12900, 13600, 24500, 27500, 30900, 41500)
+
+c(Ordonez_type6 = quantile(pagos, .75, type = 6),
+  R_por_omision = quantile(pagos, .75))
+```
+
+::: {.recomendacion}
+En este curso, **si el enunciado pide calcular a mano, use la convención del texto guía**: posición $p(n+1)$ con interpolación, que en R es `type = 6`. Si pide usar R, `quantile()` sin más argumentos es válido siempre que se indique qué convención se está usando.
+
+Lo que no se acepta es entregar un número sin decir cómo se obtuvo. La diferencia entre 24500 y 19050 en el ejemplo de arriba es del 29 %: no es un detalle de redondeo.
+:::
+
+### El diagrama de caja
+
+Resume cinco números —mínimo, primer cuarto, mediana, tercer cuarto, máximo— y muestra a la vez el centro, la dispersión, la asimetría y los valores atípicos. Se apoya en medidas **resistentes**: la mediana y la distancia entre cuartos, que no se ven afectadas por lo que ocurra en el 25 % inferior o superior.
+
+[Devore, 2016, §1.4; Ordóñez et al., 2025, §2.5.2; Johnson, 2012, §2.6.]{.fuente}
+
+::: {.definicion}
+**Valor atípico.** Devore (§1.4) lo define por su distancia al cuarto más cercano: cualquier observación a más de $1.5\,f_s$ del cuarto más cercano es atípica, y es **extrema** si está a más de $3\,f_s$, donde $f_s$ es la distancia entre cuartos.
+
+Johnson (§2.6) formula la misma regla con el rango intercuartílico: el bigote llega hasta la observación más lejana que esté dentro de $1.5 \times IQR$ de $Q_1$ o $Q_3$; lo que quede fuera se dibuja como punto suelto.
+
+**El criterio 1.5 es idéntico en ambos libros.** Cambia el nombre de la medida de dispersión, no la regla.
+:::
+
+::: {.predice}
+Antes de ejecutar: ¿espera ver puntos sueltos fuera de los bigotes en su consumo? Si la mediana no queda centrada en la caja, ¿hacia qué lado se inclinará?
+:::
+
+```{webr}
+boxplot(flota$consumo_m3_dia, horizontal = TRUE, col = "grey90",
+        main = "Consumo de la flota", xlab = "m3/dia")
+
+# Los cinco números y el criterio de Devore
+q <- quantile(flota$consumo_m3_dia, c(.25, .75))
+c(fivenum = fivenum(flota$consumo_m3_dia),
+  limite_inf = q[1] - 1.5 * IQR(flota$consumo_m3_dia),
+  limite_sup = q[2] + 1.5 * IQR(flota$consumo_m3_dia))
+```
+
+Comparar varias cajas a la vez es donde el gráfico rinde más:
+
+```{webr}
+boxplot(consumo_m3_dia ~ tipo, data = flota, col = "grey90",
+        main = "Consumo por tipo de unidad", ylab = "m3/dia", xlab = "")
+```
+
+::: {.ejercicio}
+**Detectar el error.** Un guardiamarina calcula $Q_3$ a mano con la fórmula del texto guía, obtiene 24500, lo compara con la salida de `quantile()` en R, que le da 19050, y concluye que R está mal programado.
+
+¿Dónde está su error?
+
+**a)** En efecto R está mal: la fórmula del libro es la definición correcta de cuartil.
+**b)** No hay una única definición de cuartil cuando $n$ no es múltiplo de 4; el libro usa la posición $p(n+1)$ y R usa otra convención por omisión. Ambos son correctos dentro de su propia definición.
+**c)** El error está en el libro, porque interpola y la interpolación no es válida con datos discretos.
+:::
+
+```{webr}
+revisar("p8", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Obtenga $Q_3$ y el $IQR$ del consumo de su flota **con la convención del texto guía**: posición $p(n+1)$ en el conjunto ordenado, interpolando si sale fraccionaria.
+
+Con $n = 40$, la posición del tercer cuartil es $0.75 \times 41$. Ordene sus datos con la celda de abajo antes de empezar.
+:::
+
+```{webr}
+sort(flota$consumo_m3_dia)
+
+mi_q3  <- 0      # sustituya
+mi_iqr <- 0      # sustituya
+
+verificar_q3(mi_q3)
+verificar_iqr(mi_iqr)
+```
+
+## 1.3.6 Medidas de forma
+
+Hasta aquí se ha resumido dónde está el centro y cuánto se dispersan los datos. Falta **qué forma tiene** la distribución: si es simétrica, hacia qué lado se estira, y si está concentrada o aplanada alrededor del centro.
+
+### Asimetría
+
+Hay simetría cuando las distancias entre dos puntos simétricos respecto de un eje son iguales. El texto guía recoge dos coeficientes.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Coeficiente de Pearson
+Compara la media con la mediana y escala por la desviación estándar.
+
+$$A_P = \frac{3(\bar{x} - M_e)}{s}$$
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Coeficiente de Fisher $\alpha_3$
+Promedia las desviaciones al cubo, escaladas por $s^3$.
+
+$$\alpha_3 = \frac{\sum (x_i - \bar{x})^3}{n\,s^3}$$
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, §§2.6.1–2.6.2. El coeficiente de Fisher lo atribuyen a Galindo (2015). Para una población se cambia $n$ por $N$ y $s$ por $\sigma$.]{.fuente}
+
+Ambos se interpretan por el signo: **positivo**, la muestra está sesgada a la derecha; **negativo**, a la izquierda; **cero**, es perfectamente simétrica. Y esa asimetría se refleja en el orden de las tres medidas de centro:
+
+| Forma | Orden de las medidas |
+|---|---|
+| Asimetría positiva | $M_o < M_e < \bar{x}$ |
+| Asimetría negativa | $\bar{x} < M_e < M_o$ |
+| Simétrica perfecta | $M_o = M_e = \bar{x}$ |
+
+: Relación entre asimetría y medidas de centro {.striped}
+
+[Ordóñez et al., 2025, §2.6.2.]{.fuente}
+
+::: {.inferencia}
+El orden de la tabla tiene una lectura sencilla: la media es la única de las tres que se deja arrastrar por los valores extremos. Si la cola larga está a la derecha, sólo la media se desplaza hacia allá, y por eso queda por encima de la mediana y de la moda. **La tabla no es una regla que memorizar: es una consecuencia de que la media no es robusta y las otras dos sí.**
+:::
+
+### Curtosis
+
+Mide el grado de concentración de la información en la región central.
+
+$$\alpha_4 = \frac{\sum (x_i - \bar{x})^4}{n\,s^4} - 3$$
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta}
+#### Mesocúrtica
+$\alpha_4 = 0$. Concentración normal.
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-media}
+#### Leptocúrtica
+$\alpha_4 > 0$. Concentración alta: pico agudo.
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.tarjeta-oscura}
+#### Platicúrtica
+$\alpha_4 < 0$. Concentración baja: aplanada.
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, §2.7.1.]{.fuente}
+
+::: {.definicion}
+**De dónde sale el 3.** El texto guía escribe que si $\alpha_4 = 0$ la distribución es normal. Eso obliga a que la fórmula reste 3, porque el promedio de las desviaciones a la cuarta escaladas vale exactamente 3 en una distribución normal. Lo que se mide, entonces, es el **exceso** de curtosis respecto de la normal, no la curtosis bruta.
+
+Se comprobó numéricamente: sobre 100 000 valores normales simulados el coeficiente da $-0.02$, y sobre una exponencial da 6.17 frente al valor teórico 6.
+:::
+
+R base no trae funciones de asimetría ni de curtosis. Se escriben en dos líneas, y escribirlas es la mejor forma de entenderlas:
+
+```{webr}
+asimetria <- function(x) sum((x - mean(x))^3) / (length(x) * sd(x)^3)
+curtosis  <- function(x) sum((x - mean(x))^4) / (length(x) * sd(x)^4) - 3
+pearson   <- function(x) 3 * (mean(x) - median(x)) / sd(x)
+
+round(c(fisher  = asimetria(flota$consumo_m3_dia),
+        pearson = pearson(flota$consumo_m3_dia),
+        curtosis= curtosis(flota$consumo_m3_dia)), 4)
+```
+
+::: {.predice}
+Compruebe la tabla de arriba con sus propios datos: ordene su media, mediana y moda, y vea si el orden concuerda con el signo del coeficiente de asimetría que acaba de obtener.
+:::
+
+```{webr}
+c(media = mean(flota$consumo_m3_dia), mediana = median(flota$consumo_m3_dia))
+```
+
+::: {.ejercicio}
+**Interpretar una salida sin calcular.** Su coeficiente de Fisher salió con un signo determinado. ¿Qué se puede afirmar?
+
+**a)** Si es positivo, la cola larga de la distribución está a la derecha y la media supera a la mediana.
+**b)** Si es positivo, hay más datos a la derecha del centro que a la izquierda.
+**c)** El signo no significa nada; sólo importa la magnitud.
+:::
+
+```{webr}
+revisar("p9", "escriba aquí a, b o c")
+```
+
+## 1.3.7 Interpretación de indicadores
+
+El texto guía introduce todo el bloque de medidas bajo el nombre de **medidas de desempeño**, y las presenta como herramientas para la evaluación de la gestión que «proveen valores de referencia con el cual se puedan comparar o proponer metas». Los agrupa en tres tipos: medidas de posición, medidas de variabilidad o riesgo, y medidas de forma.
+
+[Ordóñez et al., 2025, §2.5.]{.fuente}
+
+::: {.pendiente}
+El sílabo enuncia el subtema como «Interpretación de indicadores» sin desarrollarlo, y ninguno de los cuatro textos del curso dedica un apartado con ese título. Lo más cercano es la introducción de Ordóñez et al. al §2.5, citada arriba, que es de dos párrafos.
+
+**No existe, por tanto, un tratamiento de fuente para este subtema.** Lo que sigue es la propuesta del docente, construida a partir de la interpretación que cada texto hace de sus propios ejemplos. No debe presentarse como doctrina de ningún libro.
+:::
+
+::: {.recomendacion}
+**Un indicador es una comparación, no un número.** Decir «el consumo medio es 92 m³/día» no informa de nada por sí solo. Informa cuando se compara con algo: con el mes anterior, con otro tipo de unidad, con la norma técnica, o con la dispersión de la propia flota.
+
+De ahí las tres preguntas que este curso exige responder antes de aceptar un indicador:
+
+1. **¿Con qué se compara?** Sin referencia no hay indicador.
+2. **¿Es robusto al dato raro?** Si una sola unidad puede mover el número, la media no sirve y hay que usar la mediana.
+3. **¿Viene acompañado de su dispersión?** Un promedio sin desviación estándar oculta justo lo que interesa: si la flota se comporta de forma pareja o no.
+:::
+
+Ordóñez et al. sí interpretan sus propios resultados, y de esas interpretaciones se puede extraer el método. Al comparar dos grupos de notas (§2.5.2, ejercicio 2.17) concluyen que las del segundo grupo «son mejores que las del primer grupo y tienen menor variabilidad»: es decir, **usan el centro y la dispersión a la vez, nunca uno solo**. Y al leer los diagramas de caja del mismo ejercicio deducen de la posición de la mediana dentro de la caja hacia qué lado se acumulan las observaciones.
+
+::: {.franja}
+Ese es el modelo a imitar: **centro, dispersión y forma en la misma frase**. «El consumo medio es de 92 m³/día con una desviación de 18, y la distribución se estira hacia los consumos altos» dice algo. «El consumo medio es de 92» no.
+:::
+
+### Ejercicio integrador
+
+::: {.ejercicio}
+**Informe de una variable.** Elija una de las tres variables continuas de su flota —`consumo_m3_dia`, `velocidad_nudos` o `calado_m`— y produzca un informe de cuatro líneas que incluya, en este orden: el centro, la dispersión, la forma y **una afirmación operativa** que un comandante pudiera usar para decidir algo.
+
+Ejecute primero la celda de abajo para tener todos los números a la vista.
+:::
+
+```{webr}
+v <- flota$consumo_m3_dia        # cámbiela por flota$velocidad_nudos o flota$calado_m
+
+round(c(n        = length(v),
+        media    = mean(v),
+        mediana  = median(v),
+        s        = sd(v),
+        CV       = sd(v) / mean(v),
+        IQR      = IQR(v),
+        asimetria= asimetria(v),
+        curtosis = curtosis(v)), 4)
+
+boxplot(v, horizontal = TRUE, col = "grey90", xlab = "")
+```
+
+::: {.ejercicio}
+**Detectar el error.** Un informe de flota afirma: «El consumo medio de la flota es de 92 m³/día, por lo que se presupuestará ese valor para todas las unidades el próximo trimestre.»
+
+¿Qué falta en ese razonamiento?
+
+**a)** Nada: la media es el mejor estimador del consumo de una unidad cualquiera.
+**b)** Ignora la dispersión. Con una desviación de 18 m³/día, muchas unidades consumirán bastante más de 92, y presupuestar la media dejará sin combustible a la mitad de la flota.
+**c)** Debió usarse la moda, porque es el valor más frecuente.
+:::
+
+```{webr}
+revisar("p10", "escriba aquí a, b o c")
+```
+
+## Para leer esta semana
+
+::: {.tarjeta}
+#### Lectura mínima
+
+Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa* (1.ª ed.). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.
+
+**Capítulo II completo**, repartido por semanas: §§2.1–2.4 para la semana 3; §2.5 para la semana 4; §§2.5.1 (cuartiles), 2.6 y 2.7 para la semana 5. Es el texto del que procede la estructura de este tema, y sus ejemplos son militares.
+:::
+
+::: {.tarjeta-media}
+#### Ampliación por subtema
+
+Johnson, R. A. (2012). *Probabilidad y estadística para ingenieros* (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.
+
+— §2.2 «Distribuciones de frecuencias» (pp. 14–17): la convención de puntos extremos y el criterio de 5 a 15 clases.
+— §2.3 «Histogramas» (pp. 18–24): el histograma de densidad, para clases de anchos distintos.
+— §2.6 «Cuartiles y percentiles» (pp. 29–33): la regla de $np$ y el diagrama de caja modificado.
+
+Devore, J. L. (2016). *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.
+
+— §1.3 «Medidas de ubicación» (pp. 29–36): la media recortada y la advertencia sobre las distintas definiciones de cuartil.
+— §1.4 «Medidas de variabilidad» (pp. 36–46): la justificación de $n-1$, los cuartos y el criterio $1.5\,f_s$ para valores atípicos.
+:::
+
+::: {.tarjeta-teal}
+#### Si un concepto no le entra
+
+Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+Capítulo 2, «Estadística descriptiva»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva>
+
+Gratuito, en español y con muchos más ejemplos que los tres impresos. Cubre los mismos contenidos con menos formalismo. Úselo cuando el texto guía le resulte apretado, no en lugar de él.
+:::
+
+::: {.franja}
+**Los cuatro textos están en la carpeta del curso**, salvo OpenStax, que es de acceso libre en línea. La ficha completa de cada uno, con los capítulos que interesan a lo largo del semestre, está en la [página de bibliografía](../bibliografia.qmd).
+:::

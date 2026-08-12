@@ -11,20 +11,57 @@ semilla_desde <- function(correo) {
 generar_flota <- function(correo) {
   set.seed(semilla_desde(correo))
   n <- 40
+
+  # El orden de estas llamadas fija los valores. No alterarlo.
+  tipo       <- sample(rep(c("Fragata", "Corbeta", "Patrullera", "Lancha misilera"),
+                           times = c(6, 10, 16, 8)))
+  base       <- sample(c("Guayaquil", "Manta", "Esmeraldas"), n, replace = TRUE)
+  velocidad  <- round(rnorm(n, runif(1, 16.5, 19.5), 3), 1)
+  calado     <- round(rnorm(n, runif(1, 4.0, 4.8), 0.9), 2)
+  consumo    <- round(rnorm(n, runif(1, 85, 99), 18), 1)
+  averias    <- rpois(n, runif(1, 1.0, 1.9))
+  mar        <- sample(c("marejadilla", "marejada", "fuerte marejada"),
+                       n, replace = TRUE)
+
+  # Distintivo óptico: prefijo por tipo + correlativo. No consume azar.
+  pref <- c(Fragata = "FM", Corbeta = "CM",
+            Patrullera = "PM", `Lancha misilera` = "LM")[tipo]
+  distintivo <- paste0(pref, "-", formatC(ave(seq_len(n), tipo, FUN = seq_along),
+                                          width = 2, flag = "0"))
+
   data.frame(
-    id      = 1:n,
-    tipo    = sample(rep(c("Fragata", "Corbeta", "Patrullera", "Lancha"),
-                         times = c(6, 10, 16, 8))),
-    puerto  = sample(c("Guayaquil", "Manta", "Esmeraldas"), n, replace = TRUE),
-    nudos   = round(rnorm(n, runif(1, 16.5, 19.5), 3), 1),
-    calado  = round(rnorm(n, runif(1, 4.0, 4.8), 0.9), 2),
-    consumo = round(rnorm(n, runif(1, 85, 99), 18), 1),
-    averias = rpois(n, runif(1, 1.0, 1.9)),
-    mar     = factor(sample(c("calma", "moderado", "agitado"), n, replace = TRUE),
-                     levels = c("calma", "moderado", "agitado"), ordered = TRUE),
+    distintivo       = distintivo,
+    tipo             = tipo,
+    base             = base,
+    velocidad_nudos  = velocidad,
+    calado_m         = calado,
+    consumo_m3_dia   = consumo,
+    averias_anio     = averias,
+    estado_mar       = factor(mar, ordered = TRUE,
+                              levels = c("marejadilla", "marejada", "fuerte marejada")),
     stringsAsFactors = FALSE
   )
 }
+
+# Qué significa cada campo, en qué unidad se mide y en qué escala está
+diccionario_flota <- data.frame(
+  campo = c("distintivo", "tipo", "base", "velocidad_nudos", "calado_m",
+            "consumo_m3_dia", "averias_anio", "estado_mar"),
+  significado = c(
+    "Distintivo óptico de la unidad",
+    "Tipo de unidad de superficie",
+    "Base naval de asignación",
+    "Velocidad máxima sostenida",
+    "Calado a plena carga",
+    "Consumo de combustible en navegación",
+    "Averías del último año que obligaron a suspender la comisión",
+    "Estado de la mar en la última salida (escala Douglas)"),
+  unidad = c("—", "—", "—", "nudos (1 nudo = 1 milla náutica/hora = 1.852 km/h)",
+             "metros", "metros cúbicos por día", "recuento", "grado Douglas"),
+  escala = c("Nominal", "Nominal", "Nominal", "De razón", "De razón",
+             "De razón", "De razón", "Ordinal"),
+  stringsAsFactors = FALSE
+)
 
 mi_correo <- "demostracion@espe.edu.ec"
 flota <- generar_flota(mi_correo)
@@ -49,13 +86,23 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p1 = list(op = "b",
             por = "La media poblacional es fija: no cambia porque cambie la muestra. Lo que varía es el estadístico."),
   p2 = list(op = "c",
-            por = "La mediana ordinal devuelve una categoría, no un número: 'moderado' es una respuesta legítima; 2.1 no lo es."),
+            por = "La mediana ordinal devuelve una categoría, no un número: 'marejada' es una respuesta legitima; 2.1 no lo es."),
   p3 = list(op = "a",
             por = "Tomar los primeros de la lista no es azar. El orden del listado puede estar relacionado con lo que se mide."),
   p4 = list(op = "b",
             por = "Como D = B²/4, dividir B entre dos divide D entre cuatro. En una población grande eso cuadruplica n. En una población pequeña como esta flota el efecto es menor, porque la corrección finita topa el crecimiento: no se puede necesitar más unidades de las que existen."),
   p5 = list(op = "c",
-            por = "Scheaffer, Mendenhall y Ott son explícitos: las sustituciones caprichosas modifican la estructura probabilística del diseño y pueden hacer imposible estimar el error de muestreo.")
+            por = "Scheaffer, Mendenhall y Ott son explícitos: las sustituciones caprichosas modifican la estructura probabilística del diseño y pueden hacer imposible estimar el error de muestreo."),
+  p6 = list(op = "a",
+            por = "Johnson (2012, seccion 2.3) lo ilustra con los balines: dos picos revelaron que el lote mezclaba dos maquinas distintas. El numero de picos es informacion, no ruido."),
+  p7 = list(op = "b",
+            por = "Para eso existe el coeficiente de variacion: al dividir entre la media, el resultado deja de tener unidades y si se puede comparar entre variables distintas. Es su unica ventaja sobre la desviacion tipica."),
+  p8 = list(op = "b",
+            por = "Devore lo dice en su propio texto: existen distintas maneras razonables de calcular los cuartiles, y los valores varian de un programa a otro. Ordonez usa la posicion p(n+1), que en R es type = 6; R por omision usa type = 7."),
+  p9 = list(op = "a",
+            por = "La opcion b confunde asimetria con cantidad de datos: en una distribucion sesgada a la derecha hay MENOS datos a la derecha, pero mas alejados. Eso es justo lo que estira la media por encima de la mediana."),
+  p10 = list(op = "b",
+            por = "Un promedio sin su dispersion oculta lo que interesa. Es el mismo error que Ordonez evita en el ejercicio 2.17, donde compara dos grupos usando media y variabilidad a la vez, nunca una sola.")
 )
 
 revisar <- function(id, letra) {
@@ -70,19 +117,51 @@ revisar <- function(id, letra) {
 }
 
 verificar_media_calado <- function(x)
-  verificar(x, mean(flota$calado), pista = "Suma los 40 calados y divide entre 40.")
+  verificar(x, mean(flota$calado_m), pista = "Suma los 40 calados, en metros, y divide entre 40.")
 
 verificar_prop_rapidas <- function(x)
-  verificar(x, mean(flota$nudos > 20),
+  verificar(x, mean(flota$velocidad_nudos > 20),
             pista = "Cuenta cuántas unidades superan los 20 nudos y divide entre 40.")
 
 verificar_rango_consumo <- function(x)
-  verificar(x, diff(range(flota$consumo)),
+  verificar(x, diff(range(flota$consumo_m3_dia)),
             pista = "El rango es el mayor menos el menor.")
 
 verificar_tamano <- function(x) {
-  s <- sd(flota$consumo); N <- 40; D <- 3^2 / 4
+  s <- sd(flota$consumo_m3_dia); N <- 40; D <- 3^2 / 4
   verificar(x, ceiling(N * s^2 / ((N - 1) * D + s^2)), tol = 0.02,
             pista = "n = N·s²/((N-1)·D + s²), con D = B²/4 y B = 3. Redondea hacia arriba.")
 }
+
+# --- Tema 1.3 ---------------------------------------------------------------
+
+verificar_sturges <- function(x)
+  verificar(x, round(1 + 3.32 * log10(nrow(flota))), tol = 0,
+            pista = "K = 1 + 3.32·log10(n), con n = 40. Redondea al entero mas proximo.")
+
+verificar_amplitud <- function(x) {
+  K <- round(1 + 3.32 * log10(nrow(flota)))
+  verificar(x, diff(range(flota$consumo_m3_dia)) / K, tol = 0.02,
+            pista = "C = (maximo - minimo) / K. Usa el K que acabas de obtener.")
+}
+
+verificar_media5 <- function(x)
+  verificar(x, mean(flota$consumo_m3_dia[1:5]),
+            pista = "Suma los cinco consumos que aparecen arriba y divide entre cinco.")
+
+verificar_sd_consumo <- function(x)
+  verificar(x, sd(flota$consumo_m3_dia),
+            pista = "Divide la suma de cuadrados entre n-1, no entre n, y saca la raiz.")
+
+verificar_cv <- function(x)
+  verificar(x, sd(flota$consumo_m3_dia) / mean(flota$consumo_m3_dia),
+            pista = "CV = s / media. Es un cociente sin unidades.")
+
+verificar_q3 <- function(x)
+  verificar(x, unname(quantile(flota$consumo_m3_dia, .75, type = 6)),
+            pista = "Usa la convencion del texto guia: posicion 0.75*(n+1) con interpolacion, que en R es type = 6.")
+
+verificar_iqr <- function(x)
+  verificar(x, unname(diff(quantile(flota$consumo_m3_dia, c(.25, .75), type = 6))),
+            pista = "IQR = Q3 - Q1, ambos con la convencion del texto guia (type = 6).")
 ```

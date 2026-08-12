@@ -79,8 +79,10 @@ Gratuito, en línea y en español. Es el más accesible de los cuatro: explica c
 |---|---|---|---|
 | 1 | 1.1 Introducción | Ordóñez, cap. I §§1.1–1.4 | OpenStax cap. 1; Devore §1.1 |
 | 2 | 1.2.1–1.2.3 Muestreo | Ordóñez, cap. I §§1.5–1.7 | **Scheaffer §2.4** (fuentes de error); Johnson §6.1 |
-| 3–5 | 1.3 Descriptiva | Ordóñez, cap. II | Devore §§1.2–1.4; OpenStax cap. 2 |
+| 3 | 1.3.1–1.3.2 Tablas y gráficos | Ordóñez, cap. II §§2.1–2.4 | **Johnson §§2.2–2.3**; OpenStax cap. 2 |
+| 4 | 1.3.3–1.3.4 Centro y dispersión | Ordóñez, cap. II §2.5 | **Devore §§1.3–1.4**; OpenStax cap. 2 |
 | 5 | 1.2.4 Tamaño de muestra | Ordóñez, cap. I §1.7 | **Scheaffer §4.4** (pp. 95–97) |
+| 5 | 1.3.5–1.3.7 Posición y forma | Ordóñez, cap. II §§2.5.1, 2.6–2.7 | **Johnson §2.6**; **Devore §1.4** |
 | 6–7 | 1.4 Conteo y probabilidad | Ordóñez, cap. III | Devore §§2.3–2.4 |
 | 8–12 | 2.x Modelos estocásticos | Ordóñez, cap. IV | Johnson cap. 5; Devore caps. 3–4 |
 | 13–16 | 3.x Inferencia y regresión | Ordóñez, cap. IV y apéndices | Johnson caps. 6 y 11; Devore caps. 5–7 |

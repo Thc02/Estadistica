@@ -26,6 +26,42 @@ Escríbalo tal como aparece en su cuenta institucional, en minúsculas y sin esp
 Copiar el resultado de un compañero no sirve de nada: su flota tiene otras velocidades, otros calados y otro reparto de tipos. Lo único que se puede compartir es el razonamiento, que es precisamente lo que interesa.
 :::
 
+### Qué mide cada columna
+
+Un dato sin unidad no es un dato. Decir que una unidad «tiene 4.37» no significa nada; decir que **cala 4.37 metros** sí. Antes de calcular nada, conviene tener a la vista qué se midió, en qué unidad y en qué escala.
+
+```{webr}
+diccionario_flota
+```
+
+::: {.definicion}
+**Distintivo óptico.** Combinación de letras y cifras que identifica a una unidad de superficie y que va pintada en su casco. Aquí el prefijo indica el tipo —`FM` fragata misilera, `CM` corbeta misilera, `PM` patrullera, `LM` lancha misilera— y el número es el correlativo dentro de ese tipo.
+
+Es un **identificador**, no una medida: `PM-07` no es «mayor» que `PM-03`. Aunque contenga cifras, la columna es nominal.
+:::
+
+::: {.definicion}
+**Nudo.** Unidad de velocidad de uso náutico: una **milla náutica por hora**. La milla náutica equivale a 1852 metros, así que 1 nudo = 1.852 km/h y una unidad que navega a 18 nudos avanza 33.3 km cada hora.
+
+No se dice «nudos por hora»: la hora ya está dentro de la definición.
+:::
+
+::: {.definicion}
+**Calado.** Distancia vertical entre la línea de flotación y la parte más baja del casco, en metros. Determina la profundidad mínima que la unidad necesita para navegar sin tocar fondo, y por eso condiciona a qué puertos y sobre qué sondas puede entrar.
+
+Se registra **a plena carga**, que es la condición más desfavorable.
+:::
+
+::: {.definicion}
+**Escala Douglas.** Escala internacional que clasifica el estado de la mar por la altura de las olas, del grado 0 (calma) al 9 (mar enorme). Aquí aparecen tres grados contiguos: **marejadilla** (grado 2, olas de 0.1 a 0.5 m), **marejada** (grado 3, de 0.5 a 1.25 m) y **fuerte marejada** (grado 4, de 1.25 a 2.5 m).
+
+Los grados están ordenados, pero la distancia entre ellos no es constante. Retenga este ejemplo: reaparece en el apartado 1.1.3 como el caso típico de **escala ordinal**.
+:::
+
+::: {.franja}
+**Los datos son sintéticos.** Están generados por computador para que usted practique. No corresponden a unidades ni a registros reales de la Armada, y ninguna conclusión que obtenga de ellos describe a la fuerza naval.
+:::
+
 ## 1.1.1 Importancia de la Estadística en las Ciencias Navales
 
 La dirección estratégica de una institución es más exitosa cuando sus análisis y decisiones se sustentan en cifras e indicadores medibles y reales. En el ámbito militar esto no es un lujo académico: es una condición de eficacia.
@@ -85,9 +121,9 @@ La primera línea de la celda describe toda la flota; la segunda infiere a parti
 :::
 
 ```{webr}
-mean(flota$nudos)                    # descriptiva: toda la flota
+mean(flota$velocidad_nudos)                    # descriptiva: toda la flota
 
-muestra <- sample(flota$nudos, 12)   # inferencial: sólo 12 unidades
+muestra <- sample(flota$velocidad_nudos, 12)   # inferencial: sólo 12 unidades
 mean(muestra)
 ```
 
@@ -140,7 +176,7 @@ Se calcula a partir de los datos observados.
 :::
 
 ::: {.franja}
-**Ejemplo naval.** Se quiere conocer el consumo promedio de combustible (galones/hora) de toda la flota de patrulleras. El promedio real de TODA la flota es el parámetro: existe, es fijo y lo desconocemos. Al medir una muestra de 12 patrulleras y calcular su consumo promedio obtenemos un estadístico, que usamos para estimar ese parámetro.
+**Ejemplo naval.** Se quiere conocer el consumo promedio diario de combustible (m³/día) de toda la flota de patrulleras. El promedio real de TODA la flota es el parámetro: existe, es fijo y lo desconocemos. Al medir una muestra de 12 patrulleras y calcular su consumo promedio obtenemos un estadístico, que usamos para estimar ese parámetro.
 :::
 
 ::: {.predice}
@@ -148,9 +184,9 @@ La celda calcula el parámetro una vez y diez estadísticos a partir de diez mue
 :::
 
 ```{webr}
-parametro <- mean(flota$consumo)
+parametro <- mean(flota$consumo_m3_dia)
 
-estadisticos <- replicate(10, mean(sample(flota$consumo, 12)))
+estadisticos <- replicate(10, mean(sample(flota$consumo_m3_dia, 12)))
 
 round(c(parametro = parametro, estadisticos), 1)
 ```
@@ -188,8 +224,8 @@ Toma valores con unidades comparables: se pueden hacer cálculos.
 #### Variable categórica (cualitativa)
 Ubica al individuo en una categoría; sólo cabe contar y comparar frecuencias.
 
-- **Nominal** — sin orden: tipo de embarcación, puerto base.
-- **Ordinal** — con orden: nivel de alistamiento, estado del mar.
+- **Nominal** — sin orden: tipo de unidad, base naval de asignación.
+- **Ordinal** — con orden: nivel de alistamiento, estado de la mar.
 :::
 :::
 :::
@@ -199,7 +235,7 @@ Ubica al individuo en una categoría; sólo cabe contar y comparar frecuencias.
 :::
 
 ```{webr}
-mean(flota$nudos)      # numérica: el promedio tiene sentido
+mean(flota$velocidad_nudos)      # numérica: el promedio tiene sentido
 
 table(flota$tipo)      # categórica: sólo cabe contar
 ```
@@ -226,7 +262,7 @@ Los números sirven solamente como **etiqueta** para catalogar o identificar. No
 Define una relación de **orden**: mide si hay más o menos de la característica, pero no cuánto más.
 
 - Jerarquía de mando (Alférez < Teniente < Capitán)
-- Estado del mar (calma, moderado, agitado)
+- Estado de la mar en la escala Douglas (marejadilla, marejada, fuerte marejada)
 
 [Capitán (4) tiene más de algo que Teniente (3), pero no es "su doble".]{.ejemplo}
 :::
@@ -238,17 +274,23 @@ En el nivel ordinal ya tienen sentido el conteo y la acumulación de elementos o
 :::
 
 ```{webr}
-table(flota$mar)      # ordinal: contar y ordenar, sí
+table(flota$estado_mar)          # ordinal: contar y ordenar, sí
 
-median(flota$mar)     # ordinal: la mediana tiene sentido
+# La mediana ordinal es la categoría donde la acumulación pasa la mitad
+niveles <- levels(flota$estado_mar)
+niveles[which(cumsum(table(flota$estado_mar)) >= nrow(flota) / 2)[1]]
 ```
 
+::: {.franja}
+`median()` no acepta un factor ordenado: devuelve el error *«need numeric data»*. La mediana ordinal **existe**, pero R exige calcularla acumulando frecuencias, como arriba. El resultado es una **categoría**, no un número.
+:::
+
 ::: {.ejercicio}
-**Detectar el error.** Un oficial quiere resumir el estado del mar de la singladura y escribe el código de abajo. Le sale un número y lo reporta como "estado del mar promedio: 2.1". Ejecútelo y decida qué está mal.
+**Detectar el error.** Un oficial quiere resumir el estado del mar de la singladura y escribe el código de abajo. Le sale un número y lo reporta como "estado de la mar promedio: 2.1". Ejecútelo y decida qué está mal.
 :::
 
 ```{webr}
-codigos <- as.numeric(flota$mar)   # calma = 1, moderado = 2, agitado = 3
+codigos <- as.numeric(flota$estado_mar)   # marejadilla = 1, marejada = 2, fuerte marejada = 3
 mean(codigos)
 ```
 
@@ -257,7 +299,7 @@ mean(codigos)
 
 **a)** Ninguno: los códigos son números y su promedio es válido.
 **b)** El cálculo está bien pero habría que redondearlo a un entero.
-**c)** Codificar como 1, 2 y 3 no convierte la escala en cuantitativa: la distancia entre "calma" y "moderado" no es la misma que entre "moderado" y "agitado", así que promediarlas no significa nada.
+**c)** Codificar como 1, 2 y 3 no convierte la escala en cuantitativa: la distancia entre "marejadilla" y "marejada" no es la misma que entre "marejada" y "fuerte marejada", así que promediarlas no significa nada.
 :::
 
 ```{webr}
@@ -423,7 +465,7 @@ Fracción de la muestra que cumple una condición.
 :::
 
 ```{webr}
-range(flota$consumo)
+range(flota$consumo_m3_dia)
 ```
 
 ```{webr}
@@ -450,15 +492,15 @@ c(media = media_calado, proporcion = proporcion_rapidas)
 ## Pistas
 
 ::: {.hint exercise="ex_media"}
-Una proporción es la media de una condición verdadero/falso. `flota$nudos > 20` devuelve verdaderos y falsos; ¿qué ocurre si les aplica `mean()`?
+Una proporción es la media de una condición verdadero/falso. `flota$velocidad_nudos > 20` devuelve verdaderos y falsos; ¿qué ocurre si les aplica `mean()`?
 :::
 
 ## Solución
 
 ::: {.solution exercise="ex_media"}
 ```r
-media_calado <- mean(flota$calado)
-proporcion_rapidas <- mean(flota$nudos > 20)
+media_calado <- mean(flota$calado_m)
+proporcion_rapidas <- mean(flota$velocidad_nudos > 20)
 ```
 
 `mean()` sobre un vector lógico cuenta los verdaderos y divide entre el total: exactamente la definición de proporción.

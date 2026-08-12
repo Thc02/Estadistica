@@ -151,6 +151,52 @@ h4 { color: $navy; }
 
 .definicion p:last-child { margin-bottom: 0; }
 
+// Bloques que declaran de dónde viene lo que se afirma
+.inferencia, .recomendacion, .pendiente {
+  border-radius: 0 8px 8px 0;
+  padding: 0.7rem 1.1rem;
+  margin: 1.1rem 0;
+  background: #FFFFFF;
+}
+
+.inferencia::before, .recomendacion::before, .pendiente::before {
+  display: block;
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.inferencia {
+  border: 1px solid $linea;
+  border-left: 5px solid $muted;
+}
+.inferencia::before { content: "Inferencia razonable"; color: $muted; }
+
+.recomendacion {
+  border: 1px solid $linea;
+  border-left: 5px solid $navy;
+}
+.recomendacion::before { content: "Recomendación del docente"; color: $navy; }
+
+.pendiente {
+  border: 1px solid #E8D6D4;
+  border-left: 5px solid $rojo;
+  background: #FCF6F5;
+}
+.pendiente::before { content: "Información pendiente"; color: $rojo; }
+
+.inferencia p:last-child,
+.recomendacion p:last-child,
+.pendiente p:last-child { margin-bottom: 0; }
+
+// Referencia a la fuente, al final de un párrafo
+.fuente {
+  color: $muted;
+  font-size: 0.86em;
+}
+
 // Enunciado de ejercicio
 .ejercicio {
   background: #FFFFFF;
@@ -224,14 +270,16 @@ tbody tr:nth-child(even) { background: $claro; }
 
   // Las tarjetas y bloques no se parten entre páginas
   .tarjeta, .tarjeta-media, .tarjeta-oscura, .tarjeta-teal,
-  .franja, .predice, .ejercicio, .definicion, table, pre, figure {
+  .franja, .predice, .ejercicio, .definicion,
+  .inferencia, .recomendacion, .pendiente, table, pre, figure {
     break-inside: avoid;
     page-break-inside: avoid;
   }
 
   // En papel todo va sobre blanco; el borde izquierdo distingue el bloque
   .tarjeta, .tarjeta-media, .tarjeta-oscura, .tarjeta-teal,
-  .franja, .predice, .definicion {
+  .franja, .predice, .definicion,
+  .inferencia, .recomendacion, .pendiente {
     background: #FFFFFF !important;
     color: #000000 !important;
     border: 0.5pt solid #999999;
