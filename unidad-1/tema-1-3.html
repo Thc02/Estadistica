@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.3 Estadística descriptiva – Estadística para Ciencias Navales</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../unidad-1/tema-1-2.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-35be41c77121769438aa2aadf97518ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística para Ciencias Navales</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../plan.html"> 
+<span class="menu-text">Plan semanal</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad-1/tema-1-1.html">UC 1 · Estadística descriptiva y probabilidad</a></li><li class="breadcrumb-item"><a href="../unidad-1/tema-1-3.html">1.3 Estadística descriptiva</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plan semanal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliografía</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">UC 1 · Estadística descriptiva y probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Introducción a la Estadística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.2 Muestreo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">1.3 Estadística descriptiva</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#semana-3" id="toc-semana-3" class="nav-link active" data-scroll-target="#semana-3">Semana 3</a>
+  <ul class="collapse">
+  <li><a href="#tablas-de-distribución-de-frecuencias" id="toc-tablas-de-distribución-de-frecuencias" class="nav-link" data-scroll-target="#tablas-de-distribución-de-frecuencias">1.3.1 Tablas de distribución de frecuencias</a>
+  <ul class="collapse">
+  <li><a href="#las-cuatro-frecuencias" id="toc-las-cuatro-frecuencias" class="nav-link" data-scroll-target="#las-cuatro-frecuencias">Las cuatro frecuencias</a></li>
+  <li><a href="#cuando-la-variable-es-continua" id="toc-cuando-la-variable-es-continua" class="nav-link" data-scroll-target="#cuando-la-variable-es-continua">Cuando la variable es continua</a></li>
+  <li><a href="#los-límites-tienen-que-ser-inequívocos" id="toc-los-límites-tienen-que-ser-inequívocos" class="nav-link" data-scroll-target="#los-límites-tienen-que-ser-inequívocos">Los límites tienen que ser inequívocos</a></li>
+  </ul></li>
+  <li><a href="#representaciones-gráficas" id="toc-representaciones-gráficas" class="nav-link" data-scroll-target="#representaciones-gráficas">1.3.2 Representaciones gráficas</a>
+  <ul class="collapse">
+  <li><a href="#cuando-los-intervalos-no-son-iguales" id="toc-cuando-los-intervalos-no-son-iguales" class="nav-link" data-scroll-target="#cuando-los-intervalos-no-son-iguales">Cuando los intervalos no son iguales</a></li>
+  <li><a href="#otras-dos-representaciones-que-conviene-conocer" id="toc-otras-dos-representaciones-que-conviene-conocer" class="nav-link" data-scroll-target="#otras-dos-representaciones-que-conviene-conocer">Otras dos representaciones que conviene conocer</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#semana-4" id="toc-semana-4" class="nav-link" data-scroll-target="#semana-4">Semana 4</a>
+  <ul class="collapse">
+  <li><a href="#medidas-de-tendencia-central" id="toc-medidas-de-tendencia-central" class="nav-link" data-scroll-target="#medidas-de-tendencia-central">1.3.3 Medidas de tendencia central</a>
+  <ul class="collapse">
+  <li><a href="#la-media-aritmética" id="toc-la-media-aritmética" class="nav-link" data-scroll-target="#la-media-aritmética">La media aritmética</a></li>
+  <li><a href="#la-mediana" id="toc-la-mediana" class="nav-link" data-scroll-target="#la-mediana">La mediana</a></li>
+  <li><a href="#la-moda" id="toc-la-moda" class="nav-link" data-scroll-target="#la-moda">La moda</a></li>
+  <li><a href="#dos-medias-para-casos-particulares" id="toc-dos-medias-para-casos-particulares" class="nav-link" data-scroll-target="#dos-medias-para-casos-particulares">Dos medias para casos particulares</a></li>
+  <li><a href="#una-tercera-vía-la-media-recortada" id="toc-una-tercera-vía-la-media-recortada" class="nav-link" data-scroll-target="#una-tercera-vía-la-media-recortada">Una tercera vía: la media recortada</a></li>
+  </ul></li>
+  <li><a href="#medidas-de-dispersión" id="toc-medidas-de-dispersión" class="nav-link" data-scroll-target="#medidas-de-dispersión">1.3.4 Medidas de dispersión</a>
+  <ul class="collapse">
+  <li><a href="#rango-y-rango-intercuartílico" id="toc-rango-y-rango-intercuartílico" class="nav-link" data-scroll-target="#rango-y-rango-intercuartílico">Rango y rango intercuartílico</a></li>
+  <li><a href="#varianza-y-desviación-estándar" id="toc-varianza-y-desviación-estándar" class="nav-link" data-scroll-target="#varianza-y-desviación-estándar">Varianza y desviación estándar</a></li>
+  <li><a href="#la-regla-empírica" id="toc-la-regla-empírica" class="nav-link" data-scroll-target="#la-regla-empírica">La regla empírica</a></li>
+  <li><a href="#coeficiente-de-variación" id="toc-coeficiente-de-variación" class="nav-link" data-scroll-target="#coeficiente-de-variación">Coeficiente de variación</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#semana-5" id="toc-semana-5" class="nav-link" data-scroll-target="#semana-5">Semana 5</a>
+  <ul class="collapse">
+  <li><a href="#medidas-de-posición" id="toc-medidas-de-posición" class="nav-link" data-scroll-target="#medidas-de-posición">1.3.5 Medidas de posición</a>
+  <ul class="collapse">
+  <li><a href="#los-tres-libros-dan-tres-respuestas-distintas-y-los-tres-tienen-razón" id="toc-los-tres-libros-dan-tres-respuestas-distintas-y-los-tres-tienen-razón" class="nav-link" data-scroll-target="#los-tres-libros-dan-tres-respuestas-distintas-y-los-tres-tienen-razón">Los tres libros dan tres respuestas distintas, y los tres tienen razón</a></li>
+  <li><a href="#el-diagrama-de-caja" id="toc-el-diagrama-de-caja" class="nav-link" data-scroll-target="#el-diagrama-de-caja">El diagrama de caja</a></li>
+  </ul></li>
+  <li><a href="#medidas-de-forma" id="toc-medidas-de-forma" class="nav-link" data-scroll-target="#medidas-de-forma">1.3.6 Medidas de forma</a>
+  <ul class="collapse">
+  <li><a href="#asimetría" id="toc-asimetría" class="nav-link" data-scroll-target="#asimetría">Asimetría</a></li>
+  <li><a href="#curtosis" id="toc-curtosis" class="nav-link" data-scroll-target="#curtosis">Curtosis</a></li>
+  </ul></li>
+  <li><a href="#interpretación-de-indicadores" id="toc-interpretación-de-indicadores" class="nav-link" data-scroll-target="#interpretación-de-indicadores">1.3.7 Interpretación de indicadores</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-integrador" id="toc-ejercicio-integrador" class="nav-link" data-scroll-target="#ejercicio-integrador">Ejercicio integrador</a></li>
+  </ul></li>
+  <li><a href="#para-leer-esta-semana" id="toc-para-leer-esta-semana" class="nav-link" data-scroll-target="#para-leer-esta-semana">Para leer esta semana</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad-1/tema-1-1.html">UC 1 · Estadística descriptiva y probabilidad</a></li><li class="breadcrumb-item"><a href="../unidad-1/tema-1-3.html">1.3 Estadística descriptiva</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">1.3 Estadística descriptiva</h1>
+<p class="subtitle lead">UC 1 · Estadística descriptiva y probabilidad · Semanas 3, 4 y 5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiXG4jIFNlbWlsbGEgZGVyaXZhZGEgZGVsIGNvcnJlbyBpbnN0aXR1Y2lvbmFsOiBjYWRhIGd1YXJkaWFtYXJpbmEgcmVjaWJlIHN1IHByb3BpYSBmbG90YVxuc2VtaWxsYV9kZXNkZSA8LSBmdW5jdGlvbihjb3JyZW8pIHtcbiAgY3MgPC0gdXRmOFRvSW50KHRvbG93ZXIodHJpbXdzKGNvcnJlbykpKVxuICBhcy5pbnRlZ2VyKHN1bShjcyAqIHNlcV9hbG9uZyhjcykpICUlIDk5OTkxTClcbn1cblxuZ2VuZXJhcl9mbG90YSA8LSBmdW5jdGlvbihjb3JyZW8pIHtcbiAgc2V0LnNlZWQoc2VtaWxsYV9kZXNkZShjb3JyZW8pKVxuICBuIDwtIDQwXG5cbiAgIyBFbCBvcmRlbiBkZSBlc3RhcyBsbGFtYWRhcyBmaWphIGxvcyB2YWxvcmVzLiBObyBhbHRlcmFybG8uXG4gIHRpcG8gICAgICAgPC0gc2FtcGxlKHJlcChjKFwiRnJhZ2F0YVwiLCBcIkNvcmJldGFcIiwgXCJQYXRydWxsZXJhXCIsIFwiTGFuY2hhIG1pc2lsZXJhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgdGltZXMgPSBjKDYsIDEwLCAxNiwgOCkpKVxuICBiYXNlICAgICAgIDwtIHNhbXBsZShjKFwiR3VheWFxdWlsXCIsIFwiTWFudGFcIiwgXCJFc21lcmFsZGFzXCIpLCBuLCByZXBsYWNlID0gVFJVRSlcbiAgdmVsb2NpZGFkICA8LSByb3VuZChybm9ybShuLCBydW5pZigxLCAxNi41LCAxOS41KSwgMyksIDEpXG4gIGNhbGFkbyAgICAgPC0gcm91bmQocm5vcm0obiwgcnVuaWYoMSwgNC4wLCA0LjgpLCAwLjkpLCAyKVxuICBjb25zdW1vICAgIDwtIHJvdW5kKHJub3JtKG4sIHJ1bmlmKDEsIDg1LCA5OSksIDE4KSwgMSlcbiAgYXZlcmlhcyAgICA8LSBycG9pcyhuLCBydW5pZigxLCAxLjAsIDEuOSkpXG4gIG1hciAgICAgICAgPC0gc2FtcGxlKGMoXCJtYXJlamFkaWxsYVwiLCBcIm1hcmVqYWRhXCIsIFwiZnVlcnRlIG1hcmVqYWRhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICBuLCByZXBsYWNlID0gVFJVRSlcblxuICAjIERpc3RpbnRpdm8gw7NwdGljbzogcHJlZmlqbyBwb3IgdGlwbyArIGNvcnJlbGF0aXZvLiBObyBjb25zdW1lIGF6YXIuXG4gIHByZWYgPC0gYyhGcmFnYXRhID0gXCJGTVwiLCBDb3JiZXRhID0gXCJDTVwiLFxuICAgICAgICAgICAgUGF0cnVsbGVyYSA9IFwiUE1cIiwgYExhbmNoYSBtaXNpbGVyYWAgPSBcIkxNXCIpW3RpcG9dXG4gIGRpc3RpbnRpdm8gPC0gcGFzdGUwKHByZWYsIFwiLVwiLCBmb3JtYXRDKGF2ZShzZXFfbGVuKG4pLCB0aXBvLCBGVU4gPSBzZXFfYWxvbmcpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgd2lkdGggPSAyLCBmbGFnID0gXCIwXCIpKVxuXG4gIGRhdGEuZnJhbWUoXG4gICAgZGlzdGludGl2byAgICAgICA9IGRpc3RpbnRpdm8sXG4gICAgdGlwbyAgICAgICAgICAgICA9IHRpcG8sXG4gICAgYmFzZSAgICAgICAgICAgICA9IGJhc2UsXG4gICAgdmVsb2NpZGFkX251ZG9zICA9IHZlbG9jaWRhZCxcbiAgICBjYWxhZG9fbSAgICAgICAgID0gY2FsYWRvLFxuICAgIGNvbnN1bW9fbTNfZGlhICAgPSBjb25zdW1vLFxuICAgIGF2ZXJpYXNfYW5pbyAgICAgPSBhdmVyaWFzLFxuICAgIGVzdGFkb19tYXIgICAgICAgPSBmYWN0b3IobWFyLCBvcmRlcmVkID0gVFJVRSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxldmVscyA9IGMoXCJtYXJlamFkaWxsYVwiLCBcIm1hcmVqYWRhXCIsIFwiZnVlcnRlIG1hcmVqYWRhXCIpKSxcbiAgICBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0VcbiAgKVxufVxuXG4jIFF1w6kgc2lnbmlmaWNhIGNhZGEgY2FtcG8sIGVuIHF1w6kgdW5pZGFkIHNlIG1pZGUgeSBlbiBxdcOpIGVzY2FsYSBlc3TDoVxuZGljY2lvbmFyaW9fZmxvdGEgPC0gZGF0YS5mcmFtZShcbiAgY2FtcG8gPSBjKFwiZGlzdGludGl2b1wiLCBcInRpcG9cIiwgXCJiYXNlXCIsIFwidmVsb2NpZGFkX251ZG9zXCIsIFwiY2FsYWRvX21cIixcbiAgICAgICAgICAgIFwiY29uc3Vtb19tM19kaWFcIiwgXCJhdmVyaWFzX2FuaW9cIiwgXCJlc3RhZG9fbWFyXCIpLFxuICBzaWduaWZpY2FkbyA9IGMoXG4gICAgXCJEaXN0aW50aXZvIMOzcHRpY28gZGUgbGEgdW5pZGFkXCIsXG4gICAgXCJUaXBvIGRlIHVuaWRhZCBkZSBzdXBlcmZpY2llXCIsXG4gICAgXCJCYXNlIG5hdmFsIGRlIGFzaWduYWNpw7NuXCIsXG4gICAgXCJWZWxvY2lkYWQgbcOheGltYSBzb3N0ZW5pZGFcIixcbiAgICBcIkNhbGFkbyBhIHBsZW5hIGNhcmdhXCIsXG4gICAgXCJDb25zdW1vIGRlIGNvbWJ1c3RpYmxlIGVuIG5hdmVnYWNpw7NuXCIsXG4gICAgXCJBdmVyw61hcyBkZWwgw7psdGltbyBhw7FvIHF1ZSBvYmxpZ2Fyb24gYSBzdXNwZW5kZXIgbGEgY29taXNpw7NuXCIsXG4gICAgXCJFc3RhZG8gZGUgbGEgbWFyIGVuIGxhIMO6bHRpbWEgc2FsaWRhIChlc2NhbGEgRG91Z2xhcylcIiksXG4gIHVuaWRhZCA9IGMoXCLigJRcIiwgXCLigJRcIiwgXCLigJRcIiwgXCJudWRvcyAoMSBudWRvID0gMSBtaWxsYSBuw6F1dGljYS9ob3JhID0gMS44NTIga20vaClcIixcbiAgICAgICAgICAgICBcIm1ldHJvc1wiLCBcIm1ldHJvcyBjw7piaWNvcyBwb3IgZMOtYVwiLCBcInJlY3VlbnRvXCIsIFwiZ3JhZG8gRG91Z2xhc1wiKSxcbiAgZXNjYWxhID0gYyhcIk5vbWluYWxcIiwgXCJOb21pbmFsXCIsIFwiTm9taW5hbFwiLCBcIkRlIHJhesOzblwiLCBcIkRlIHJhesOzblwiLFxuICAgICAgICAgICAgIFwiRGUgcmF6w7NuXCIsIFwiRGUgcmF6w7NuXCIsIFwiT3JkaW5hbFwiKSxcbiAgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFXG4pXG5cbm1pX2NvcnJlbyA8LSBcImRlbW9zdHJhY2lvbkBlc3BlLmVkdS5lY1wiXG5mbG90YSA8LSBnZW5lcmFyX2Zsb3RhKG1pX2NvcnJlbylcblxuIyAtLS0gQXV0b3ZlcmlmaWNhY2nDs24gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuXG52ZXJpZmljYXIgPC0gZnVuY3Rpb24odmFsb3IsIGVzcGVyYWRvLCB0b2wgPSAwLjAxLCBwaXN0YSA9IFwiXCIpIHtcbiAgaWYgKG1pc3NpbmcodmFsb3IpIHx8IGxlbmd0aCh2YWxvcikgIT0gMSB8fCAhaXMubnVtZXJpYyh2YWxvcikgfHwgaXMubmEodmFsb3IpKSB7XG4gICAgY2F0KFwiQcO6biBubyBoYXkgdW4gbsO6bWVybyBxdWUgY29tcHJvYmFyLlxcblwiKTsgcmV0dXJuKGludmlzaWJsZShGQUxTRSkpXG4gIH1cbiAgb2sgPC0gYWJzKHZhbG9yIC0gZXNwZXJhZG8pIDw9IHRvbCAqIG1heCgxLCBhYnMoZXNwZXJhZG8pKVxuICBpZiAob2spIHtcbiAgICBjYXQoXCJDb3JyZWN0by4gIFR1IHZhbG9yOlwiLCByb3VuZCh2YWxvciwgNCksIFwiXFxuXCIpXG4gIH0gZWxzZSB7XG4gICAgY2F0KFwiVG9kYXbDrWEgbm8uICBUdSB2YWxvcjpcIiwgcm91bmQodmFsb3IsIDQpLCBcIlxcblwiKVxuICAgIGlmIChuemNoYXIocGlzdGEpKSBjYXQocGlzdGEsIFwiXFxuXCIpXG4gIH1cbiAgaW52aXNpYmxlKG9rKVxufVxuXG4uY2xhdmVzIDwtIGxpc3QoXG4gIHAxID0gbGlzdChvcCA9IFwiYlwiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBtZWRpYSBwb2JsYWNpb25hbCBlcyBmaWphOiBubyBjYW1iaWEgcG9ycXVlIGNhbWJpZSBsYSBtdWVzdHJhLiBMbyBxdWUgdmFyw61hIGVzIGVsIGVzdGFkw61zdGljby5cIiksXG4gIHAyID0gbGlzdChvcCA9IFwiY1wiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBtZWRpYW5hIG9yZGluYWwgZGV2dWVsdmUgdW5hIGNhdGVnb3LDrWEsIG5vIHVuIG7Dum1lcm86ICdtYXJlamFkYScgZXMgdW5hIHJlc3B1ZXN0YSBsZWdpdGltYTsgMi4xIG5vIGxvIGVzLlwiKSxcbiAgcDMgPSBsaXN0KG9wID0gXCJhXCIsXG4gICAgICAgICAgICBwb3IgPSBcIlRvbWFyIGxvcyBwcmltZXJvcyBkZSBsYSBsaXN0YSBubyBlcyBhemFyLiBFbCBvcmRlbiBkZWwgbGlzdGFkbyBwdWVkZSBlc3RhciByZWxhY2lvbmFkbyBjb24gbG8gcXVlIHNlIG1pZGUuXCIpLFxuICBwNCA9IGxpc3Qob3AgPSBcImJcIixcbiAgICAgICAgICAgIHBvciA9IFwiQ29tbyBEID0gQsKyLzQsIGRpdmlkaXIgQiBlbnRyZSBkb3MgZGl2aWRlIEQgZW50cmUgY3VhdHJvLiBFbiB1bmEgcG9ibGFjacOzbiBncmFuZGUgZXNvIGN1YWRydXBsaWNhIG4uIEVuIHVuYSBwb2JsYWNpw7NuIHBlcXVlw7FhIGNvbW8gZXN0YSBmbG90YSBlbCBlZmVjdG8gZXMgbWVub3IsIHBvcnF1ZSBsYSBjb3JyZWNjacOzbiBmaW5pdGEgdG9wYSBlbCBjcmVjaW1pZW50bzogbm8gc2UgcHVlZGUgbmVjZXNpdGFyIG3DoXMgdW5pZGFkZXMgZGUgbGFzIHF1ZSBleGlzdGVuLlwiKSxcbiAgcDUgPSBsaXN0KG9wID0gXCJjXCIsXG4gICAgICAgICAgICBwb3IgPSBcIlNjaGVhZmZlciwgTWVuZGVuaGFsbCB5IE90dCBzb24gZXhwbMOtY2l0b3M6IGxhcyBzdXN0aXR1Y2lvbmVzIGNhcHJpY2hvc2FzIG1vZGlmaWNhbiBsYSBlc3RydWN0dXJhIHByb2JhYmlsw61zdGljYSBkZWwgZGlzZcOxbyB5IHB1ZWRlbiBoYWNlciBpbXBvc2libGUgZXN0aW1hciBlbCBlcnJvciBkZSBtdWVzdHJlby5cIiksXG4gIHA2ID0gbGlzdChvcCA9IFwiYVwiLFxuICAgICAgICAgICAgcG9yID0gXCJKb2huc29uICgyMDEyLCBzZWNjaW9uIDIuMykgbG8gaWx1c3RyYSBjb24gbG9zIGJhbGluZXM6IGRvcyBwaWNvcyByZXZlbGFyb24gcXVlIGVsIGxvdGUgbWV6Y2xhYmEgZG9zIG1hcXVpbmFzIGRpc3RpbnRhcy4gRWwgbnVtZXJvIGRlIHBpY29zIGVzIGluZm9ybWFjaW9uLCBubyBydWlkby5cIiksXG4gIHA3ID0gbGlzdChvcCA9IFwiYlwiLFxuICAgICAgICAgICAgcG9yID0gXCJQYXJhIGVzbyBleGlzdGUgZWwgY29lZmljaWVudGUgZGUgdmFyaWFjaW9uOiBhbCBkaXZpZGlyIGVudHJlIGxhIG1lZGlhLCBlbCByZXN1bHRhZG8gZGVqYSBkZSB0ZW5lciB1bmlkYWRlcyB5IHNpIHNlIHB1ZWRlIGNvbXBhcmFyIGVudHJlIHZhcmlhYmxlcyBkaXN0aW50YXMuIEVzIHN1IHVuaWNhIHZlbnRhamEgc29icmUgbGEgZGVzdmlhY2lvbiB0aXBpY2EuXCIpLFxuICBwOCA9IGxpc3Qob3AgPSBcImJcIixcbiAgICAgICAgICAgIHBvciA9IFwiRGV2b3JlIGxvIGRpY2UgZW4gc3UgcHJvcGlvIHRleHRvOiBleGlzdGVuIGRpc3RpbnRhcyBtYW5lcmFzIHJhem9uYWJsZXMgZGUgY2FsY3VsYXIgbG9zIGN1YXJ0aWxlcywgeSBsb3MgdmFsb3JlcyB2YXJpYW4gZGUgdW4gcHJvZ3JhbWEgYSBvdHJvLiBPcmRvbmV6IHVzYSBsYSBwb3NpY2lvbiBwKG4rMSksIHF1ZSBlbiBSIGVzIHR5cGUgPSA2OyBSIHBvciBvbWlzaW9uIHVzYSB0eXBlID0gNy5cIiksXG4gIHA5ID0gbGlzdChvcCA9IFwiYVwiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBvcGNpb24gYiBjb25mdW5kZSBhc2ltZXRyaWEgY29uIGNhbnRpZGFkIGRlIGRhdG9zOiBlbiB1bmEgZGlzdHJpYnVjaW9uIHNlc2dhZGEgYSBsYSBkZXJlY2hhIGhheSBNRU5PUyBkYXRvcyBhIGxhIGRlcmVjaGEsIHBlcm8gbWFzIGFsZWphZG9zLiBFc28gZXMganVzdG8gbG8gcXVlIGVzdGlyYSBsYSBtZWRpYSBwb3IgZW5jaW1hIGRlIGxhIG1lZGlhbmEuXCIpLFxuICBwMTAgPSBsaXN0KG9wID0gXCJiXCIsXG4gICAgICAgICAgICBwb3IgPSBcIlVuIHByb21lZGlvIHNpbiBzdSBkaXNwZXJzaW9uIG9jdWx0YSBsbyBxdWUgaW50ZXJlc2EuIEVzIGVsIG1pc21vIGVycm9yIHF1ZSBPcmRvbmV6IGV2aXRhIGVuIGVsIGVqZXJjaWNpbyAyLjE3LCBkb25kZSBjb21wYXJhIGRvcyBncnVwb3MgdXNhbmRvIG1lZGlhIHkgdmFyaWFiaWxpZGFkIGEgbGEgdmV6LCBudW5jYSB1bmEgc29sYS5cIilcbilcblxucmV2aXNhciA8LSBmdW5jdGlvbihpZCwgbGV0cmEpIHtcbiAgayA8LSAuY2xhdmVzW1tpZF1dXG4gIGxldHJhIDwtIHRvbG93ZXIodHJpbXdzKGFzLmNoYXJhY3RlcihsZXRyYSkpKVxuICBpZiAoaWRlbnRpY2FsKGxldHJhLCBrJG9wKSkge1xuICAgIGNhdChcIkNvcnJlY3RvLlxcblwiLCBrJHBvciwgXCJcXG5cIilcbiAgfSBlbHNlIHtcbiAgICBjYXQoXCJObyBlcyBsYVwiLCB0b3VwcGVyKGxldHJhKSwgXCIuIFZ1ZWx2ZSBhIGxlZXIgbGEgc2FsaWRhIHkgcHJ1ZWJhIG90cmEgb3BjacOzbi5cXG5cIilcbiAgfVxuICBpbnZpc2libGUoaWRlbnRpY2FsKGxldHJhLCBrJG9wKSlcbn1cblxudmVyaWZpY2FyX21lZGlhX2NhbGFkbyA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgbWVhbihmbG90YSRjYWxhZG9fbSksIHBpc3RhID0gXCJTdW1hIGxvcyA0MCBjYWxhZG9zLCBlbiBtZXRyb3MsIHkgZGl2aWRlIGVudHJlIDQwLlwiKVxuXG52ZXJpZmljYXJfcHJvcF9yYXBpZGFzIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCBtZWFuKGZsb3RhJHZlbG9jaWRhZF9udWRvcyA+IDIwKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJDdWVudGEgY3XDoW50YXMgdW5pZGFkZXMgc3VwZXJhbiBsb3MgMjAgbnVkb3MgeSBkaXZpZGUgZW50cmUgNDAuXCIpXG5cbnZlcmlmaWNhcl9yYW5nb19jb25zdW1vIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCBkaWZmKHJhbmdlKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSksXG4gICAgICAgICAgICBwaXN0YSA9IFwiRWwgcmFuZ28gZXMgZWwgbWF5b3IgbWVub3MgZWwgbWVub3IuXCIpXG5cbnZlcmlmaWNhcl90YW1hbm8gPC0gZnVuY3Rpb24oeCkge1xuICBzIDwtIHNkKGZsb3RhJGNvbnN1bW9fbTNfZGlhKTsgTiA8LSA0MDsgRCA8LSAzXjIgLyA0XG4gIHZlcmlmaWNhcih4LCBjZWlsaW5nKE4gKiBzXjIgLyAoKE4gLSAxKSAqIEQgKyBzXjIpKSwgdG9sID0gMC4wMixcbiAgICAgICAgICAgIHBpc3RhID0gXCJuID0gTsK3c8KyLygoTi0xKcK3RCArIHPCsiksIGNvbiBEID0gQsKyLzQgeSBCID0gMy4gUmVkb25kZWEgaGFjaWEgYXJyaWJhLlwiKVxufVxuXG4jIC0tLSBUZW1hIDEuMyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxudmVyaWZpY2FyX3N0dXJnZXMgPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIHJvdW5kKDEgKyAzLjMyICogbG9nMTAobnJvdyhmbG90YSkpKSwgdG9sID0gMCxcbiAgICAgICAgICAgIHBpc3RhID0gXCJLID0gMSArIDMuMzLCt2xvZzEwKG4pLCBjb24gbiA9IDQwLiBSZWRvbmRlYSBhbCBlbnRlcm8gbWFzIHByb3hpbW8uXCIpXG5cbnZlcmlmaWNhcl9hbXBsaXR1ZCA8LSBmdW5jdGlvbih4KSB7XG4gIEsgPC0gcm91bmQoMSArIDMuMzIgKiBsb2cxMChucm93KGZsb3RhKSkpXG4gIHZlcmlmaWNhcih4LCBkaWZmKHJhbmdlKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSkgLyBLLCB0b2wgPSAwLjAyLFxuICAgICAgICAgICAgcGlzdGEgPSBcIkMgPSAobWF4aW1vIC0gbWluaW1vKSAvIEsuIFVzYSBlbCBLIHF1ZSBhY2FiYXMgZGUgb2J0ZW5lci5cIilcbn1cblxudmVyaWZpY2FyX21lZGlhNSA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgbWVhbihmbG90YSRjb25zdW1vX20zX2RpYVsxOjVdKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJTdW1hIGxvcyBjaW5jbyBjb25zdW1vcyBxdWUgYXBhcmVjZW4gYXJyaWJhIHkgZGl2aWRlIGVudHJlIGNpbmNvLlwiKVxuXG52ZXJpZmljYXJfc2RfY29uc3VtbyA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgc2QoZmxvdGEkY29uc3Vtb19tM19kaWEpLFxuICAgICAgICAgICAgcGlzdGEgPSBcIkRpdmlkZSBsYSBzdW1hIGRlIGN1YWRyYWRvcyBlbnRyZSBuLTEsIG5vIGVudHJlIG4sIHkgc2FjYSBsYSByYWl6LlwiKVxuXG52ZXJpZmljYXJfY3YgPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIHNkKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSAvIG1lYW4oZmxvdGEkY29uc3Vtb19tM19kaWEpLFxuICAgICAgICAgICAgcGlzdGEgPSBcIkNWID0gcyAvIG1lZGlhLiBFcyB1biBjb2NpZW50ZSBzaW4gdW5pZGFkZXMuXCIpXG5cbnZlcmlmaWNhcl9xMyA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgdW5uYW1lKHF1YW50aWxlKGZsb3RhJGNvbnN1bW9fbTNfZGlhLCAuNzUsIHR5cGUgPSA2KSksXG4gICAgICAgICAgICBwaXN0YSA9IFwiVXNhIGxhIGNvbnZlbmNpb24gZGVsIHRleHRvIGd1aWE6IHBvc2ljaW9uIDAuNzUqKG4rMSkgY29uIGludGVycG9sYWNpb24sIHF1ZSBlbiBSIGVzIHR5cGUgPSA2LlwiKVxuXG52ZXJpZmljYXJfaXFyIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCB1bm5hbWUoZGlmZihxdWFudGlsZShmbG90YSRjb25zdW1vX20zX2RpYSwgYyguMjUsIC43NSksIHR5cGUgPSA2KSkpLFxuICAgICAgICAgICAgcGlzdGEgPSBcIklRUiA9IFEzIC0gUTEsIGFtYm9zIGNvbiBsYSBjb252ZW5jaW9uIGRlbCB0ZXh0byBndWlhICh0eXBlID0gNikuXCIpIn0=
+</script>
+</div>
+</div>
+<p>Una flota de cuarenta unidades produce demasiados números para leerlos de corrido. La estadística descriptiva los reduce a unos pocos resúmenes —tablas, gráficos e indicadores— que dejan ver lo esencial sin tener que mirar el dato por dato.</p>
+<div class="franja">
+<p><strong>Cómo leer esta página.</strong> Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque <strong>Inferencia razonable</strong> es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en <strong>Recomendación del docente</strong> es una decisión de este curso, no una verdad estadística. Lo que va en <strong>Información pendiente</strong> es un vacío declarado: falta la fuente y así se dice.</p>
+</div>
+<p>Empiece cargando su flota. Los datos son suyos: nadie más tiene estos cuarenta buques.</p>
+<div class="cell">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBlbGxpZG8ubm9tYnJlQGVzcGUuZWR1LmVjXCJcblxuZmxvdGEgPC0gZ2VuZXJhcl9mbG90YShtaV9jb3JyZW8pXG5zdHIoZmxvdGEpIn0=
+</script>
+</div>
+</div>
+<div class="franja">
+<p>¿No recuerda qué mide cada columna? Ejecute <code>diccionario_flota</code> en cualquier celda: devuelve el campo, su significado, su unidad y su escala. Las unidades son parte del resultado, no un adorno.</p>
+</div>
+<section id="semana-3" class="level1">
+<h1>Semana 3</h1>
+<section id="tablas-de-distribución-de-frecuencias" class="level2">
+<h2 class="anchored" data-anchor-id="tablas-de-distribución-de-frecuencias">1.3.1 Tablas de distribución de frecuencias</h2>
+<p>Organizar los datos es acomodarlos para que revelen sus características informativas y simplifiquen el análisis. Cuando hay pocos datos basta con ordenarlos; cuando son muchos, el arreglo ordenado se vuelve difícil de manejar y se recurre a una <strong>tabla de frecuencias</strong>.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.2.</span></p>
+<section id="las-cuatro-frecuencias" class="level3">
+<h3 class="anchored" data-anchor-id="las-cuatro-frecuencias">Las cuatro frecuencias</h3>
+<p>Las respuestas observadas se llaman <strong>clases</strong>, y se simbolizan <span class="math inline">\(C_1, C_2, \dots, C_k\)</span>, donde <span class="math inline">\(k\)</span> es la cantidad de categorías distintas. Cada clase lleva asociadas cuatro frecuencias.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="absoluta-f_i" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="absoluta-f_i">Absoluta <span class="math inline">\(f_i\)</span></h4>
+<p>Número de elementos que pertenecen a la clase <span class="math inline">\(C_i\)</span>. Su suma es <span class="math inline">\(n\)</span>, el tamaño de la muestra.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="relativa-h_i" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="relativa-h_i">Relativa <span class="math inline">\(h_i\)</span></h4>
+<p>Elementos de la clase <span class="math inline">\(C_i\)</span> respecto del total. La suma de todas las frecuencias relativas es 1.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="absoluta-acumulada-f_i" class="level4 tarjeta-oscura">
+<h4 class="anchored" data-anchor-id="absoluta-acumulada-f_i">Absoluta acumulada <span class="math inline">\(F_i\)</span></h4>
+<p>Número total de elementos que pertenecen a las clases <span class="math inline">\(C_1, C_2, \dots, C_i\)</span>.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="relativa-acumulada-h_i" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="relativa-acumulada-h_i">Relativa acumulada <span class="math inline">\(H_i\)</span></h4>
+<p>Lo mismo, en proporción del total. La última vale 1.</p>
+</section>
+</div>
+</div>
+<p><span class="fuente">Ordóñez et al., 2025, §§2.3.1–2.3.4.</span></p>
+<p>Las acumuladas responden preguntas de tipo «hasta»: en el ejemplo del texto guía, <em>69 oficiales se han atrasado hasta en 4 ocasiones</em>, o <em>el 74 % de ellos se ha atrasado hasta en 3</em>.</p>
+<p>Con su flota, las cuatro frecuencias del número de averías salen en cuatro líneas:</p>
+<div class="predice">
+<p><code>averias_anio</code> cuenta averías por unidad. Antes de ejecutar: ¿cuál cree que será el valor más frecuente, y cuántas clases distintas espera ver?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZiAgPC0gdGFibGUoZmxvdGEkYXZlcmlhc19hbmlvKSAgICAgICAgICAjIGFic29sdXRhXG5oICA8LSBwcm9wLnRhYmxlKGYpICAgICAgICAgICAgICAgICAjIHJlbGF0aXZhXG5GXyA8LSBjdW1zdW0oZikgICAgICAgICAgICAgICAgICAgICAjIGFic29sdXRhIGFjdW11bGFkYVxuSCAgPC0gY3Vtc3VtKGgpICAgICAgICAgICAgICAgICAgICAgIyByZWxhdGl2YSBhY3VtdWxhZGFcblxucm91bmQocmJpbmQoZiwgaCwgRl8sIEgpLCAzKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="cuando-la-variable-es-continua" class="level3">
+<h3 class="anchored" data-anchor-id="cuando-la-variable-es-continua">Cuando la variable es continua</h3>
+<p>Con variables continuas casi ningún valor se repite, así que las clases dejan de ser valores y pasan a ser <strong>intervalos</strong>. Cada intervalo necesita un representante: la <strong>marca de clase</strong>, que es el valor medio del intervalo.</p>
+<div class="definicion">
+<p><strong>Marca de clase.</strong> Punto medio del intervalo. Sustituye a todos los datos que caen dentro de él en los cálculos posteriores. Si el intervalo es <span class="math inline">\([80, 90)\)</span>, su marca de clase es 85.</p>
+<p>Esto explica por qué la media calculada desde una tabla agrupada no coincide exactamente con la media de los datos originales: se han reemplazado los datos por sus marcas de clase.</p>
+</div>
+<p>Lo primero es decidir <strong>cuántos intervalos</strong>. Se usan reglas como Scott o Sturges; el texto guía usa habitualmente la de Sturges:</p>
+<p><span class="math display">\[K = 1 + 3.32 \log(n)\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.3, citando a D’Alessio, 2021. El logaritmo es decimal.</span></p>
+<p>Y la <strong>amplitud</strong> de cada intervalo se obtiene repartiendo el rango entre las <span class="math inline">\(K\)</span> clases:</p>
+<p><span class="math display">\[C = \frac{x_{\max} - x_{\min}}{K}\]</span></p>
+<p>Los intervalos se construyen sumando la amplitud al valor mínimo, y así sucesivamente hasta cubrir el máximo.</p>
+<div class="franja">
+<p><strong>Cuántas clases conviene.</strong> Ordóñez et al.&nbsp;(§2.3) recomiendan entre 5 y 15: menos da poca información, más da demasiada. Johnson (2012, §2.2) llega a la misma cifra por su cuenta —«rara vez es redituable utilizar menos de 5 o más de 15»— y añade la excepción de los conjuntos de varios cientos o miles de datos. <strong>Dos textos independientes coinciden en el rango.</strong></p>
+</div>
+<p>Verifiquemos que la regla de Sturges y la que trae R son la misma:</p>
+<div class="cell">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibiA8LSBucm93KGZsb3RhKVxuXG5LX2Zvcm11bGEgPC0gMSArIDMuMzIgKiBsb2cxMChuKSAgICAgIyBPcmTDs8OxZXpcbktfbG9nMiAgICA8LSAxICsgbG9nMihuKSAgICAgICAgICAgICAjIGZvcm1hIGVxdWl2YWxlbnRlLCBiYXNlIDJcbktfUiAgICAgICA8LSBuY2xhc3MuU3R1cmdlcyhmbG90YSRjb25zdW1vX20zX2RpYSlcblxuYyhPcmRvbmV6ID0gS19mb3JtdWxhLCBsb2cyID0gS19sb2cyLCBSID0gS19SKSJ9
+</script>
+</div>
+</div>
+<div class="inferencia">
+<p>Las dos primeras coinciden hasta la tercera cifra porque <span class="math inline">\(\log_2 n = 3.3219 \log_{10} n\)</span>, y 3.32 es ese factor redondeado. La constante 3.32 del texto guía <strong>no es un número arbitrario</strong>: es el cambio de base. R redondea el resultado a entero, que es lo que hace falta para contar intervalos.</p>
+</div>
+</section>
+<section id="los-límites-tienen-que-ser-inequívocos" class="level3">
+<h3 class="anchored" data-anchor-id="los-límites-tienen-que-ser-inequívocos">Los límites tienen que ser inequívocos</h3>
+<p>Si se toman las clases 205–245, 245–285, 285–325, aparece una ambigüedad: ¿el 245 va en la primera o en la segunda? Johnson (2012, §2.2) resuelve esto con una <strong>convención de puntos extremos</strong>: se decide de antemano a cuál de los dos intervalos pertenece el límite, y se aplica igual en toda la tabla. Los límites deben darse con tantos decimales como los datos originales.</p>
+<div class="cell">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyByaWdodCA9IFRSVUUgIC0+ICBpbnRlcnZhbG9zIChhLCBiXSAsIGVsIGV4dHJlbW8gZGVyZWNobyBlbnRyYVxuIyByaWdodCA9IEZBTFNFIC0+ICBpbnRlcnZhbG9zIFthLCBiKSAsIGVsIGV4dHJlbW8gaXpxdWllcmRvIGVudHJhXG50YWJsYSA8LSB0YWJsZShjdXQoZmxvdGEkY29uc3Vtb19tM19kaWEsIGJyZWFrcyA9IEtfUiwgcmlnaHQgPSBUUlVFKSlcbnRhYmxhIn0=
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Aplique la regla de Sturges al consumo de su flota: obtenga <span class="math inline">\(K\)</span> con la fórmula, redondéelo al entero más próximo, y calcule después la amplitud <span class="math inline">\(C\)</span> con el rango de sus datos.</p>
+<p>Escriba sus dos números antes de comprobar.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfSyA8LSAwICAgICAgICAjIHN1c3RpdHV5YVxubWlfQyA8LSAwICAgICAgICAjIHN1c3RpdHV5YVxuXG52ZXJpZmljYXJfc3R1cmdlcyhtaV9LKVxudmVyaWZpY2FyX2FtcGxpdHVkKG1pX0MpIn0=
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="representaciones-gráficas" class="level2">
+<h2 class="anchored" data-anchor-id="representaciones-gráficas">1.3.2 Representaciones gráficas</h2>
+<p>Un gráfico hace evidentes características que en una tabla pasan inadvertidas. La elección del gráfico <strong>la impone la escala de medición</strong>, no el gusto.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.4.</span></p>
+<table class="table-striped caption-top table">
+<caption>Gráfico según la escala</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Escala</th>
+<th>Gráfico</th>
+<th>Regla que la escala impone</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nominal</td>
+<td>Barras, pastel</td>
+<td>El orden de las clases es arbitrario</td>
+</tr>
+<tr class="even">
+<td>Ordinal</td>
+<td>Barras</td>
+<td>Las clases <strong>deben</strong> mantener el orden de la escala</td>
+</tr>
+<tr class="odd">
+<td>Continua</td>
+<td>Histograma, polígono</td>
+<td>Las barras se tocan: el eje es continuo</td>
+</tr>
+</tbody>
+</table>
+<div class="definicion">
+<p><strong>Histograma.</strong> Gráfico de rectángulos cuyas bases se extienden entre fronteras de clase sucesivas. A diferencia del gráfico de barras, <strong>los rectángulos se tocan</strong>, porque el eje horizontal es una variable continua sin huecos entre las clases.</p>
+<p>Al unir los puntos medios de las cimas —las marcas de clase— se obtiene el <strong>polígono de frecuencias</strong>.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.4; Johnson, 2012, §2.3.</span></p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoib3AgPC0gcGFyKG1mcm93ID0gYygxLCAyKSlcblxuYmFycGxvdCh0YWJsZShmbG90YSR0aXBvKSwgbWFpbiA9IFwiVGlwbyBkZSB1bmlkYWQgKG5vbWluYWwpXCIsXG4gICAgICAgIHlsYWIgPSBcInVuaWRhZGVzXCIsIGNvbCA9IFwiZ3JleTg1XCIpXG5cbmhpc3QoZmxvdGEkY29uc3Vtb19tM19kaWEsIGJyZWFrcyA9IFwiU3R1cmdlc1wiLCBtYWluID0gXCJDb25zdW1vIChjb250aW51YSlcIixcbiAgICAgeGxhYiA9IFwibTMvZGlhXCIsIHlsYWIgPSBcInVuaWRhZGVzXCIsIGNvbCA9IFwiZ3JleTg1XCIpXG5cbnBhcihvcCkifQ==
+</script>
+</div>
+</div>
+<div class="predice">
+<p><code>estado_mar</code> es ordinal: calma &lt; moderado &lt; agitado. Antes de ejecutar la celda siguiente, diga qué error cometería el gráfico si R ordenase las categorías alfabéticamente.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmFycGxvdCh0YWJsZShmbG90YSRlc3RhZG9fbWFyKSwgbWFpbiA9IFwiRXN0YWRvIGRlIGxhIG1hciAob3JkaW5hbClcIixcbiAgICAgICAgeWxhYiA9IFwic2luZ2xhZHVyYXNcIiwgY29sID0gXCJncmV5ODVcIilcblxubGV2ZWxzKGZsb3RhJGVzdGFkb19tYXIpICAgICAgIyBlbCBvcmRlbiBsbyBmaWphIGVsIGZhY3Rvciwgbm8gZWwgYWxmYWJldG8ifQ==
+</script>
+</div>
+</div>
+<section id="cuando-los-intervalos-no-son-iguales" class="level3">
+<h3 class="anchored" data-anchor-id="cuando-los-intervalos-no-son-iguales">Cuando los intervalos no son iguales</h3>
+<p>Si las clases tienen anchos distintos, la altura del rectángulo ya no puede ser la frecuencia: un intervalo doble de ancho parecería el doble de importante sin serlo. Johnson (2012, §2.3) resuelve esto con el <strong>histograma de densidad</strong>, donde la altura se escala de modo que el <strong>área total valga 1</strong>. Entonces el área de cada rectángulo —no su altura— representa la proporción de datos.</p>
+<div class="cell">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaGlzdChmbG90YSRjb25zdW1vX20zX2RpYSwgYnJlYWtzID0gXCJTdHVyZ2VzXCIsIGZyZXEgPSBGQUxTRSxcbiAgICAgbWFpbiA9IFwiSGlzdG9ncmFtYSBkZSBkZW5zaWRhZFwiLCB4bGFiID0gXCJtMy9kaWFcIixcbiAgICAgeWxhYiA9IFwiZGVuc2lkYWRcIiwgY29sID0gXCJncmV5ODVcIikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="otras-dos-representaciones-que-conviene-conocer" class="level3">
+<h3 class="anchored" data-anchor-id="otras-dos-representaciones-que-conviene-conocer">Otras dos representaciones que conviene conocer</h3>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="tallo-y-hoja" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="tallo-y-hoja">Tallo y hoja</h4>
+<p>Se ubican decenas y centenas a la izquierda y unidades a la derecha. Permite contar los datos con facilidad <strong>sin perder los valores originales</strong>, cosa que el histograma sí hace.</p>
+<p><span class="fuente">Ordóñez et al., 2025, ej. 2.4, instrucción <code>stem</code>.</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="diagrama-de-pareto" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="diagrama-de-pareto">Diagrama de Pareto</h4>
+<p>Ordena los tipos de falla de mayor a menor frecuencia y añade el porcentaje acumulado. Identifica los defectos importantes: por lo general dos o tres elementos representan más de la mitad del total.</p>
+<p><span class="fuente">Johnson, 2012, §2.1.</span></p>
+</section>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic3RlbShmbG90YSRjb25zdW1vX20zX2RpYSkifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar una salida sin calcular.</strong> Observe el histograma de su consumo y responda: ¿tiene un solo pico o más de uno?</p>
+<p><strong>a)</strong> Un histograma con dos picos sugiere que la muestra mezcla dos grupos con comportamientos distintos. <strong>b)</strong> Un histograma con dos picos indica que hay errores de medición. <strong>c)</strong> El número de picos no significa nada; depende sólo del número de clases.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-11" class="exercise-cell">
+
+</div>
+<script type="webr-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA2XCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="semana-4" class="level1">
+<h1>Semana 4</h1>
+<section id="medidas-de-tendencia-central" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-tendencia-central">1.3.3 Medidas de tendencia central</h2>
+<p>Una medida de posición es un valor simple, calculado sobre un grupo de datos, que se usa para resumirlos. Cuando ese valor está en el centro se llama <strong>de tendencia central</strong>.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.1.</span></p>
+<div class="definicion">
+<p><strong>Parámetro y estadístico, en símbolos.</strong> Es costumbre representar las medidas de una <strong>población</strong> con letras griegas y las de una <strong>muestra</strong> con letras romanas. La media poblacional es <span class="math inline">\(\mu\)</span>; la media muestral es <span class="math inline">\(\bar{x}\)</span>.</p>
+<p>Por eso las dos fórmulas de la media se escriben distinto aunque hagan lo mismo: lo que cambia no es el cálculo, sino sobre qué conjunto se calcula.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.1.</span></p>
+</div>
+<section id="la-media-aritmética" class="level3">
+<h3 class="anchored" data-anchor-id="la-media-aritmética">La media aritmética</h3>
+<p>Cociente de la suma de todos los valores entre el número total de valores:</p>
+<p><span class="math display">\[\mu = \frac{1}{N}\sum_{i=1}^{N} x_i \qquad\qquad \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\]</span></p>
+<p>Su gran desventaja es la <strong>sensibilidad a los datos extremos</strong>: un solo dato extremo se manifiesta de inmediato en el promedio y pone en duda que sea un valor representativo del centro.</p>
+<p>Para datos agrupados, cada dato se sustituye por la marca de clase <span class="math inline">\(x_i\)</span> de su intervalo, ponderada por la frecuencia <span class="math inline">\(f_i\)</span>:</p>
+<p><span class="math display">\[\bar{x} = \frac{\sum f_i x_i}{n}\]</span></p>
+</section>
+<section id="la-mediana" class="level3">
+<h3 class="anchored" data-anchor-id="la-mediana">La mediana</h3>
+<p>Valor que ocupa el lugar central una vez ordenados los datos. Si <span class="math inline">\(n\)</span> es par, es el promedio de los dos valores centrales. <strong>No la afecta un dato extremo</strong>, y por eso se dice que es un indicador robusto.</p>
+<p>Para datos agrupados en intervalos:</p>
+<p><span class="math display">\[M_e = LI_{me} + \left(\frac{n/2 - F_{ant}}{f_{me}}\right) C\]</span></p>
+<p>donde <span class="math inline">\(LI_{me}\)</span> es el límite inferior de la clase mediana; <span class="math inline">\(F_{ant}\)</span>, la frecuencia acumulada de la clase que la antecede; <span class="math inline">\(f_{me}\)</span>, la frecuencia absoluta de la clase mediana; y <span class="math inline">\(C\)</span>, la amplitud del intervalo. La <strong>clase mediana</strong> es aquella fila donde la frecuencia acumulada alcanza por primera vez <span class="math inline">\(n/2\)</span>.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.1.</span></p>
+</section>
+<section id="la-moda" class="level3">
+<h3 class="anchored" data-anchor-id="la-moda">La moda</h3>
+<p>Valor o clase que se presenta con mayor frecuencia. Si varios valores empatan, la distribución es <strong>multimodal</strong>. Para datos agrupados:</p>
+<p><span class="math display">\[M_o = LI_{Mo} + \left(\frac{D_a}{D_a + D_b}\right) C\]</span></p>
+<p>con <span class="math inline">\(D_a\)</span> la diferencia entre la frecuencia de la clase modal y la de la anterior, y <span class="math inline">\(D_b\)</span> la diferencia con la siguiente.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.1.</span></p>
+<div class="predice">
+<p>Su flota tiene una media y una mediana de consumo. Antes de ejecutar: ¿cuál de las dos espera que sea mayor, y qué le diría eso sobre la forma de la distribución?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-12" class="exercise-cell">
+
+</div>
+<script type="webr-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYyhtZWRpYSAgID0gbWVhbihmbG90YSRjb25zdW1vX20zX2RpYSksXG4gIG1lZGlhbmEgPSBtZWRpYW4oZmxvdGEkY29uc3Vtb19tM19kaWEpKVxuXG4jIExhIG1vZGEgbm8gZXN0w6EgZW4gUiBiYXNlOiBzZSBidXNjYSBsYSBjbGFzZSBtw6FzIGZyZWN1ZW50ZVxudGYgPC0gdGFibGUoY3V0KGZsb3RhJGNvbnN1bW9fbTNfZGlhLCBicmVha3MgPSBuY2xhc3MuU3R1cmdlcyhmbG90YSRjb25zdW1vX20zX2RpYSkpKVxudGZbd2hpY2gubWF4KHRmKV0ifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="dos-medias-para-casos-particulares" class="level3">
+<h3 class="anchored" data-anchor-id="dos-medias-para-casos-particulares">Dos medias para casos particulares</h3>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="media-geométrica" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="media-geométrica">Media geométrica</h4>
+<p>Raíz <span class="math inline">\(n\)</span>-ésima del producto de los <span class="math inline">\(n\)</span> términos. <strong>Se utiliza cuando las variables son porcentajes</strong>, por ejemplo tasas de interés.</p>
+<p><span class="math display">\[G = \sqrt[n]{x_1 x_2 \cdots x_n}\]</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="media-armónica" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="media-armónica">Media armónica</h4>
+<p>Tamaño de la muestra dividido entre la suma de los recíprocos. El texto guía la aplica a <strong>velocidades promedio</strong> por tramos.</p>
+<p><span class="math display">\[H = \frac{n}{\sum 1/x_i}\]</span></p>
+</section>
+</div>
+</div>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.1, ejercicios 2.11 y 2.12.</span></p>
+<div class="inferencia">
+<p>El ejercicio 2.12 del texto guía —un pelotón que recorre cuatro tramos a 8, 9, 10 y 6 km/h— pide comparar la media aritmética con la armónica. La armónica sale menor. La razón es que a menor velocidad se tarda más, de modo que el tramo lento pesa más tiempo en el total: promediar velocidades directamente le da a cada tramo el mismo peso, que no es lo que ocurre. El texto plantea la comparación pero no explica el mecanismo; esta lectura se sigue de sus datos.</p>
+</div>
+</section>
+<section id="una-tercera-vía-la-media-recortada" class="level3">
+<h3 class="anchored" data-anchor-id="una-tercera-vía-la-media-recortada">Una tercera vía: la media recortada</h3>
+<p>Devore (2016, §1.3) señala que la media y la mediana están en extremos opuestos de una misma familia: la media no recorta nada de los extremos, la mediana recorta todo lo posible. La <strong>media recortada</strong> es un compromiso: se elimina un porcentaje de cada extremo y se promedia lo que queda. Un recorte moderado, entre el 5 y el 25 %, da una medida ni tan sensible a los valores atípicos como la media ni tan insensible como la mediana.</p>
+<div class="cell">
+<div>
+<div id="webr-13" class="exercise-cell">
+
+</div>
+<script type="webr-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYyhtZWRpYV8wICAgPSBtZWFuKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSxcbiAgcmVjb3J0ZTEwID0gbWVhbihmbG90YSRjb25zdW1vX20zX2RpYSwgdHJpbSA9IDAuMTApLFxuICBtZWRpYW5hICAgPSBtZWRpYW4oZmxvdGEkY29uc3Vtb19tM19kaWEpKSJ9
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Tome las cinco primeras unidades de su flota y calcule la media de su consumo con papel y lápiz. Sume los cinco valores y divida entre cinco.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-14" class="exercise-cell">
+
+</div>
+<script type="webr-14-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZmxvdGEkY29uc3Vtb19tM19kaWFbMTo1XVxuXG5taV9tZWRpYSA8LSAwICAgICAgIyBzdXN0aXR1eWEgcG9yIHN1IHJlc3VsdGFkb1xudmVyaWZpY2FyX21lZGlhNShtaV9tZWRpYSkifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="medidas-de-dispersión" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-dispersión">1.3.4 Medidas de dispersión</h2>
+<p>Las medidas de tendencia central identifican un valor típico; las de variabilidad describen <strong>la dispersión de los datos respecto de ese centro</strong>. Ordóñez et al.&nbsp;(§2.5.2) las llaman también medidas de riesgo o de precisión, y advierten que son muy importantes.</p>
+<div class="franja">
+<p>Dos flotas pueden tener el mismo consumo medio y comportarse de forma completamente distinta: una con todas las unidades cerca del promedio, otra con la mitad muy por debajo y la mitad muy por encima. <strong>La media sola no distingue esos dos casos.</strong> Para eso hace falta la dispersión.</p>
+</div>
+<section id="rango-y-rango-intercuartílico" class="level3">
+<h3 class="anchored" data-anchor-id="rango-y-rango-intercuartílico">Rango y rango intercuartílico</h3>
+<p>El <strong>rango</strong> es la diferencia entre el mayor y el menor valor. Es la medida más simple y también la más frágil: depende sólo de dos datos, y basta un valor atípico para inflarlo.</p>
+<p>El <strong>rango intercuartílico</strong> (<span class="math inline">\(IQR\)</span>) es la diferencia entre el tercer y el primer cuartil. Al descartar el 25 % inferior y el 25 % superior, elimina el efecto de los valores extremos y mide la dispersión de la mitad central de los datos.</p>
+<p><span class="math display">\[IQR = Q_3 - Q_1\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.2. Los cuartiles se tratan en el apartado 1.3.5.</span></p>
+</section>
+<section id="varianza-y-desviación-estándar" class="level3">
+<h3 class="anchored" data-anchor-id="varianza-y-desviación-estándar">Varianza y desviación estándar</h3>
+<p>La varianza mide la dispersión promedio de los datos alrededor de la media. Para una población de tamaño <span class="math inline">\(N\)</span>:</p>
+<p><span class="math display">\[\sigma^2 = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N} \qquad\qquad \sigma = \sqrt{\sigma^2}\]</span></p>
+<p>Para una muestra <strong>el divisor no es el mismo</strong>:</p>
+<p><span class="math display">\[s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1} \qquad\qquad s = \sqrt{s^2}\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.2; Devore, 2016, §1.4.</span></p>
+<div class="definicion">
+<p><strong>Por qué se divide entre <span class="math inline">\(n-1\)</span> y no entre <span class="math inline">\(n\)</span>.</strong> Devore (2016, §1.4) lo explica así: las observaciones de la muestra tienden a estar más cerca de su propia media <span class="math inline">\(\bar{x}\)</span> que de la media poblacional <span class="math inline">\(\mu\)</span>. Si se dividiera entre <span class="math inline">\(n\)</span>, el resultado <strong>subestimaría</strong> sistemáticamente a <span class="math inline">\(\sigma^2\)</span>. Dividir entre un número algo más pequeño corrige esa subestimación.</p>
+<p>Se dice que <span class="math inline">\(s^2\)</span> tiene <span class="math inline">\(n-1\)</span> <strong>grados de libertad</strong>, porque las <span class="math inline">\(n\)</span> desviaciones <span class="math inline">\(x_i - \bar{x}\)</span> suman cero: fijadas <span class="math inline">\(n-1\)</span> de ellas, la última queda determinada. Sólo <span class="math inline">\(n-1\)</span> son libres.</p>
+</div>
+<div class="predice">
+<p>Antes de ejecutar: ¿cree que la diferencia entre dividir por <span class="math inline">\(n\)</span> y por <span class="math inline">\(n-1\)</span> es grande con sus 40 unidades? ¿Y si fueran 5?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-15" class="exercise-cell">
+
+</div>
+<script type="webr-15-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA8LSBmbG90YSRjb25zdW1vX20zX2RpYVxubiA8LSBsZW5ndGgoeClcblxuczJfbXVlc3RyYWwgICA8LSBzdW0oKHggLSBtZWFuKHgpKV4yKSAvIChuIC0gMSlcbnMyX3BvYmxhY2lvbmFsPC0gc3VtKCh4IC0gbWVhbih4KSleMikgLyBuXG5cbmMoYV9tYW5vID0gc3FydChzMl9tdWVzdHJhbCksIFIgPSBzZCh4KSwgICAgICAgICAgIyBkZWJlbiBjb2luY2lkaXJcbiAgcG9ibGFjaW9uYWwgPSBzcXJ0KHMyX3BvYmxhY2lvbmFsKSkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="la-regla-empírica" class="level3">
+<h3 class="anchored" data-anchor-id="la-regla-empírica">La regla empírica</h3>
+<p>En distribuciones normales, aproximadamente el <strong>68 %</strong> de las observaciones se encuentra entre <span class="math inline">\(\bar{x} \pm \sigma\)</span>; el <strong>95.5 %</strong> entre <span class="math inline">\(\bar{x} \pm 2\sigma\)</span>; y el <strong>99.7 %</strong> entre <span class="math inline">\(\bar{x} \pm 3\sigma\)</span>.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.2.</span></p>
+<div class="inferencia">
+<p>Los valores exactos son 68.27 %, 95.45 % y 99.73 %. El texto guía redondea, y el redondeo es correcto en los tres casos. Conviene retener que <strong>la regla vale sólo si la distribución es aproximadamente normal</strong>: aplicada a datos muy asimétricos da porcentajes equivocados. Ordóñez et al.&nbsp;lo enuncian condicionado a la normalidad; el subrayado es de este curso, porque es el error más frecuente al usarla.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-16" class="exercise-cell">
+
+</div>
+<script type="webr-16-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibSA8LSBtZWFuKGZsb3RhJGNvbnN1bW9fbTNfZGlhKTsgcyA8LSBzZChmbG90YSRjb25zdW1vX20zX2RpYSlcblxuZGVudHJvIDwtIGZ1bmN0aW9uKGspIG1lYW4oYWJzKGZsb3RhJGNvbnN1bW9fbTNfZGlhIC0gbSkgPD0gayAqIHMpXG5cbnJvdW5kKGMoazEgPSBkZW50cm8oMSksIGsyID0gZGVudHJvKDIpLCBrMyA9IGRlbnRybygzKSksIDMpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="coeficiente-de-variación" class="level3">
+<h3 class="anchored" data-anchor-id="coeficiente-de-variación">Coeficiente de variación</h3>
+<p>Permite analizar la variabilidad <strong>relativa</strong>: expresa la desviación estándar como fracción de la media, de modo que se puedan comparar dos conjuntos con unidades distintas.</p>
+<p><span class="math display">\[CV = \frac{s}{\bar{x}} \qquad\text{(muestra)} \qquad\qquad CV = \frac{\sigma}{\mu} \qquad\text{(población)}\]</span></p>
+<p>Ordóñez et al.&nbsp;(§2.5.2) recogen el criterio siguiente: si <span class="math inline">\(CV \le 1\)</span> los datos son homogéneos; si es mayor que 1.5 podrán ser heterogéneos. El criterio lo atribuyen a Galindo (2015).</p>
+<div class="pendiente">
+<p>El texto guía no indica qué ocurre en la franja <span class="math inline">\(1 &lt; CV \le 1.5\)</span>, ni de dónde salen esos dos umbrales. Tampoco aclara si el <span class="math inline">\(CV\)</span> se expresa como fracción o como porcentaje, aunque los umbrales 1 y 1.5 sólo tienen sentido como fracción.</p>
+<p>No se ha localizado la obra de Galindo (2015) para verificar el criterio en su fuente original. <strong>Hasta entonces, este curso lo usa como referencia orientativa y no como umbral de decisión.</strong></p>
+</div>
+<div class="recomendacion">
+<p>Use el <span class="math inline">\(CV\)</span> para lo que no admite discusión: <strong>comparar la dispersión de dos variables medidas en unidades distintas</strong>, como nudos y galones por hora. Para eso sirve, y para eso lo usan los tres textos. Evite apoyarse en el umbral de 1 para afirmar que una flota «es homogénea» sin más argumento.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-17" class="exercise-cell">
+
+</div>
+<script type="webr-17-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3YgPC0gZnVuY3Rpb24oeCkgc2QoeCkgLyBtZWFuKHgpXG5cbnJvdW5kKGMoY29uc3VtbyA9IGN2KGZsb3RhJGNvbnN1bW9fbTNfZGlhKSxcbiAgICAgICAgbnVkb3MgICA9IGN2KGZsb3RhJHZlbG9jaWRhZF9udWRvcyksXG4gICAgICAgIGNhbGFkbyAgPSBjdihmbG90YSRjYWxhZG9fbSkpLCA0KSJ9
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar una salida sin calcular.</strong> Mire los tres coeficientes de variación que acaba de obtener. ¿Qué permite afirmar la comparación?</p>
+<p><strong>a)</strong> Que la variable con mayor <span class="math inline">\(CV\)</span> está peor medida que las otras dos. <strong>b)</strong> Que la variable con mayor <span class="math inline">\(CV\)</span> es, en términos relativos a su propio promedio, la más dispersa de las tres. <strong>c)</strong> Nada: al tener unidades distintas, los tres coeficientes no son comparables entre sí.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-18" class="exercise-cell">
+
+</div>
+<script type="webr-18-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA3XCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Obtenga la desviación típica del consumo de su flota <strong>sin usar <code>sd()</code></strong>: calcule la media, las desviaciones respecto de ella, elévelas al cuadrado, súmelas, divida entre <span class="math inline">\(n-1\)</span> y saque la raíz.</p>
+<p>Después calcule el coeficiente de variación con ese resultado.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-19" class="exercise-cell">
+
+</div>
+<script type="webr-19-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfcyAgPC0gMCAgICAgICAjIHN1c3RpdHV5YVxubWlfY3YgPC0gMCAgICAgICAjIHN1c3RpdHV5YVxuXG52ZXJpZmljYXJfc2RfY29uc3VtbyhtaV9zKVxudmVyaWZpY2FyX2N2KG1pX2N2KSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="semana-5" class="level1">
+<h1>Semana 5</h1>
+<div class="franja">
+<p>La semana 5 empieza con el apartado <strong>1.2.4, Determinación del tamaño de muestra</strong>, que vive en la <a href="../unidad-1/tema-1-2.html">página del tema 1.2</a> y depende de la desviación estándar que se acaba de estudiar. Vuelva allí antes de seguir con 1.3.5.</p>
+</div>
+<section id="medidas-de-posición" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-posición">1.3.5 Medidas de posición</h2>
+<p>La mediana divide los datos en dos partes iguales. Para obtener divisiones más finas se usan más puntos de corte: los <strong>cuartiles</strong> dividen en cuatro partes, los <strong>quintiles</strong> en cinco, los <strong>deciles</strong> en diez y los <strong>percentiles</strong> en cien.</p>
+<p>La mediana es el segundo cuartil. Bajo ella queda acumulado el 50 % de los datos. Los cuartiles requieren que los datos estén <strong>al menos en escala ordinal</strong>.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.1; Devore, 2016, §1.3; Johnson, 2012, §2.6.</span></p>
+<section id="los-tres-libros-dan-tres-respuestas-distintas-y-los-tres-tienen-razón" class="level3">
+<h3 class="anchored" data-anchor-id="los-tres-libros-dan-tres-respuestas-distintas-y-los-tres-tienen-razón">Los tres libros dan tres respuestas distintas, y los tres tienen razón</h3>
+<p>Este es el punto más delicado del tema, y conviene enfrentarlo de frente en lugar de descubrirlo en un examen.</p>
+<p><strong>Ordóñez et al.</strong> sitúan el cuantil en la posición <span class="math inline">\(p(n+1)\)</span> del conjunto ordenado. Si la posición es fraccionaria, interpolan: suman al valor de la posición entera la parte decimal multiplicada por la diferencia con el dato siguiente.</p>
+<p><strong>Johnson</strong> (§2.6) calcula <span class="math inline">\(np\)</span>: si no es entero, lo redondea hacia arriba y toma ese valor ordenado; si es entero <span class="math inline">\(k\)</span>, promedia las observaciones <span class="math inline">\(k\)</span> y <span class="math inline">\(k+1\)</span>.</p>
+<p><strong>Devore</strong> (§1.4) evita el problema usando <strong>cuartos</strong> en vez de cuartiles: separa la mitad inferior de la superior —incluyendo la mediana en ambas si <span class="math inline">\(n\)</span> es impar— y toma la mediana de cada mitad.</p>
+<p>Y R, por omisión, usa una cuarta convención distinta de las tres.</p>
+<section id="devore-lo-dice-en-su-propio-texto" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="devore-lo-dice-en-su-propio-texto">Devore lo dice en su propio texto</h4>
+<p>«existen diferentes maneras razonables para calcular los cuartiles» —y por eso los valores pueden variar de un programa a otro.</p>
+<p>El mismo ejemplo 1.19 de Devore lo demuestra sin querer: sus cuartos dan 5.05 y 7.85, mientras que la salida de Minitab que él reproduce en la figura 1.19 da 5.025 y 7.875. <strong>Dos cifras distintas para los mismos 40 datos, en la misma página del libro.</strong></p>
+</section>
+<p>Esto no es un error de los libros. Es que la pregunta «¿cuál es el valor bajo el cual queda el 25 % de los datos?» no tiene respuesta única cuando <span class="math inline">\(n\)</span> no es múltiplo de 4. Cada convención elige un modo razonable de repartir la ambigüedad.</p>
+<p>R permite reproducir las tres con el argumento <code>type</code>. Se comprobó numéricamente sobre los datos publicados en cada libro:</p>
+<table class="table-striped caption-top table">
+<caption>Cada convención y su equivalente en R</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Convención</th>
+<th><code>type</code> en R</th>
+<th>Comprobación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ordóñez, posición <span class="math inline">\(p(n+1)\)</span></td>
+<td><code>type = 6</code></td>
+<td>Reproduce sus <span class="math inline">\(Q_3 = 24500\)</span> y <span class="math inline">\(D_4 = 3980\)</span></td>
+</tr>
+<tr class="even">
+<td>Johnson, regla de <span class="math inline">\(np\)</span></td>
+<td><code>type = 2</code></td>
+<td>Reproduce sus <span class="math inline">\(Q_1 = 278\)</span>, <span class="math inline">\(Q_2 = 304.5\)</span>, <span class="math inline">\(Q_3 = 330\)</span>, <span class="math inline">\(P_{93} = 366\)</span></td>
+</tr>
+<tr class="odd">
+<td>Devore, cuartos</td>
+<td><code>type = 2</code></td>
+<td>Reproduce sus 5.05 y 7.85</td>
+</tr>
+<tr class="even">
+<td>Minitab, citado por Devore</td>
+<td><code>type = 6</code></td>
+<td>Reproduce sus 5.025 y 7.875</td>
+</tr>
+<tr class="odd">
+<td><strong>R por omisión</strong></td>
+<td><code>type = 7</code></td>
+<td>No coincide con ninguno de los libros</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div>
+<div id="webr-20" class="exercise-cell">
+
+</div>
+<script type="webr-20-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBMb3MgMTUgcGFnb3MgZGVsIGVqZXJjaWNpbyAyLjEzIGRlbCB0ZXh0byBndcOtYS4gT3Jkw7PDsWV6IG9idGllbmUgUTMgPSAyNDUwMFxucGFnb3MgPC0gYygxNTAwLCAxNTAwLCAyODAwLCAyODAwLCAyODAwLCAzOTAwLCA0MTAwLCA1MzAwLFxuICAgICAgICAgICA5MjAwLCAxMjkwMCwgMTM2MDAsIDI0NTAwLCAyNzUwMCwgMzA5MDAsIDQxNTAwKVxuXG5jKE9yZG9uZXpfdHlwZTYgPSBxdWFudGlsZShwYWdvcywgLjc1LCB0eXBlID0gNiksXG4gIFJfcG9yX29taXNpb24gPSBxdWFudGlsZShwYWdvcywgLjc1KSkifQ==
+</script>
+</div>
+</div>
+<div class="recomendacion">
+<p>En este curso, <strong>si el enunciado pide calcular a mano, use la convención del texto guía</strong>: posición <span class="math inline">\(p(n+1)\)</span> con interpolación, que en R es <code>type = 6</code>. Si pide usar R, <code>quantile()</code> sin más argumentos es válido siempre que se indique qué convención se está usando.</p>
+<p>Lo que no se acepta es entregar un número sin decir cómo se obtuvo. La diferencia entre 24500 y 19050 en el ejemplo de arriba es del 29 %: no es un detalle de redondeo.</p>
+</div>
+</section>
+<section id="el-diagrama-de-caja" class="level3">
+<h3 class="anchored" data-anchor-id="el-diagrama-de-caja">El diagrama de caja</h3>
+<p>Resume cinco números —mínimo, primer cuarto, mediana, tercer cuarto, máximo— y muestra a la vez el centro, la dispersión, la asimetría y los valores atípicos. Se apoya en medidas <strong>resistentes</strong>: la mediana y la distancia entre cuartos, que no se ven afectadas por lo que ocurra en el 25 % inferior o superior.</p>
+<p><span class="fuente">Devore, 2016, §1.4; Ordóñez et al., 2025, §2.5.2; Johnson, 2012, §2.6.</span></p>
+<div class="definicion">
+<p><strong>Valor atípico.</strong> Devore (§1.4) lo define por su distancia al cuarto más cercano: cualquier observación a más de <span class="math inline">\(1.5\,f_s\)</span> del cuarto más cercano es atípica, y es <strong>extrema</strong> si está a más de <span class="math inline">\(3\,f_s\)</span>, donde <span class="math inline">\(f_s\)</span> es la distancia entre cuartos.</p>
+<p>Johnson (§2.6) formula la misma regla con el rango intercuartílico: el bigote llega hasta la observación más lejana que esté dentro de <span class="math inline">\(1.5 \times IQR\)</span> de <span class="math inline">\(Q_1\)</span> o <span class="math inline">\(Q_3\)</span>; lo que quede fuera se dibuja como punto suelto.</p>
+<p><strong>El criterio 1.5 es idéntico en ambos libros.</strong> Cambia el nombre de la medida de dispersión, no la regla.</p>
+</div>
+<div class="predice">
+<p>Antes de ejecutar: ¿espera ver puntos sueltos fuera de los bigotes en su consumo? Si la mediana no queda centrada en la caja, ¿hacia qué lado se inclinará?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-21" class="exercise-cell">
+
+</div>
+<script type="webr-21-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYm94cGxvdChmbG90YSRjb25zdW1vX20zX2RpYSwgaG9yaXpvbnRhbCA9IFRSVUUsIGNvbCA9IFwiZ3JleTkwXCIsXG4gICAgICAgIG1haW4gPSBcIkNvbnN1bW8gZGUgbGEgZmxvdGFcIiwgeGxhYiA9IFwibTMvZGlhXCIpXG5cbiMgTG9zIGNpbmNvIG7Dum1lcm9zIHkgZWwgY3JpdGVyaW8gZGUgRGV2b3JlXG5xIDwtIHF1YW50aWxlKGZsb3RhJGNvbnN1bW9fbTNfZGlhLCBjKC4yNSwgLjc1KSlcbmMoZml2ZW51bSA9IGZpdmVudW0oZmxvdGEkY29uc3Vtb19tM19kaWEpLFxuICBsaW1pdGVfaW5mID0gcVsxXSAtIDEuNSAqIElRUihmbG90YSRjb25zdW1vX20zX2RpYSksXG4gIGxpbWl0ZV9zdXAgPSBxWzJdICsgMS41ICogSVFSKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSkifQ==
+</script>
+</div>
+</div>
+<p>Comparar varias cajas a la vez es donde el gráfico rinde más:</p>
+<div class="cell">
+<div>
+<div id="webr-22" class="exercise-cell">
+
+</div>
+<script type="webr-22-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYm94cGxvdChjb25zdW1vX20zX2RpYSB+IHRpcG8sIGRhdGEgPSBmbG90YSwgY29sID0gXCJncmV5OTBcIixcbiAgICAgICAgbWFpbiA9IFwiQ29uc3VtbyBwb3IgdGlwbyBkZSB1bmlkYWRcIiwgeWxhYiA9IFwibTMvZGlhXCIsIHhsYWIgPSBcIlwiKSJ9
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Detectar el error.</strong> Un guardiamarina calcula <span class="math inline">\(Q_3\)</span> a mano con la fórmula del texto guía, obtiene 24500, lo compara con la salida de <code>quantile()</code> en R, que le da 19050, y concluye que R está mal programado.</p>
+<p>¿Dónde está su error?</p>
+<p><strong>a)</strong> En efecto R está mal: la fórmula del libro es la definición correcta de cuartil. <strong>b)</strong> No hay una única definición de cuartil cuando <span class="math inline">\(n\)</span> no es múltiplo de 4; el libro usa la posición <span class="math inline">\(p(n+1)\)</span> y R usa otra convención por omisión. Ambos son correctos dentro de su propia definición. <strong>c)</strong> El error está en el libro, porque interpola y la interpolación no es válida con datos discretos.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-23" class="exercise-cell">
+
+</div>
+<script type="webr-23-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA4XCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Obtenga <span class="math inline">\(Q_3\)</span> y el <span class="math inline">\(IQR\)</span> del consumo de su flota <strong>con la convención del texto guía</strong>: posición <span class="math inline">\(p(n+1)\)</span> en el conjunto ordenado, interpolando si sale fraccionaria.</p>
+<p>Con <span class="math inline">\(n = 40\)</span>, la posición del tercer cuartil es <span class="math inline">\(0.75 \times 41\)</span>. Ordene sus datos con la celda de abajo antes de empezar.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-24" class="exercise-cell">
+
+</div>
+<script type="webr-24-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic29ydChmbG90YSRjb25zdW1vX20zX2RpYSlcblxubWlfcTMgIDwtIDAgICAgICAjIHN1c3RpdHV5YVxubWlfaXFyIDwtIDAgICAgICAjIHN1c3RpdHV5YVxuXG52ZXJpZmljYXJfcTMobWlfcTMpXG52ZXJpZmljYXJfaXFyKG1pX2lxcikifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="medidas-de-forma" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-forma">1.3.6 Medidas de forma</h2>
+<p>Hasta aquí se ha resumido dónde está el centro y cuánto se dispersan los datos. Falta <strong>qué forma tiene</strong> la distribución: si es simétrica, hacia qué lado se estira, y si está concentrada o aplanada alrededor del centro.</p>
+<section id="asimetría" class="level3">
+<h3 class="anchored" data-anchor-id="asimetría">Asimetría</h3>
+<p>Hay simetría cuando las distancias entre dos puntos simétricos respecto de un eje son iguales. El texto guía recoge dos coeficientes.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="coeficiente-de-pearson" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="coeficiente-de-pearson">Coeficiente de Pearson</h4>
+<p>Compara la media con la mediana y escala por la desviación estándar.</p>
+<p><span class="math display">\[A_P = \frac{3(\bar{x} - M_e)}{s}\]</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="coeficiente-de-fisher-alpha_3" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="coeficiente-de-fisher-alpha_3">Coeficiente de Fisher <span class="math inline">\(\alpha_3\)</span></h4>
+<p>Promedia las desviaciones al cubo, escaladas por <span class="math inline">\(s^3\)</span>.</p>
+<p><span class="math display">\[\alpha_3 = \frac{\sum (x_i - \bar{x})^3}{n\,s^3}\]</span></p>
+</section>
+</div>
+</div>
+<p><span class="fuente">Ordóñez et al., 2025, §§2.6.1–2.6.2. El coeficiente de Fisher lo atribuyen a Galindo (2015). Para una población se cambia <span class="math inline">\(n\)</span> por <span class="math inline">\(N\)</span> y <span class="math inline">\(s\)</span> por <span class="math inline">\(\sigma\)</span>.</span></p>
+<p>Ambos se interpretan por el signo: <strong>positivo</strong>, la muestra está sesgada a la derecha; <strong>negativo</strong>, a la izquierda; <strong>cero</strong>, es perfectamente simétrica. Y esa asimetría se refleja en el orden de las tres medidas de centro:</p>
+<table class="table-striped caption-top table">
+<caption>Relación entre asimetría y medidas de centro</caption>
+<thead>
+<tr class="header">
+<th>Forma</th>
+<th>Orden de las medidas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Asimetría positiva</td>
+<td><span class="math inline">\(M_o &lt; M_e &lt; \bar{x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Asimetría negativa</td>
+<td><span class="math inline">\(\bar{x} &lt; M_e &lt; M_o\)</span></td>
+</tr>
+<tr class="odd">
+<td>Simétrica perfecta</td>
+<td><span class="math inline">\(M_o = M_e = \bar{x}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="fuente">Ordóñez et al., 2025, §2.6.2.</span></p>
+<div class="inferencia">
+<p>El orden de la tabla tiene una lectura sencilla: la media es la única de las tres que se deja arrastrar por los valores extremos. Si la cola larga está a la derecha, sólo la media se desplaza hacia allá, y por eso queda por encima de la mediana y de la moda. <strong>La tabla no es una regla que memorizar: es una consecuencia de que la media no es robusta y las otras dos sí.</strong></p>
+</div>
+</section>
+<section id="curtosis" class="level3">
+<h3 class="anchored" data-anchor-id="curtosis">Curtosis</h3>
+<p>Mide el grado de concentración de la información en la región central.</p>
+<p><span class="math display">\[\alpha_4 = \frac{\sum (x_i - \bar{x})^4}{n\,s^4} - 3\]</span></p>
+<div class="grid">
+<div class="g-col-12 g-col-md-4">
+<section id="mesocúrtica" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="mesocúrtica">Mesocúrtica</h4>
+<p><span class="math inline">\(\alpha_4 = 0\)</span>. Concentración normal.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="leptocúrtica" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="leptocúrtica">Leptocúrtica</h4>
+<p><span class="math inline">\(\alpha_4 &gt; 0\)</span>. Concentración alta: pico agudo.</p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="platicúrtica" class="level4 tarjeta-oscura">
+<h4 class="anchored" data-anchor-id="platicúrtica">Platicúrtica</h4>
+<p><span class="math inline">\(\alpha_4 &lt; 0\)</span>. Concentración baja: aplanada.</p>
+</section>
+</div>
+</div>
+<p><span class="fuente">Ordóñez et al., 2025, §2.7.1.</span></p>
+<div class="definicion">
+<p><strong>De dónde sale el 3.</strong> El texto guía escribe que si <span class="math inline">\(\alpha_4 = 0\)</span> la distribución es normal. Eso obliga a que la fórmula reste 3, porque el promedio de las desviaciones a la cuarta escaladas vale exactamente 3 en una distribución normal. Lo que se mide, entonces, es el <strong>exceso</strong> de curtosis respecto de la normal, no la curtosis bruta.</p>
+<p>Se comprobó numéricamente: sobre 100 000 valores normales simulados el coeficiente da <span class="math inline">\(-0.02\)</span>, y sobre una exponencial da 6.17 frente al valor teórico 6.</p>
+</div>
+<p>R base no trae funciones de asimetría ni de curtosis. Se escriben en dos líneas, y escribirlas es la mejor forma de entenderlas:</p>
+<div class="cell">
+<div>
+<div id="webr-25" class="exercise-cell">
+
+</div>
+<script type="webr-25-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYXNpbWV0cmlhIDwtIGZ1bmN0aW9uKHgpIHN1bSgoeCAtIG1lYW4oeCkpXjMpIC8gKGxlbmd0aCh4KSAqIHNkKHgpXjMpXG5jdXJ0b3NpcyAgPC0gZnVuY3Rpb24oeCkgc3VtKCh4IC0gbWVhbih4KSleNCkgLyAobGVuZ3RoKHgpICogc2QoeCleNCkgLSAzXG5wZWFyc29uICAgPC0gZnVuY3Rpb24oeCkgMyAqIChtZWFuKHgpIC0gbWVkaWFuKHgpKSAvIHNkKHgpXG5cbnJvdW5kKGMoZmlzaGVyICA9IGFzaW1ldHJpYShmbG90YSRjb25zdW1vX20zX2RpYSksXG4gICAgICAgIHBlYXJzb24gPSBwZWFyc29uKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSxcbiAgICAgICAgY3VydG9zaXM9IGN1cnRvc2lzKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSksIDQpIn0=
+</script>
+</div>
+</div>
+<div class="predice">
+<p>Compruebe la tabla de arriba con sus propios datos: ordene su media, mediana y moda, y vea si el orden concuerda con el signo del coeficiente de asimetría que acaba de obtener.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-26" class="exercise-cell">
+
+</div>
+<script type="webr-26-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYyhtZWRpYSA9IG1lYW4oZmxvdGEkY29uc3Vtb19tM19kaWEpLCBtZWRpYW5hID0gbWVkaWFuKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSkifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar una salida sin calcular.</strong> Su coeficiente de Fisher salió con un signo determinado. ¿Qué se puede afirmar?</p>
+<p><strong>a)</strong> Si es positivo, la cola larga de la distribución está a la derecha y la media supera a la mediana. <strong>b)</strong> Si es positivo, hay más datos a la derecha del centro que a la izquierda. <strong>c)</strong> El signo no significa nada; sólo importa la magnitud.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-27" class="exercise-cell">
+
+</div>
+<script type="webr-27-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA5XCIsIFwiZXNjcmliYSBhcXXDrSBhLCBiIG8gY1wiKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="interpretación-de-indicadores" class="level2">
+<h2 class="anchored" data-anchor-id="interpretación-de-indicadores">1.3.7 Interpretación de indicadores</h2>
+<p>El texto guía introduce todo el bloque de medidas bajo el nombre de <strong>medidas de desempeño</strong>, y las presenta como herramientas para la evaluación de la gestión que «proveen valores de referencia con el cual se puedan comparar o proponer metas». Los agrupa en tres tipos: medidas de posición, medidas de variabilidad o riesgo, y medidas de forma.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §2.5.</span></p>
+<div class="pendiente">
+<p>El sílabo enuncia el subtema como «Interpretación de indicadores» sin desarrollarlo, y ninguno de los cuatro textos del curso dedica un apartado con ese título. Lo más cercano es la introducción de Ordóñez et al.&nbsp;al §2.5, citada arriba, que es de dos párrafos.</p>
+<p><strong>No existe, por tanto, un tratamiento de fuente para este subtema.</strong> Lo que sigue es la propuesta del docente, construida a partir de la interpretación que cada texto hace de sus propios ejemplos. No debe presentarse como doctrina de ningún libro.</p>
+</div>
+<div class="recomendacion">
+<p><strong>Un indicador es una comparación, no un número.</strong> Decir «el consumo medio es 92 m³/día» no informa de nada por sí solo. Informa cuando se compara con algo: con el mes anterior, con otro tipo de unidad, con la norma técnica, o con la dispersión de la propia flota.</p>
+<p>De ahí las tres preguntas que este curso exige responder antes de aceptar un indicador:</p>
+<ol type="1">
+<li><strong>¿Con qué se compara?</strong> Sin referencia no hay indicador.</li>
+<li><strong>¿Es robusto al dato raro?</strong> Si una sola unidad puede mover el número, la media no sirve y hay que usar la mediana.</li>
+<li><strong>¿Viene acompañado de su dispersión?</strong> Un promedio sin desviación estándar oculta justo lo que interesa: si la flota se comporta de forma pareja o no.</li>
+</ol>
+</div>
+<p>Ordóñez et al.&nbsp;sí interpretan sus propios resultados, y de esas interpretaciones se puede extraer el método. Al comparar dos grupos de notas (§2.5.2, ejercicio 2.17) concluyen que las del segundo grupo «son mejores que las del primer grupo y tienen menor variabilidad»: es decir, <strong>usan el centro y la dispersión a la vez, nunca uno solo</strong>. Y al leer los diagramas de caja del mismo ejercicio deducen de la posición de la mediana dentro de la caja hacia qué lado se acumulan las observaciones.</p>
+<div class="franja">
+<p>Ese es el modelo a imitar: <strong>centro, dispersión y forma en la misma frase</strong>. «El consumo medio es de 92 m³/día con una desviación de 18, y la distribución se estira hacia los consumos altos» dice algo. «El consumo medio es de 92» no.</p>
+</div>
+<section id="ejercicio-integrador" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-integrador">Ejercicio integrador</h3>
+<div class="ejercicio">
+<p><strong>Informe de una variable.</strong> Elija una de las tres variables continuas de su flota —<code>consumo_m3_dia</code>, <code>velocidad_nudos</code> o <code>calado_m</code>— y produzca un informe de cuatro líneas que incluya, en este orden: el centro, la dispersión, la forma y <strong>una afirmación operativa</strong> que un comandante pudiera usar para decidir algo.</p>
+<p>Ejecute primero la celda de abajo para tener todos los números a la vista.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-28" class="exercise-cell">
+
+</div>
+<script type="webr-28-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidiA8LSBmbG90YSRjb25zdW1vX20zX2RpYSAgICAgICAgIyBjw6FtYmllbGEgcG9yIGZsb3RhJHZlbG9jaWRhZF9udWRvcyBvIGZsb3RhJGNhbGFkb19tXG5cbnJvdW5kKGMobiAgICAgICAgPSBsZW5ndGgodiksXG4gICAgICAgIG1lZGlhICAgID0gbWVhbih2KSxcbiAgICAgICAgbWVkaWFuYSAgPSBtZWRpYW4odiksXG4gICAgICAgIHMgICAgICAgID0gc2QodiksXG4gICAgICAgIENWICAgICAgID0gc2QodikgLyBtZWFuKHYpLFxuICAgICAgICBJUVIgICAgICA9IElRUih2KSxcbiAgICAgICAgYXNpbWV0cmlhPSBhc2ltZXRyaWEodiksXG4gICAgICAgIGN1cnRvc2lzID0gY3VydG9zaXModikpLCA0KVxuXG5ib3hwbG90KHYsIGhvcml6b250YWwgPSBUUlVFLCBjb2wgPSBcImdyZXk5MFwiLCB4bGFiID0gXCJcIikifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Detectar el error.</strong> Un informe de flota afirma: «El consumo medio de la flota es de 92 m³/día, por lo que se presupuestará ese valor para todas las unidades el próximo trimestre.»</p>
+<p>¿Qué falta en ese razonamiento?</p>
+<p><strong>a)</strong> Nada: la media es el mejor estimador del consumo de una unidad cualquiera. <strong>b)</strong> Ignora la dispersión. Con una desviación de 18 m³/día, muchas unidades consumirán bastante más de 92, y presupuestar la media dejará sin combustible a la mitad de la flota. <strong>c)</strong> Debió usarse la moda, porque es el valor más frecuente.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-29" class="exercise-cell">
+
+</div>
+<script type="webr-29-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxMFwiLCBcImVzY3JpYmEgYXF1w60gYSwgYiBvIGNcIikifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="para-leer-esta-semana" class="level2">
+<h2 class="anchored" data-anchor-id="para-leer-esta-semana">Para leer esta semana</h2>
+<section id="lectura-mínima" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="lectura-mínima">Lectura mínima</h4>
+<p>Ordóñez Moreno, F. M., Rosero Camacho, W. N., &amp; Paredes Calderón, D. M. (2025). <em>Estadística para la Seguridad y Defensa</em> (1.ª ed.). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.</p>
+<p><strong>Capítulo II completo</strong>, repartido por semanas: §§2.1–2.4 para la semana 3; §2.5 para la semana 4; §§2.5.1 (cuartiles), 2.6 y 2.7 para la semana 5. Es el texto del que procede la estructura de este tema, y sus ejemplos son militares.</p>
+</section>
+<section id="ampliación-por-subtema" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="ampliación-por-subtema">Ampliación por subtema</h4>
+<p>Johnson, R. A. (2012). <em>Probabilidad y estadística para ingenieros</em> (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.</p>
+<p>— §2.2 «Distribuciones de frecuencias» (pp.&nbsp;14–17): la convención de puntos extremos y el criterio de 5 a 15 clases. — §2.3 «Histogramas» (pp.&nbsp;18–24): el histograma de densidad, para clases de anchos distintos. — §2.6 «Cuartiles y percentiles» (pp.&nbsp;29–33): la regla de <span class="math inline">\(np\)</span> y el diagrama de caja modificado.</p>
+<p>Devore, J. L. (2016). <em>Probabilidad y estadística para ingeniería y ciencias</em> (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.</p>
+<p>— §1.3 «Medidas de ubicación» (pp.&nbsp;29–36): la media recortada y la advertencia sobre las distintas definiciones de cuartil. — §1.4 «Medidas de variabilidad» (pp.&nbsp;36–46): la justificación de <span class="math inline">\(n-1\)</span>, los cuartos y el criterio <span class="math inline">\(1.5\,f_s\)</span> para valores atípicos.</p>
+</section>
+<section id="si-un-concepto-no-le-entra" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="si-un-concepto-no-le-entra">Si un concepto no le entra</h4>
+<p>Illowsky, B., &amp; Dean, S. (2022). <em>Introducción a la estadística</em>. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.</p>
+<p>Capítulo 2, «Estadística descriptiva»: <a href="https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva" class="uri">https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva</a></p>
+<p>Gratuito, en español y con muchos más ejemplos que los tres impresos. Cubre los mismos contenidos con menos formalismo. Úselo cuando el texto guía le resulte apretado, no en lugar de él.</p>
+</section>
+<div class="franja">
+<p><strong>Los cuatro textos están en la carpeta del curso</strong>, salvo OpenStax, que es de acceso libre en línea. La ficha completa de cada uno, con los capítulos que interesan a lo largo del semestre, está en la <a href="../bibliografia.html">página de bibliografía</a>.</p>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjk7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI5ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjktY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yOSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjg7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI4ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjgtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI3ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIxID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTk7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE5ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTktY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xOSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTg7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE4ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTgtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE3ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzEgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTEtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiMVwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../unidad-1";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Thc02\.github\.io\/Estadistica\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../unidad-1/tema-1-2.html" class="pagination-link" aria-label="1.2 Muestreo">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1.2 Muestreo</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Estadística · Ciencias Navales · Unidad 1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Dr.&nbsp;Daniel Lagos Llaguno</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
