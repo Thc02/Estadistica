@@ -152,10 +152,7 @@ Se consultó la fuente original y el asunto queda aclarado.
 **La incoherencia la introduce el texto guía**, que añade el $\times 100$ a la fórmula pero conserva los umbrales de la fuente. No es un error de Galindo.
 :::
 
-Quedan dos matices menores, y ambos son de la fuente original:
-
-- Galindo **nota el símbolo como «CV %»** aunque su fórmula no multiplica por 100. Es una inconsistencia de notación, no de cálculo.
-- Galindo enuncia que *si un conjunto es homogéneo, entonces $CV < 1$*. El texto guía lo invierte: *si $CV \le 1$, los datos son homogéneos*. **No son la misma afirmación**, y de las dos, la del texto guía es la que no se sigue de la fuente.
+El criterio de Galindo, entonces, es: **un conjunto es homogéneo si $CV \le 1$**, y podría ser heterogéneo si $CV > 1.5$. El texto guía reproduce ese enunciado con fidelidad; lo que no reproduce es la escala en que está expresado.
 
 ::: {.pendiente}
 La franja $1 < CV \le 1.5$ sigue sin definirse: tampoco la define Galindo.
