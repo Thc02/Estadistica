@@ -239,7 +239,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#muestreo-no-probabilístico" id="toc-muestreo-no-probabilístico" class="nav-link" data-scroll-target="#muestreo-no-probabilístico">1.2.3 Muestreo no probabilístico</a>
   <ul class="collapse">
-  <li><a href="#qué-técnica-conviene-en-cada-caso" id="toc-qué-técnica-conviene-en-cada-caso" class="nav-link" data-scroll-target="#qué-técnica-conviene-en-cada-caso">¿Qué técnica conviene en cada caso?</a></li>
+  <li><a href="#criterios-de-selección-de-la-técnica" id="toc-criterios-de-selección-de-la-técnica" class="nav-link" data-scroll-target="#criterios-de-selección-de-la-técnica">Criterios de selección de la técnica</a></li>
   </ul></li>
   <li><a href="#determinación-del-tamaño-de-muestra" id="toc-determinación-del-tamaño-de-muestra" class="nav-link" data-scroll-target="#determinación-del-tamaño-de-muestra">1.2.4 Determinación del tamaño de muestra</a></li>
   <li><a href="#para-leer-esta-semana" id="toc-para-leer-esta-semana" class="nav-link" data-scroll-target="#para-leer-esta-semana">Para leer esta semana</a></li>
@@ -298,14 +298,14 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBl
 <p>Las técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés <strong>de la forma más confiable y al más bajo costo posible</strong>. Esas dos exigencias tiran en direcciones opuestas, y toda la disciplina del muestreo consiste en equilibrarlas.</p>
 <div class="grid">
 <div class="g-col-12 g-col-md-6">
-<section id="lo-que-se-busca" class="level4 tarjeta">
-<h4 class="anchored" data-anchor-id="lo-que-se-busca">Lo que se busca</h4>
+<section id="finalidad" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="finalidad">Finalidad</h4>
 <p>Que el estadístico calculado sobre la muestra se parezca al parámetro de la población. A eso se le llama que la muestra sea <strong>representativa</strong>.</p>
 </section>
 </div>
 <div class="g-col-12 g-col-md-6">
-<section id="lo-que-se-paga" class="level4 tarjeta-media">
-<h4 class="anchored" data-anchor-id="lo-que-se-paga">Lo que se paga</h4>
+<section id="costo" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="costo">Costo</h4>
 <p>Cada unidad observada cuesta tiempo, combustible, personal y disponibilidad operativa. Una muestra mayor da más precisión, pero la precisión no crece proporcionalmente al costo.</p>
 </section>
 </div>
@@ -493,20 +493,20 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAzXCIsIFwi
 <p>Es el muestreo típico que se hace a la salida de un centro comercial, del metro o en una esquina: se encuesta a quien esté disponible. Los resultados representan <strong>sólo el pensamiento de los encuestados</strong>, no necesariamente el de la población en estudio.</p>
 <div class="grid">
 <div class="g-col-12 g-col-md-6">
-<section id="para-qué-sirve" class="level4 tarjeta-oscura">
-<h4 class="anchored" data-anchor-id="para-qué-sirve">Para qué sirve</h4>
+<section id="aplicaciones-admisibles" class="level4 tarjeta-oscura">
+<h4 class="anchored" data-anchor-id="aplicaciones-admisibles">Aplicaciones admisibles</h4>
 <p>Explorar. Detectar qué preguntas vale la pena hacer, cómo se entiende un cuestionario, qué respuestas aparecen. Es barato y rápido.</p>
 </section>
 </div>
 <div class="g-col-12 g-col-md-6">
-<section id="para-qué-no-sirve" class="level4 tarjeta-teal">
-<h4 class="anchored" data-anchor-id="para-qué-no-sirve">Para qué no sirve</h4>
+<section id="limitaciones" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="limitaciones">Limitaciones</h4>
 <p>Concluir. No hay probabilidad conocida de selección, así que no existe forma de cuantificar el error ni de extender el resultado a la población.</p>
 </section>
 </div>
 </div>
-<section id="qué-técnica-conviene-en-cada-caso" class="level3">
-<h3 class="anchored" data-anchor-id="qué-técnica-conviene-en-cada-caso">¿Qué técnica conviene en cada caso?</h3>
+<section id="criterios-de-selección-de-la-técnica" class="level3">
+<h3 class="anchored" data-anchor-id="criterios-de-selección-de-la-técnica">Criterios de selección de la técnica</h3>
 <div class="tabla-ancha">
 <table class="caption-top table">
 <colgroup>
@@ -600,8 +600,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAzXCIsIFwi
 <p>Para estimar una <strong>media poblacional</strong> <span class="math inline">\(\mu\)</span> con límite de error <span class="math inline">\(B\)</span>:</p>
 <p><span class="math display">\[n = \frac{N\sigma^{2}}{(N-1)\,D + \sigma^{2}}, \qquad D = \frac{B^{2}}{4}\]</span></p>
 <p>Esta expresión ya lleva incorporada la <strong>corrección por población finita</strong> —el ajuste que reconoce que muestrear 30 de 40 unidades da mucha más información que muestrear 30 de 40 000—, así que no hace falta aplicarla aparte. Cuando <span class="math inline">\(N\)</span> es grande, <span class="math inline">\((N-1)\)</span> puede sustituirse por <span class="math inline">\(N\)</span> sin consecuencia práctica.</p>
-<section id="y-si-no-conozco-σ" class="level4 tarjeta-media">
-<h4 class="anchored" data-anchor-id="y-si-no-conozco-σ">¿Y si no conozco σ?</h4>
+<section id="estimación-de-σ-cuando-se-desconoce" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="estimación-de-σ-cuando-se-desconoce">Estimación de σ cuando se desconoce</h4>
 <p>Es el caso normal la primera vez que se mide algo. Los autores dan una regla práctica: <strong>la amplitud de variación de los datos abarca aproximadamente cuatro desviaciones típicas</strong>, de modo que</p>
 <p><span class="math display">\[\sigma \approx \frac{\text{rango}}{4}\]</span></p>
 <p>Su ejemplo: si las cuentas de un hospital caen en una amplitud de 100 $, entonces <span class="math inline">\(\sigma \approx 25\)</span>.</p>
@@ -664,8 +664,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA0XCIsIFwi
 <p><strong>Bologna, E. (2018).</strong> «Obtención de la muestra», en <em>Métodos Estadísticos de Investigación</em>, pp.&nbsp;155–171. Córdoba: Editorial Brujas &amp; Encuentro Grupo Editor.</p>
 <p>Disponible en ProQuest Ebook Central con su cuenta <code>@espe.edu.ec</code>: <a href="https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586" class="uri">https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586</a></p>
 </section>
-<section id="si-quiere-más-ejercicios" class="level4 tarjeta-media">
-<h4 class="anchored" data-anchor-id="si-quiere-más-ejercicios">Si quiere más ejercicios</h4>
+<section id="ejercicios-adicionales" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="ejercicios-adicionales">Ejercicios adicionales</h4>
 <p><strong>Devore, J. L. (2016).</strong> <em>Probabilidad y estadística para ingeniería y ciencias</em> (9.ª ed.). México: Cengage Learning.</p>
 <p>Está en la carpeta del curso, junto con <strong>Johnson, R. A. (2012).</strong> <em>Miller y Freund. Probabilidad y estadística para ingenieros</em> (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7. Para esta semana, su <strong>§6.1 «Poblaciones y muestras»</strong>, página 175, conecta el muestreo con lo que veremos en el tema 3.1.</p>
 </section>
@@ -679,8 +679,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA0XCIsIFwi
 <li><strong>§5.5 «Afijación de la muestra»</strong> (p.&nbsp;137), si quiere ir más allá de la afijación proporcional</li>
 </ul>
 </section>
-<section id="gratuito-y-en-línea" class="level4 tarjeta-teal">
-<h4 class="anchored" data-anchor-id="gratuito-y-en-línea">Gratuito y en línea</h4>
+<section id="recurso-de-acceso-libre" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="recurso-de-acceso-libre">Recurso de acceso libre</h4>
 <p><strong>Illowsky, B., &amp; Dean, S. (2022).</strong> <em>Introducción a la estadística</em>. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.</p>
 <p><strong>Capítulo 1, «Muestreo y datos»</strong>: <a href="https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion" class="uri">https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion</a></p>
 <p>No hace falta cuenta ni descarga. Es el más accesible de los cuatro y trae varios casos de muestras mal tomadas con el análisis de qué falló en cada una.</p>

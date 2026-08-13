@@ -229,11 +229,11 @@ window.Quarto = {
   <li><a href="#resumen" id="toc-resumen" class="nav-link active" data-scroll-target="#resumen">Resumen</a></li>
   <li><a href="#cuartiles-y-percentiles" id="toc-cuartiles-y-percentiles" class="nav-link" data-scroll-target="#cuartiles-y-percentiles">1. Cuartiles y percentiles</a></li>
   <li><a href="#la-regla-de-sturges" id="toc-la-regla-de-sturges" class="nav-link" data-scroll-target="#la-regla-de-sturges">2. La regla de Sturges</a></li>
-  <li><a href="#hist-no-obedece-el-número-de-clases" id="toc-hist-no-obedece-el-número-de-clases" class="nav-link" data-scroll-target="#hist-no-obedece-el-número-de-clases">3. <code>hist()</code> no obedece el número de clases</a></li>
+  <li><a href="#el-número-de-clases-en-hist" id="toc-el-número-de-clases-en-hist" class="nav-link" data-scroll-target="#el-número-de-clases-en-hist">3. El número de clases en <code>hist()</code></a></li>
   <li><a href="#asimetría-tres-estimadores" id="toc-asimetría-tres-estimadores" class="nav-link" data-scroll-target="#asimetría-tres-estimadores">4. Asimetría: tres estimadores</a></li>
   <li><a href="#el-umbral-del-coeficiente-de-variación" id="toc-el-umbral-del-coeficiente-de-variación" class="nav-link" data-scroll-target="#el-umbral-del-coeficiente-de-variación">5. El umbral del coeficiente de variación</a></li>
   <li><a href="#una-errata-del-texto-guía" id="toc-una-errata-del-texto-guía" class="nav-link" data-scroll-target="#una-errata-del-texto-guía">6. Una errata del texto guía</a></li>
-  <li><a href="#cómo-citar-una-convención-en-un-informe" id="toc-cómo-citar-una-convención-en-un-informe" class="nav-link" data-scroll-target="#cómo-citar-una-convención-en-un-informe">Cómo citar una convención en un informe</a></li>
+  <li><a href="#declaración-de-la-convención-en-un-informe" id="toc-declaración-de-la-convención-en-un-informe" class="nav-link" data-scroll-target="#declaración-de-la-convención-en-un-informe">Declaración de la convención en un informe</a></li>
   </ul>
 </nav>
     </div>
@@ -243,7 +243,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Discrepancias entre los textos y R</h1>
-<p class="subtitle lead">Estadística para Ciencias Navales · dónde los libros no coinciden entre sí, ni con el computador</p>
+<p class="subtitle lead">Convenciones divergentes entre los textos del curso y R</p>
 </div>
 
 
@@ -439,8 +439,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibiA8LSA0MFxuYyhPcmRvbmV6
 <p>Use la fórmula del texto guía cuando construya la tabla a mano. Si en R deja que <code>hist()</code> elija, obtendrá una clase más: no es un error, es otra regla. Declare cuál usó.</p>
 </div>
 </section>
-<section id="hist-no-obedece-el-número-de-clases" class="level2">
-<h2 class="anchored" data-anchor-id="hist-no-obedece-el-número-de-clases">3. <code>hist()</code> no obedece el número de clases</h2>
+<section id="el-número-de-clases-en-hist" class="level2">
+<h2 class="anchored" data-anchor-id="el-número-de-clases-en-hist">3. El número de clases en <code>hist()</code></h2>
 <p>Aunque se le pida un número exacto de intervalos, R lo trata como una <strong>sugerencia</strong> y ajusta los cortes a valores «redondos».</p>
 <div class="cell">
 <div>
@@ -556,8 +556,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTEkgPC0gYygxMCwgMjQuNjcs
 <p>Encontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: <strong>ningún texto es infalible, y toda fórmula se comprueba antes de usarse.</strong> Esa comprobación cabe en cuatro líneas de código.</p>
 </div>
 </section>
-<section id="cómo-citar-una-convención-en-un-informe" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-citar-una-convención-en-un-informe">Cómo citar una convención en un informe</h2>
+<section id="declaración-de-la-convención-en-un-informe" class="level2">
+<h2 class="anchored" data-anchor-id="declaración-de-la-convención-en-un-informe">Declaración de la convención en un informe</h2>
 <p>Cuando entregue un análisis, basta una línea al pie de la tabla:</p>
 <blockquote class="blockquote">
 <p>Cuartiles calculados según la convención de posición <span class="math inline">\(p(n+1)\)</span> (Ordóñez et al., 2025, §2.5.1), equivalente a <code>quantile(type = 6)</code> en R 4.x.</p>
