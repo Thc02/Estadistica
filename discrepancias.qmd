@@ -1,6 +1,6 @@
 ---
 title: "Discrepancias entre los textos y R"
-subtitle: "Estadística para Ciencias Navales · dónde los libros no coinciden entre sí, ni con el computador"
+subtitle: "Convenciones divergentes entre los textos del curso y R"
 toc: true
 toc-depth: 2
 ---
@@ -88,7 +88,7 @@ c(Ordonez = round(1 + 3.32 * log10(n)),
 Use la fórmula del texto guía cuando construya la tabla a mano. Si en R deja que `hist()` elija, obtendrá una clase más: no es un error, es otra regla. Declare cuál usó.
 :::
 
-## 3. `hist()` no obedece el número de clases
+## 3. El número de clases en `hist()`
 
 Aunque se le pida un número exacto de intervalos, R lo trata como una **sugerencia** y ajusta los cortes a valores «redondos».
 
@@ -195,7 +195,7 @@ round(c(media = media, varianza = s2, desviacion = sqrt(s2)), 2)
 Encontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: **ningún texto es infalible, y toda fórmula se comprueba antes de usarse.** Esa comprobación cabe en cuatro líneas de código.
 :::
 
-## Cómo citar una convención en un informe
+## Declaración de la convención en un informe
 
 Cuando entregue un análisis, basta una línea al pie de la tabla:
 

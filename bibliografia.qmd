@@ -1,6 +1,6 @@
 ---
 title: "Bibliografía"
-subtitle: "Textos del curso y cómo usarlos"
+subtitle: "Textos del curso y su empleo"
 toc: true
 toc-depth: 2
 ---

@@ -126,7 +126,7 @@ c(Ordonez = K_formula, log2 = K_log2, R = K_R)
 Las dos primeras coinciden hasta la tercera cifra porque $\log_2 n = 3.3219 \log_{10} n$, y 3.32 es ese factor redondeado. La constante 3.32 del texto guía **no es un número arbitrario**: es el cambio de base. R redondea el resultado a entero, que es lo que hace falta para contar intervalos.
 :::
 
-### Los límites tienen que ser inequívocos
+### Delimitación inequívoca de las clases
 
 Si se toman las clases 205–245, 245–285, 285–325, aparece una ambigüedad: ¿el 245 va en la primera o en la segunda? Johnson (2012, §2.2) resuelve esto con una **convención de puntos extremos**: se decide de antemano a cuál de los dos intervalos pertenece el límite, y se aplica igual en toda la tabla. Los límites deben darse con tantos decimales como los datos originales.
 
@@ -206,7 +206,7 @@ hist(flota$consumo_m3_dia, breaks = "Sturges", freq = FALSE,
      ylab = "densidad", col = "grey85")
 ```
 
-### Otras dos representaciones que conviene conocer
+### Otras dos representaciones
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-6}
@@ -333,7 +333,7 @@ $$H = \frac{n}{\sum 1/x_i}$$
 El ejercicio 2.12 del texto guía —un pelotón que recorre cuatro tramos a 8, 9, 10 y 6 km/h— pide comparar la media aritmética con la armónica. La armónica sale menor. La razón es que a menor velocidad se tarda más, de modo que el tramo lento pesa más tiempo en el total: promediar velocidades directamente le da a cada tramo el mismo peso, que no es lo que ocurre. El texto plantea la comparación pero no explica el mecanismo; esta lectura se sigue de sus datos.
 :::
 
-### Una tercera vía: la media recortada
+### La media recortada
 
 Devore (2016, §1.3) señala que la media y la mediana están en extremos opuestos de una misma familia: la media no recorta nada de los extremos, la mediana recorta todo lo posible. La **media recortada** es un compromiso: se elimina un porcentaje de cada extremo y se promedia lo que queda. Un recorte moderado, entre el 5 y el 25 %, da una medida ni tan sensible a los valores atípicos como la media ni tan insensible como la mediana.
 
@@ -451,7 +451,7 @@ round(c(consumo = cv(flota$consumo_m3_dia),
         calado  = cv(flota$calado_m)), 4)
 ```
 
-#### Por qué el CV exige una escala de razón
+#### Exigencia de una escala de razón
 
 En el apartado 1.1.3 el CV aparecía sólo en la última fila del cuadro de escalas. La razón es que **divide entre la media**.
 
@@ -513,7 +513,7 @@ La mediana es el segundo cuartil. Bajo ella queda acumulado el 50 % de los datos
 
 [Ordóñez et al., 2025, §2.5.1; Devore, 2016, §1.3; Johnson, 2012, §2.6.]{.fuente}
 
-### Los tres libros dan tres respuestas distintas, y los tres tienen razón
+### Tres convenciones distintas para el mismo cuartil
 
 Este es el punto más delicado del tema, y conviene enfrentarlo de frente en lugar de descubrirlo en un examen.
 
@@ -526,7 +526,7 @@ Este es el punto más delicado del tema, y conviene enfrentarlo de frente en lug
 Y R, por omisión, usa una cuarta convención distinta de las tres.
 
 ::: {.tarjeta-teal}
-#### Devore lo dice en su propio texto
+#### La discrepancia dentro del propio texto de Devore
 
 «existen diferentes maneras razonables para calcular los cuartiles» —y por eso los valores pueden variar de un programa a otro.
 
@@ -831,7 +831,9 @@ Devore, J. L. (2016). *Probabilidad y estadística para ingeniería y ciencias* 
 :::
 
 ::: {.tarjeta-teal}
-#### Si tiene dificultades para comprender
+#### Apoyo complementario
+
+Si tiene dificultades para comprender un contenido con los tres textos impresos, consulte esta obra.
 
 Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
 

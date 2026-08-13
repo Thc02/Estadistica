@@ -26,7 +26,7 @@ Escríbalo tal como aparece en su cuenta institucional, en minúsculas y sin esp
 Copiar el resultado de un compañero no sirve de nada: su flota tiene otras velocidades, otros calados y otro reparto de tipos. Lo único que se puede compartir es el razonamiento, que es precisamente lo que interesa.
 :::
 
-### Qué mide cada columna
+### Significado y unidades de cada variable
 
 Un dato sin unidad no es un dato. Decir que una unidad «tiene 4.37» no significa nada; decir que **cala 4.37 metros** sí. Antes de calcular nada, conviene tener a la vista qué se midió, en qué unidad y en qué escala.
 
@@ -562,14 +562,14 @@ Disponible en ProQuest Ebook Central con su cuenta `@espe.edu.ec`: <https://eboo
 :::
 
 ::: {.tarjeta-media}
-#### Si quiere más rigor
+#### Tratamiento formal más exigente
 **Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). México: Cengage Learning.
 
 Está en la carpeta del curso. Para esta semana, su **§1.1 «Poblaciones, muestras y procesos»**, páginas 3 a 13, trata lo mismo con más desarrollo formal. Junto a él encontrará **Johnson, R. A. (2012).** *Miller y Freund. Probabilidad y estadística para ingenieros* (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7.
 :::
 
 ::: {.tarjeta-teal}
-#### Gratuito y en línea
+#### Recurso de acceso libre
 **Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
 
 **Capítulo 1, «Muestreo y datos»**: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>

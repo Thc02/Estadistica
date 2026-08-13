@@ -27,13 +27,13 @@ Las técnicas de muestreo se ocupan de seleccionar muestras de la población baj
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta}
-#### Lo que se busca
+#### Finalidad
 Que el estadístico calculado sobre la muestra se parezca al parámetro de la población. A eso se le llama que la muestra sea **representativa**.
 :::
 :::
 ::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta-media}
-#### Lo que se paga
+#### Costo
 Cada unidad observada cuesta tiempo, combustible, personal y disponibilidad operativa. Una muestra mayor da más precisión, pero la precisión no crece proporcionalmente al costo.
 :::
 :::
@@ -211,19 +211,19 @@ Es el muestreo típico que se hace a la salida de un centro comercial, del metro
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta-oscura}
-#### Para qué sirve
+#### Aplicaciones admisibles
 Explorar. Detectar qué preguntas vale la pena hacer, cómo se entiende un cuestionario, qué respuestas aparecen. Es barato y rápido.
 :::
 :::
 ::: {.g-col-12 .g-col-md-6}
 ::: {.tarjeta-teal}
-#### Para qué no sirve
+#### Limitaciones
 Concluir. No hay probabilidad conocida de selección, así que no existe forma de cuantificar el error ni de extender el resultado a la población.
 :::
 :::
 :::
 
-### ¿Qué técnica conviene en cada caso?
+### Criterios de selección de la técnica
 
 ::: {.tabla-ancha}
 | Técnica | Cuándo conviene | Cómo se selecciona | Ejemplo naval |
@@ -289,7 +289,7 @@ $$n = \frac{N\sigma^{2}}{(N-1)\,D + \sigma^{2}}, \qquad D = \frac{B^{2}}{4}$$
 Esta expresión ya lleva incorporada la **corrección por población finita** —el ajuste que reconoce que muestrear 30 de 40 unidades da mucha más información que muestrear 30 de 40 000—, así que no hace falta aplicarla aparte. Cuando $N$ es grande, $(N-1)$ puede sustituirse por $N$ sin consecuencia práctica.
 
 ::: {.tarjeta-media}
-#### ¿Y si no conozco σ?
+#### Estimación de σ cuando se desconoce
 
 Es el caso normal la primera vez que se mide algo. Los autores dan una regla práctica: **la amplitud de variación de los datos abarca aproximadamente cuatro desviaciones típicas**, de modo que
 
@@ -360,7 +360,7 @@ Disponible en ProQuest Ebook Central con su cuenta `@espe.edu.ec`: <https://eboo
 :::
 
 ::: {.tarjeta-media}
-#### Si quiere más ejercicios
+#### Ejercicios adicionales
 **Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). México: Cengage Learning.
 
 Está en la carpeta del curso, junto con **Johnson, R. A. (2012).** *Miller y Freund. Probabilidad y estadística para ingenieros* (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7. Para esta semana, su **§6.1 «Poblaciones y muestras»**, página 175, conecta el muestreo con lo que veremos en el tema 3.1.
@@ -378,7 +378,7 @@ Está en la carpeta del curso. Es el único de los cuatro dedicado íntegramente
 :::
 
 ::: {.tarjeta-teal}
-#### Gratuito y en línea
+#### Recurso de acceso libre
 **Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
 
 **Capítulo 1, «Muestreo y datos»**: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>

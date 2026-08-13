@@ -39,7 +39,7 @@ toc: false
 - **1.3.7** Interpretación de indicadores estadísticos
 :::
 
-## Cómo se usa este material
+## Uso del material
 
 Cada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.
 

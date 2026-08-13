@@ -5,7 +5,7 @@ toc: true
 toc-depth: 2
 ---
 
-## Cómo está repartido el curso
+## Distribución de la carga horaria
 
 48 horas en total: **32 presenciales** —a dos horas por semana, dieciséis semanas— y **16 autónomas** que el guardiamarina trabaja fuera de clase, sobre esta misma página.
 
@@ -74,24 +74,24 @@ El tema **1.5 Aplicaciones con software estadístico** no ocupa semana propia: e
 | **15** | 3.3 Contraste de hipótesis | Formulación; nivel de significancia; valor-p; errores tipo I y II; pruebas para la media | Taller 3.2 — plantear y contrastar hipótesis con datos de caso |
 | **16** | 3.4 Regresión lineal | Correlación; modelo simple; interpretación; predicción | **Proyecto Fase III** — informe final y exposición |
 
-## Cómo se trabaja cada semana
+## Organización de la semana
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta}
-#### Antes de clase
+#### Trabajo previo a la sesión
 El guardiamarina lee el tema en esta página y ejecuta las celdas de exploración. Cada una va precedida de una predicción que debe escribir antes de ejecutar.
 :::
 :::
 ::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-media}
-#### En clase, 2 horas
+#### Sesión presencial · 2 horas
 Arranque con una pregunta que revela lo que no quedó claro; exposición corta y dirigida a eso; trabajo en parejas sobre la página; puesta en común. Pausa real a la mitad.
 :::
 :::
 ::: {.g-col-12 .g-col-md-4}
 ::: {.tarjeta-teal}
-#### Después
+#### Trabajo posterior
 Taller o actividad autónoma sobre la flota propia de cada guardiamarina. Los datos son individuales: se comparte el razonamiento, no el resultado.
 :::
 :::
