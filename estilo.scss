@@ -247,6 +247,17 @@ h4 { color: $navy; }
   margin-bottom: 0.3rem;
 }
 
+// Variante «estudio de caso»: el título va dentro del recuadro,
+// así que no hace falta la etiqueta superior.
+.ejercicio.caso::before { content: none; }
+
+.ejercicio.caso > h3:first-child,
+.ejercicio.caso > h4:first-child {
+  margin-top: 0;
+  color: $rojo;
+  border-bottom: none;
+}
+
 // ---------- Tablas ----------
 
 table { font-size: 0.92rem; }

@@ -746,9 +746,9 @@ El texto guía introduce todo el bloque de medidas bajo el nombre de **medidas d
 
 [Ordóñez et al., 2025, §2.5.]{.fuente}
 
+::: {.ejercicio .caso}
 ### Estudio de caso
 
-::: {.recomendacion}
 **Un indicador es una comparación, no un número.** Decir «el consumo medio es 92 m³/día» no informa de nada por sí solo. Informa cuando se compara con algo: con el mes anterior, con otro tipo de unidad, con la norma técnica, o con la dispersión de la propia flota.
 
 De ahí las tres preguntas que este curso exige responder antes de aceptar un indicador:
@@ -756,6 +756,8 @@ De ahí las tres preguntas que este curso exige responder antes de aceptar un in
 1. **¿Con qué se compara?** Sin referencia no hay indicador.
 2. **¿Es robusto al dato raro?** Si una sola unidad puede mover el número, la media no sirve y hay que usar la mediana.
 3. **¿Viene acompañado de su dispersión?** Un promedio sin desviación estándar oculta justo lo que interesa: si la flota se comporta de forma pareja o no.
+
+[Los tres criterios son una recomendación del docente, no doctrina de los textos.]{.ejemplo}
 :::
 
 Ordóñez et al. sí interpretan sus propios resultados, y de esas interpretaciones se puede extraer el método. Al comparar dos grupos de notas (§2.5.2, ejercicio 2.17) concluyen que las del segundo grupo «son mejores que las del primer grupo y tienen menor variabilidad»: es decir, **usan el centro y la dispersión a la vez, nunca uno solo**. Y al leer los diagramas de caja del mismo ejercicio deducen de la posición de la mediana dentro de la caja hacia qué lado se acumulan las observaciones.
