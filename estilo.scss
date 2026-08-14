@@ -247,6 +247,9 @@ h4 { color: $navy; }
   margin-bottom: 0.3rem;
 }
 
+// Variante: el recuadro se rotula como estudio de caso
+.ejercicio.caso::before { content: "Estudio de caso"; }
+
 // Variante «estudio de caso»: el título va dentro del recuadro,
 // así que no hace falta la etiqueta superior.
 .ejercicio.caso::before { content: none; }

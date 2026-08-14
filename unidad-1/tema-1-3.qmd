@@ -746,10 +746,10 @@ El texto guía introduce todo el bloque de medidas bajo el nombre de **medidas d
 
 [Ordóñez et al., 2025, §2.5.]{.fuente}
 
-::: {.ejercicio .caso}
-### Estudio de caso
+::: {.ejercicio}
+**Estudio de caso: un indicador es una comparación, no un número.**
 
-**Un indicador es una comparación, no un número.** Decir «el consumo medio es 92 m³/día» no informa de nada por sí solo. Informa cuando se compara con algo: con el mes anterior, con otro tipo de unidad, con la norma técnica, o con la dispersión de la propia flota.
+Decir «el consumo medio es 92 m³/día» no informa de nada por sí solo. Informa cuando se compara con algo: con el mes anterior, con otro tipo de unidad, con la norma técnica, o con la dispersión de la propia flota.
 
 De ahí las tres preguntas que este curso exige responder antes de aceptar un indicador:
 
