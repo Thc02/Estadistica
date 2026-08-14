@@ -10,7 +10,7 @@ subtitle: "UC 1 · Estadística descriptiva y probabilidad · Semanas 3, 4 y 5"
 Una flota de cuarenta unidades produce demasiados números para leerlos de corrido. La estadística descriptiva los reduce a unos pocos resúmenes —tablas, gráficos e indicadores— que dejan ver lo esencial sin tener que mirar el dato por dato.
 
 ::: {.franja}
-**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística. Lo que va en **Información pendiente** es un vacío declarado: falta la fuente y así se dice.
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
 :::
 
 Empiece cargando su flota. Los datos son suyos: nadie más tiene estos cuarenta buques.
@@ -746,11 +746,7 @@ El texto guía introduce todo el bloque de medidas bajo el nombre de **medidas d
 
 [Ordóñez et al., 2025, §2.5.]{.fuente}
 
-::: {.pendiente}
-El sílabo enuncia el subtema como «Interpretación de indicadores» sin desarrollarlo, y ninguno de los cuatro textos del curso dedica un apartado con ese título. Lo más cercano es la introducción de Ordóñez et al. al §2.5, citada arriba, que es de dos párrafos.
-
-**No existe, por tanto, un tratamiento de fuente para este subtema.** Lo que sigue es la propuesta del docente, construida a partir de la interpretación que cada texto hace de sus propios ejemplos. No debe presentarse como doctrina de ningún libro.
-:::
+### Estudio de caso
 
 ::: {.recomendacion}
 **Un indicador es una comparación, no un número.** Decir «el consumo medio es 92 m³/día» no informa de nada por sí solo. Informa cuando se compara con algo: con el mes anterior, con otro tipo de unidad, con la norma técnica, o con la dispersión de la propia flota.

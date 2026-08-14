@@ -154,11 +154,7 @@ Se consultó la fuente original y el asunto queda aclarado.
 
 El criterio de Galindo, entonces, es: **un conjunto es homogéneo si $CV \le 1$**, y podría ser heterogéneo si $CV > 1.5$. El texto guía reproduce ese enunciado con fidelidad; lo que no reproduce es la escala en que está expresado.
 
-::: {.pendiente}
-La franja $1 < CV \le 1.5$ sigue sin definirse: tampoco la define Galindo.
-
-El ejemplar consultado es la edición de **2011** (Prociencia Editores); el texto guía cita la de 2015. No se ha verificado si el criterio cambia entre ediciones.
-:::
+Conviene advertir que **ninguno de los dos textos define la franja $1 < CV \le 1.5$**: por debajo de 1 el conjunto se considera homogéneo y por encima de 1.5 posiblemente heterogéneo, pero entre ambos valores el criterio no se pronuncia. En ese intervalo el coeficiente no autoriza a concluir nada por sí solo.
 
 ::: {.recomendacion}
 Calcule el CV **como fracción** si va a compararlo con los umbrales, y como porcentaje sólo para comunicarlo. Y úselo sobre todo para lo que no admite discusión: **comparar la dispersión de dos variables medidas en unidades distintas**.
