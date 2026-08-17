@@ -375,10 +375,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInA1XCIsIFwi
 <section id="muestreo-probabilístico" class="level2">
 <h2 class="anchored" data-anchor-id="muestreo-probabilístico">1.2.2 Muestreo probabilístico</h2>
 <p>Cada elemento de la población objetivo tiene una <strong>probabilidad conocida</strong> —y frecuentemente igual— de ser elegido. La aleatorización es vital: una mala aleatorización, o el incumplimiento de lo que ella establece, produce muestras sesgadas y conclusiones erróneas.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §1.7.</span></p>
 <p>Es el único tipo que permite extender los resultados a toda la población.</p>
 <section id="muestreo-aleatorio-simple" class="level3">
 <h3 class="anchored" data-anchor-id="muestreo-aleatorio-simple">Muestreo aleatorio simple</h3>
 <p>También llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §1.7.1.</span></p>
 <div class="cell">
 <div>
 <div id="webr-4" class="exercise-cell">
@@ -393,6 +395,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic29ydChzYW1wbGUoZmxvdGEk
 <section id="muestreo-aleatorio-sistemático" class="level3">
 <h3 class="anchored" data-anchor-id="muestreo-aleatorio-sistemático">Muestreo aleatorio sistemático</h3>
 <p>Se eligen los elementos a intervalos uniformes a partir de un listado: cada k-ésimo elemento después de un arranque aleatorio. Su principal razón de uso es la sencillez de aplicación y de supervisión.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §1.7.2.</span></p>
 <div class="predice">
 <p>Con 40 unidades y k = 5, ¿cuántas unidades entrarán en la muestra? Escríbalo antes de ejecutar.</p>
 </div>
@@ -415,6 +418,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYXJyYW5xdWUgPC0gc2FtcGxl
 <li>Extraer dentro de cada estrato una muestra aleatoria simple o sistemática.</li>
 </ol>
 <p>Ventaja: para una precisión dada requiere menos muestra que el aleatorio simple, con la consiguiente reducción de costos.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §1.7.3.</span></p>
 <div class="cell">
 <div>
 <div id="webr-6" class="exercise-cell">
@@ -446,6 +450,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibl90b3RhbCA8LSAxMlxudGFt
 <h3 class="anchored" data-anchor-id="muestreo-aleatorio-por-conglomerados">Muestreo aleatorio por conglomerados</h3>
 <p>La unidad de muestreo contiene más de un elemento de la población. Se usa cuando los elementos se agrupan de forma natural en masas difíciles de descomponer o de acceder directamente. Se eligen al azar primero los conglomerados y luego los elementos dentro de ellos.</p>
 <p>Cada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §1.7.4, pp.&nbsp;29–30.</span></p>
 <div class="cell">
 <div>
 <div id="webr-8" class="exercise-cell">
@@ -459,6 +464,18 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmFzZXMgPC0gc2FtcGxlKHVu
 <div class="franja">
 <p>Estratos vs.&nbsp;conglomerados: en el estratificado se muestrea DENTRO de TODOS los grupos; en el de conglomerados se sortean PRIMERO los grupos y sólo esos se estudian.</p>
 </div>
+<div class="definicion">
+<p><strong>La regla de oro: estratos y conglomerados se construyen al revés.</strong></p>
+<ul>
+<li>Un <strong>estrato</strong> debe ser lo más <strong>homogéneo</strong> posible por dentro, y lo más <strong>distinto</strong> posible de los demás estratos.</li>
+<li>Un <strong>conglomerado</strong> debe ser lo más <strong>heterogéneo</strong> posible por dentro, y lo más <strong>parecido</strong> posible a los demás conglomerados.</li>
+</ul>
+<p>La razón es económica. Un conglomerado ideal es una miniatura de la población: si sus elementos ya son muy semejantes entre sí, medir el segundo, el tercero y el cuarto añade poca información y sí cuesta dinero.</p>
+<p><span class="fuente">Scheaffer, Mendenhall y Ott, 2007, §8.2, p.&nbsp;283.</span></p>
+</div>
+<p>Por eso el criterio de Scheaffer para elegir este diseño no es la comodidad, sino dos condiciones: que <strong>no exista o resulte muy costoso un marco que liste los elementos</strong>, mientras que sí sea fácil listar los conglomerados; y que <strong>el costo de observar aumente con la distancia</strong> que separa a los elementos.</p>
+<p><span class="fuente">Scheaffer, Mendenhall y Ott, 2007, §8.1, pp.&nbsp;280–281.</span></p>
+<p><span class="ejemplo">Los conglomerados no tienen por qué ser geográficos: un buque es un conglomerado de sus equipos, y una escuadrilla, un conglomerado de unidades.</span></p>
 <div class="ejercicio">
 <p><strong>Detectar el error.</strong> Se encarga a un guardiamarina que tome una muestra aleatoria de 12 unidades para inspeccionar el consumo. Entrega este código y afirma que la muestra es aleatoria simple.</p>
 </div>
