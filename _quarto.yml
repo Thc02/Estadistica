@@ -36,6 +36,8 @@ website:
             text: "1.2 Muestreo"
           - href: unidad-1/tema-1-3.qmd
             text: "1.3 Estadística descriptiva"
+          - href: unidad-1/tema-1-4.qmd
+            text: "1.4 Conteo y probabilidad"
   page-footer:
     background: light
     left: "Estadística · Ciencias Navales · Unidad 1"

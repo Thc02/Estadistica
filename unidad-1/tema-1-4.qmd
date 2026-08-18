@@ -1,0 +1,629 @@
+---
+title: "1.4 Conteo y probabilidad"
+subtitle: "UC 1 · Estadística descriptiva y probabilidad · Semanas 6 y 7"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include _setup.qmd >}}
+
+Los temas anteriores describían datos ya observados. Este describe lo que **todavía no ha ocurrido**: cuántas maneras hay de que algo suceda, y con qué probabilidad sucede. Es el puente entre la estadística descriptiva y la inferencia.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+:::
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+table(flota$tipo)
+```
+
+::: {.franja}
+¿No recuerda qué mide cada columna? Ejecute `diccionario_flota` en cualquier celda: devuelve el campo, su significado, su unidad y su escala.
+:::
+
+# Semana 6
+
+## 1.4.1 Técnicas de conteo
+
+A veces es imposible, y casi siempre demasiado largo, contar uno por uno los elementos de un suceso. Las técnicas de conteo permiten obtener ese número sin enumerarlo.
+
+[Ordóñez et al., 2025, §3.4.]{.fuente}
+
+Todo descansa sobre dos principios y una operación.
+
+::: {.definicion}
+**Factorial.** Para un entero positivo $n$, el factorial $n!$ es el producto descendente $n(n-1)(n-2)\cdots 2 \cdot 1$. Así $4! = 4 \times 3 \times 2 \times 1 = 24$.
+
+Por convención **$0! = 1$**. No es un capricho: es lo que hace que las fórmulas siguientes den el resultado correcto en los casos extremos.
+
+[Devore, 2016, §2.3.]{.fuente}
+:::
+
+### Los dos principios fundamentales
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Principio de la suma
+Si un suceso puede realizarse de $p_1$ formas y otro de $p_2$ formas, **pero no pueden darse simultáneamente**, el número total de formas es $p_1 + p_2$.
+
+[Ej.: para llegar a la base hay 2 rutas por tierra y 4 por aire. En total, 6 rutas.]{.ejemplo}
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Principio del producto
+Si una actividad puede realizarse de $p_1$ formas y una segunda de $p_2$ formas, las dos **en conjunto** pueden realizarse de $p_1 \times p_2$ formas.
+
+[Ej.: 5 rutas de salida y 3 fondeaderos de destino dan 15 singladuras distintas.]{.ejemplo}
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, §3.4.4; Devore, 2016, §2.3.]{.fuente}
+
+::: {.franja}
+La palabra que decide cuál usar es **«o»** frente a **«y»**. Sucesos que se excluyen —*o* uno *o* el otro— se suman. Etapas que se encadenan —primero una *y* después la otra— se multiplican.
+:::
+
+Devore enuncia el principio del producto de forma general: si la primera etapa admite $n_1$ maneras, y por cada una la segunda admite $n_2$, y así hasta $k$ etapas, el total es $n_1 n_2 \cdots n_k$.
+
+[Devore, 2016, §2.3.]{.fuente}
+
+::: {.predice}
+Una comisión requiere elegir una base de zarpe entre 3, un tipo de unidad entre 4 y un estado de la mar admisible entre 3. ¿Cuántas configuraciones distintas hay? Calcúlelo antes de ejecutar.
+:::
+
+```{webr}
+bases   <- levels(factor(flota$base))
+tipos   <- unique(flota$tipo)
+estados <- levels(flota$estado_mar)
+
+length(bases) * length(tipos) * length(estados)
+
+# Y comprobado enumerando todas las configuraciones
+nrow(expand.grid(base = bases, tipo = tipos, mar = estados))
+```
+
+::: {.ejercicio}
+**Detectar el error.** Un guardiamarina debe contar cuántas unidades de la flota son patrulleras **o** tienen calado mayor a 5 m. Cuenta 16 patrulleras, cuenta las de calado mayor a 5 m, y suma las dos cifras.
+
+¿Dónde está el problema?
+
+**a)** En ninguna parte: el principio de la suma dice que se suman las dos cantidades.
+**b)** Debió multiplicar, porque son dos condiciones sobre la misma flota.
+**c)** El principio de la suma exige que los dos sucesos no puedan darse a la vez, y aquí una patrullera puede tener calado mayor a 5 m. Esas unidades se cuentan dos veces.
+:::
+
+```{webr}
+revisar("p11", "escriba aquí a, b o c")
+```
+
+```{webr}
+a <- sum(flota$tipo == "Patrullera")
+b <- sum(flota$calado_m > 5)
+ambas <- sum(flota$tipo == "Patrullera" & flota$calado_m > 5)
+
+c(suma_ingenua = a + b, correcto = a + b - ambas, contadas_dos_veces = ambas)
+```
+
+## 1.4.2 Permutaciones
+
+::: {.definicion}
+**Permutación.** Arreglo de $n$ elementos distintos colocados en **distinto orden**. Dos arreglos con los mismos elementos son permutaciones diferentes si difieren en el orden: 345, 354 y 435 son tres arreglos distintos.
+
+El número de permutaciones de $n$ elementos es
+
+$$P_n = n!$$
+
+[Ordóñez et al., 2025, §3.4.1.]{.fuente}
+:::
+
+El razonamiento del texto guía es directo: con la palabra LIBROS, la primera letra puede ocupar 6 sitios, la segunda 5 —uno ya está ocupado—, la tercera 4, y así hasta agotar las posiciones. En total $6! = 720$ ordenaciones.
+
+**Cuando hay elementos repetidos** se divide entre el factorial de cada repetición, porque intercambiar dos elementos iguales no produce un arreglo nuevo:
+
+$$P_n^{r_1, r_2, \dots} = \frac{n!}{r_1!\, r_2! \cdots}$$
+
+[Ordóñez et al., 2025, §3.4.1.]{.fuente}
+
+### Permutaciones de tamaño $k$
+
+Hasta aquí se han ordenado **todos** los elementos. Lo habitual es tomar sólo algunos: de las 40 unidades de la flota se designan tres para cargos distintos, no las cuarenta.
+
+::: {.definicion}
+**Permutación de tamaño $k$.** Arreglo **ordenado** de $k$ elementos tomados de un conjunto de $n$. Se nota $P(n,k)$ y vale
+
+$$P(n,k) = \frac{n!}{(n-k)!}$$
+
+Cuando $k = n$ se recupera el caso anterior: $P(n,n) = n! = P_n$. La permutación completa es el caso particular en que se toman todos.
+
+[Devore, 2016, §2.3, donde se escribe $P_{k,n}$.]{.fuente}
+:::
+
+::: {.franja}
+**Atención al nombre.** El texto guía llama **variación** a esto mismo, y lo nota $V(n,k)$, reservando la palabra «permutación» para el caso $k = n$.
+
+La fórmula es idéntica; sólo cambia la palabra. **Este curso emplea «permutación»**, siguiendo a Devore y a Johnson, porque es la nomenclatura que encontrará en la bibliografía internacional y en el software. Reconozca la otra al leer a Ordóñez.
+:::
+
+::: {.predice}
+Se debe designar entre las 40 unidades de la flota un buque insignia, un segundo de la formación y un buque de retaguardia. Los tres cargos son distintos. ¿Cree que el número de designaciones posibles pasa del millón? Escriba su estimación.
+:::
+
+```{webr}
+n <- 40; k <- 3
+
+# Por el principio del producto, etapa a etapa
+prod(40:38)
+
+# Por la fórmula de la permutación de tamaño k
+factorial(n) / factorial(n - k)
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Obtenga $P(40,3)$ con la fórmula, a mano, y compruébelo.
+:::
+
+```{webr}
+mi_permutacion <- 0      # sustituya
+
+verificar_permutacion(mi_permutacion)
+```
+
+## 1.4.3 Combinaciones
+
+::: {.definicion}
+**Combinación.** Arreglo **no ordenado** de $k$ elementos tomados de $n$. Dos arreglos son la misma combinación si contienen los mismos elementos, sin importar en qué orden: 134, 143 y 413 son **una sola** combinación, mientras que como permutaciones serían tres.
+
+$$C(n,k) = \binom{n}{k} = \frac{n!}{k!\,(n-k)!}$$
+
+[Ordóñez et al., 2025, §3.4.3; Devore, 2016, §2.3.]{.fuente}
+:::
+
+::: {.inferencia}
+De dónde sale el $k!$ del denominador: cada combinación de $k$ elementos puede ordenarse de $k!$ maneras, y todas ellas son permutaciones distintas pero una sola combinación. Por eso
+
+$$C(n,k) = \frac{P(n,k)}{k!}$$
+
+**La combinación no es una fórmula nueva: es la permutación descontando los órdenes.** Recordar esta relación evita tener que memorizar la segunda fórmula.
+:::
+
+::: {.franja}
+La pregunta que decide cuál de las dos se usa es siempre la misma: **¿importa el orden?** Si los puestos son distinguibles —insignia, segundo, retaguardia— es permutación. Si sólo se elige un grupo —tres unidades para una patrulla, sin cargos— es combinación.
+:::
+
+```{webr}
+# El mismo problema, con y sin orden
+permutacion <- factorial(40) / factorial(37)
+combinacion <- choose(40, 3)
+
+c(con_orden = permutacion, sin_orden = combinacion,
+  cociente = permutacion / combinacion, factorial_de_3 = factorial(3))
+```
+
+::: {.predice}
+Antes de ejecutar la celda siguiente: `choose(200, 100)` es un número enorme. ¿Cree que R puede calcularlo? ¿Y podrá calcularlo la fórmula escrita con factoriales?
+:::
+
+```{webr}
+c(con_choose        = choose(200, 100),
+  con_factoriales   = factorial(200) / (factorial(100) * factorial(100)))
+```
+
+::: {.recomendacion}
+**Use siempre `choose()`, nunca la fórmula con factoriales.** En R el factorial desborda a partir de $171!$, que devuelve `Inf`, y entonces el cociente da `NaN`: ni siquiera avisa de que el resultado es falso, simplemente no es un número. `choose()` calcula por otra vía y devuelve el valor correcto.
+
+Es un caso concreto de una regla más general: **una fórmula matemáticamente correcta puede ser numéricamente inservible.**
+:::
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Se deben escoger 3 unidades de las 40 para una patrulla conjunta, sin asignarles cargos. Calcule cuántas patrullas distintas pueden formarse.
+:::
+
+```{webr}
+mi_combinacion <- 0      # sustituya
+
+verificar_combinacion(mi_combinacion)
+```
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Para designar la guardia de mar de una noche hay que nombrar un oficial de guardia y un oficial de derrota, dos cargos distintos, entre 8 candidatos. Un guardiamarina resuelve con `choose(8, 2)`.
+
+¿Es correcto?
+
+**a)** Sí: se eligen dos personas de ocho, y eso es una combinación.
+**b)** No: los dos cargos son distintos, así que el orden importa y corresponde una permutación de tamaño 2, $P(8,2) = 56$. Con `choose` se obtiene la mitad.
+**c)** No: habría que usar $8^2$, porque cada cargo se elige de forma independiente.
+:::
+
+```{webr}
+revisar("p12", "escriba aquí a, b o c")
+```
+
+## 1.4.4 Probabilidad clásica
+
+::: {.definicion}
+**Espacio muestral.** Conjunto de todas las respuestas posibles de un experimento. En el lanzamiento de un dado es $\{1,2,3,4,5,6\}$.
+
+**Suceso.** Cualquier subconjunto del espacio muestral: que salga un 6, o que salga un número par.
+
+[Ordóñez et al., 2025, §3.1.]{.fuente}
+:::
+
+La probabilidad es el valor numérico que representa la frecuencia relativa con que un suceso ocurre respecto de los resultados posibles. Relaciona los casos favorables con el total, **fluctúa entre 0 y 1**, y puede expresarse como fracción, decimal o porcentaje.
+
+$$P(A) = \frac{\text{casos favorables a } A}{\text{casos posibles}}$$
+
+[Ordóñez et al., 2025, §3.1.]{.fuente}
+
+```{webr}
+# Probabilidad de que una unidad tomada al azar sea patrullera
+favorables <- sum(flota$tipo == "Patrullera")
+posibles   <- nrow(flota)
+
+c(favorables = favorables, posibles = posibles, probabilidad = favorables / posibles)
+
+# En R, mean() sobre una condición hace las dos cosas a la vez
+mean(flota$tipo == "Patrullera")
+```
+
+### Sucesos compuestos
+
+Los sucesos compuestos aparecen cuando intervienen dos o más sucesos simples.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Independientes
+La ocurrencia de uno no afecta a la del otro.
+
+$$P(A \cap B) = P(A)\,P(B)$$
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Excluyentes
+No pueden ocurrir a la vez.
+
+$$P(A \cup B) = P(A) + P(B)$$
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-oscura}
+#### Complementarios
+Excluyentes y sólo dos. Uno de los dos ocurre necesariamente.
+
+$$P(\bar{A}) = 1 - P(A)$$
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-teal}
+#### No excluyentes
+Pueden ocurrir a la vez, y hay que descontar la parte común.
+
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, §§3.2–3.3, citando a Walpole et al. (2012).]{.fuente}
+
+::: {.inferencia}
+La última fórmula es el mismo problema del ejercicio del apartado 1.4.1, escrito en lenguaje de probabilidad: al sumar $P(A)$ y $P(B)$, los elementos que están en ambos se contaron dos veces, y por eso se resta una vez la intersección. **El principio de la suma es el caso particular en que esa intersección está vacía.**
+:::
+
+```{webr}
+pa <- mean(flota$tipo == "Patrullera")
+pb <- mean(flota$calado_m > 5)
+pab <- mean(flota$tipo == "Patrullera" & flota$calado_m > 5)
+
+c(union_correcta = pa + pb - pab,
+  comprobacion   = mean(flota$tipo == "Patrullera" | flota$calado_m > 5))
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Obtenga la probabilidad de que una unidad tomada al azar de su flota sea patrullera.
+:::
+
+```{webr}
+mi_probabilidad <- 0     # sustituya
+
+verificar_prob_patrullera(mi_probabilidad)
+```
+
+# Semana 7
+
+## 1.4.5 Probabilidad condicional
+
+::: {.definicion}
+**Probabilidad condicional.** Probabilidad de que ocurra $A$ **sabiendo que $B$ ya ha ocurrido**. Se escribe $P(A \mid B)$ y, para cualquier $B$ con $P(B) > 0$,
+
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+
+[Devore, 2016, §2.4; Ordóñez et al., 2025, §3.3.3.]{.fuente}
+:::
+
+::: {.franja}
+**Por qué el denominador es $P(B)$ y no 1.** Saber que $B$ ocurrió **reduce el espacio muestral**: ya no se mira toda la flota, sino sólo la parte donde $B$ se cumple. Dividir entre $P(B)$ es reescalar ese trozo para que vuelva a sumar 1. Devore lo dice con esas palabras: la constante $1/P(B)$ garantiza que $P(B \mid B) = 1$.
+:::
+
+Despejando se obtiene la **regla de multiplicación**, que es como se usa en la práctica:
+
+$$P(A \cap B) = P(A \mid B)\,P(B)$$
+
+[Devore, 2016, §2.4.]{.fuente}
+
+::: {.predice}
+En su flota, ¿cree que la probabilidad de que una unidad tenga dos o más averías cambia si se sabe que es patrullera? Escriba «sube», «baja» o «no cambia» antes de ejecutar.
+:::
+
+```{webr}
+p_averias      <- mean(flota$averias_anio >= 2)                    # sin condicionar
+p_interseccion <- mean(flota$tipo == "Patrullera" & flota$averias_anio >= 2)
+p_patrullera   <- mean(flota$tipo == "Patrullera")
+
+c(incondicional = p_averias,
+  condicional   = p_interseccion / p_patrullera,
+  # comprobación directa: mirar sólo las patrulleras
+  directa       = mean(flota$averias_anio[flota$tipo == "Patrullera"] >= 2))
+```
+
+::: {.inferencia}
+Las dos últimas cifras coinciden, y esa coincidencia **es** la definición. Condicionar no es aplicar una fórmula: es quedarse con el subconjunto donde la condición se cumple y volver a calcular la proporción dentro de él. La fórmula sólo pone eso por escrito.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** ¿Qué significa exactamente $P(A \mid B)$?
+
+**a)** La proporción de casos con $A$ **dentro** de los casos con $B$, lo que exige dividir entre $P(B)$ porque el espacio muestral pasó a ser $B$.
+**b)** La probabilidad de que ocurran $A$ y $B$ a la vez.
+**c)** La probabilidad de que ocurra $A$ o de que ocurra $B$.
+:::
+
+```{webr}
+revisar("p13", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Obtenga $P(\text{dos o más averías} \mid \text{patrullera})$ en su flota.
+:::
+
+```{webr}
+mi_condicional <- 0      # sustituya
+
+verificar_condicional(mi_condicional)
+```
+
+::: {.franja}
+**Sucesos dependientes en la práctica.** Ordóñez señala que la dependencia aparece típicamente cuando **no hay reposición**: en un sorteo los números eliminados no vuelven a la urna, y por eso la segunda extracción depende de la primera. Es el mismo motivo por el que en el tema 1.2 el muestreo sin reposición obliga a la corrección por población finita.
+
+[Ordóñez et al., 2025, §3.2.]{.fuente}
+:::
+
+## 1.4.6 Probabilidad total
+
+Cuando un suceso puede llegar por varios caminos, su probabilidad es la suma de lo que aporta cada camino.
+
+::: {.definicion}
+**Ley de probabilidad total.** Sean $A_1, \dots, A_k$ sucesos **mutuamente excluyentes y exhaustivos**. Entonces, para cualquier otro suceso $B$,
+
+$$P(B) = \sum_{i=1}^{k} P(B \mid A_i)\, P(A_i)$$
+
+[Devore, 2016, §2.4.]{.fuente}
+:::
+
+::: {.definicion}
+**Excluyentes** significa que dos cualesquiera de los $A_i$ no pueden ocurrir a la vez. **Exhaustivos** significa que alguno de ellos ocurre necesariamente: entre todos cubren el espacio muestral.
+
+Las dos condiciones juntas dicen que los $A_i$ **parten** el espacio muestral en trozos que no se solapan y no dejan huecos. Si faltara cualquiera de las dos, la suma contaría de más o de menos.
+:::
+
+**Ejemplo naval.** Las unidades de la flota se mantienen en tres bases, y cada base tiene su propia tasa histórica de avería recurrente tras la carena: Esmeraldas 5 %, Guayaquil 2 %, Manta 3 %. Se toma una unidad al azar. ¿Cuál es la probabilidad de que presente avería recurrente?
+
+Las tres bases son excluyentes —cada unidad se mantuvo en una y sólo una— y exhaustivas —no hay una cuarta base—, así que la ley se aplica.
+
+::: {.predice}
+La tasa mayor es 5 % y la menor 2 %. Sin calcular: ¿entre qué dos valores tiene que quedar forzosamente el resultado?
+:::
+
+```{webr}
+p_base <- prop.table(table(flota$base))                       # cuánto pesa cada base
+p_dado <- c(Esmeraldas = .05, Guayaquil = .02, Manta = .03)[names(p_base)]
+
+round(rbind(peso = p_base, tasa = p_dado, aporte = p_base * p_dado), 4)
+
+sum(p_base * p_dado)     # probabilidad total
+```
+
+::: {.inferencia}
+El resultado queda siempre entre la tasa menor y la mayor, porque es un **promedio ponderado** de las tasas, con las proporciones de cada base como pesos. Si esa comprobación falla, hay un error de cálculo: no hace falta revisar la aritmética para saberlo.
+:::
+
+::: {.ejercicio}
+**Detectar el error.** Un guardiamarina aplica la ley de probabilidad total sumando las tasas de las tres bases y dividiendo entre tres: $(0.05 + 0.02 + 0.03)/3 = 0.0333$.
+
+¿Por qué no es correcto?
+
+**a)** Porque las tasas hay que multiplicarlas, no sumarlas.
+**b)** Porque ignora el peso de cada base. Sólo coincidiría si las tres tuvieran exactamente el mismo número de unidades; en general hay que ponderar por $P(A_i)$.
+**c)** Porque la ley de probabilidad total no se aplica a proporciones.
+:::
+
+```{webr}
+revisar("p15", "escriba aquí a, b o c")
+```
+
+```{webr}
+mi_total <- 0            # sustituya
+
+verificar_total(mi_total)
+```
+
+## 1.4.7 Teorema de Bayes
+
+La probabilidad total va de las causas al efecto. **Bayes recorre el camino inverso:** observado el efecto, ¿de qué causa vino?
+
+::: {.definicion}
+**Teorema de Bayes.** Con $A_1, \dots, A_k$ excluyentes y exhaustivos, y $P(B) > 0$,
+
+$$P(A_j \mid B) = \frac{P(B \mid A_j)\,P(A_j)}{\sum_{i=1}^{k} P(B \mid A_i)\,P(A_i)}$$
+
+[Devore, 2016, §2.4, ecuación 2.6; Ordóñez et al., 2025, §3.4.6, citando a Lind et al. (2019).]{.fuente}
+:::
+
+::: {.definicion}
+**Probabilidad previa** o *a priori*: $P(A_j)$, lo que se sabía antes de observar nada.
+
+**Probabilidad posterior** o *a posteriori*: $P(A_j \mid B)$, lo que se sabe después de observar $B$.
+
+Bayes es, literalmente, **la regla para actualizar una creencia con evidencia nueva**.
+:::
+
+::: {.inferencia}
+Obsérvese que el denominador de Bayes es exactamente la probabilidad total del apartado anterior. **Bayes no es una fórmula independiente**: es la definición de probabilidad condicional, con la regla de multiplicación en el numerador y la ley de probabilidad total en el denominador. Reconocer esas tres piezas hace innecesario memorizarla.
+:::
+
+**Continuación del ejemplo.** Una unidad presenta avería recurrente. ¿Cuál es la probabilidad de que se hubiera mantenido en Manta?
+
+::: {.predice}
+Manta tiene una tasa intermedia, 3 %. Antes de calcular: ¿la probabilidad posterior de Manta será mayor o menor que su peso previo en la flota?
+:::
+
+```{webr}
+p_base <- prop.table(table(flota$base))
+p_dado <- c(Esmeraldas = .05, Guayaquil = .02, Manta = .03)[names(p_base)]
+
+posterior <- p_base * p_dado / sum(p_base * p_dado)
+
+round(rbind(previa = p_base, posterior = posterior), 4)
+```
+
+::: {.franja}
+Las bases con tasa alta **suben** al pasar de previa a posterior, y las de tasa baja **bajan**. La evidencia de que hubo avería redistribuye la sospecha hacia donde las averías son más frecuentes, en la proporción exacta que fija el teorema.
+:::
+
+```{webr}
+mi_bayes <- 0            # sustituya
+
+verificar_bayes(mi_bayes)
+```
+
+### La falacia de la tasa base
+
+El resultado más útil de todo el tema, y el más contraintuitivo, aparece cuando el suceso buscado es **raro**.
+
+**Caso.** Un sensor de entrada de agua en sentina se activa correctamente en el 99 % de las inundaciones reales, y da falsa alarma sólo en el 2 % de las guardias normales. Las inundaciones ocurren en 1 de cada 1000 guardias. **Suena la alarma. ¿Cuál es la probabilidad de que haya inundación real?**
+
+::: {.predice}
+Escriba su respuesta antes de ejecutar. Casi todo el mundo dice una cifra muy por encima de la correcta.
+:::
+
+```{webr}
+previa <- 0.001      # inundaciones por guardia
+sens   <- 0.99       # alarma cuando sí hay inundación
+falsa  <- 0.02       # alarma cuando no la hay
+
+p_alarma <- previa * sens + (1 - previa) * falsa       # probabilidad total
+posterior <- previa * sens / p_alarma                  # Bayes
+
+round(c(P_alarma = p_alarma, P_inundacion_dado_alarma = posterior), 5)
+```
+
+::: {.inferencia}
+Sale **menos del 5 %**, con un sensor que acierta el 99 % de las veces. La razón no es que el sensor sea malo: es que hay **999 guardias normales por cada guardia con inundación**, y un 2 % de falsas alarmas sobre 999 produce muchas más alarmas que un 99 % de aciertos sobre 1.
+
+La probabilidad pasó de 0.001 a 0.047: la alarma multiplicó por 47 la sospecha, que es mucho. Pero partía de tan abajo que sigue siendo improbable. **Ignorar de dónde se parte es el error que el teorema corrige.**
+:::
+
+::: {.franja}
+Este resultado no es una curiosidad de manual. Devore lo presenta con una enfermedad rara y una prueba diagnóstica, y obtiene la misma cifra: 0.047. La estructura es idéntica siempre que se busque algo poco frecuente con un detector imperfecto — averías críticas, contactos hostiles, fallos estructurales.
+
+[Devore, 2016, §2.4, ejemplo 2.31.]{.fuente}
+:::
+
+Que el razonamiento es correcto puede comprobarse sin fiarse de la fórmula: se simulan doscientas mil guardias y se cuenta.
+
+```{webr}
+set.seed(42)
+N <- 200000
+
+inundacion <- runif(N) < previa
+alarma <- ifelse(inundacion, runif(N) < sens, runif(N) < falsa)
+
+c(simulado = mean(inundacion[alarma]), formula = posterior)
+```
+
+::: {.ejercicio}
+**Interpretar sin calcular.** ¿Por qué la probabilidad de inundación real, dada la alarma, es tan baja?
+
+**a)** Porque el sensor es poco fiable.
+**b)** Porque el cálculo está mal: con un 99 % de acierto debería salir cerca de 0.99.
+**c)** Porque el suceso es raro. Hay tantas más guardias sin inundación que el 2 % de falsas alarmas sobre ellas supera con creces a los aciertos sobre el 0.1 % restante.
+:::
+
+```{webr}
+revisar("p14", "escriba aquí a, b o c")
+```
+
+::: {.recomendacion}
+Retenga la consecuencia operativa: **una alarma que salta rara vez y acierta casi siempre puede seguir siendo, en su mayoría, falsa alarma.** Antes de dimensionar una respuesta a un detector, hay que preguntar con qué frecuencia ocurre de verdad lo que detecta.
+:::
+
+### Ejercicio integrador
+
+::: {.ejercicio}
+**Estudio de caso: reparto de una guardia.** De las 40 unidades de su flota debe usted:
+
+1. Formar un grupo de 4 unidades para una patrulla conjunta, sin cargos asignados. ¿Cuántos grupos distintos son posibles?
+2. Del mismo conjunto, designar 4 unidades con cargos distintos —insignia, segundo, retaguardia y enlace—. ¿Cuántas designaciones son posibles?
+3. Explicar en una frase por qué el segundo número es exactamente 24 veces el primero.
+4. Calcular la probabilidad de que un grupo de 4 tomado al azar esté formado **sólo** por patrulleras.
+:::
+
+```{webr}
+n <- 40; k <- 4
+n_patrulleras <- sum(flota$tipo == "Patrullera")
+
+c(sin_cargos   = choose(n, k),
+  con_cargos   = factorial(n) / factorial(n - k),
+  cociente     = factorial(k),
+  p_todas_patrulleras = choose(n_patrulleras, k) / choose(n, k))
+```
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+**Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025).** *Estadística para la Seguridad y Defensa* (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.
+
+Capítulo III, «Teoría de la probabilidad», páginas 81 a 96. Cubre §3.1 probabilidad de un suceso, §§3.2–3.3 sucesos compuestos y sus reglas, §3.4 técnicas de conteo con permutaciones, variaciones —lo que aquí se llama permutación de tamaño $k$— y combinaciones, §3.4.5 diagramas de árbol y §3.4.6 teorema de Bayes. Sus ejercicios 3.7 a 3.18 están planteados en contexto militar.
+
+#### Ampliación por subtema
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.
+
+— §2.3 «Técnicas de conteo», páginas 66 a 73: la regla del producto para $k$ etapas, y la deducción de las fórmulas de permutación y combinación paso a paso.
+
+— §2.4 «Probabilidad condicional», páginas 75 a 82: la definición de $P(A\mid B)$, la regla de multiplicación, la **ley de probabilidad total** —que el texto guía no enuncia por separado— y el teorema de Bayes con el ejemplo de la enfermedad rara.
+
+**Johnson, R. A. (2012).** *Probabilidad y estadística para ingenieros* (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.
+
+Capítulo 3, «Probabilidad»: el mismo material con ejemplos de control de calidad y fiabilidad industrial, que es el contexto más próximo al mantenimiento naval.
+
+#### Apoyo complementario
+
+Si tiene dificultades para comprender un contenido con los textos impresos, consulte esta obra.
+
+**Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+Capítulo 3, «Temas de probabilidad»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/3-introduccion>
+
+De acceso libre, en español y con mayor cantidad de ejemplos resueltos. Consúltelo como complemento del texto guía, no como sustituto.
+
+::: {.franja}
+Las diferencias de nomenclatura y de convención entre los textos —empezando por «permutación de tamaño $k$» frente a «variación»— están recogidas en [Discrepancias entre los textos y R](../discrepancias.qmd).
+:::

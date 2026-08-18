@@ -102,7 +102,17 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p9 = list(op = "a",
             por = "La opcion b confunde asimetria con cantidad de datos: en una distribucion sesgada a la derecha hay MENOS datos a la derecha, pero mas alejados. Eso es justo lo que estira la media por encima de la mediana."),
   p10 = list(op = "b",
-            por = "Un promedio sin su dispersion oculta lo que interesa. Es el mismo error que Ordonez evita en el ejercicio 2.17, donde compara dos grupos usando media y variabilidad a la vez, nunca una sola.")
+            por = "Un promedio sin su dispersion oculta lo que interesa. Es el mismo error que Ordonez evita en el ejercicio 2.17, donde compara dos grupos usando media y variabilidad a la vez, nunca una sola."),
+  p11 = list(op = "c",
+            por = "El principio de la suma exige que los sucesos NO puedan darse a la vez. Aqui una misma unidad podria cumplir las dos condiciones, asi que sumar cuenta dos veces a esas unidades."),
+  p12 = list(op = "b",
+            por = "En la guardia el orden importa: no es lo mismo primer turno que segundo. Eso es una permutacion de tamano k, no una combinacion. Dividir por k! borraria precisamente la distincion que se quiere conservar."),
+  p13 = list(op = "a",
+            por = "P(A|B) reordena el espacio muestral: pasa a ser B. Por eso el denominador es P(B) y no 1. No es la probabilidad de que ocurran los dos, que seria la interseccion."),
+  p14 = list(op = "c",
+            por = "Es la falacia de la tasa base. Con un suceso raro, la mayoria de las alarmas provienen de falsos positivos, aunque el sensor sea muy bueno: hay muchisimas mas ocasiones de equivocarse que de acertar."),
+  p15 = list(op = "b",
+            por = "La probabilidad total exige que las causas sean excluyentes y exhaustivas: cada unidad viene de una base y de una sola, y no hay una cuarta base. Sin esas dos condiciones la suma no cubre el espacio muestral.")
 )
 
 revisar <- function(id, letra) {
@@ -164,4 +174,39 @@ verificar_q3 <- function(x)
 verificar_iqr <- function(x)
   verificar(x, unname(diff(quantile(flota$consumo_m3_dia, c(.25, .75), type = 6))),
             pista = "IQR = Q3 - Q1, ambos con la convencion del texto guia (type = 6).")
+
+# --- Tema 1.4 ---------------------------------------------------------------
+
+verificar_permutacion <- function(x)
+  verificar(x, factorial(40) / factorial(37), tol = 0,
+            pista = "El orden importa: P(n,k) = n!/(n-k)! con n = 40 y k = 3.")
+
+verificar_combinacion <- function(x)
+  verificar(x, choose(40, 3), tol = 0,
+            pista = "El orden no importa: C(n,k) = n!/(k!(n-k)!). En R, choose(40, 3).")
+
+verificar_prob_patrullera <- function(x)
+  verificar(x, mean(flota$tipo == "Patrullera"),
+            pista = "Casos favorables sobre casos posibles: cuente las patrulleras y divida entre 40.")
+
+verificar_condicional <- function(x) {
+  pa <- mean(flota$tipo == "Patrullera" & flota$averias_anio >= 2)
+  pb <- mean(flota$tipo == "Patrullera")
+  verificar(x, pa / pb,
+            pista = "P(A|B) = P(A y B) / P(B). El denominador es la proporcion de patrulleras, no 1.")
+}
+
+verificar_total <- function(x) {
+  p  <- prop.table(table(flota$base))
+  pd <- c(Esmeraldas = .05, Guayaquil = .02, Manta = .03)[names(p)]
+  verificar(x, sum(p * pd),
+            pista = "P(D) = suma de P(base) por P(D|base), sobre las tres bases.")
+}
+
+verificar_bayes <- function(x) {
+  p  <- prop.table(table(flota$base))
+  pd <- c(Esmeraldas = .05, Guayaquil = .02, Manta = .03)[names(p)]
+  verificar(x, unname(p["Manta"] * pd["Manta"] / sum(p * pd)),
+            pista = "Bayes: P(Manta|D) = P(Manta)*P(D|Manta) / P(D). El denominador es la probabilidad total.")
+}
 ```

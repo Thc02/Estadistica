@@ -25,6 +25,7 @@ Esta página reúne las que se han verificado numéricamente. Cada una indica qu
 | 4 | **Asimetría** | Tres estimadores en uso, con hasta 8 % de diferencia | El de Ordóñez, escrito a mano |
 | 5 | **Umbral del coeficiente de variación** | El umbral del texto guía no concuerda con su propia fórmula. **Resuelto en la fuente original** | El CV como fracción si se compara con umbrales |
 | 6 | **Errata en el texto guía** | El cuerpo del texto y su propia tabla no coinciden | Prevalece la tabla |
+| 7 | **«Permutación de tamaño k» frente a «variación»** | Misma fórmula, dos nombres según la tradición del texto | Se usa «permutación»; se declara la equivalencia |
 
 : Discrepancias verificadas {.striped}
 
@@ -189,6 +190,23 @@ round(c(media = media, varianza = s2, desviacion = sqrt(s2)), 2)
 
 ::: {.franja}
 Encontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: **ningún texto es infalible, y toda fórmula se comprueba antes de usarse.** Esa comprobación cabe en cuatro líneas de código.
+:::
+
+## 7. «Permutación de tamaño k» frente a «variación»
+
+No es una discrepancia de cálculo sino de vocabulario, y por eso desconcierta más de lo que debería.
+
+| Fuente | Nombre | Notación | Fórmula |
+|---|---|---|---|
+| **Devore** (§2.3), **Johnson** (cap. 3) | Permutación de tamaño $k$ | $P_{k,n}$ | $n!/(n-k)!$ |
+| **Ordóñez et al.** (§3.4.2) | Variación | $V(n,k)$ | $n!/(n-k)!$ |
+
+: El mismo arreglo con dos nombres {.striped}
+
+Para Ordóñez, **permutación** designa únicamente el caso $k = n$, es decir $P_n = n!$, y reserva **variación** para el caso general. Para Devore no existe la palabra «variación»: todo arreglo ordenado es una permutación, y se especifica el tamaño. Es la diferencia entre la tradición hispana y la anglosajona, y sobrevive en el software: las hojas de cálculo ofrecen `PERMUTACIONES` para lo que Ordóñez llamaría variación.
+
+::: {.recomendacion}
+Este curso usa **permutación de tamaño $k$**, notada $P(n,k)$, por ser la nomenclatura de la bibliografía internacional y del software. Al leer el texto guía, recuerde que su «variación» $V(n,k)$ es exactamente lo mismo.
 :::
 
 ## Declaración de la convención en un informe
