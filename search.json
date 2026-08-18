@@ -1,5 +1,555 @@
 [
   {
+    "objectID": "unidad-1/tema-1-4.html",
+    "href": "unidad-1/tema-1-4.html",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "",
+    "text": "Los temas anteriores describían datos ya observados. Este describe lo que todavía no ha ocurrido: cuántas maneras hay de que algo suceda, y con qué probabilidad sucede. Es el puente entre la estadística descriptiva y la inferencia.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#técnicas-de-conteo",
+    "href": "unidad-1/tema-1-4.html#técnicas-de-conteo",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.1 Técnicas de conteo",
+    "text": "1.4.1 Técnicas de conteo\nA veces es imposible, y casi siempre demasiado largo, contar uno por uno los elementos de un suceso. Las técnicas de conteo permiten obtener ese número sin enumerarlo.\nOrdóñez et al., 2025, §3.4.\nTodo descansa sobre dos principios y una operación.\n\nFactorial. Para un entero positivo \\(n\\), el factorial \\(n!\\) es el producto descendente \\(n(n-1)(n-2)\\cdots 2 \\cdot 1\\). Así \\(4! = 4 \\times 3 \\times 2 \\times 1 = 24\\).\nPor convención \\(0! = 1\\). No es un capricho: es lo que hace que las fórmulas siguientes den el resultado correcto en los casos extremos.\nDevore, 2016, §2.3.\n\n\nLos dos principios fundamentales\n\n\n\nPrincipio de la suma\nSi un suceso puede realizarse de \\(p_1\\) formas y otro de \\(p_2\\) formas, pero no pueden darse simultáneamente, el número total de formas es \\(p_1 + p_2\\).\nEj.: para llegar a la base hay 2 rutas por tierra y 4 por aire. En total, 6 rutas.\n\n\n\n\nPrincipio del producto\nSi una actividad puede realizarse de \\(p_1\\) formas y una segunda de \\(p_2\\) formas, las dos en conjunto pueden realizarse de \\(p_1 \\times p_2\\) formas.\nEj.: 5 rutas de salida y 3 fondeaderos de destino dan 15 singladuras distintas.\n\n\n\nOrdóñez et al., 2025, §3.4.4; Devore, 2016, §2.3.\n\nLa palabra que decide cuál usar es «o» frente a «y». Sucesos que se excluyen —o uno o el otro— se suman. Etapas que se encadenan —primero una y después la otra— se multiplican.\n\nDevore enuncia el principio del producto de forma general: si la primera etapa admite \\(n_1\\) maneras, y por cada una la segunda admite \\(n_2\\), y así hasta \\(k\\) etapas, el total es \\(n_1 n_2 \\cdots n_k\\).\nDevore, 2016, §2.3.\n\nUna comisión requiere elegir una base de zarpe entre 3, un tipo de unidad entre 4 y un estado de la mar admisible entre 3. ¿Cuántas configuraciones distintas hay? Calcúlelo antes de ejecutar.\n\n\n\n\n\n\n\n\n\n\nDetectar el error. Un guardiamarina debe contar cuántas unidades de la flota son patrulleras o tienen calado mayor a 5 m. Cuenta 16 patrulleras, cuenta las de calado mayor a 5 m, y suma las dos cifras.\n¿Dónde está el problema?\na) En ninguna parte: el principio de la suma dice que se suman las dos cantidades. b) Debió multiplicar, porque son dos condiciones sobre la misma flota. c) El principio de la suma exige que los dos sucesos no puedan darse a la vez, y aquí una patrullera puede tener calado mayor a 5 m. Esas unidades se cuentan dos veces.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#permutaciones",
+    "href": "unidad-1/tema-1-4.html#permutaciones",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.2 Permutaciones",
+    "text": "1.4.2 Permutaciones\n\nPermutación. Arreglo de \\(n\\) elementos distintos colocados en distinto orden. Dos arreglos con los mismos elementos son permutaciones diferentes si difieren en el orden: 345, 354 y 435 son tres arreglos distintos.\nEl número de permutaciones de \\(n\\) elementos es\n\\[P_n = n!\\]\nOrdóñez et al., 2025, §3.4.1.\n\nEl razonamiento del texto guía es directo: con la palabra LIBROS, la primera letra puede ocupar 6 sitios, la segunda 5 —uno ya está ocupado—, la tercera 4, y así hasta agotar las posiciones. En total \\(6! = 720\\) ordenaciones.\nCuando hay elementos repetidos se divide entre el factorial de cada repetición, porque intercambiar dos elementos iguales no produce un arreglo nuevo:\n\\[P_n^{r_1, r_2, \\dots} = \\frac{n!}{r_1!\\, r_2! \\cdots}\\]\nOrdóñez et al., 2025, §3.4.1.\n\nPermutaciones de tamaño \\(k\\)\nHasta aquí se han ordenado todos los elementos. Lo habitual es tomar sólo algunos: de las 40 unidades de la flota se designan tres para cargos distintos, no las cuarenta.\n\nPermutación de tamaño \\(k\\). Arreglo ordenado de \\(k\\) elementos tomados de un conjunto de \\(n\\). Se nota \\(P(n,k)\\) y vale\n\\[P(n,k) = \\frac{n!}{(n-k)!}\\]\nCuando \\(k = n\\) se recupera el caso anterior: \\(P(n,n) = n! = P_n\\). La permutación completa es el caso particular en que se toman todos.\nDevore, 2016, §2.3, donde se escribe \\(P_{k,n}\\).\n\n\nAtención al nombre. El texto guía llama variación a esto mismo, y lo nota \\(V(n,k)\\), reservando la palabra «permutación» para el caso \\(k = n\\).\nLa fórmula es idéntica; sólo cambia la palabra. Este curso emplea «permutación», siguiendo a Devore y a Johnson, porque es la nomenclatura que encontrará en la bibliografía internacional y en el software. Reconozca la otra al leer a Ordóñez.\n\n\nSe debe designar entre las 40 unidades de la flota un buque insignia, un segundo de la formación y un buque de retaguardia. Los tres cargos son distintos. ¿Cree que el número de designaciones posibles pasa del millón? Escriba su estimación.\n\n\n\n\n\n\n\n\n\n\nCalcular a mano y verificar. Obtenga \\(P(40,3)\\) con la fórmula, a mano, y compruébelo.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#combinaciones",
+    "href": "unidad-1/tema-1-4.html#combinaciones",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.3 Combinaciones",
+    "text": "1.4.3 Combinaciones\n\nCombinación. Arreglo no ordenado de \\(k\\) elementos tomados de \\(n\\). Dos arreglos son la misma combinación si contienen los mismos elementos, sin importar en qué orden: 134, 143 y 413 son una sola combinación, mientras que como permutaciones serían tres.\n\\[C(n,k) = \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}\\]\nOrdóñez et al., 2025, §3.4.3; Devore, 2016, §2.3.\n\n\nDe dónde sale el \\(k!\\) del denominador: cada combinación de \\(k\\) elementos puede ordenarse de \\(k!\\) maneras, y todas ellas son permutaciones distintas pero una sola combinación. Por eso\n\\[C(n,k) = \\frac{P(n,k)}{k!}\\]\nLa combinación no es una fórmula nueva: es la permutación descontando los órdenes. Recordar esta relación evita tener que memorizar la segunda fórmula.\n\n\nLa pregunta que decide cuál de las dos se usa es siempre la misma: ¿importa el orden? Si los puestos son distinguibles —insignia, segundo, retaguardia— es permutación. Si sólo se elige un grupo —tres unidades para una patrulla, sin cargos— es combinación.\n\n\n\n\n\n\n\n\n\n\nAntes de ejecutar la celda siguiente: choose(200, 100) es un número enorme. ¿Cree que R puede calcularlo? ¿Y podrá calcularlo la fórmula escrita con factoriales?\n\n\n\n\n\n\n\n\n\n\nUse siempre choose(), nunca la fórmula con factoriales. En R el factorial desborda a partir de \\(171!\\), que devuelve Inf, y entonces el cociente da NaN: ni siquiera avisa de que el resultado es falso, simplemente no es un número. choose() calcula por otra vía y devuelve el valor correcto.\nEs un caso concreto de una regla más general: una fórmula matemáticamente correcta puede ser numéricamente inservible.\n\n\nCalcular a mano y verificar. Se deben escoger 3 unidades de las 40 para una patrulla conjunta, sin asignarles cargos. Calcule cuántas patrullas distintas pueden formarse.\n\n\n\n\n\n\n\n\n\n\nInterpretar sin calcular. Para designar la guardia de mar de una noche hay que nombrar un oficial de guardia y un oficial de derrota, dos cargos distintos, entre 8 candidatos. Un guardiamarina resuelve con choose(8, 2).\n¿Es correcto?\na) Sí: se eligen dos personas de ocho, y eso es una combinación. b) No: los dos cargos son distintos, así que el orden importa y corresponde una permutación de tamaño 2, \\(P(8,2) = 56\\). Con choose se obtiene la mitad. c) No: habría que usar \\(8^2\\), porque cada cargo se elige de forma independiente.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#probabilidad-clásica",
+    "href": "unidad-1/tema-1-4.html#probabilidad-clásica",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.4 Probabilidad clásica",
+    "text": "1.4.4 Probabilidad clásica\n\nEspacio muestral. Conjunto de todas las respuestas posibles de un experimento. En el lanzamiento de un dado es \\(\\{1,2,3,4,5,6\\}\\).\nSuceso. Cualquier subconjunto del espacio muestral: que salga un 6, o que salga un número par.\nOrdóñez et al., 2025, §3.1.\n\nLa probabilidad es el valor numérico que representa la frecuencia relativa con que un suceso ocurre respecto de los resultados posibles. Relaciona los casos favorables con el total, fluctúa entre 0 y 1, y puede expresarse como fracción, decimal o porcentaje.\n\\[P(A) = \\frac{\\text{casos favorables a } A}{\\text{casos posibles}}\\]\nOrdóñez et al., 2025, §3.1.\n\n\n\n\n\n\n\n\n\nSucesos compuestos\nLos sucesos compuestos aparecen cuando intervienen dos o más sucesos simples.\n\n\n\nIndependientes\nLa ocurrencia de uno no afecta a la del otro.\n\\[P(A \\cap B) = P(A)\\,P(B)\\]\n\n\n\n\nExcluyentes\nNo pueden ocurrir a la vez.\n\\[P(A \\cup B) = P(A) + P(B)\\]\n\n\n\n\nComplementarios\nExcluyentes y sólo dos. Uno de los dos ocurre necesariamente.\n\\[P(\\bar{A}) = 1 - P(A)\\]\n\n\n\n\nNo excluyentes\nPueden ocurrir a la vez, y hay que descontar la parte común.\n\\[P(A \\cup B) = P(A) + P(B) - P(A \\cap B)\\]\n\n\n\nOrdóñez et al., 2025, §§3.2–3.3, citando a Walpole et al. (2012).\n\nLa última fórmula es el mismo problema del ejercicio del apartado 1.4.1, escrito en lenguaje de probabilidad: al sumar \\(P(A)\\) y \\(P(B)\\), los elementos que están en ambos se contaron dos veces, y por eso se resta una vez la intersección. El principio de la suma es el caso particular en que esa intersección está vacía.\n\n\n\n\n\n\n\n\n\n\nCalcular a mano y verificar. Obtenga la probabilidad de que una unidad tomada al azar de su flota sea patrullera.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#probabilidad-condicional",
+    "href": "unidad-1/tema-1-4.html#probabilidad-condicional",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.5 Probabilidad condicional",
+    "text": "1.4.5 Probabilidad condicional\n\nProbabilidad condicional. Probabilidad de que ocurra \\(A\\) sabiendo que \\(B\\) ya ha ocurrido. Se escribe \\(P(A \\mid B)\\) y, para cualquier \\(B\\) con \\(P(B) &gt; 0\\),\n\\[P(A \\mid B) = \\frac{P(A \\cap B)}{P(B)}\\]\nDevore, 2016, §2.4; Ordóñez et al., 2025, §3.3.3.\n\n\nPor qué el denominador es \\(P(B)\\) y no 1. Saber que \\(B\\) ocurrió reduce el espacio muestral: ya no se mira toda la flota, sino sólo la parte donde \\(B\\) se cumple. Dividir entre \\(P(B)\\) es reescalar ese trozo para que vuelva a sumar 1. Devore lo dice con esas palabras: la constante \\(1/P(B)\\) garantiza que \\(P(B \\mid B) = 1\\).\n\nDespejando se obtiene la regla de multiplicación, que es como se usa en la práctica:\n\\[P(A \\cap B) = P(A \\mid B)\\,P(B)\\]\nDevore, 2016, §2.4.\n\nEn su flota, ¿cree que la probabilidad de que una unidad tenga dos o más averías cambia si se sabe que es patrullera? Escriba «sube», «baja» o «no cambia» antes de ejecutar.\n\n\n\n\n\n\n\n\n\n\nLas dos últimas cifras coinciden, y esa coincidencia es la definición. Condicionar no es aplicar una fórmula: es quedarse con el subconjunto donde la condición se cumple y volver a calcular la proporción dentro de él. La fórmula sólo pone eso por escrito.\n\n\nInterpretar sin calcular. ¿Qué significa exactamente \\(P(A \\mid B)\\)?\na) La proporción de casos con \\(A\\) dentro de los casos con \\(B\\), lo que exige dividir entre \\(P(B)\\) porque el espacio muestral pasó a ser \\(B\\). b) La probabilidad de que ocurran \\(A\\) y \\(B\\) a la vez. c) La probabilidad de que ocurra \\(A\\) o de que ocurra \\(B\\).\n\n\n\n\n\n\n\n\n\n\nCalcular a mano y verificar. Obtenga \\(P(\\text{dos o más averías} \\mid \\text{patrullera})\\) en su flota.\n\n\n\n\n\n\n\n\n\n\nSucesos dependientes en la práctica. Ordóñez señala que la dependencia aparece típicamente cuando no hay reposición: en un sorteo los números eliminados no vuelven a la urna, y por eso la segunda extracción depende de la primera. Es el mismo motivo por el que en el tema 1.2 el muestreo sin reposición obliga a la corrección por población finita.\nOrdóñez et al., 2025, §3.2.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#probabilidad-total",
+    "href": "unidad-1/tema-1-4.html#probabilidad-total",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.6 Probabilidad total",
+    "text": "1.4.6 Probabilidad total\nCuando un suceso puede llegar por varios caminos, su probabilidad es la suma de lo que aporta cada camino.\n\nLey de probabilidad total. Sean \\(A_1, \\dots, A_k\\) sucesos mutuamente excluyentes y exhaustivos. Entonces, para cualquier otro suceso \\(B\\),\n\\[P(B) = \\sum_{i=1}^{k} P(B \\mid A_i)\\, P(A_i)\\]\nDevore, 2016, §2.4.\n\n\nExcluyentes significa que dos cualesquiera de los \\(A_i\\) no pueden ocurrir a la vez. Exhaustivos significa que alguno de ellos ocurre necesariamente: entre todos cubren el espacio muestral.\nLas dos condiciones juntas dicen que los \\(A_i\\) parten el espacio muestral en trozos que no se solapan y no dejan huecos. Si faltara cualquiera de las dos, la suma contaría de más o de menos.\n\nEjemplo naval. Las unidades de la flota se mantienen en tres bases, y cada base tiene su propia tasa histórica de avería recurrente tras la carena: Esmeraldas 5 %, Guayaquil 2 %, Manta 3 %. Se toma una unidad al azar. ¿Cuál es la probabilidad de que presente avería recurrente?\nLas tres bases son excluyentes —cada unidad se mantuvo en una y sólo una— y exhaustivas —no hay una cuarta base—, así que la ley se aplica.\n\nLa tasa mayor es 5 % y la menor 2 %. Sin calcular: ¿entre qué dos valores tiene que quedar forzosamente el resultado?\n\n\n\n\n\n\n\n\n\n\nEl resultado queda siempre entre la tasa menor y la mayor, porque es un promedio ponderado de las tasas, con las proporciones de cada base como pesos. Si esa comprobación falla, hay un error de cálculo: no hace falta revisar la aritmética para saberlo.\n\n\nDetectar el error. Un guardiamarina aplica la ley de probabilidad total sumando las tasas de las tres bases y dividiendo entre tres: \\((0.05 + 0.02 + 0.03)/3 = 0.0333\\).\n¿Por qué no es correcto?\na) Porque las tasas hay que multiplicarlas, no sumarlas. b) Porque ignora el peso de cada base. Sólo coincidiría si las tres tuvieran exactamente el mismo número de unidades; en general hay que ponderar por \\(P(A_i)\\). c) Porque la ley de probabilidad total no se aplica a proporciones.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#teorema-de-bayes",
+    "href": "unidad-1/tema-1-4.html#teorema-de-bayes",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "1.4.7 Teorema de Bayes",
+    "text": "1.4.7 Teorema de Bayes\nLa probabilidad total va de las causas al efecto. Bayes recorre el camino inverso: observado el efecto, ¿de qué causa vino?\n\nTeorema de Bayes. Con \\(A_1, \\dots, A_k\\) excluyentes y exhaustivos, y \\(P(B) &gt; 0\\),\n\\[P(A_j \\mid B) = \\frac{P(B \\mid A_j)\\,P(A_j)}{\\sum_{i=1}^{k} P(B \\mid A_i)\\,P(A_i)}\\]\nDevore, 2016, §2.4, ecuación 2.6; Ordóñez et al., 2025, §3.4.6, citando a Lind et al. (2019).\n\n\nProbabilidad previa o a priori: \\(P(A_j)\\), lo que se sabía antes de observar nada.\nProbabilidad posterior o a posteriori: \\(P(A_j \\mid B)\\), lo que se sabe después de observar \\(B\\).\nBayes es, literalmente, la regla para actualizar una creencia con evidencia nueva.\n\n\nObsérvese que el denominador de Bayes es exactamente la probabilidad total del apartado anterior. Bayes no es una fórmula independiente: es la definición de probabilidad condicional, con la regla de multiplicación en el numerador y la ley de probabilidad total en el denominador. Reconocer esas tres piezas hace innecesario memorizarla.\n\nContinuación del ejemplo. Una unidad presenta avería recurrente. ¿Cuál es la probabilidad de que se hubiera mantenido en Manta?\n\nManta tiene una tasa intermedia, 3 %. Antes de calcular: ¿la probabilidad posterior de Manta será mayor o menor que su peso previo en la flota?\n\n\n\n\n\n\n\n\n\n\nLas bases con tasa alta suben al pasar de previa a posterior, y las de tasa baja bajan. La evidencia de que hubo avería redistribuye la sospecha hacia donde las averías son más frecuentes, en la proporción exacta que fija el teorema.\n\n\n\n\n\n\n\n\n\n\nLa falacia de la tasa base\nEl resultado más útil de todo el tema, y el más contraintuitivo, aparece cuando el suceso buscado es raro.\nCaso. Un sensor de entrada de agua en sentina se activa correctamente en el 99 % de las inundaciones reales, y da falsa alarma sólo en el 2 % de las guardias normales. Las inundaciones ocurren en 1 de cada 1000 guardias. Suena la alarma. ¿Cuál es la probabilidad de que haya inundación real?\n\nEscriba su respuesta antes de ejecutar. Casi todo el mundo dice una cifra muy por encima de la correcta.\n\n\n\n\n\n\n\n\n\n\nSale menos del 5 %, con un sensor que acierta el 99 % de las veces. La razón no es que el sensor sea malo: es que hay 999 guardias normales por cada guardia con inundación, y un 2 % de falsas alarmas sobre 999 produce muchas más alarmas que un 99 % de aciertos sobre 1.\nLa probabilidad pasó de 0.001 a 0.047: la alarma multiplicó por 47 la sospecha, que es mucho. Pero partía de tan abajo que sigue siendo improbable. Ignorar de dónde se parte es el error que el teorema corrige.\n\n\nEste resultado no es una curiosidad de manual. Devore lo presenta con una enfermedad rara y una prueba diagnóstica, y obtiene la misma cifra: 0.047. La estructura es idéntica siempre que se busque algo poco frecuente con un detector imperfecto — averías críticas, contactos hostiles, fallos estructurales.\nDevore, 2016, §2.4, ejemplo 2.31.\n\nQue el razonamiento es correcto puede comprobarse sin fiarse de la fórmula: se simulan doscientas mil guardias y se cuenta.\n\n\n\n\n\n\n\n\n\nInterpretar sin calcular. ¿Por qué la probabilidad de inundación real, dada la alarma, es tan baja?\na) Porque el sensor es poco fiable. b) Porque el cálculo está mal: con un 99 % de acierto debería salir cerca de 0.99. c) Porque el suceso es raro. Hay tantas más guardias sin inundación que el 2 % de falsas alarmas sobre ellas supera con creces a los aciertos sobre el 0.1 % restante.\n\n\n\n\n\n\n\n\n\n\nRetenga la consecuencia operativa: una alarma que salta rara vez y acierta casi siempre puede seguir siendo, en su mayoría, falsa alarma. Antes de dimensionar una respuesta a un detector, hay que preguntar con qué frecuencia ocurre de verdad lo que detecta.\n\n\n\nEjercicio integrador\n\nEstudio de caso: reparto de una guardia. De las 40 unidades de su flota debe usted:\n\nFormar un grupo de 4 unidades para una patrulla conjunta, sin cargos asignados. ¿Cuántos grupos distintos son posibles?\nDel mismo conjunto, designar 4 unidades con cargos distintos —insignia, segundo, retaguardia y enlace—. ¿Cuántas designaciones son posibles?\nExplicar en una frase por qué el segundo número es exactamente 24 veces el primero.\nCalcular la probabilidad de que un grupo de 4 tomado al azar esté formado sólo por patrulleras.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-4.html#para-leer-esta-semana",
+    "href": "unidad-1/tema-1-4.html#para-leer-esta-semana",
+    "title": "1.4 Conteo y probabilidad",
+    "section": "Para leer esta semana",
+    "text": "Para leer esta semana\n\nLectura mínima\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.\nCapítulo III, «Teoría de la probabilidad», páginas 81 a 96. Cubre §3.1 probabilidad de un suceso, §§3.2–3.3 sucesos compuestos y sus reglas, §3.4 técnicas de conteo con permutaciones, variaciones —lo que aquí se llama permutación de tamaño \\(k\\)— y combinaciones, §3.4.5 diagramas de árbol y §3.4.6 teorema de Bayes. Sus ejercicios 3.7 a 3.18 están planteados en contexto militar.\n\n\nAmpliación por subtema\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.\n— §2.3 «Técnicas de conteo», páginas 66 a 73: la regla del producto para \\(k\\) etapas, y la deducción de las fórmulas de permutación y combinación paso a paso.\n— §2.4 «Probabilidad condicional», páginas 75 a 82: la definición de \\(P(A\\mid B)\\), la regla de multiplicación, la ley de probabilidad total —que el texto guía no enuncia por separado— y el teorema de Bayes con el ejemplo de la enfermedad rara.\nJohnson, R. A. (2012). Probabilidad y estadística para ingenieros (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.\nCapítulo 3, «Probabilidad»: el mismo material con ejemplos de control de calidad y fiabilidad industrial, que es el contexto más próximo al mantenimiento naval.\n\n\nApoyo complementario\nSi tiene dificultades para comprender un contenido con los textos impresos, consulte esta obra.\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.\nCapítulo 3, «Temas de probabilidad»: https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/3-introduccion\nDe acceso libre, en español y con mayor cantidad de ejemplos resueltos. Consúltelo como complemento del texto guía, no como sustituto.\n\nLas diferencias de nomenclatura y de convención entre los textos —empezando por «permutación de tamaño \\(k\\)» frente a «variación»— están recogidas en Discrepancias entre los textos y R.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.4 Conteo y probabilidad"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-2.html",
+    "href": "unidad-1/tema-1-2.html",
+    "title": "1.2 Muestreo",
+    "section": "",
+    "text": "Casi nunca se puede observar a todos los elementos de interés. El muestreo es el procedimiento que decide qué parte se observa, y de esa decisión depende que las conclusiones valgan para el conjunto o sólo para los observados.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.2 Muestreo"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-2.html#técnicas-de-muestreo",
+    "href": "unidad-1/tema-1-2.html#técnicas-de-muestreo",
+    "title": "1.2 Muestreo",
+    "section": "1.2.1 Técnicas de muestreo",
+    "text": "1.2.1 Técnicas de muestreo\nLas técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés de la forma más confiable y al más bajo costo posible. Esas dos exigencias tiran en direcciones opuestas, y toda la disciplina del muestreo consiste en equilibrarlas.\n\n\n\nFinalidad\nQue el estadístico calculado sobre la muestra se parezca al parámetro de la población. A eso se le llama que la muestra sea representativa.\n\n\n\n\nCosto\nCada unidad observada cuesta tiempo, combustible, personal y disponibilidad operativa. Una muestra mayor da más precisión, pero la precisión no crece proporcionalmente al costo.\n\n\n\n\nDependiendo del tipo de problema, escoger una adecuada técnica de muestreo es resolver parte importante del mismo. — Ordóñez et al. (2025), §1.5\n\n\nLas fuentes de error de una encuesta\nAquí conviene desmontar una creencia común: que el único error de un muestreo es el de muestreo. Scheaffer, Mendenhall y Ott clasifican los errores en dos familias, y sólo una de ellas está bajo su control.\n\n\n\nAjenos al proceso de observación\nAparecen porque se observó una parte y no el todo.\n\nError de muestreo — la desviación entre lo que da una muestra ideal y el valor verdadero. Existe por el mero hecho de muestrear, se puede medir teóricamente y se reduce con buen diseño y tamaño adecuado. Es el único que usted controla.\nError de cobertura — el marco muestral no coincide con la población objetivo.\nNo respuesta — el elemento seleccionado no se localiza, no sabe responder o se niega.\n\n\n\n\n\nDel proceso de observación\nAparecen porque el dato registrado se desvía de la verdad.\nSe atribuyen al encuestador, al entrevistado, al instrumento o al método de recolección.\nEs exactamente la advertencia del tema 1.1: el indicador es el producto de un instrumento aplicado bajo una regla. Aquí esa advertencia deja de ser una precaución general y pasa a ser una categoría de error con nombre propio.\n\n\n\n\nPoblación objetivo es el conjunto sobre el que queremos concluir: por ejemplo, todas las unidades de la Armada en servicio este año.\nMarco muestral es la lista concreta de la que efectivamente sorteamos: el registro, el padrón, la base de datos que tenemos a mano.\nIdealmente coinciden. En la práctica casi nunca lo hacen, y a esa diferencia se le llama error de cobertura.\n\nEl error de cobertura no se nota, y por eso es el más traicionero. Si el listado de unidades se actualizó en enero, las que entraron a dique en marzo no están en su marco. Ninguna aleatorización las recupera.\n\nSesgo: error que se repite siempre en la misma dirección. Más datos no lo corrigen, porque cada dato nuevo lo arrastra igual.\nUna balanza descalibrada que suma dos kilos a todo produce sesgo. Una balanza que oscila produce error aleatorio, y ese sí se compensa al promediar.\n\nLa no respuesta suele ser el error más grave. Dos cosas que conviene retener:\n\nUna tasa baja no garantiza nada. Importa quiénes faltan, no cuántos: si el 5 % ausente son todas las unidades de un tipo, se perdió una parte entera de la población.\nNunca se sustituye al elemento sorteado. Cambiarlo por el que está atracado al lado destruye la estructura probabilística del diseño, y con ella la posibilidad de estimar el error.\n\n\nGallup, citado por los mismos autores: sin selección aleatoria, una encuesta a un millón puede representar peor que una de mil bien elegida. El tamaño no compra representatividad; el azar sí.\n\n\nDetectar el error. Un guardiamarina debe encuestar a 20 unidades sorteadas de la flota. Tres de ellas están en dique seco y no puede contactarlas, así que las reemplaza por otras tres de la misma base, «para no perder el tamaño de muestra». Entrega las 20 respuestas.\n¿Cuál es el problema de fondo?\na) Ninguno: mantuvo el tamaño de muestra y las reemplazó por unidades parecidas. b) Que las tres sustitutas están en la misma base, y debió tomarlas de otra. c) Que la sustitución rompe el diseño probabilístico y hace imposible estimar el error; además las unidades en dique probablemente difieren justo en lo que se está midiendo.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.2 Muestreo"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-2.html#muestreo-probabilístico",
+    "href": "unidad-1/tema-1-2.html#muestreo-probabilístico",
+    "title": "1.2 Muestreo",
+    "section": "1.2.2 Muestreo probabilístico",
+    "text": "1.2.2 Muestreo probabilístico\nCada elemento de la población objetivo tiene una probabilidad conocida —y frecuentemente igual— de ser elegido. La aleatorización es vital: una mala aleatorización, o el incumplimiento de lo que ella establece, produce muestras sesgadas y conclusiones erróneas.\nOrdóñez et al., 2025, §1.7.\nEs el único tipo que permite extender los resultados a toda la población.\n\nMuestreo aleatorio simple\nTambién llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.\nOrdóñez et al., 2025, §1.7.1.\n\n\n\n\n\n\n\n\n\n\nMuestreo aleatorio sistemático\nSe eligen los elementos a intervalos uniformes a partir de un listado: cada k-ésimo elemento después de un arranque aleatorio. Su principal razón de uso es la sencillez de aplicación y de supervisión.\nOrdóñez et al., 2025, §1.7.2.\n\nCon 40 unidades y k = 5, ¿cuántas unidades entrarán en la muestra? Escríbalo antes de ejecutar.\n\n\n\n\n\n\n\n\n\n\n\nMuestreo aleatorio estratificado\nSe usa cuando la característica medida presenta mucha dispersión y en la población se distinguen grupos o estratos.\n\nDividir la población en estratos distintos y excluyentes.\nExtraer dentro de cada estrato una muestra aleatoria simple o sistemática.\n\nVentaja: para una precisión dada requiere menos muestra que el aleatorio simple, con la consiguiente reducción de costos.\nOrdóñez et al., 2025, §1.7.3.\n\n\n\n\n\n\n\n\nCuántas de cada estrato: la afijación. Tomar dos de cada tipo, como hace la celda anterior, es cómodo pero rara vez óptimo. Los estratos no tienen el mismo tamaño: en esta flota hay dieciséis patrulleras y seis fragatas, así que darles la misma cuota sobrerrepresenta a las fragatas.\nLa afijación proporcional reparte la muestra según el peso de cada estrato en la población: \\(n_i = n \\cdot N_i / N\\).\n\nCon una muestra total de 12 sobre esta flota de 40, ¿cuántas patrulleras espera que le toquen? Calcúlelo antes de ejecutar.\n\n\n\n\n\n\n\n\n\nScheaffer, Mendenhall y Ott dedican su §5.5 a la afijación y muestran que la proporcional no siempre es la mejor: cuando un estrato es mucho más variable, o más caro de medir, conviene desviarse de ella. Ese refinamiento —la afijación de Neyman— excede este curso, pero conviene saber que existe.\n\n\nMuestreo aleatorio por conglomerados\nLa unidad de muestreo contiene más de un elemento de la población. Se usa cuando los elementos se agrupan de forma natural en masas difíciles de descomponer o de acceder directamente. Se eligen al azar primero los conglomerados y luego los elementos dentro de ellos.\nCada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.\nOrdóñez et al., 2025, §1.7.4, pp. 29–30.\n\n\n\n\n\n\n\n\n\nEstratos vs. conglomerados: en el estratificado se muestrea DENTRO de TODOS los grupos; en el de conglomerados se sortean PRIMERO los grupos y sólo esos se estudian.\n\n\nLa regla de oro: estratos y conglomerados se construyen al revés.\n\nUn estrato debe ser lo más homogéneo posible por dentro, y lo más distinto posible de los demás estratos.\nUn conglomerado debe ser lo más heterogéneo posible por dentro, y lo más parecido posible a los demás conglomerados.\n\nLa razón es económica. Un conglomerado ideal es una miniatura de la población: si sus elementos ya son muy semejantes entre sí, medir el segundo, el tercero y el cuarto añade poca información y sí cuesta dinero.\nScheaffer, Mendenhall y Ott, 2007, §8.2, p. 283.\n\nPor eso el criterio de Scheaffer para elegir este diseño no es la comodidad, sino dos condiciones: que no exista o resulte muy costoso un marco que liste los elementos, mientras que sí sea fácil listar los conglomerados; y que el costo de observar aumente con la distancia que separa a los elementos.\nScheaffer, Mendenhall y Ott, 2007, §8.1, pp. 280–281.\nLos conglomerados no tienen por qué ser geográficos: un buque es un conglomerado de sus equipos, y una escuadrilla, un conglomerado de unidades.\n\nDetectar el error. Se encarga a un guardiamarina que tome una muestra aleatoria de 12 unidades para inspeccionar el consumo. Entrega este código y afirma que la muestra es aleatoria simple.\n\n\n\n\n\n\n\n\n\n\n¿Por qué esa muestra no es aleatoria simple?\na) Porque no interviene el azar: se toman siempre las mismas doce, y si el listado está ordenado por algún criterio —antigüedad, tipo, base— la muestra queda sesgada por ese criterio. b) Porque doce unidades son pocas para una flota de cuarenta. c) Porque habría que haber usado sample() con reemplazo.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.2 Muestreo"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-2.html#muestreo-no-probabilístico",
+    "href": "unidad-1/tema-1-2.html#muestreo-no-probabilístico",
+    "title": "1.2 Muestreo",
+    "section": "1.2.3 Muestreo no probabilístico",
+    "text": "1.2.3 Muestreo no probabilístico\nEs el muestreo típico que se hace a la salida de un centro comercial, del metro o en una esquina: se encuesta a quien esté disponible. Los resultados representan sólo el pensamiento de los encuestados, no necesariamente el de la población en estudio.\n\n\n\nAplicaciones admisibles\nExplorar. Detectar qué preguntas vale la pena hacer, cómo se entiende un cuestionario, qué respuestas aparecen. Es barato y rápido.\n\n\n\n\nLimitaciones\nConcluir. No hay probabilidad conocida de selección, así que no existe forma de cuantificar el error ni de extender el resultado a la población.\n\n\n\n\nCriterios de selección de la técnica\n\n\n\n\n\n\n\n\n\n\nTécnica\nCuándo conviene\nCómo se selecciona\nEjemplo naval\n\n\n\n\nAleatorio simple\nLa característica se distribuye de forma homogénea\nSorteo al azar sobre el listado completo\nSortear 12 de las 60 patrulleras\n\n\nSistemático\nExiste un listado ordenado; se busca sencillez\nArranque aleatorio y cada k-ésimo elemento\nRol de 240 tripulantes, k = 10\n\n\nEstratificado\nMucha dispersión y grupos claros\nDividir en estratos y muestrear en cada uno\nEstratificar por tipo de unidad\n\n\nPor conglomerados\nElementos agrupados y difíciles de separar\nSortear conglomerados completos\nSortear 5 buques y encuestar toda la dotación\n\n\nNo probabilístico\nSólo exploración previa\nPor conveniencia o disponibilidad\nPreguntar a quien sale del comedor\n\n\n\n\n\nNinguna de ellas corrige un mal marco muestral: si el listado de partida está incompleto, la aleatorización no salva la inferencia. Eso es error de cobertura, y ya vimos que no se arregla con más muestra.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.2 Muestreo"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-2.html#determinación-del-tamaño-de-muestra",
+    "href": "unidad-1/tema-1-2.html#determinación-del-tamaño-de-muestra",
+    "title": "1.2 Muestreo",
+    "section": "1.2.4 Determinación del tamaño de muestra",
+    "text": "1.2.4 Determinación del tamaño de muestra\n\nEste apartado se trabaja en la semana 5, no en la semana 2. Su fórmula necesita la desviación típica, que se estudia en el tema 1.3.4 durante la semana 4. Si está leyendo esta página en la semana 2, deténgase aquí: vuelva después de la sesión de dispersión y encontrará que el cálculo se explica solo.\n\nLa pregunta operativa no es qué técnica sino cuántas unidades. Y tiene respuesta cuantitativa: el tamaño depende de tres cosas que el oficial decide antes de salir a medir.\n\n\n\nConfianza\nQué tan seguro se quiere estar. Al 95 % corresponde z = 1.96; al 99 %, z = 2.576.\n\n\n\n\nError admisible\nCuánto se tolera equivocarse, en las unidades de la variable. Es la decisión operativa, no estadística.\n\n\n\n\nVariabilidad\nCuánto varía la característica en la población. Se estima con una muestra piloto o con datos históricos.\n\n\n\n\nDesviación típica —\\(\\sigma\\) en la población, \\(s\\) en la muestra— mide cuánto se separan los datos de su promedio. Vale cero si todos son iguales; crece con la dispersión. La varianza es su cuadrado, \\(\\sigma^2\\).\nSe estudia en el tema 1.3.4. Aquí basta la idea operativa: medir algo uniforme requiere pocas unidades; medir algo disperso requiere muchas.\n\nScheaffer, Mendenhall y Ott fijan un límite para el error de estimación \\(B\\): el valor que el error no debe superar. Como el límite se pone en dos desviaciones típicas del estimador, se resuelve \\(2\\sqrt{V(\\bar{y})} = B\\) y se despeja \\(n\\).\n\n¿Por qué dos desviaciones típicas? En una distribución acampanada, cerca del 95 % de los valores caen dentro de esa distancia del centro. «El error no supera \\(B\\)» significa entonces «no lo supera en el 95 % de los casos», no «nunca».\nEl valor exacto es 1.96; los autores redondean a 2. La diferencia en el tamaño resultante es del orden del 2 %.\n\nPara estimar una media poblacional \\(\\mu\\) con límite de error \\(B\\):\n\\[n = \\frac{N\\sigma^{2}}{(N-1)\\,D + \\sigma^{2}}, \\qquad D = \\frac{B^{2}}{4}\\]\nEsta expresión ya lleva incorporada la corrección por población finita —el ajuste que reconoce que muestrear 30 de 40 unidades da mucha más información que muestrear 30 de 40 000—, así que no hace falta aplicarla aparte. Cuando \\(N\\) es grande, \\((N-1)\\) puede sustituirse por \\(N\\) sin consecuencia práctica.\n\nEstimación de σ cuando se desconoce\nEs el caso normal la primera vez que se mide algo. Los autores dan una regla práctica: la amplitud de variación de los datos abarca aproximadamente cuatro desviaciones típicas, de modo que\n\\[\\sigma \\approx \\frac{\\text{rango}}{4}\\]\nSu ejemplo: si las cuentas de un hospital caen en una amplitud de 100 $, entonces \\(\\sigma \\approx 25\\).\nÚsela con cuidado. El 4 solo acierta con muestras piloto de unas 25 o 30 observaciones. Con más, el rango crece y la regla sobrestima \\(\\sigma\\): sale una muestra mayor de la necesaria, error del lado seguro. Con muy pocas, la subestima y el tamaño se queda corto. Ese es el lado peligroso.\n\n\n\n\n\n\n\n\n\n\nCompare n_necesario con el tamaño de su flota. ¿Le está diciendo la fórmula que inspeccione casi toda la población? Si es así, la pregunta operativa no es cuántas medir sino si vale la pena muestrear en lugar de censar.\n\n\nCalcular a mano y verificar. Con la desviación que acaba de obtener, calcule a mano el tamaño de muestra sin corregir para un error admisible de 3 m³/día al 95 % de confianza. Redondee hacia arriba, porque no se pueden inspeccionar fracciones de buque.\nEscriba su número antes de ejecutar la comprobación.\n\n\n\n\n\n\n\n\n\n\nInterpretar sin calcular. Suponga que quiere reducir el error admisible de 3 m³/día a 1.5 m³/día, manteniendo la confianza. ¿Qué pasa con el tamaño de muestra?\na) Se duplica. b) Se cuadruplica. c) No cambia, porque la confianza es la misma.\n\n\n\n\n\n\n\n\n\n\nAhí está la razón económica del muestreo estratificado: si reducir el error a la mitad cuesta cuadruplicar la muestra, cualquier técnica que gane precisión sin aumentar el número de unidades observadas se traduce directamente en combustible y horas de tripulación ahorrados.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.2 Muestreo"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-2.html#para-leer-esta-semana",
+    "href": "unidad-1/tema-1-2.html#para-leer-esta-semana",
+    "title": "1.2 Muestreo",
+    "section": "Para leer esta semana",
+    "text": "Para leer esta semana\n\nTexto guía\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.\nLea el Capítulo I, §§1.5 a 1.7, páginas 25 a 30. Son seis páginas y traen los cuatro esquemas de muestreo dibujados, que ayudan a fijar la diferencia entre estratos y conglomerados mejor que cualquier explicación en prosa.\n\n\nLectura de la unidad\nBologna, E. (2018). «Obtención de la muestra», en Métodos Estadísticos de Investigación, pp. 155–171. Córdoba: Editorial Brujas & Encuentro Grupo Editor.\nDisponible en ProQuest Ebook Central con su cuenta @espe.edu.ec: https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586\n\n\nEjercicios adicionales\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). México: Cengage Learning.\nEstá en la carpeta del curso, junto con Johnson, R. A. (2012). Miller y Freund. Probabilidad y estadística para ingenieros (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7. Para esta semana, su §6.1 «Poblaciones y muestras», página 175, conecta el muestreo con lo que veremos en el tema 3.1.\n\n\nEl texto especializado en muestreo\nScheaffer, R. L., Mendenhall, W., III, & Ott, R. L. (2007). Elementos de muestreo (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de Elementary Survey Sampling, 6.ª ed.\nEstá en la carpeta del curso. Es el único de los cuatro dedicado íntegramente a este tema, y de él salen la taxonomía de errores y la fórmula del tamaño de muestra que usa esta página.\n\n§2.4 «Fuentes de error en las encuestas» (pp. 19–31)\n§4.4 «Selección del tamaño de muestra para estimar las medias y totales» (pp. 95–97)\n§5.5 «Afijación de la muestra» (p. 137), si quiere ir más allá de la afijación proporcional\n\n\n\nRecurso de acceso libre\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.\nCapítulo 1, «Muestreo y datos»: https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion\nNo hace falta cuenta ni descarga. Es el más accesible de los cuatro y trae varios casos de muestras mal tomadas con el análisis de qué falló en cada una.\n\nLa lista completa, con qué capítulo corresponde a cada semana, está en la bibliografía del curso.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.2 Muestreo"
+    ]
+  },
+  {
+    "objectID": "plan.html",
+    "href": "plan.html",
+    "title": "Plan semanal",
+    "section": "",
+    "text": "48 horas en total: 32 presenciales —a dos horas por semana, dieciséis semanas— y 16 autónomas que el guardiamarina trabaja fuera de clase, sobre esta misma página.\nEl sílabo reparte el contenido en tres unidades curriculares (UC), que son los bloques en que se organiza y se evalúa la asignatura.\n\n\n\nUnidad\nContenido\nSemanas\nHoras presenciales\n\n\n\n\nUC 1\nEstadística descriptiva y probabilidad\n1 – 7\n14\n\n\nUC 2\nModelos estocásticos\n8 – 12\n10\n\n\nUC 3\nInferencia y regresión\n13 – 16\n8\n\n\n\n\nEl Proyecto Integrador atraviesa las tres unidades y es la columna del curso: en la UC 1 se construye la base de datos naval, en la UC 2 se le aplica un modelo probabilístico, y en la UC 3 se cierra con inferencia y conclusiones. Cada fase se apoya en lo que ya se hizo, de modo que ninguna semana queda suelta.",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "plan.html#distribución-de-la-carga-horaria",
+    "href": "plan.html#distribución-de-la-carga-horaria",
+    "title": "Plan semanal",
+    "section": "",
+    "text": "48 horas en total: 32 presenciales —a dos horas por semana, dieciséis semanas— y 16 autónomas que el guardiamarina trabaja fuera de clase, sobre esta misma página.\nEl sílabo reparte el contenido en tres unidades curriculares (UC), que son los bloques en que se organiza y se evalúa la asignatura.\n\n\n\nUnidad\nContenido\nSemanas\nHoras presenciales\n\n\n\n\nUC 1\nEstadística descriptiva y probabilidad\n1 – 7\n14\n\n\nUC 2\nModelos estocásticos\n8 – 12\n10\n\n\nUC 3\nInferencia y regresión\n13 – 16\n8\n\n\n\n\nEl Proyecto Integrador atraviesa las tres unidades y es la columna del curso: en la UC 1 se construye la base de datos naval, en la UC 2 se le aplica un modelo probabilístico, y en la UC 3 se cierra con inferencia y conclusiones. Cada fase se apoya en lo que ya se hizo, de modo que ninguna semana queda suelta.",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "plan.html#unidad-1-estadística-descriptiva-y-probabilidad",
+    "href": "plan.html#unidad-1-estadística-descriptiva-y-probabilidad",
+    "title": "Plan semanal",
+    "section": "Unidad 1 · Estadística descriptiva y probabilidad",
+    "text": "Unidad 1 · Estadística descriptiva y probabilidad\nResultado de aprendizaje. Organiza, resume e interpreta información proveniente de operaciones navales mediante técnicas de estadística descriptiva y probabilidad para generar indicadores que apoyen la toma de decisiones.\n\n\n\n\n\n\n\n\n\nSem.\nTema del sílabo\nEn clase (2 h)\nTrabajo autónomo\n\n\n\n\n1\n1.1 Introducción a la Estadística\nImportancia en ciencias navales; población, muestra, parámetro y estadístico; variables y escalas; organización y recolección\nTaller 1.1 — identificar variables, escalas y tipos de dato en una base naval\n\n\n2\n1.2.1 – 1.2.3 Muestreo\nTécnicas; muestreo probabilístico y no probabilístico; fuentes de error de una encuesta\nInvestigación bibliográfica 1.1 — aplicaciones en operaciones, logística y seguridad marítima\n\n\n3\n1.3.1 – 1.3.2 Descriptiva: organización\nTablas de distribución de frecuencias; representaciones gráficas\nTaller 1.2 — construir tablas y gráficos de operaciones navales\n\n\n4\n1.3.3 – 1.3.4 Descriptiva: centro y dispersión\nMedidas de tendencia central; medidas de dispersión\nActividad autónoma 1.1 — ejercicios sobre la base proporcionada\n\n\n5\n1.2.4 + 1.3.5 – 1.3.7\nDeterminación del tamaño de muestra; medidas de posición; medidas de forma; interpretación de indicadores\nTaller 1.3 — calcular e interpretar indicadores operacionales\n\n\n6\n1.4.1 – 1.4.4 Conteo y probabilidad\nTécnicas de conteo; permutaciones; combinaciones; probabilidad clásica\nTaller 1.4 — conteo y probabilidad en navegación y seguridad marítima\n\n\n7\n1.4.5 – 1.4.7 Probabilidad condicional\nProbabilidad condicional; probabilidad total; teorema de Bayes\nProyecto Fase I — base de datos naval e identificación de variables\n\n\n\n\nPor qué 1.2.4 se imparte en la semana 5 y no en la 2\nEl sílabo agrupa el tamaño de muestra dentro del tema 1.2, pero su fórmula depende de la desviación típica, que no se enseña hasta el tema 1.3.4, en la semana 4. Impartirlo en la semana 2 obligaría a usar un concepto tres semanas antes de definirlo.\nSe imparte por tanto al inicio de la semana 5, inmediatamente después de la sesión de dispersión. Además de resolver la dependencia, esto le da a la desviación típica un propósito operativo inmediato —de ella depende cuántas unidades hay que inspeccionar—, que es la mejor defensa contra que quede como una fórmula sin destino.\nEl mismo orden sigue Elementos de muestreo de Scheaffer, Mendenhall y Ott: su capítulo 3 cubre los conceptos descriptivos básicos y sólo el capítulo 4 aborda el muestreo aleatorio simple.\nLa numeración no cambia: el apartado se sigue llamando 1.2.4 y vive en la página del tema 1.2. Lo único que se altera es la semana en que se trabaja.\n\n\nPor qué el tema 1.5 no ocupa semana propia\nEl sílabo enuncia 1.5 Aplicaciones con software estadístico como un contenido más de la unidad. En este curso no se imparte al final, sino distribuido en las siete semanas: cada sesión incluye celdas de R ejecutables en el navegador, de modo que importar datos, construir tablas y gráficos, obtener indicadores e interpretarlos se practica desde la primera semana.\nLa razón es que el software no es un tema, sino el instrumento con que se trabajan los demás. Reservarle una semana al final lo convertiría en un apéndice desconectado de los contenidos que debe servir.\nEl tema 1.4 es, por tanto, el último de la unidad 1, y con él se cierran las siete semanas.",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "plan.html#unidad-2-modelos-estocásticos",
+    "href": "plan.html#unidad-2-modelos-estocásticos",
+    "title": "Plan semanal",
+    "section": "Unidad 2 · Modelos estocásticos",
+    "text": "Unidad 2 · Modelos estocásticos\nResultado de aprendizaje. Modela fenómenos aleatorios relacionados con operaciones marítimas mediante distribuciones de probabilidad para estimar riesgos y apoyar decisiones operacionales.\n\n\n\n\n\n\n\n\n\nSem.\nTema del sílabo\nEn clase (2 h)\nTrabajo autónomo\n\n\n\n\n8\n2.1 Variables aleatorias\nDiscretas y continuas; funciones de probabilidad; esperanza y varianza\nEjercicios de esperanza y varianza\n\n\n9\n2.2 Modelos discretos I\nBinomial; hipergeométrica\nTaller 2.1 — elegir el modelo apropiado para escenarios navales\n\n\n10\n2.2 Modelos discretos II\nPoisson; aplicaciones: inspecciones, accidentes marítimos, eventos de mantenimiento\nTaller 2.2 — ejercicios de distribuciones discretas\n\n\n11\n2.3 Modelos continuos I\nUniforme; exponencial; tiempo entre fallas y tiempo de respuesta\nInvestigación bibliográfica 2.1 — modelos estocásticos en gestión del riesgo marítimo\n\n\n12\n2.3 Modelos continuos II\nNormal; vida útil de equipos; simulación\nProyecto Fase II — aplicar un modelo probabilístico a la base de la UC 1",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "plan.html#unidad-3-inferencia-y-regresión",
+    "href": "plan.html#unidad-3-inferencia-y-regresión",
+    "title": "Plan semanal",
+    "section": "Unidad 3 · Inferencia y regresión",
+    "text": "Unidad 3 · Inferencia y regresión\nResultado de aprendizaje. Aplica técnicas de inferencia estadística y modelos de regresión lineal para analizar datos y sustentar decisiones estratégicas y operacionales en el ámbito naval.\n\n\n\n\n\n\n\n\n\nSem.\nTema del sílabo\nEn clase (2 h)\nTrabajo autónomo\n\n\n\n\n13\n3.1 Distribuciones muestrales\nDistribución muestral de la media; teorema central del límite (TCL)\nSimulación del TCL sobre la flota propia\n\n\n14\n3.2 Estimación\nEstimación puntual; intervalos de confianza para la media\nTaller 3.1 — estimaciones e intervalos para variables navales\n\n\n15\n3.3 Contraste de hipótesis\nFormulación; nivel de significancia; valor-p; errores tipo I y II; pruebas para la media\nTaller 3.2 — plantear y contrastar hipótesis con datos de caso\n\n\n16\n3.4 Regresión lineal\nCorrelación; modelo simple; interpretación; predicción\nProyecto Fase III — informe final y exposición",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "plan.html#organización-de-la-semana",
+    "href": "plan.html#organización-de-la-semana",
+    "title": "Plan semanal",
+    "section": "Organización de la semana",
+    "text": "Organización de la semana\n\n\n\nTrabajo previo a la sesión\nEl guardiamarina lee el tema en esta página y ejecuta las celdas de exploración. Cada una va precedida de una predicción que debe escribir antes de ejecutar.\n\n\n\n\nSesión presencial · 2 horas\nArranque con una pregunta que revela lo que no quedó claro; exposición corta y dirigida a eso; trabajo en parejas sobre la página; puesta en común. Pausa real a la mitad.\n\n\n\n\nTrabajo posterior\nTaller o actividad autónoma sobre la flota propia de cada guardiamarina. Los datos son individuales: se comparte el razonamiento, no el resultado.\n\n\n\n\nLos datos son distintos para cada guardiamarina. La flota de cuarenta unidades con la que se trabaja se genera a partir del correo institucional @espe.edu.ec. Treinta guardiamarinas, treinta flotas. Copiar un número ajeno no sirve, y el docente puede regenerar la flota de cualquiera para comprobar que el resultado entregado corresponde de verdad a sus datos.",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "plan.html#bibliografía",
+    "href": "plan.html#bibliografía",
+    "title": "Plan semanal",
+    "section": "Bibliografía",
+    "text": "Bibliografía\nTexto guía. Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa. Universidad de las Fuerzas Armadas–ESPE. ISBN 978-9942-652-21-8.\nLecturas principales. Bologna, E. (2018). Métodos Estadísticos de Investigación. Editorial Brujas & Encuentro Grupo Editor — «Los datos estadísticos» (pp. 17–35), «Obtención de la muestra» (pp. 155–171), «Probabilidad – Modelos» (pp. 197–224).\nComplementaria. Monroy Saldívar, S. (2024). Estadística y probabilidad. · Klinger Angarita, R. (2024). Muestreo estadístico: métodos básicos. · García Pérez, A. (2023). Estadísticas con R.",
+    "crumbs": [
+      "Inicio",
+      "Plan semanal"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html",
+    "href": "discrepancias.html",
+    "title": "Discrepancias entre los textos y R",
+    "section": "",
+    "text": "Una fórmula estadística no siempre tiene una única forma correcta. Hay puntos en los que los tres textos del curso hacen cosas distintas, y otros en los que R hace algo distinto de los tres. Ninguno está equivocado: son convenciones, y lo que importa es declarar cuál se usa.\nEsta página reúne las que se han verificado numéricamente. Cada una indica qué adopta este curso.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#resumen",
+    "href": "discrepancias.html#resumen",
+    "title": "Discrepancias entre los textos y R",
+    "section": "Resumen",
+    "text": "Resumen\n\nDiscrepancias verificadas\n\n\n\n\n\n\n\n\n#\nAsunto\nDiscrepancia\nQué adopta el curso\n\n\n\n\n1\nCuartiles y percentiles\nCuatro convenciones distintas entre Ordóñez, Johnson, Devore y R\nOrdóñez a mano; en R, type = 6\n\n\n2\nRegla de Sturges\nOrdóñez redondea; R toma el techo. Difieren justo en \\(n = 40\\)\nLa fórmula del texto guía; se declara la diferencia\n\n\n3\nhist() y el número de clases\nR trata breaks como sugerencia, no como orden\nSe acepta; se comprueba siempre el resultado\n\n\n4\nAsimetría\nTres estimadores en uso, con hasta 8 % de diferencia\nEl de Ordóñez, escrito a mano\n\n\n5\nUmbral del coeficiente de variación\nEl umbral del texto guía no concuerda con su propia fórmula. Resuelto en la fuente original\nEl CV como fracción si se compara con umbrales\n\n\n6\nErrata en el texto guía\nEl cuerpo del texto y su propia tabla no coinciden\nPrevalece la tabla\n\n\n7\n«Permutación de tamaño k» frente a «variación»\nMisma fórmula, dos nombres según la tradición del texto\nSe usa «permutación»; se declara la equivalencia",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#cuartiles-y-percentiles",
+    "href": "discrepancias.html#cuartiles-y-percentiles",
+    "title": "Discrepancias entre los textos y R",
+    "section": "1. Cuartiles y percentiles",
+    "text": "1. Cuartiles y percentiles\nEs la discrepancia más visible, porque aparece en cuanto se compara el cálculo a mano con el del computador.\n\nCuatro reglas para el mismo cuartil\n\n\n\n\n\n\n\nFuente\nRegla\nEquivalente en R\n\n\n\n\nOrdóñez et al. (§2.5.1)\nPosición \\(p(n+1)\\), interpolando la fracción\ntype = 6\n\n\nJohnson (§2.6)\n\\(np\\); si no es entero se redondea hacia arriba, si lo es se promedian las posiciones \\(k\\) y \\(k+1\\)\ntype = 2\n\n\nDevore (§1.4)\n«Cuartos»: mediana de cada mitad, incluyendo la mediana si \\(n\\) es impar\n≈ type = 2\n\n\nR\nInterpolación sobre \\(1 + (n-1)p\\)\ntype = 7 (por omisión)\n\n\n\nCon los 15 pagos del ejercicio 2.13 del texto guía, Ordóñez obtiene \\(Q_3 = 24\\,500\\). R, si no se le dice nada, devuelve 19 050.\n\n\n\n\n\n\n\n\n\nLas equivalencias no son casualidad de este conjunto de datos. Se comprobaron sobre 400 muestras aleatorias de tamaños y percentiles distintos: la regla de Ordóñez coincide con type = 6 y la de Johnson con type = 2 hasta el error de redondeo del computador, en todos los casos.\n\n\nDevore lo dice en su propio libro, y su ejemplo lo demuestra: para los 40 turbocompresores, sus «cuartos» valen 5.05 y 7.85, mientras que la salida de Minitab que él mismo reproduce da \\(Q_1 = 5.025\\) y \\(Q_3 = 7.875\\). La discrepancia está impresa dentro de un mismo texto.\n\n\nCalcule a mano con la regla del texto guía. Cuando compruebe en R, escriba type = 6. Y en cualquier informe, declare la convención: sin ella, el número no es reproducible.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#la-regla-de-sturges",
+    "href": "discrepancias.html#la-regla-de-sturges",
+    "title": "Discrepancias entre los textos y R",
+    "section": "2. La regla de Sturges",
+    "text": "2. La regla de Sturges\nEl texto guía da \\(K = 1 + 3.32\\log_{10}(n)\\) y redondea al entero más próximo. R implementa nclass.Sturges() como \\(\\lceil \\log_2 n \\rceil + 1\\), es decir, toma el techo del logaritmo antes de sumar.\n\nNúmero de clases según cada regla\n\n\n\\(n\\)\nOrdóñez\nR\n\n\n\n\n20\n5\n6\n\n\n30\n6\n6\n\n\n40\n6\n7\n\n\n50\n7\n7\n\n\n100\n8\n8\n\n\n\nCoinciden en la mayoría de los tamaños, pero no en 40, que es justamente el tamaño de la flota del curso.\n\n\n\n\n\n\n\n\n\nUse la fórmula del texto guía cuando construya la tabla a mano. Si en R deja que hist() elija, obtendrá una clase más: no es un error, es otra regla. Declare cuál usó.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#el-número-de-clases-en-hist",
+    "href": "discrepancias.html#el-número-de-clases-en-hist",
+    "title": "Discrepancias entre los textos y R",
+    "section": "3. El número de clases en hist()",
+    "text": "3. El número de clases en hist()\nAunque se le pida un número exacto de intervalos, R lo trata como una sugerencia y ajusta los cortes a valores «redondos».\n\n\n\n\n\n\n\n\nSe piden siete intervalos y salen ocho, con cortes en 70, 80, 90… porque R prefiere límites legibles a obedecer la cifra.\n\nNunca dé por hecho el número de clases de un histograma de R: compruébelo con length(h$counts). Si necesita clases exactas, constrúyalas usted con seq() y pásalas como vector a breaks.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#asimetría-tres-estimadores",
+    "href": "discrepancias.html#asimetría-tres-estimadores",
+    "title": "Discrepancias entre los textos y R",
+    "section": "4. Asimetría: tres estimadores",
+    "text": "4. Asimetría: tres estimadores\nEl coeficiente de Fisher tiene al menos tres formas de estimarse a partir de una muestra, y los programas no usan la misma.\n\nTres estimadores del mismo coeficiente\n\n\n\n\n\n\n\nEstimador\nDenominador\nDónde aparece\n\n\n\n\n\\(b_1\\)\n\\(n\\,s^3\\), con \\(s\\) calculado sobre \\(n-1\\)\nOrdóñez et al. (§2.6.2)\n\n\n\\(g_1\\)\nmomentos puros, todo sobre \\(n\\)\ne1071::skewness(type = 1)\n\n\n\\(G_1\\)\n\\(g_1\\sqrt{n(n-1)}/(n-2)\\)\nSAS, SPSS, Excel, type = 2\n\n\n\nSobre los mismos 40 datos dan 0.5250, 0.5453 y 0.5668: una diferencia de casi el 8 % entre el primero y el último.\n\n\n\n\n\n\n\n\n\nPara el uso que se le da en este curso —leer el signo para saber hacia dónde se estira la distribución— los tres coinciden siempre, porque comparten el numerador. La discrepancia sólo importa si se compara el valor numérico con el de otro programa.\n\n\nEsta discrepancia no es un descuido: está reconocida en la propia fuente. Galindo, de quien el texto guía toma estos coeficientes, advierte en una nota al pie de su §1.10 que en la definición de las medidas de forma «no hay unidad de criterios entre los especialistas», y que por eso existe una amplia variedad de fórmulas.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#el-umbral-del-coeficiente-de-variación",
+    "href": "discrepancias.html#el-umbral-del-coeficiente-de-variación",
+    "title": "Discrepancias entre los textos y R",
+    "section": "5. El umbral del coeficiente de variación",
+    "text": "5. El umbral del coeficiente de variación\nOrdóñez et al. (§2.5.2) definen el coeficiente de variación (CV) multiplicando por 100, es decir en porcentaje, y a continuación recogen de Galindo el criterio de que si \\(CV \\le 1\\) los datos son homogéneos y si supera 1.5 son heterogéneos. Esos umbrales sólo tienen sentido si el CV se expresa como fracción.\nSe consultó la fuente original y el asunto queda aclarado.\n\nGalindo define el CV como fracción, sin multiplicar por 100. En su §1.9.3 lo escribe como \\(CV = s/\\bar{x}\\), y su ejemplo lo confirma: para diez sueldos con \\(\\bar{x} = 171\\) y \\(s = 5.1\\) obtiene \\(CV = 0.0298\\), y concluye que los datos son homogéneos. Con esa definición, los umbrales 1 y 1.5 son coherentes.\nLa incoherencia la introduce el texto guía, que añade el \\(\\times 100\\) a la fórmula pero conserva los umbrales de la fuente. No es un error de Galindo.\n\nEl criterio de Galindo, entonces, es: un conjunto es homogéneo si \\(CV \\le 1\\), y podría ser heterogéneo si \\(CV &gt; 1.5\\). El texto guía reproduce ese enunciado con fidelidad; lo que no reproduce es la escala en que está expresado.\nConviene advertir que ninguno de los dos textos define la franja \\(1 &lt; CV \\le 1.5\\): por debajo de 1 el conjunto se considera homogéneo y por encima de 1.5 posiblemente heterogéneo, pero entre ambos valores el criterio no se pronuncia. En ese intervalo el coeficiente no autoriza a concluir nada por sí solo.\n\nCalcule el CV como fracción si va a compararlo con los umbrales, y como porcentaje sólo para comunicarlo. Y úselo sobre todo para lo que no admite discusión: comparar la dispersión de dos variables medidas en unidades distintas.\n\nGalindo añade cuatro observaciones sobre el CV que conviene retener, y la última es la más olvidada: es adimensional; intervienen todas las observaciones, de modo que los valores atípicos lo alteran; puede ser difícil de interpretar; y pierde todo significado si el promedio vale cero.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#una-errata-del-texto-guía",
+    "href": "discrepancias.html#una-errata-del-texto-guía",
+    "title": "Discrepancias entre los textos y R",
+    "section": "6. Una errata del texto guía",
+    "text": "6. Una errata del texto guía\nEn el ejercicio de la moda para datos agrupados (§2.5.1), el cuerpo del texto indica que el límite inferior de la clase modal es 68.27, mientras que su propia Tabla 2.8 lo fija en 68.67.\nLa tabla es la correcta: los intervalos van de 10 en amplitud 14.67, de modo que la quinta clase empieza en \\(54.00 + 14.67 = 68.67\\). Reproduciendo la tabla completa se obtienen exactamente la media 63.81, la varianza 405.85 y la desviación 20.15 que el libro reporta, lo que confirma que el resto del ejercicio está bien y que 68.27 es un error de transcripción.\n\n\n\n\n\n\n\n\n\nEncontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: ningún texto es infalible, y toda fórmula se comprueba antes de usarse. Esa comprobación cabe en cuatro líneas de código.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#permutación-de-tamaño-k-frente-a-variación",
+    "href": "discrepancias.html#permutación-de-tamaño-k-frente-a-variación",
+    "title": "Discrepancias entre los textos y R",
+    "section": "7. «Permutación de tamaño k» frente a «variación»",
+    "text": "7. «Permutación de tamaño k» frente a «variación»\nNo es una discrepancia de cálculo sino de vocabulario, y por eso desconcierta más de lo que debería.\n\nEl mismo arreglo con dos nombres\n\n\n\n\n\n\n\n\nFuente\nNombre\nNotación\nFórmula\n\n\n\n\nDevore (§2.3), Johnson (cap. 3)\nPermutación de tamaño \\(k\\)\n\\(P_{k,n}\\)\n\\(n!/(n-k)!\\)\n\n\nOrdóñez et al. (§3.4.2)\nVariación\n\\(V(n,k)\\)\n\\(n!/(n-k)!\\)\n\n\n\nPara Ordóñez, permutación designa únicamente el caso \\(k = n\\), es decir \\(P_n = n!\\), y reserva variación para el caso general. Para Devore no existe la palabra «variación»: todo arreglo ordenado es una permutación, y se especifica el tamaño. Es la diferencia entre la tradición hispana y la anglosajona, y sobrevive en el software: las hojas de cálculo ofrecen PERMUTACIONES para lo que Ordóñez llamaría variación.\n\nEste curso usa permutación de tamaño \\(k\\), notada \\(P(n,k)\\), por ser la nomenclatura de la bibliografía internacional y del software. Al leer el texto guía, recuerde que su «variación» \\(V(n,k)\\) es exactamente lo mismo.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "discrepancias.html#declaración-de-la-convención-en-un-informe",
+    "href": "discrepancias.html#declaración-de-la-convención-en-un-informe",
+    "title": "Discrepancias entre los textos y R",
+    "section": "Declaración de la convención en un informe",
+    "text": "Declaración de la convención en un informe\nCuando entregue un análisis, basta una línea al pie de la tabla:\n\nCuartiles calculados según la convención de posición \\(p(n+1)\\) (Ordóñez et al., 2025, §2.5.1), equivalente a quantile(type = 6) en R 4.x.\n\nSin esa línea, otro analista con los mismos datos puede obtener otro número y ninguno de los dos sabrá por qué.",
+    "crumbs": [
+      "Inicio",
+      "Discrepancias entre textos y R"
+    ]
+  },
+  {
+    "objectID": "bibliografia.html",
+    "href": "bibliografia.html",
+    "title": "Bibliografía",
+    "section": "",
+    "text": "Los tres primeros textos están disponibles en la carpeta del curso. El cuarto es de acceso libre en línea. No hay que comprar nada.",
+    "crumbs": [
+      "Inicio",
+      "Bibliografía"
+    ]
+  },
+  {
+    "objectID": "bibliografia.html#texto-guía",
+    "href": "bibliografia.html#texto-guía",
+    "title": "Bibliografía",
+    "section": "Texto guía",
+    "text": "Texto guía\n\nEstadística para la Seguridad y Defensa\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed.). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8. Disponible para consulta en el repositorio institucional: https://repositorio.espe.edu.ec\nEs el texto de referencia de la asignatura y el único escrito para el ámbito de defensa y seguridad. Sus ejemplos son militares y usa R en todos los capítulos, igual que este curso. Empiece siempre por aquí.\n\nCapítulo I — introducción, medición, escalas y muestreo\nCapítulo II — estadística descriptiva\nCapítulo III — teoría de la probabilidad\nCapítulo IV — distribuciones de probabilidad",
+    "crumbs": [
+      "Inicio",
+      "Bibliografía"
+    ]
+  },
+  {
+    "objectID": "bibliografia.html#textos-complementarios",
+    "href": "bibliografia.html#textos-complementarios",
+    "title": "Bibliografía",
+    "section": "Textos complementarios",
+    "text": "Textos complementarios\n\nProbabilidad y estadística para ingeniería y ciencias\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.\nMás exigente en el desarrollo matemático que el texto guía. Útil cuando una demostración del Ordóñez le sepa a poco, o cuando quiera ver el mismo concepto tratado con más profundidad formal.\n\nCap. 1 «Generalidades y estadística descriptiva» — §1.1 Poblaciones, muestras y procesos (pp. 3–13); §1.3 Medidas de ubicación (p. 29); §1.4 Medidas de variabilidad (p. 36)\nCap. 2 «Probabilidad» — §2.3 Técnicas de conteo (p. 66); §2.4 Probabilidad condicional (p. 75)\n\n\n\nMiller y Freund. Probabilidad y estadística para ingenieros\nJohnson, R. A. (2012). Probabilidad y estadística para ingenieros (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.\nEl más orientado a la aplicación de los tres impresos: casi todos sus ejemplos vienen de casos reales de ingeniería y control de calidad, que es el vecino más próximo al problema naval.\n\nCap. 5 «Densidades de probabilidad» — §5.2 La distribución normal (p. 125); §5.5 La distribución uniforme (p. 135)\nCap. 6 «Distribuciones muestrales» — §6.1 Poblaciones y muestras (p. 175); §6.2 La distribución muestral de la media (p. 179)\nCap. 11 «Análisis de regresión» — §11.1 El método de mínimos cuadrados (p. 301); §11.6 Correlación (p. 335)\n\n\n\nElementos de muestreo\nScheaffer, R. L., Mendenhall, W., III, & Ott, R. L. (2007). Elementos de muestreo (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de Elementary Survey Sampling, 6.ª ed.\nEl único de la lista dedicado íntegramente al muestreo, y el más práctico: cada capítulo presenta un diseño, resuelve un caso con detalle y ofrece las fórmulas necesarias sin desarrollo teórico. De él proviene el tratamiento del tema 1.2.\n\nCap. 2 «Elementos del problema de muestreo» — §2.4 Fuentes de error en las encuestas (pp. 19–31); §2.5 Diseño de un cuestionario (p. 31)\nCap. 4 «Muestreo aleatorio simple» — §4.4 Selección del tamaño de muestra (p. 95); §4.5 Estimación de una proporción (p. 97)\nCap. 5 «Muestreo aleatorio estratificado» — §5.5 Afijación de la muestra (p. 137)\nCap. 7 «Muestreo sistemático» y Cap. 8 «Muestreo por conglomerados»\nCap. 12 «Resumen» — §12.2 Comparaciones entre los diseños y métodos\n\n\n\nIntroducción a la estadística — OpenStax\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio\nDe acceso libre, en línea y en español. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.\n\nCap. 1 «Muestreo y datos» — https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion\nCap. 2 «Estadística descriptiva» — https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva",
+    "crumbs": [
+      "Inicio",
+      "Bibliografía"
+    ]
+  },
+  {
+    "objectID": "bibliografia.html#obra-citada-por-el-texto-guía",
+    "href": "bibliografia.html#obra-citada-por-el-texto-guía",
+    "title": "Bibliografía",
+    "section": "Obra citada por el texto guía",
+    "text": "Obra citada por el texto guía\n\nEstadística: métodos y aplicaciones\nGalindo, E. (2011). Estadística: métodos y aplicaciones. Quito: Prociencia Editores. Ejemplar consultado en el Internet Archive: https://archive.org/details/EstadisticaMetodosYAplicacionesEdwinGalindo\nEl texto guía cita la edición de 2015 y toma de esta obra el criterio del coeficiente de variación y los coeficientes de asimetría y curtosis. El ejemplar disponible en línea es el de 2011; no se ha comprobado si el contenido cambia entre ediciones.\nNo es lectura obligatoria del curso. Se consulta sólo para verificar en su fuente los criterios que el texto guía cita de segunda mano, según se detalla en Discrepancias entre los textos y R.\n\n§1.9.3 Coeficiente de variación\n§1.10 Medidas de forma: asimetría y curtosis",
+    "crumbs": [
+      "Inicio",
+      "Bibliografía"
+    ]
+  },
+  {
+    "objectID": "bibliografia.html#lecturas-por-semana",
+    "href": "bibliografia.html#lecturas-por-semana",
+    "title": "Bibliografía",
+    "section": "Lecturas por semana",
+    "text": "Lecturas por semana\n\n\n\n\n\n\n\n\n\n\nSemana\nTema\nLectura mínima\nAmpliación\n\n\n\n\n1\n1.1 Introducción\nOrdóñez, cap. I §§1.1–1.4\nOpenStax cap. 1; Devore §1.1\n\n\n2\n1.2.1–1.2.3 Muestreo\nOrdóñez, cap. I §§1.5–1.7\nScheaffer §2.4 (fuentes de error); Johnson §6.1\n\n\n3\n1.3.1–1.3.2 Tablas y gráficos\nOrdóñez, cap. II §§2.1–2.4\nJohnson §§2.2–2.3; OpenStax cap. 2\n\n\n4\n1.3.3–1.3.4 Centro y dispersión\nOrdóñez, cap. II §2.5\nDevore §§1.3–1.4; OpenStax cap. 2\n\n\n5\n1.2.4 Tamaño de muestra\nOrdóñez, cap. I §1.7\nScheaffer §4.4 (pp. 95–97)\n\n\n5\n1.3.5–1.3.7 Posición y forma\nOrdóñez, cap. II §§2.5.1, 2.6–2.7\nJohnson §2.6; Devore §1.4\n\n\n6\n1.4.1–1.4.4 Conteo y probabilidad clásica\nOrdóñez, cap. III §§3.1–3.4.4\nDevore §2.3; OpenStax cap. 3\n\n\n7\n1.4.5–1.4.7 Condicional, total y Bayes\nOrdóñez, cap. III §3.4.6\nDevore §2.4 (ley de probabilidad total); Johnson cap. 3\n\n\n8–12\n2.x Modelos estocásticos\nOrdóñez, cap. IV\nJohnson cap. 5; Devore caps. 3–4\n\n\n13–16\n3.x Inferencia y regresión\nOrdóñez, cap. IV y apéndices\nJohnson caps. 6 y 11; Devore caps. 5–7\n\n\n\n\n\nCómo leer. La lectura mínima es la que se da por hecha en clase: si no la trae hecha, la sesión activa no le rendirá. La ampliación es para cuando quiera ir más lejos en un tema concreto, no para leerla entera.",
+    "crumbs": [
+      "Inicio",
+      "Bibliografía"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Estadística",
+    "section": "",
+    "text": "1.1.1 Importancia de la Estadística en las Ciencias Navales\n1.1.2 Población, muestra, parámetros y estadísticos\n1.1.3 Variables estadísticas y escalas de medición\n1.1.4 Organización y recolección de datos\n\n\n\n\n\n1.2.1 Técnicas de muestreo\n1.2.2 Muestreo probabilístico\n1.2.3 Muestreo no probabilístico\n1.2.4 Determinación del tamaño de muestra · se trabaja en la semana 5\n\n\n\n\n\n1.3.1 Tablas de distribución de frecuencias\n1.3.2 Representaciones gráficas\n1.3.3 Medidas de tendencia central\n1.3.4 Medidas de dispersión\n1.3.5 Medidas de posición\n1.3.6 Medidas de forma\n1.3.7 Interpretación de indicadores estadísticos\n\n\n\n\n\n1.4.1 Técnicas de conteo\n1.4.2 Permutaciones\n1.4.3 Combinaciones\n1.4.4 Probabilidad clásica\n1.4.5 Probabilidad condicional\n1.4.6 Probabilidad total\n1.4.7 Teorema de Bayes",
+    "crumbs": [
+      "Inicio",
+      "Presentación del curso"
+    ]
+  },
+  {
+    "objectID": "index.html#contenido-del-curso",
+    "href": "index.html#contenido-del-curso",
+    "title": "Estadística",
+    "section": "",
+    "text": "1.1.1 Importancia de la Estadística en las Ciencias Navales\n1.1.2 Población, muestra, parámetros y estadísticos\n1.1.3 Variables estadísticas y escalas de medición\n1.1.4 Organización y recolección de datos\n\n\n\n\n\n1.2.1 Técnicas de muestreo\n1.2.2 Muestreo probabilístico\n1.2.3 Muestreo no probabilístico\n1.2.4 Determinación del tamaño de muestra · se trabaja en la semana 5\n\n\n\n\n\n1.3.1 Tablas de distribución de frecuencias\n1.3.2 Representaciones gráficas\n1.3.3 Medidas de tendencia central\n1.3.4 Medidas de dispersión\n1.3.5 Medidas de posición\n1.3.6 Medidas de forma\n1.3.7 Interpretación de indicadores estadísticos\n\n\n\n\n\n1.4.1 Técnicas de conteo\n1.4.2 Permutaciones\n1.4.3 Combinaciones\n1.4.4 Probabilidad clásica\n1.4.5 Probabilidad condicional\n1.4.6 Probabilidad total\n1.4.7 Teorema de Bayes",
+    "crumbs": [
+      "Inicio",
+      "Presentación del curso"
+    ]
+  },
+  {
+    "objectID": "index.html#uso-del-material",
+    "href": "index.html#uso-del-material",
+    "title": "Estadística",
+    "section": "Uso del material",
+    "text": "Uso del material\nCada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.\nLas celdas de código son ejecutables en el navegador. No hace falta instalar R ni ningún programa: al pulsar Run Code la primera vez, el navegador descarga el motor de R y a partir de ahí todo corre en su propio equipo. Funciona igual en la laptop que en la tablet.\n\nCada celda va precedida de una pregunta. Escriba su respuesta en el cuaderno antes de ejecutar. Una celda ejecutada sin haber predicho el resultado no enseña nada.",
+    "crumbs": [
+      "Inicio",
+      "Presentación del curso"
+    ]
+  },
+  {
+    "objectID": "index.html#fuentes-del-curso",
+    "href": "index.html#fuentes-del-curso",
+    "title": "Estadística",
+    "section": "Fuentes del curso",
+    "text": "Fuentes del curso\nIllowsky, B., & Dean, S. Introducción a la estadística. OpenStax, Rice University. Licencia CC BY 4.0.\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa. Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.",
+    "crumbs": [
+      "Inicio",
+      "Presentación del curso"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#su-flota",
+    "href": "unidad-1/tema-1-1.html#su-flota",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "Su flota",
+    "text": "Su flota\nTodo el material trabaja sobre una flota de 40 unidades. La suya no es igual a la de sus compañeros: se genera a partir de su correo institucional, así que los números que obtenga son sólo suyos.\nEscriba su correo @espe.edu.ec entre las comillas y ejecute la celda. Hágalo una sola vez al empezar.\n\n\n\n\n\n\n\n\nEscríbalo tal como aparece en su cuenta institucional, en minúsculas y sin espacios. Si lo cambia a mitad de la sesión, sus resultados anteriores dejarán de coincidir.\n\nCopiar el resultado de un compañero no sirve de nada: su flota tiene otras velocidades, otros calados y otro reparto de tipos. Lo único que se puede compartir es el razonamiento, que es precisamente lo que interesa.\n\n\nSignificado y unidades de cada variable\nUn dato sin unidad no es un dato. Decir que una unidad «tiene 4.37» no significa nada; decir que cala 4.37 metros sí. Antes de calcular nada, conviene tener a la vista qué se midió, en qué unidad y en qué escala.\n\n\n\n\n\n\n\n\n\nDistintivo óptico. Combinación de letras y cifras que identifica a una unidad de superficie y que va pintada en su casco. Aquí el prefijo indica el tipo —FM fragata misilera, CM corbeta misilera, PM patrullera, LM lancha misilera— y el número es el correlativo dentro de ese tipo.\nEs un identificador, no una medida: PM-07 no es «mayor» que PM-03. Aunque contenga cifras, la columna es nominal.\n\n\nNudo. Unidad de velocidad de uso náutico: una milla náutica por hora. La milla náutica equivale a 1852 metros, así que 1 nudo = 1.852 km/h y una unidad que navega a 18 nudos avanza 33.3 km cada hora.\nNo se dice «nudos por hora»: la hora ya está dentro de la definición.\n\n\nCalado. Distancia vertical entre la línea de flotación y la parte más baja del casco, en metros. Determina la profundidad mínima que la unidad necesita para navegar sin tocar fondo, y por eso condiciona a qué puertos y sobre qué sondas puede entrar.\nSe registra a plena carga, que es la condición más desfavorable.\n\n\nEscala Douglas. Escala internacional que clasifica el estado de la mar por la altura de las olas, del grado 0 (calma) al 9 (mar enorme). Aquí aparecen tres grados contiguos: marejadilla (grado 2, olas de 0.1 a 0.5 m), marejada (grado 3, de 0.5 a 1.25 m) y fuerte marejada (grado 4, de 1.25 a 2.5 m).\nLos grados están ordenados, pero la distancia entre ellos no es constante. Retenga este ejemplo: reaparece en el apartado 1.1.3 como el caso típico de escala ordinal.\n\n\nLos datos son sintéticos. Están generados por computador para que usted practique. No corresponden a unidades ni a registros reales de la Armada, y ninguna conclusión que obtenga de ellos describe a la fuerza naval.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#importancia-de-la-estadística-en-las-ciencias-navales",
+    "href": "unidad-1/tema-1-1.html#importancia-de-la-estadística-en-las-ciencias-navales",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "1.1.1 Importancia de la Estadística en las Ciencias Navales",
+    "text": "1.1.1 Importancia de la Estadística en las Ciencias Navales\nLa dirección estratégica de una institución es más exitosa cuando sus análisis y decisiones se sustentan en cifras e indicadores medibles y reales. En el ámbito militar esto no es un lujo académico: es una condición de eficacia.\n\n\n\nRecursos limitados\nLos medios de que disponen las Fuerzas Armadas son limitados frente a las innumerables operaciones que deben ejecutar. El empleo adecuado de los principios estadísticos permite usarlos de forma mucho más eficiente.\n\n\n\n\nFines, modos y medios\nEl líder militar debe sincronizar esa trilogía en la estrategia. No lo logrará sin un proceso riguroso de recolección, organización, análisis e interpretación de resultados.\n\n\n\n\nAlto costo y alto riesgo\nEl material bélico tiene un costo elevado y un alto riesgo de operación. Medir bien, y saber qué tan confiable es esa medida, forma parte de la seguridad de la operación.\n\n\n\n\n¿Qué es la Estadística?\nLa Estadística es la ciencia que recopila, clasifica, resume, analiza e interpreta datos —siempre que la variabilidad, es decir la incertidumbre, sea una causa intrínseca de ellos— para ayudar a la toma de decisiones y, en su caso, formular predicciones.\n\n\n\nEstadística Descriptiva\nOrganiza y resume los datos disponibles mediante tablas, gráficos y números.\nEj.: reportar la velocidad promedio de una flota durante las maniobras de un mes.\n\n\n\n\nEstadística Inferencial\nUsa la probabilidad para extender a toda la población lo observado en una muestra.\nEj.: estimar, a partir de 30 lecturas de sonar, la profundidad promedio de toda una bahía.\n\n\n\n\nProbabilidad\nHerramienta matemática para estudiar el azar: mide la oportunidad de que ocurra un evento. Es el puente que hace válido el salto de la muestra a la población.\n\n\n\n\nLa primera línea de la celda describe toda la flota; la segunda infiere a partir de doce unidades. Ejecútela cuatro veces seguidas. ¿Cuál de los dos números cambia, y por qué?",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#población-muestra-parámetros-y-estadísticos",
+    "href": "unidad-1/tema-1-1.html#población-muestra-parámetros-y-estadísticos",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "1.1.2 Población, muestra, parámetros y estadísticos",
+    "text": "1.1.2 Población, muestra, parámetros y estadísticos\n\n\n\nPoblación\nConjunto de todas las personas, cosas u objetos que se desea estudiar. Es el universo sobre el que se quiere concluir.\nEjemplo naval: todas las embarcaciones de la Armada que realizan patrullaje costero durante el presente año.\n\n\n\n\nMuestra\nSubconjunto de la población, seleccionado con un procedimiento explícito para obtener información sobre ella.\nEjemplo naval: 12 buques elegidos al azar de esa flota, para inspeccionar su consumo de combustible.\n\n\n\n\n\n\n\n\n\n\n\n\nParámetro y estadístico\nUn estadístico es un número que resume una propiedad de la muestra; es una estimación de un parámetro, que es la característica numérica de toda la población.\n\n\n\nPoblación → Parámetro\nValor fijo pero, en la práctica, desconocido.\n\n\n\n\nMuestra → Estadístico\nSe calcula a partir de los datos observados.\n\n\n\n\nEjemplo naval. Se quiere conocer el consumo promedio diario de combustible (m³/día) de toda la flota de patrulleras. El promedio real de TODA la flota es el parámetro: existe, es fijo y lo desconocemos. Al medir una muestra de 12 patrulleras y calcular su consumo promedio obtenemos un estadístico, que usamos para estimar ese parámetro.\n\n\nLa celda calcula el parámetro una vez y diez estadísticos a partir de diez muestras distintas. ¿Cuántos de esos once números espera que sean iguales entre sí?\n\n\n\n\n\n\n\n\n\nLa dispersión de esos diez estadísticos alrededor del parámetro es el objeto central de la estadística inferencial.\n\nInterpretar sin calcular. Mire la salida anterior, sin hacer ninguna cuenta. ¿Cuál de estas afirmaciones es correcta?\na) El parámetro cambia en cada muestra, porque cada muestra da un promedio distinto. b) El parámetro es el mismo siempre; lo que cambia de muestra en muestra es el estadístico. c) Si los diez estadísticos fueran iguales entre sí, la muestra estaría mal tomada.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#variables-estadísticas-y-escalas-de-medición",
+    "href": "unidad-1/tema-1-1.html#variables-estadísticas-y-escalas-de-medición",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "1.1.3 Variables estadísticas y escalas de medición",
+    "text": "1.1.3 Variables estadísticas y escalas de medición\nUna variable (usualmente denotada con X o Y) es una característica o medida que puede determinarse para cada miembro de una población.\n\n\n\nVariable numérica (cuantitativa)\nToma valores con unidades comparables: se pueden hacer cálculos.\n\nDiscreta — resulta de contar: número de averías, unidades zarpadas en el mes.\nContinua — resulta de medir: calado 4.37 m, velocidad 18.6 nudos.\n\n\n\n\n\nVariable categórica (cualitativa)\nUbica al individuo en una categoría; sólo cabe contar y comparar frecuencias.\n\nNominal — sin orden: tipo de unidad, base naval de asignación.\nOrdinal — con orden: nivel de alistamiento, estado de la mar.\n\n\n\n\n\n¿Qué cree que devuelve mean(flota$tipo)? Escríbalo, ejecute la celda y después pruébelo.\n\n\n\n\n\n\n\n\n\n\nEscalas cualitativas: nominal y ordinal\nLos datos de escala nominal y ordinal son cualitativos: no se usan en cálculos aritméticos.\n\n\n\nNominal\nLos números sirven solamente como etiqueta para catalogar o identificar. No se puede establecer prioridad alguna entre las categorías.\n\nTipo de nave (fragata, submarino, patrullera)\nPuerto de matrícula · bandera del buque\n\nNo tiene sentido decir que un tipo de nave es “mayor” que otro.\n\n\n\n\nOrdinal\nDefine una relación de orden: mide si hay más o menos de la característica, pero no cuánto más.\n\nJerarquía de mando (Alférez &lt; Teniente &lt; Capitán)\nEstado de la mar en la escala Douglas (marejadilla, marejada, fuerte marejada)\n\nCapitán (4) tiene más de algo que Teniente (3), pero no es “su doble”.\n\n\n\n\nEn el nivel ordinal ya tienen sentido el conteo y la acumulación de elementos ordenados: de ahí nacen las medidas de posición basadas en cuartiles, que veremos en el tema 1.3.\n\n\n\n\n\n\n\n\n\n\nmedian() no acepta un factor ordenado: devuelve el error «need numeric data». La mediana ordinal existe, pero R exige calcularla acumulando frecuencias, como arriba. El resultado es una categoría, no un número.\n\n\nDetectar el error. Un oficial quiere resumir el estado del mar de la singladura y escribe el código de abajo. Le sale un número y lo reporta como “estado de la mar promedio: 2.1”. Ejecútelo y decida qué está mal.\n\n\n\n\n\n\n\n\n\n\n¿Cuál es el problema con ese 2.1?\na) Ninguno: los códigos son números y su promedio es válido. b) El cálculo está bien pero habría que redondearlo a un entero. c) Codificar como 1, 2 y 3 no convierte la escala en cuantitativa: la distancia entre “marejadilla” y “marejada” no es la misma que entre “marejada” y “fuerte marejada”, así que promediarlas no significa nada.\n\n\n\n\n\n\n\n\n\n\nEste error es de los más frecuentes en informes reales, porque el computador nunca se queja: en cuanto una escala ordinal se codifica con números, cualquier operación aritmética se ejecuta sin error. Que el resultado exista no significa que signifique algo.\n\n\n\nEscalas cuantitativas: intervalar y de razón\nAmbas permiten cálculos numéricos porque la distancia entre los números corresponde a la distancia real entre los sucesos. La diferencia clave es si existe un cero absoluto.\n\n\n\nIntervalar\nOrden definido y diferencias medibles, pero el cero es arbitrario: no significa “ausencia”.\nTemperatura del agua en °C: 0 °C es el punto de congelación (= 32 °F), no la ausencia de temperatura; por eso 20 °C no es “el doble de caliente” que 10 °C. También los números índice: índice de precios al consumidor (IPC), índice de precios mayoristas (IPM) o producto interno bruto (PIB).\n\n\n\n\nDe razón (cociente)\nTodo lo anterior más un cero absoluto real. Sólo se asigna arbitrariamente la unidad de medida.\nVelocidad en nudos: 20 nudos es exactamente el doble de 10, porque 0 nudos significa “sin movimiento”. Igual el calado, el consumo y el tonelaje.\n\n\n\n\nPrueba rápida: si la frase “A es el doble de B” tiene sentido físico, la escala es de razón. Si no lo tiene, es intervalar.\n\n\n\nCuadro resumen\n\n\n\n\n\n\n\n\n\n\n\n\n\nEscala\n¿Ordena?\n¿Diferencias medibles?\n¿Cero absoluto?\nTipo de dato\nResumen típico\nEjemplo naval\n\n\n\n\nNominal\nNo\nNo\n—\nCualitativo\nFrecuencias, moda\nTipo de embarcación\n\n\nOrdinal\nSí\nNo\n—\nCualitativo\n+ mediana, cuartiles\nJerarquía de mando\n\n\nIntervalar\nSí\nSí\nNo\nCuantitativo\n+ media, desviación\nTemperatura del mar (°C)\n\n\nDe razón\nSí\nSí\nSí\nCuantitativo\n+ cocientes, coeficiente de variación\nVelocidad del buque (nudos)\n\n\n\n\nA mayor nivel de escala, más operaciones estadísticas se pueden aplicar válidamente. Cada nivel hereda todo lo permitido en los anteriores.\n\nCoeficiente de variación (CV). Desviación típica dividida entre la media: mide la dispersión en proporción al tamaño de lo medido. Se estudia en el apartado 1.3.4.\n\nAdaptado de Illowsky & Dean (OpenStax, §1.3) y Ordóñez et al. (2025, §1.3).",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#organización-y-recolección-de-datos",
+    "href": "unidad-1/tema-1-1.html#organización-y-recolección-de-datos",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "1.1.4 Organización y recolección de datos",
+    "text": "1.1.4 Organización y recolección de datos\n\n¿Qué significa medir?\nMedir es asignar símbolos —generalmente números— a sucesos, hechos u objetos del mundo empírico, sobre la base de reglas y procedimientos de un mundo abstracto como es la matemática.\n\n\n\nMundo empírico\nLa característica tal como existe en la realidad\n\n\nla profundidad de una zona de fondeo\nel desgaste de un motor principal\nla percepción de la dotación sobre el rancho\n\n\n\n\n\n\nEl instrumento y la regla\n\n\necosonda\nmicrómetro\ncuestionario\nbitácora\n\n\n\n\n\n\nMundo abstracto\nEl símbolo registrado, ya operable\n\n\n37.4 m\n1 240 horas de servicio\n4 sobre 5 en satisfacción\n\n\n\n\n\n\nEn términos de investigación, la medición es la parte trascendental para migrar del empirismo a la ciencia exacta. — Ordóñez et al. (2025), §1.2\n\n\n\nLos cuatro pasos de la recolección\n\n\n\n\n\n\n\n\n\nPaso\nQué se hace\nEjemplo naval\n\n\n\n\n1. Definir la variable\n¿Qué característica se va a observar y sobre qué elemento?\nLa profundidad del mar en una zona de fondeo\n\n\n2. Elegir instrumento y unidad\nSeleccionar el aparato y la unidad de registro\nEcosonda en metros o brazas; velocímetro en nudos\n\n\n3. Aplicar la regla\nRegistrar el valor como lo indica el instrumento, en condiciones controladas y siempre del mismo modo\nMismo aparato, mismo procedimiento\n\n\n4. Registrar el dato\nAnotar el valor con su unidad, la fecha y quién lo tomó\n37.4 m, fecha y responsable\n\n\n\n\n\n\nAdvertencia: el indicador no es la realidad\nLos informes citan indicadores como si fueran un reflejo puro de la realidad. No lo son: son el producto de un instrumento aplicado bajo una regla, en un instante.\n\n\n\nEl instrumento\n¿Está calibrado? ¿La pregunta del cuestionario mide de verdad lo que dice medir?\n\n\n\n\nLa regla y las condiciones\n¿Se aplicó siempre el mismo procedimiento, en condiciones comparables?\n\n\n\n\nEl momento\nEl indicador vale para el instante en que se midió, no para siempre.\n\n\n\n\nRegla práctica para el oficial: antes de decidir con un indicador, pregunte quién lo midió, con qué instrumento, bajo qué regla y cuándo.\n\n\n\nDatos, media y proporción\n\n\n\nDato\nEl valor único de una variable; puede ser un número o una palabra.\nEj.: “18 nudos” es un dato de la variable velocidad.\n\n\n\n\nMedia\nLa suma de los valores dividida entre el número de datos.\nEj.: 16, 18 y 20 nudos → media = 18 nudos.\n\n\n\n\nProporción\nFracción de la muestra que cumple una condición.\nEj.: de 40 tripulantes, 25 son oficiales → 25/40 = 0.625.\n\n\n\n\nCalcular a mano y verificar. Ejecute la primera celda para ver los datos. Con papel y calculadora obtenga el rango del consumo —el mayor menos el menor— y sólo después compruebe su resultado.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEjercicioPistasSolución\n\n\nAhora en código: calcule la media del calado y la proporción de unidades que superan los 20 nudos.\n\n\n\n\n\n\n\n\n\n\n\nUna proporción es la media de una condición verdadero/falso. flota$velocidad_nudos &gt; 20 devuelve verdaderos y falsos; ¿qué ocurre si les aplica mean()?\n\n\n\n\nmedia_calado &lt;- mean(flota$calado_m)\nproporcion_rapidas &lt;- mean(flota$velocidad_nudos &gt; 20)\nmean() sobre un vector lógico cuenta los verdaderos y divide entre el total: exactamente la definición de proporción.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#para-la-próxima-semana",
+    "href": "unidad-1/tema-1-1.html#para-la-próxima-semana",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "Para la próxima semana",
+    "text": "Para la próxima semana\n\n\n\n1. Niveles de medición\nTraiga 5 características observables en un buque de nuestra Armada e identifique el nivel de medición de cada una.\n\n\n\n\n2. Auditoría de un indicador\nElija un indicador que su unidad reporte y explique: ¿qué instrumento lo produce, bajo qué regla, en qué momento, y qué podría distorsionarlo?\n\n\n\n\n3. Lectura\nLa lectura mínima de la semana, detallada abajo. Tráigala hecha: la sesión siguiente parte de ella.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
+    "objectID": "unidad-1/tema-1-1.html#para-leer-esta-semana",
+    "href": "unidad-1/tema-1-1.html#para-leer-esta-semana",
+    "title": "1.1 Introducción a la Estadística",
+    "section": "Para leer esta semana",
+    "text": "Para leer esta semana\n\nTexto guía\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.\nLea el Capítulo I, §§1.1 a 1.4, páginas 21 a 25. Son cinco páginas: la introducción, el proceso de medición y las cuatro escalas, con la Figura 1.1 que resume cómo la escala determina el tipo de dato.\n\n\nLectura de la unidad\nBologna, E. (2018). «Los datos estadísticos», en Métodos Estadísticos de Investigación, pp. 17–35. Córdoba: Editorial Brujas & Encuentro Grupo Editor.\nDisponible en ProQuest Ebook Central con su cuenta @espe.edu.ec: https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586\n\n\nTratamiento formal más exigente\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). México: Cengage Learning.\nEstá en la carpeta del curso. Para esta semana, su §1.1 «Poblaciones, muestras y procesos», páginas 3 a 13, trata lo mismo con más desarrollo formal. Junto a él encontrará Johnson, R. A. (2012). Miller y Freund. Probabilidad y estadística para ingenieros (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7.\n\n\nRecurso de acceso libre\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.\nCapítulo 1, «Muestreo y datos»: https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion\nNo requiere registro ni descarga. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos resueltos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.\n\nLa lista completa, con qué capítulo corresponde a cada semana, está en la bibliografía del curso.\nLos ejemplos navales son adaptaciones propias de los casos militares del texto de Ordóñez et al.",
+    "crumbs": [
+      "Inicio",
+      "UC 1 · Estadística descriptiva y probabilidad",
+      "1.1 Introducción a la Estadística"
+    ]
+  },
+  {
     "objectID": "unidad-1/tema-1-3.html",
     "href": "unidad-1/tema-1-3.html",
     "title": "1.3 Estadística descriptiva",
@@ -105,437 +655,6 @@
       "Inicio",
       "UC 1 · Estadística descriptiva y probabilidad",
       "1.3 Estadística descriptiva"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#su-flota",
-    "href": "unidad-1/tema-1-1.html#su-flota",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "Su flota",
-    "text": "Su flota\nTodo el material trabaja sobre una flota de 40 unidades. La suya no es igual a la de sus compañeros: se genera a partir de su correo institucional, así que los números que obtenga son sólo suyos.\nEscriba su correo @espe.edu.ec entre las comillas y ejecute la celda. Hágalo una sola vez al empezar.\n\n\n\n\n\n\n\n\nEscríbalo tal como aparece en su cuenta institucional, en minúsculas y sin espacios. Si lo cambia a mitad de la sesión, sus resultados anteriores dejarán de coincidir.\n\nCopiar el resultado de un compañero no sirve de nada: su flota tiene otras velocidades, otros calados y otro reparto de tipos. Lo único que se puede compartir es el razonamiento, que es precisamente lo que interesa.\n\n\nSignificado y unidades de cada variable\nUn dato sin unidad no es un dato. Decir que una unidad «tiene 4.37» no significa nada; decir que cala 4.37 metros sí. Antes de calcular nada, conviene tener a la vista qué se midió, en qué unidad y en qué escala.\n\n\n\n\n\n\n\n\n\nDistintivo óptico. Combinación de letras y cifras que identifica a una unidad de superficie y que va pintada en su casco. Aquí el prefijo indica el tipo —FM fragata misilera, CM corbeta misilera, PM patrullera, LM lancha misilera— y el número es el correlativo dentro de ese tipo.\nEs un identificador, no una medida: PM-07 no es «mayor» que PM-03. Aunque contenga cifras, la columna es nominal.\n\n\nNudo. Unidad de velocidad de uso náutico: una milla náutica por hora. La milla náutica equivale a 1852 metros, así que 1 nudo = 1.852 km/h y una unidad que navega a 18 nudos avanza 33.3 km cada hora.\nNo se dice «nudos por hora»: la hora ya está dentro de la definición.\n\n\nCalado. Distancia vertical entre la línea de flotación y la parte más baja del casco, en metros. Determina la profundidad mínima que la unidad necesita para navegar sin tocar fondo, y por eso condiciona a qué puertos y sobre qué sondas puede entrar.\nSe registra a plena carga, que es la condición más desfavorable.\n\n\nEscala Douglas. Escala internacional que clasifica el estado de la mar por la altura de las olas, del grado 0 (calma) al 9 (mar enorme). Aquí aparecen tres grados contiguos: marejadilla (grado 2, olas de 0.1 a 0.5 m), marejada (grado 3, de 0.5 a 1.25 m) y fuerte marejada (grado 4, de 1.25 a 2.5 m).\nLos grados están ordenados, pero la distancia entre ellos no es constante. Retenga este ejemplo: reaparece en el apartado 1.1.3 como el caso típico de escala ordinal.\n\n\nLos datos son sintéticos. Están generados por computador para que usted practique. No corresponden a unidades ni a registros reales de la Armada, y ninguna conclusión que obtenga de ellos describe a la fuerza naval.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#importancia-de-la-estadística-en-las-ciencias-navales",
-    "href": "unidad-1/tema-1-1.html#importancia-de-la-estadística-en-las-ciencias-navales",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "1.1.1 Importancia de la Estadística en las Ciencias Navales",
-    "text": "1.1.1 Importancia de la Estadística en las Ciencias Navales\nLa dirección estratégica de una institución es más exitosa cuando sus análisis y decisiones se sustentan en cifras e indicadores medibles y reales. En el ámbito militar esto no es un lujo académico: es una condición de eficacia.\n\n\n\nRecursos limitados\nLos medios de que disponen las Fuerzas Armadas son limitados frente a las innumerables operaciones que deben ejecutar. El empleo adecuado de los principios estadísticos permite usarlos de forma mucho más eficiente.\n\n\n\n\nFines, modos y medios\nEl líder militar debe sincronizar esa trilogía en la estrategia. No lo logrará sin un proceso riguroso de recolección, organización, análisis e interpretación de resultados.\n\n\n\n\nAlto costo y alto riesgo\nEl material bélico tiene un costo elevado y un alto riesgo de operación. Medir bien, y saber qué tan confiable es esa medida, forma parte de la seguridad de la operación.\n\n\n\n\n¿Qué es la Estadística?\nLa Estadística es la ciencia que recopila, clasifica, resume, analiza e interpreta datos —siempre que la variabilidad, es decir la incertidumbre, sea una causa intrínseca de ellos— para ayudar a la toma de decisiones y, en su caso, formular predicciones.\n\n\n\nEstadística Descriptiva\nOrganiza y resume los datos disponibles mediante tablas, gráficos y números.\nEj.: reportar la velocidad promedio de una flota durante las maniobras de un mes.\n\n\n\n\nEstadística Inferencial\nUsa la probabilidad para extender a toda la población lo observado en una muestra.\nEj.: estimar, a partir de 30 lecturas de sonar, la profundidad promedio de toda una bahía.\n\n\n\n\nProbabilidad\nHerramienta matemática para estudiar el azar: mide la oportunidad de que ocurra un evento. Es el puente que hace válido el salto de la muestra a la población.\n\n\n\n\nLa primera línea de la celda describe toda la flota; la segunda infiere a partir de doce unidades. Ejecútela cuatro veces seguidas. ¿Cuál de los dos números cambia, y por qué?",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#población-muestra-parámetros-y-estadísticos",
-    "href": "unidad-1/tema-1-1.html#población-muestra-parámetros-y-estadísticos",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "1.1.2 Población, muestra, parámetros y estadísticos",
-    "text": "1.1.2 Población, muestra, parámetros y estadísticos\n\n\n\nPoblación\nConjunto de todas las personas, cosas u objetos que se desea estudiar. Es el universo sobre el que se quiere concluir.\nEjemplo naval: todas las embarcaciones de la Armada que realizan patrullaje costero durante el presente año.\n\n\n\n\nMuestra\nSubconjunto de la población, seleccionado con un procedimiento explícito para obtener información sobre ella.\nEjemplo naval: 12 buques elegidos al azar de esa flota, para inspeccionar su consumo de combustible.\n\n\n\n\n\n\n\n\n\n\n\n\nParámetro y estadístico\nUn estadístico es un número que resume una propiedad de la muestra; es una estimación de un parámetro, que es la característica numérica de toda la población.\n\n\n\nPoblación → Parámetro\nValor fijo pero, en la práctica, desconocido.\n\n\n\n\nMuestra → Estadístico\nSe calcula a partir de los datos observados.\n\n\n\n\nEjemplo naval. Se quiere conocer el consumo promedio diario de combustible (m³/día) de toda la flota de patrulleras. El promedio real de TODA la flota es el parámetro: existe, es fijo y lo desconocemos. Al medir una muestra de 12 patrulleras y calcular su consumo promedio obtenemos un estadístico, que usamos para estimar ese parámetro.\n\n\nLa celda calcula el parámetro una vez y diez estadísticos a partir de diez muestras distintas. ¿Cuántos de esos once números espera que sean iguales entre sí?\n\n\n\n\n\n\n\n\n\nLa dispersión de esos diez estadísticos alrededor del parámetro es el objeto central de la estadística inferencial.\n\nInterpretar sin calcular. Mire la salida anterior, sin hacer ninguna cuenta. ¿Cuál de estas afirmaciones es correcta?\na) El parámetro cambia en cada muestra, porque cada muestra da un promedio distinto. b) El parámetro es el mismo siempre; lo que cambia de muestra en muestra es el estadístico. c) Si los diez estadísticos fueran iguales entre sí, la muestra estaría mal tomada.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#variables-estadísticas-y-escalas-de-medición",
-    "href": "unidad-1/tema-1-1.html#variables-estadísticas-y-escalas-de-medición",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "1.1.3 Variables estadísticas y escalas de medición",
-    "text": "1.1.3 Variables estadísticas y escalas de medición\nUna variable (usualmente denotada con X o Y) es una característica o medida que puede determinarse para cada miembro de una población.\n\n\n\nVariable numérica (cuantitativa)\nToma valores con unidades comparables: se pueden hacer cálculos.\n\nDiscreta — resulta de contar: número de averías, unidades zarpadas en el mes.\nContinua — resulta de medir: calado 4.37 m, velocidad 18.6 nudos.\n\n\n\n\n\nVariable categórica (cualitativa)\nUbica al individuo en una categoría; sólo cabe contar y comparar frecuencias.\n\nNominal — sin orden: tipo de unidad, base naval de asignación.\nOrdinal — con orden: nivel de alistamiento, estado de la mar.\n\n\n\n\n\n¿Qué cree que devuelve mean(flota$tipo)? Escríbalo, ejecute la celda y después pruébelo.\n\n\n\n\n\n\n\n\n\n\nEscalas cualitativas: nominal y ordinal\nLos datos de escala nominal y ordinal son cualitativos: no se usan en cálculos aritméticos.\n\n\n\nNominal\nLos números sirven solamente como etiqueta para catalogar o identificar. No se puede establecer prioridad alguna entre las categorías.\n\nTipo de nave (fragata, submarino, patrullera)\nPuerto de matrícula · bandera del buque\n\nNo tiene sentido decir que un tipo de nave es “mayor” que otro.\n\n\n\n\nOrdinal\nDefine una relación de orden: mide si hay más o menos de la característica, pero no cuánto más.\n\nJerarquía de mando (Alférez &lt; Teniente &lt; Capitán)\nEstado de la mar en la escala Douglas (marejadilla, marejada, fuerte marejada)\n\nCapitán (4) tiene más de algo que Teniente (3), pero no es “su doble”.\n\n\n\n\nEn el nivel ordinal ya tienen sentido el conteo y la acumulación de elementos ordenados: de ahí nacen las medidas de posición basadas en cuartiles, que veremos en el tema 1.3.\n\n\n\n\n\n\n\n\n\n\nmedian() no acepta un factor ordenado: devuelve el error «need numeric data». La mediana ordinal existe, pero R exige calcularla acumulando frecuencias, como arriba. El resultado es una categoría, no un número.\n\n\nDetectar el error. Un oficial quiere resumir el estado del mar de la singladura y escribe el código de abajo. Le sale un número y lo reporta como “estado de la mar promedio: 2.1”. Ejecútelo y decida qué está mal.\n\n\n\n\n\n\n\n\n\n\n¿Cuál es el problema con ese 2.1?\na) Ninguno: los códigos son números y su promedio es válido. b) El cálculo está bien pero habría que redondearlo a un entero. c) Codificar como 1, 2 y 3 no convierte la escala en cuantitativa: la distancia entre “marejadilla” y “marejada” no es la misma que entre “marejada” y “fuerte marejada”, así que promediarlas no significa nada.\n\n\n\n\n\n\n\n\n\n\nEste error es de los más frecuentes en informes reales, porque el computador nunca se queja: en cuanto una escala ordinal se codifica con números, cualquier operación aritmética se ejecuta sin error. Que el resultado exista no significa que signifique algo.\n\n\n\nEscalas cuantitativas: intervalar y de razón\nAmbas permiten cálculos numéricos porque la distancia entre los números corresponde a la distancia real entre los sucesos. La diferencia clave es si existe un cero absoluto.\n\n\n\nIntervalar\nOrden definido y diferencias medibles, pero el cero es arbitrario: no significa “ausencia”.\nTemperatura del agua en °C: 0 °C es el punto de congelación (= 32 °F), no la ausencia de temperatura; por eso 20 °C no es “el doble de caliente” que 10 °C. También los números índice: índice de precios al consumidor (IPC), índice de precios mayoristas (IPM) o producto interno bruto (PIB).\n\n\n\n\nDe razón (cociente)\nTodo lo anterior más un cero absoluto real. Sólo se asigna arbitrariamente la unidad de medida.\nVelocidad en nudos: 20 nudos es exactamente el doble de 10, porque 0 nudos significa “sin movimiento”. Igual el calado, el consumo y el tonelaje.\n\n\n\n\nPrueba rápida: si la frase “A es el doble de B” tiene sentido físico, la escala es de razón. Si no lo tiene, es intervalar.\n\n\n\nCuadro resumen\n\n\n\n\n\n\n\n\n\n\n\n\n\nEscala\n¿Ordena?\n¿Diferencias medibles?\n¿Cero absoluto?\nTipo de dato\nResumen típico\nEjemplo naval\n\n\n\n\nNominal\nNo\nNo\n—\nCualitativo\nFrecuencias, moda\nTipo de embarcación\n\n\nOrdinal\nSí\nNo\n—\nCualitativo\n+ mediana, cuartiles\nJerarquía de mando\n\n\nIntervalar\nSí\nSí\nNo\nCuantitativo\n+ media, desviación\nTemperatura del mar (°C)\n\n\nDe razón\nSí\nSí\nSí\nCuantitativo\n+ cocientes, coeficiente de variación\nVelocidad del buque (nudos)\n\n\n\n\nA mayor nivel de escala, más operaciones estadísticas se pueden aplicar válidamente. Cada nivel hereda todo lo permitido en los anteriores.\n\nCoeficiente de variación (CV). Desviación típica dividida entre la media: mide la dispersión en proporción al tamaño de lo medido. Se estudia en el apartado 1.3.4.\n\nAdaptado de Illowsky & Dean (OpenStax, §1.3) y Ordóñez et al. (2025, §1.3).",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#organización-y-recolección-de-datos",
-    "href": "unidad-1/tema-1-1.html#organización-y-recolección-de-datos",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "1.1.4 Organización y recolección de datos",
-    "text": "1.1.4 Organización y recolección de datos\n\n¿Qué significa medir?\nMedir es asignar símbolos —generalmente números— a sucesos, hechos u objetos del mundo empírico, sobre la base de reglas y procedimientos de un mundo abstracto como es la matemática.\n\n\n\nMundo empírico\nLa característica tal como existe en la realidad\n\n\nla profundidad de una zona de fondeo\nel desgaste de un motor principal\nla percepción de la dotación sobre el rancho\n\n\n\n\n\n\nEl instrumento y la regla\n\n\necosonda\nmicrómetro\ncuestionario\nbitácora\n\n\n\n\n\n\nMundo abstracto\nEl símbolo registrado, ya operable\n\n\n37.4 m\n1 240 horas de servicio\n4 sobre 5 en satisfacción\n\n\n\n\n\n\nEn términos de investigación, la medición es la parte trascendental para migrar del empirismo a la ciencia exacta. — Ordóñez et al. (2025), §1.2\n\n\n\nLos cuatro pasos de la recolección\n\n\n\n\n\n\n\n\n\nPaso\nQué se hace\nEjemplo naval\n\n\n\n\n1. Definir la variable\n¿Qué característica se va a observar y sobre qué elemento?\nLa profundidad del mar en una zona de fondeo\n\n\n2. Elegir instrumento y unidad\nSeleccionar el aparato y la unidad de registro\nEcosonda en metros o brazas; velocímetro en nudos\n\n\n3. Aplicar la regla\nRegistrar el valor como lo indica el instrumento, en condiciones controladas y siempre del mismo modo\nMismo aparato, mismo procedimiento\n\n\n4. Registrar el dato\nAnotar el valor con su unidad, la fecha y quién lo tomó\n37.4 m, fecha y responsable\n\n\n\n\n\n\nAdvertencia: el indicador no es la realidad\nLos informes citan indicadores como si fueran un reflejo puro de la realidad. No lo son: son el producto de un instrumento aplicado bajo una regla, en un instante.\n\n\n\nEl instrumento\n¿Está calibrado? ¿La pregunta del cuestionario mide de verdad lo que dice medir?\n\n\n\n\nLa regla y las condiciones\n¿Se aplicó siempre el mismo procedimiento, en condiciones comparables?\n\n\n\n\nEl momento\nEl indicador vale para el instante en que se midió, no para siempre.\n\n\n\n\nRegla práctica para el oficial: antes de decidir con un indicador, pregunte quién lo midió, con qué instrumento, bajo qué regla y cuándo.\n\n\n\nDatos, media y proporción\n\n\n\nDato\nEl valor único de una variable; puede ser un número o una palabra.\nEj.: “18 nudos” es un dato de la variable velocidad.\n\n\n\n\nMedia\nLa suma de los valores dividida entre el número de datos.\nEj.: 16, 18 y 20 nudos → media = 18 nudos.\n\n\n\n\nProporción\nFracción de la muestra que cumple una condición.\nEj.: de 40 tripulantes, 25 son oficiales → 25/40 = 0.625.\n\n\n\n\nCalcular a mano y verificar. Ejecute la primera celda para ver los datos. Con papel y calculadora obtenga el rango del consumo —el mayor menos el menor— y sólo después compruebe su resultado.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEjercicioPistasSolución\n\n\nAhora en código: calcule la media del calado y la proporción de unidades que superan los 20 nudos.\n\n\n\n\n\n\n\n\n\n\n\nUna proporción es la media de una condición verdadero/falso. flota$velocidad_nudos &gt; 20 devuelve verdaderos y falsos; ¿qué ocurre si les aplica mean()?\n\n\n\n\nmedia_calado &lt;- mean(flota$calado_m)\nproporcion_rapidas &lt;- mean(flota$velocidad_nudos &gt; 20)\nmean() sobre un vector lógico cuenta los verdaderos y divide entre el total: exactamente la definición de proporción.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#para-la-próxima-semana",
-    "href": "unidad-1/tema-1-1.html#para-la-próxima-semana",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "Para la próxima semana",
-    "text": "Para la próxima semana\n\n\n\n1. Niveles de medición\nTraiga 5 características observables en un buque de nuestra Armada e identifique el nivel de medición de cada una.\n\n\n\n\n2. Auditoría de un indicador\nElija un indicador que su unidad reporte y explique: ¿qué instrumento lo produce, bajo qué regla, en qué momento, y qué podría distorsionarlo?\n\n\n\n\n3. Lectura\nLa lectura mínima de la semana, detallada abajo. Tráigala hecha: la sesión siguiente parte de ella.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-1.html#para-leer-esta-semana",
-    "href": "unidad-1/tema-1-1.html#para-leer-esta-semana",
-    "title": "1.1 Introducción a la Estadística",
-    "section": "Para leer esta semana",
-    "text": "Para leer esta semana\n\nTexto guía\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.\nLea el Capítulo I, §§1.1 a 1.4, páginas 21 a 25. Son cinco páginas: la introducción, el proceso de medición y las cuatro escalas, con la Figura 1.1 que resume cómo la escala determina el tipo de dato.\n\n\nLectura de la unidad\nBologna, E. (2018). «Los datos estadísticos», en Métodos Estadísticos de Investigación, pp. 17–35. Córdoba: Editorial Brujas & Encuentro Grupo Editor.\nDisponible en ProQuest Ebook Central con su cuenta @espe.edu.ec: https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586\n\n\nTratamiento formal más exigente\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). México: Cengage Learning.\nEstá en la carpeta del curso. Para esta semana, su §1.1 «Poblaciones, muestras y procesos», páginas 3 a 13, trata lo mismo con más desarrollo formal. Junto a él encontrará Johnson, R. A. (2012). Miller y Freund. Probabilidad y estadística para ingenieros (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7.\n\n\nRecurso de acceso libre\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.\nCapítulo 1, «Muestreo y datos»: https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion\nNo requiere registro ni descarga. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos resueltos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.\n\nLa lista completa, con qué capítulo corresponde a cada semana, está en la bibliografía del curso.\nLos ejemplos navales son adaptaciones propias de los casos militares del texto de Ordóñez et al.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.1 Introducción a la Estadística"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Estadística",
-    "section": "",
-    "text": "1.1.1 Importancia de la Estadística en las Ciencias Navales\n1.1.2 Población, muestra, parámetros y estadísticos\n1.1.3 Variables estadísticas y escalas de medición\n1.1.4 Organización y recolección de datos\n\n\n\n\n\n1.2.1 Técnicas de muestreo\n1.2.2 Muestreo probabilístico\n1.2.3 Muestreo no probabilístico\n1.2.4 Determinación del tamaño de muestra · se trabaja en la semana 5\n\n\n\n\n\n1.3.1 Tablas de distribución de frecuencias\n1.3.2 Representaciones gráficas\n1.3.3 Medidas de tendencia central\n1.3.4 Medidas de dispersión\n1.3.5 Medidas de posición\n1.3.6 Medidas de forma\n1.3.7 Interpretación de indicadores estadísticos",
-    "crumbs": [
-      "Inicio",
-      "Presentación del curso"
-    ]
-  },
-  {
-    "objectID": "index.html#contenido-del-curso",
-    "href": "index.html#contenido-del-curso",
-    "title": "Estadística",
-    "section": "",
-    "text": "1.1.1 Importancia de la Estadística en las Ciencias Navales\n1.1.2 Población, muestra, parámetros y estadísticos\n1.1.3 Variables estadísticas y escalas de medición\n1.1.4 Organización y recolección de datos\n\n\n\n\n\n1.2.1 Técnicas de muestreo\n1.2.2 Muestreo probabilístico\n1.2.3 Muestreo no probabilístico\n1.2.4 Determinación del tamaño de muestra · se trabaja en la semana 5\n\n\n\n\n\n1.3.1 Tablas de distribución de frecuencias\n1.3.2 Representaciones gráficas\n1.3.3 Medidas de tendencia central\n1.3.4 Medidas de dispersión\n1.3.5 Medidas de posición\n1.3.6 Medidas de forma\n1.3.7 Interpretación de indicadores estadísticos",
-    "crumbs": [
-      "Inicio",
-      "Presentación del curso"
-    ]
-  },
-  {
-    "objectID": "index.html#uso-del-material",
-    "href": "index.html#uso-del-material",
-    "title": "Estadística",
-    "section": "Uso del material",
-    "text": "Uso del material\nCada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.\nLas celdas de código son ejecutables en el navegador. No hace falta instalar R ni ningún programa: al pulsar Run Code la primera vez, el navegador descarga el motor de R y a partir de ahí todo corre en su propio equipo. Funciona igual en la laptop que en la tablet.\n\nCada celda va precedida de una pregunta. Escriba su respuesta en el cuaderno antes de ejecutar. Una celda ejecutada sin haber predicho el resultado no enseña nada.",
-    "crumbs": [
-      "Inicio",
-      "Presentación del curso"
-    ]
-  },
-  {
-    "objectID": "index.html#fuentes-del-curso",
-    "href": "index.html#fuentes-del-curso",
-    "title": "Estadística",
-    "section": "Fuentes del curso",
-    "text": "Fuentes del curso\nIllowsky, B., & Dean, S. Introducción a la estadística. OpenStax, Rice University. Licencia CC BY 4.0.\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa. Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.",
-    "crumbs": [
-      "Inicio",
-      "Presentación del curso"
-    ]
-  },
-  {
-    "objectID": "bibliografia.html",
-    "href": "bibliografia.html",
-    "title": "Bibliografía",
-    "section": "",
-    "text": "Los tres primeros textos están disponibles en la carpeta del curso. El cuarto es de acceso libre en línea. No hay que comprar nada.",
-    "crumbs": [
-      "Inicio",
-      "Bibliografía"
-    ]
-  },
-  {
-    "objectID": "bibliografia.html#texto-guía",
-    "href": "bibliografia.html#texto-guía",
-    "title": "Bibliografía",
-    "section": "Texto guía",
-    "text": "Texto guía\n\nEstadística para la Seguridad y Defensa\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed.). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8. Disponible para consulta en el repositorio institucional: https://repositorio.espe.edu.ec\nEs el texto de referencia de la asignatura y el único escrito para el ámbito de defensa y seguridad. Sus ejemplos son militares y usa R en todos los capítulos, igual que este curso. Empiece siempre por aquí.\n\nCapítulo I — introducción, medición, escalas y muestreo\nCapítulo II — estadística descriptiva\nCapítulo III — teoría de la probabilidad\nCapítulo IV — distribuciones de probabilidad",
-    "crumbs": [
-      "Inicio",
-      "Bibliografía"
-    ]
-  },
-  {
-    "objectID": "bibliografia.html#textos-complementarios",
-    "href": "bibliografia.html#textos-complementarios",
-    "title": "Bibliografía",
-    "section": "Textos complementarios",
-    "text": "Textos complementarios\n\nProbabilidad y estadística para ingeniería y ciencias\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.\nMás exigente en el desarrollo matemático que el texto guía. Útil cuando una demostración del Ordóñez le sepa a poco, o cuando quiera ver el mismo concepto tratado con más profundidad formal.\n\nCap. 1 «Generalidades y estadística descriptiva» — §1.1 Poblaciones, muestras y procesos (pp. 3–13); §1.3 Medidas de ubicación (p. 29); §1.4 Medidas de variabilidad (p. 36)\nCap. 2 «Probabilidad» — §2.3 Técnicas de conteo (p. 66); §2.4 Probabilidad condicional (p. 75)\n\n\n\nMiller y Freund. Probabilidad y estadística para ingenieros\nJohnson, R. A. (2012). Probabilidad y estadística para ingenieros (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.\nEl más orientado a la aplicación de los tres impresos: casi todos sus ejemplos vienen de casos reales de ingeniería y control de calidad, que es el vecino más próximo al problema naval.\n\nCap. 5 «Densidades de probabilidad» — §5.2 La distribución normal (p. 125); §5.5 La distribución uniforme (p. 135)\nCap. 6 «Distribuciones muestrales» — §6.1 Poblaciones y muestras (p. 175); §6.2 La distribución muestral de la media (p. 179)\nCap. 11 «Análisis de regresión» — §11.1 El método de mínimos cuadrados (p. 301); §11.6 Correlación (p. 335)\n\n\n\nElementos de muestreo\nScheaffer, R. L., Mendenhall, W., III, & Ott, R. L. (2007). Elementos de muestreo (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de Elementary Survey Sampling, 6.ª ed.\nEl único de la lista dedicado íntegramente al muestreo, y el más práctico: cada capítulo presenta un diseño, resuelve un caso con detalle y ofrece las fórmulas necesarias sin desarrollo teórico. De él proviene el tratamiento del tema 1.2.\n\nCap. 2 «Elementos del problema de muestreo» — §2.4 Fuentes de error en las encuestas (pp. 19–31); §2.5 Diseño de un cuestionario (p. 31)\nCap. 4 «Muestreo aleatorio simple» — §4.4 Selección del tamaño de muestra (p. 95); §4.5 Estimación de una proporción (p. 97)\nCap. 5 «Muestreo aleatorio estratificado» — §5.5 Afijación de la muestra (p. 137)\nCap. 7 «Muestreo sistemático» y Cap. 8 «Muestreo por conglomerados»\nCap. 12 «Resumen» — §12.2 Comparaciones entre los diseños y métodos\n\n\n\nIntroducción a la estadística — OpenStax\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio\nDe acceso libre, en línea y en español. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.\n\nCap. 1 «Muestreo y datos» — https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion\nCap. 2 «Estadística descriptiva» — https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva",
-    "crumbs": [
-      "Inicio",
-      "Bibliografía"
-    ]
-  },
-  {
-    "objectID": "bibliografia.html#obra-citada-por-el-texto-guía",
-    "href": "bibliografia.html#obra-citada-por-el-texto-guía",
-    "title": "Bibliografía",
-    "section": "Obra citada por el texto guía",
-    "text": "Obra citada por el texto guía\n\nEstadística: métodos y aplicaciones\nGalindo, E. (2011). Estadística: métodos y aplicaciones. Quito: Prociencia Editores. Ejemplar consultado en el Internet Archive: https://archive.org/details/EstadisticaMetodosYAplicacionesEdwinGalindo\nEl texto guía cita la edición de 2015 y toma de esta obra el criterio del coeficiente de variación y los coeficientes de asimetría y curtosis. El ejemplar disponible en línea es el de 2011; no se ha comprobado si el contenido cambia entre ediciones.\nNo es lectura obligatoria del curso. Se consulta sólo para verificar en su fuente los criterios que el texto guía cita de segunda mano, según se detalla en Discrepancias entre los textos y R.\n\n§1.9.3 Coeficiente de variación\n§1.10 Medidas de forma: asimetría y curtosis",
-    "crumbs": [
-      "Inicio",
-      "Bibliografía"
-    ]
-  },
-  {
-    "objectID": "bibliografia.html#lecturas-por-semana",
-    "href": "bibliografia.html#lecturas-por-semana",
-    "title": "Bibliografía",
-    "section": "Lecturas por semana",
-    "text": "Lecturas por semana\n\n\n\n\n\n\n\n\n\n\nSemana\nTema\nLectura mínima\nAmpliación\n\n\n\n\n1\n1.1 Introducción\nOrdóñez, cap. I §§1.1–1.4\nOpenStax cap. 1; Devore §1.1\n\n\n2\n1.2.1–1.2.3 Muestreo\nOrdóñez, cap. I §§1.5–1.7\nScheaffer §2.4 (fuentes de error); Johnson §6.1\n\n\n3\n1.3.1–1.3.2 Tablas y gráficos\nOrdóñez, cap. II §§2.1–2.4\nJohnson §§2.2–2.3; OpenStax cap. 2\n\n\n4\n1.3.3–1.3.4 Centro y dispersión\nOrdóñez, cap. II §2.5\nDevore §§1.3–1.4; OpenStax cap. 2\n\n\n5\n1.2.4 Tamaño de muestra\nOrdóñez, cap. I §1.7\nScheaffer §4.4 (pp. 95–97)\n\n\n5\n1.3.5–1.3.7 Posición y forma\nOrdóñez, cap. II §§2.5.1, 2.6–2.7\nJohnson §2.6; Devore §1.4\n\n\n6–7\n1.4 Conteo y probabilidad\nOrdóñez, cap. III\nDevore §§2.3–2.4\n\n\n8–12\n2.x Modelos estocásticos\nOrdóñez, cap. IV\nJohnson cap. 5; Devore caps. 3–4\n\n\n13–16\n3.x Inferencia y regresión\nOrdóñez, cap. IV y apéndices\nJohnson caps. 6 y 11; Devore caps. 5–7\n\n\n\n\n\nCómo leer. La lectura mínima es la que se da por hecha en clase: si no la trae hecha, la sesión activa no le rendirá. La ampliación es para cuando quiera ir más lejos en un tema concreto, no para leerla entera.",
-    "crumbs": [
-      "Inicio",
-      "Bibliografía"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html",
-    "href": "discrepancias.html",
-    "title": "Discrepancias entre los textos y R",
-    "section": "",
-    "text": "Una fórmula estadística no siempre tiene una única forma correcta. Hay puntos en los que los tres textos del curso hacen cosas distintas, y otros en los que R hace algo distinto de los tres. Ninguno está equivocado: son convenciones, y lo que importa es declarar cuál se usa.\nEsta página reúne las que se han verificado numéricamente. Cada una indica qué adopta este curso.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#resumen",
-    "href": "discrepancias.html#resumen",
-    "title": "Discrepancias entre los textos y R",
-    "section": "Resumen",
-    "text": "Resumen\n\nDiscrepancias verificadas\n\n\n\n\n\n\n\n\n#\nAsunto\nDiscrepancia\nQué adopta el curso\n\n\n\n\n1\nCuartiles y percentiles\nCuatro convenciones distintas entre Ordóñez, Johnson, Devore y R\nOrdóñez a mano; en R, type = 6\n\n\n2\nRegla de Sturges\nOrdóñez redondea; R toma el techo. Difieren justo en \\(n = 40\\)\nLa fórmula del texto guía; se declara la diferencia\n\n\n3\nhist() y el número de clases\nR trata breaks como sugerencia, no como orden\nSe acepta; se comprueba siempre el resultado\n\n\n4\nAsimetría\nTres estimadores en uso, con hasta 8 % de diferencia\nEl de Ordóñez, escrito a mano\n\n\n5\nUmbral del coeficiente de variación\nEl umbral del texto guía no concuerda con su propia fórmula. Resuelto en la fuente original\nEl CV como fracción si se compara con umbrales\n\n\n6\nErrata en el texto guía\nEl cuerpo del texto y su propia tabla no coinciden\nPrevalece la tabla",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#cuartiles-y-percentiles",
-    "href": "discrepancias.html#cuartiles-y-percentiles",
-    "title": "Discrepancias entre los textos y R",
-    "section": "1. Cuartiles y percentiles",
-    "text": "1. Cuartiles y percentiles\nEs la discrepancia más visible, porque aparece en cuanto se compara el cálculo a mano con el del computador.\n\nCuatro reglas para el mismo cuartil\n\n\n\n\n\n\n\nFuente\nRegla\nEquivalente en R\n\n\n\n\nOrdóñez et al. (§2.5.1)\nPosición \\(p(n+1)\\), interpolando la fracción\ntype = 6\n\n\nJohnson (§2.6)\n\\(np\\); si no es entero se redondea hacia arriba, si lo es se promedian las posiciones \\(k\\) y \\(k+1\\)\ntype = 2\n\n\nDevore (§1.4)\n«Cuartos»: mediana de cada mitad, incluyendo la mediana si \\(n\\) es impar\n≈ type = 2\n\n\nR\nInterpolación sobre \\(1 + (n-1)p\\)\ntype = 7 (por omisión)\n\n\n\nCon los 15 pagos del ejercicio 2.13 del texto guía, Ordóñez obtiene \\(Q_3 = 24\\,500\\). R, si no se le dice nada, devuelve 19 050.\n\n\n\n\n\n\n\n\n\nLas equivalencias no son casualidad de este conjunto de datos. Se comprobaron sobre 400 muestras aleatorias de tamaños y percentiles distintos: la regla de Ordóñez coincide con type = 6 y la de Johnson con type = 2 hasta el error de redondeo del computador, en todos los casos.\n\n\nDevore lo dice en su propio libro, y su ejemplo lo demuestra: para los 40 turbocompresores, sus «cuartos» valen 5.05 y 7.85, mientras que la salida de Minitab que él mismo reproduce da \\(Q_1 = 5.025\\) y \\(Q_3 = 7.875\\). La discrepancia está impresa dentro de un mismo texto.\n\n\nCalcule a mano con la regla del texto guía. Cuando compruebe en R, escriba type = 6. Y en cualquier informe, declare la convención: sin ella, el número no es reproducible.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#la-regla-de-sturges",
-    "href": "discrepancias.html#la-regla-de-sturges",
-    "title": "Discrepancias entre los textos y R",
-    "section": "2. La regla de Sturges",
-    "text": "2. La regla de Sturges\nEl texto guía da \\(K = 1 + 3.32\\log_{10}(n)\\) y redondea al entero más próximo. R implementa nclass.Sturges() como \\(\\lceil \\log_2 n \\rceil + 1\\), es decir, toma el techo del logaritmo antes de sumar.\n\nNúmero de clases según cada regla\n\n\n\\(n\\)\nOrdóñez\nR\n\n\n\n\n20\n5\n6\n\n\n30\n6\n6\n\n\n40\n6\n7\n\n\n50\n7\n7\n\n\n100\n8\n8\n\n\n\nCoinciden en la mayoría de los tamaños, pero no en 40, que es justamente el tamaño de la flota del curso.\n\n\n\n\n\n\n\n\n\nUse la fórmula del texto guía cuando construya la tabla a mano. Si en R deja que hist() elija, obtendrá una clase más: no es un error, es otra regla. Declare cuál usó.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#el-número-de-clases-en-hist",
-    "href": "discrepancias.html#el-número-de-clases-en-hist",
-    "title": "Discrepancias entre los textos y R",
-    "section": "3. El número de clases en hist()",
-    "text": "3. El número de clases en hist()\nAunque se le pida un número exacto de intervalos, R lo trata como una sugerencia y ajusta los cortes a valores «redondos».\n\n\n\n\n\n\n\n\nSe piden siete intervalos y salen ocho, con cortes en 70, 80, 90… porque R prefiere límites legibles a obedecer la cifra.\n\nNunca dé por hecho el número de clases de un histograma de R: compruébelo con length(h$counts). Si necesita clases exactas, constrúyalas usted con seq() y pásalas como vector a breaks.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#asimetría-tres-estimadores",
-    "href": "discrepancias.html#asimetría-tres-estimadores",
-    "title": "Discrepancias entre los textos y R",
-    "section": "4. Asimetría: tres estimadores",
-    "text": "4. Asimetría: tres estimadores\nEl coeficiente de Fisher tiene al menos tres formas de estimarse a partir de una muestra, y los programas no usan la misma.\n\nTres estimadores del mismo coeficiente\n\n\n\n\n\n\n\nEstimador\nDenominador\nDónde aparece\n\n\n\n\n\\(b_1\\)\n\\(n\\,s^3\\), con \\(s\\) calculado sobre \\(n-1\\)\nOrdóñez et al. (§2.6.2)\n\n\n\\(g_1\\)\nmomentos puros, todo sobre \\(n\\)\ne1071::skewness(type = 1)\n\n\n\\(G_1\\)\n\\(g_1\\sqrt{n(n-1)}/(n-2)\\)\nSAS, SPSS, Excel, type = 2\n\n\n\nSobre los mismos 40 datos dan 0.5250, 0.5453 y 0.5668: una diferencia de casi el 8 % entre el primero y el último.\n\n\n\n\n\n\n\n\n\nPara el uso que se le da en este curso —leer el signo para saber hacia dónde se estira la distribución— los tres coinciden siempre, porque comparten el numerador. La discrepancia sólo importa si se compara el valor numérico con el de otro programa.\n\n\nEsta discrepancia no es un descuido: está reconocida en la propia fuente. Galindo, de quien el texto guía toma estos coeficientes, advierte en una nota al pie de su §1.10 que en la definición de las medidas de forma «no hay unidad de criterios entre los especialistas», y que por eso existe una amplia variedad de fórmulas.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#el-umbral-del-coeficiente-de-variación",
-    "href": "discrepancias.html#el-umbral-del-coeficiente-de-variación",
-    "title": "Discrepancias entre los textos y R",
-    "section": "5. El umbral del coeficiente de variación",
-    "text": "5. El umbral del coeficiente de variación\nOrdóñez et al. (§2.5.2) definen el coeficiente de variación (CV) multiplicando por 100, es decir en porcentaje, y a continuación recogen de Galindo el criterio de que si \\(CV \\le 1\\) los datos son homogéneos y si supera 1.5 son heterogéneos. Esos umbrales sólo tienen sentido si el CV se expresa como fracción.\nSe consultó la fuente original y el asunto queda aclarado.\n\nGalindo define el CV como fracción, sin multiplicar por 100. En su §1.9.3 lo escribe como \\(CV = s/\\bar{x}\\), y su ejemplo lo confirma: para diez sueldos con \\(\\bar{x} = 171\\) y \\(s = 5.1\\) obtiene \\(CV = 0.0298\\), y concluye que los datos son homogéneos. Con esa definición, los umbrales 1 y 1.5 son coherentes.\nLa incoherencia la introduce el texto guía, que añade el \\(\\times 100\\) a la fórmula pero conserva los umbrales de la fuente. No es un error de Galindo.\n\nEl criterio de Galindo, entonces, es: un conjunto es homogéneo si \\(CV \\le 1\\), y podría ser heterogéneo si \\(CV &gt; 1.5\\). El texto guía reproduce ese enunciado con fidelidad; lo que no reproduce es la escala en que está expresado.\nConviene advertir que ninguno de los dos textos define la franja \\(1 &lt; CV \\le 1.5\\): por debajo de 1 el conjunto se considera homogéneo y por encima de 1.5 posiblemente heterogéneo, pero entre ambos valores el criterio no se pronuncia. En ese intervalo el coeficiente no autoriza a concluir nada por sí solo.\n\nCalcule el CV como fracción si va a compararlo con los umbrales, y como porcentaje sólo para comunicarlo. Y úselo sobre todo para lo que no admite discusión: comparar la dispersión de dos variables medidas en unidades distintas.\n\nGalindo añade cuatro observaciones sobre el CV que conviene retener, y la última es la más olvidada: es adimensional; intervienen todas las observaciones, de modo que los valores atípicos lo alteran; puede ser difícil de interpretar; y pierde todo significado si el promedio vale cero.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#una-errata-del-texto-guía",
-    "href": "discrepancias.html#una-errata-del-texto-guía",
-    "title": "Discrepancias entre los textos y R",
-    "section": "6. Una errata del texto guía",
-    "text": "6. Una errata del texto guía\nEn el ejercicio de la moda para datos agrupados (§2.5.1), el cuerpo del texto indica que el límite inferior de la clase modal es 68.27, mientras que su propia Tabla 2.8 lo fija en 68.67.\nLa tabla es la correcta: los intervalos van de 10 en amplitud 14.67, de modo que la quinta clase empieza en \\(54.00 + 14.67 = 68.67\\). Reproduciendo la tabla completa se obtienen exactamente la media 63.81, la varianza 405.85 y la desviación 20.15 que el libro reporta, lo que confirma que el resto del ejercicio está bien y que 68.27 es un error de transcripción.\n\n\n\n\n\n\n\n\n\nEncontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: ningún texto es infalible, y toda fórmula se comprueba antes de usarse. Esa comprobación cabe en cuatro líneas de código.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "discrepancias.html#declaración-de-la-convención-en-un-informe",
-    "href": "discrepancias.html#declaración-de-la-convención-en-un-informe",
-    "title": "Discrepancias entre los textos y R",
-    "section": "Declaración de la convención en un informe",
-    "text": "Declaración de la convención en un informe\nCuando entregue un análisis, basta una línea al pie de la tabla:\n\nCuartiles calculados según la convención de posición \\(p(n+1)\\) (Ordóñez et al., 2025, §2.5.1), equivalente a quantile(type = 6) en R 4.x.\n\nSin esa línea, otro analista con los mismos datos puede obtener otro número y ninguno de los dos sabrá por qué.",
-    "crumbs": [
-      "Inicio",
-      "Discrepancias entre textos y R"
-    ]
-  },
-  {
-    "objectID": "plan.html",
-    "href": "plan.html",
-    "title": "Plan semanal",
-    "section": "",
-    "text": "48 horas en total: 32 presenciales —a dos horas por semana, dieciséis semanas— y 16 autónomas que el guardiamarina trabaja fuera de clase, sobre esta misma página.\nEl sílabo reparte el contenido en tres unidades curriculares (UC), que son los bloques en que se organiza y se evalúa la asignatura.\n\n\n\nUnidad\nContenido\nSemanas\nHoras presenciales\n\n\n\n\nUC 1\nEstadística descriptiva y probabilidad\n1 – 7\n14\n\n\nUC 2\nModelos estocásticos\n8 – 12\n10\n\n\nUC 3\nInferencia y regresión\n13 – 16\n8\n\n\n\n\nEl Proyecto Integrador atraviesa las tres unidades y es la columna del curso: en la UC 1 se construye la base de datos naval, en la UC 2 se le aplica un modelo probabilístico, y en la UC 3 se cierra con inferencia y conclusiones. Cada fase se apoya en lo que ya se hizo, de modo que ninguna semana queda suelta.",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "plan.html#distribución-de-la-carga-horaria",
-    "href": "plan.html#distribución-de-la-carga-horaria",
-    "title": "Plan semanal",
-    "section": "",
-    "text": "48 horas en total: 32 presenciales —a dos horas por semana, dieciséis semanas— y 16 autónomas que el guardiamarina trabaja fuera de clase, sobre esta misma página.\nEl sílabo reparte el contenido en tres unidades curriculares (UC), que son los bloques en que se organiza y se evalúa la asignatura.\n\n\n\nUnidad\nContenido\nSemanas\nHoras presenciales\n\n\n\n\nUC 1\nEstadística descriptiva y probabilidad\n1 – 7\n14\n\n\nUC 2\nModelos estocásticos\n8 – 12\n10\n\n\nUC 3\nInferencia y regresión\n13 – 16\n8\n\n\n\n\nEl Proyecto Integrador atraviesa las tres unidades y es la columna del curso: en la UC 1 se construye la base de datos naval, en la UC 2 se le aplica un modelo probabilístico, y en la UC 3 se cierra con inferencia y conclusiones. Cada fase se apoya en lo que ya se hizo, de modo que ninguna semana queda suelta.",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "plan.html#unidad-1-estadística-descriptiva-y-probabilidad",
-    "href": "plan.html#unidad-1-estadística-descriptiva-y-probabilidad",
-    "title": "Plan semanal",
-    "section": "Unidad 1 · Estadística descriptiva y probabilidad",
-    "text": "Unidad 1 · Estadística descriptiva y probabilidad\nResultado de aprendizaje. Organiza, resume e interpreta información proveniente de operaciones navales mediante técnicas de estadística descriptiva y probabilidad para generar indicadores que apoyen la toma de decisiones.\n\n\n\n\n\n\n\n\n\nSem.\nTema del sílabo\nEn clase (2 h)\nTrabajo autónomo\n\n\n\n\n1\n1.1 Introducción a la Estadística\nImportancia en ciencias navales; población, muestra, parámetro y estadístico; variables y escalas; organización y recolección\nTaller 1.1 — identificar variables, escalas y tipos de dato en una base naval\n\n\n2\n1.2.1 – 1.2.3 Muestreo\nTécnicas; muestreo probabilístico y no probabilístico; fuentes de error de una encuesta\nInvestigación bibliográfica 1.1 — aplicaciones en operaciones, logística y seguridad marítima\n\n\n3\n1.3.1 – 1.3.2 Descriptiva: organización\nTablas de distribución de frecuencias; representaciones gráficas\nTaller 1.2 — construir tablas y gráficos de operaciones navales\n\n\n4\n1.3.3 – 1.3.4 Descriptiva: centro y dispersión\nMedidas de tendencia central; medidas de dispersión\nActividad autónoma 1.1 — ejercicios sobre la base proporcionada\n\n\n5\n1.2.4 + 1.3.5 – 1.3.7\nDeterminación del tamaño de muestra; medidas de posición; medidas de forma; interpretación de indicadores\nTaller 1.3 — calcular e interpretar indicadores operacionales\n\n\n6\n1.4.1 – 1.4.4 Conteo y probabilidad\nTécnicas de conteo; permutaciones; combinaciones; probabilidad clásica\nTaller 1.4 — conteo y probabilidad en navegación y seguridad marítima\n\n\n7\n1.4.5 – 1.4.7 Probabilidad condicional\nProbabilidad condicional; probabilidad total; teorema de Bayes\nProyecto Fase I — base de datos naval e identificación de variables\n\n\n\n\nPor qué 1.2.4 se imparte en la semana 5 y no en la 2\nEl sílabo agrupa el tamaño de muestra dentro del tema 1.2, pero su fórmula depende de la desviación típica, que no se enseña hasta el tema 1.3.4, en la semana 4. Impartirlo en la semana 2 obligaría a usar un concepto tres semanas antes de definirlo.\nSe imparte por tanto al inicio de la semana 5, inmediatamente después de la sesión de dispersión. Además de resolver la dependencia, esto le da a la desviación típica un propósito operativo inmediato —de ella depende cuántas unidades hay que inspeccionar—, que es la mejor defensa contra que quede como una fórmula sin destino.\nEl mismo orden sigue Elementos de muestreo de Scheaffer, Mendenhall y Ott: su capítulo 3 cubre los conceptos descriptivos básicos y sólo el capítulo 4 aborda el muestreo aleatorio simple.\nLa numeración no cambia: el apartado se sigue llamando 1.2.4 y vive en la página del tema 1.2. Lo único que se altera es la semana en que se trabaja.\n\n\nEl tema 1.5 Aplicaciones con software estadístico no ocupa semana propia: está distribuido en todas. Cada sesión incluye celdas de R ejecutables, de modo que importar datos, obtener descriptivos, graficar e interpretar se practica desde la primera semana en lugar de quedar relegado al final.",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "plan.html#unidad-2-modelos-estocásticos",
-    "href": "plan.html#unidad-2-modelos-estocásticos",
-    "title": "Plan semanal",
-    "section": "Unidad 2 · Modelos estocásticos",
-    "text": "Unidad 2 · Modelos estocásticos\nResultado de aprendizaje. Modela fenómenos aleatorios relacionados con operaciones marítimas mediante distribuciones de probabilidad para estimar riesgos y apoyar decisiones operacionales.\n\n\n\n\n\n\n\n\n\nSem.\nTema del sílabo\nEn clase (2 h)\nTrabajo autónomo\n\n\n\n\n8\n2.1 Variables aleatorias\nDiscretas y continuas; funciones de probabilidad; esperanza y varianza\nEjercicios de esperanza y varianza\n\n\n9\n2.2 Modelos discretos I\nBinomial; hipergeométrica\nTaller 2.1 — elegir el modelo apropiado para escenarios navales\n\n\n10\n2.2 Modelos discretos II\nPoisson; aplicaciones: inspecciones, accidentes marítimos, eventos de mantenimiento\nTaller 2.2 — ejercicios de distribuciones discretas\n\n\n11\n2.3 Modelos continuos I\nUniforme; exponencial; tiempo entre fallas y tiempo de respuesta\nInvestigación bibliográfica 2.1 — modelos estocásticos en gestión del riesgo marítimo\n\n\n12\n2.3 Modelos continuos II\nNormal; vida útil de equipos; simulación\nProyecto Fase II — aplicar un modelo probabilístico a la base de la UC 1",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "plan.html#unidad-3-inferencia-y-regresión",
-    "href": "plan.html#unidad-3-inferencia-y-regresión",
-    "title": "Plan semanal",
-    "section": "Unidad 3 · Inferencia y regresión",
-    "text": "Unidad 3 · Inferencia y regresión\nResultado de aprendizaje. Aplica técnicas de inferencia estadística y modelos de regresión lineal para analizar datos y sustentar decisiones estratégicas y operacionales en el ámbito naval.\n\n\n\n\n\n\n\n\n\nSem.\nTema del sílabo\nEn clase (2 h)\nTrabajo autónomo\n\n\n\n\n13\n3.1 Distribuciones muestrales\nDistribución muestral de la media; teorema central del límite (TCL)\nSimulación del TCL sobre la flota propia\n\n\n14\n3.2 Estimación\nEstimación puntual; intervalos de confianza para la media\nTaller 3.1 — estimaciones e intervalos para variables navales\n\n\n15\n3.3 Contraste de hipótesis\nFormulación; nivel de significancia; valor-p; errores tipo I y II; pruebas para la media\nTaller 3.2 — plantear y contrastar hipótesis con datos de caso\n\n\n16\n3.4 Regresión lineal\nCorrelación; modelo simple; interpretación; predicción\nProyecto Fase III — informe final y exposición",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "plan.html#organización-de-la-semana",
-    "href": "plan.html#organización-de-la-semana",
-    "title": "Plan semanal",
-    "section": "Organización de la semana",
-    "text": "Organización de la semana\n\n\n\nTrabajo previo a la sesión\nEl guardiamarina lee el tema en esta página y ejecuta las celdas de exploración. Cada una va precedida de una predicción que debe escribir antes de ejecutar.\n\n\n\n\nSesión presencial · 2 horas\nArranque con una pregunta que revela lo que no quedó claro; exposición corta y dirigida a eso; trabajo en parejas sobre la página; puesta en común. Pausa real a la mitad.\n\n\n\n\nTrabajo posterior\nTaller o actividad autónoma sobre la flota propia de cada guardiamarina. Los datos son individuales: se comparte el razonamiento, no el resultado.\n\n\n\n\nLos datos son distintos para cada guardiamarina. La flota de cuarenta unidades con la que se trabaja se genera a partir del correo institucional @espe.edu.ec. Treinta guardiamarinas, treinta flotas. Copiar un número ajeno no sirve, y el docente puede regenerar la flota de cualquiera para comprobar que el resultado entregado corresponde de verdad a sus datos.",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "plan.html#bibliografía",
-    "href": "plan.html#bibliografía",
-    "title": "Plan semanal",
-    "section": "Bibliografía",
-    "text": "Bibliografía\nTexto guía. Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa. Universidad de las Fuerzas Armadas–ESPE. ISBN 978-9942-652-21-8.\nLecturas principales. Bologna, E. (2018). Métodos Estadísticos de Investigación. Editorial Brujas & Encuentro Grupo Editor — «Los datos estadísticos» (pp. 17–35), «Obtención de la muestra» (pp. 155–171), «Probabilidad – Modelos» (pp. 197–224).\nComplementaria. Monroy Saldívar, S. (2024). Estadística y probabilidad. · Klinger Angarita, R. (2024). Muestreo estadístico: métodos básicos. · García Pérez, A. (2023). Estadísticas con R.",
-    "crumbs": [
-      "Inicio",
-      "Plan semanal"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-2.html",
-    "href": "unidad-1/tema-1-2.html",
-    "title": "1.2 Muestreo",
-    "section": "",
-    "text": "Casi nunca se puede observar a todos los elementos de interés. El muestreo es el procedimiento que decide qué parte se observa, y de esa decisión depende que las conclusiones valgan para el conjunto o sólo para los observados.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.2 Muestreo"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-2.html#técnicas-de-muestreo",
-    "href": "unidad-1/tema-1-2.html#técnicas-de-muestreo",
-    "title": "1.2 Muestreo",
-    "section": "1.2.1 Técnicas de muestreo",
-    "text": "1.2.1 Técnicas de muestreo\nLas técnicas de muestreo se ocupan de seleccionar muestras de la población bajo estudio y de estimar sus características de interés de la forma más confiable y al más bajo costo posible. Esas dos exigencias tiran en direcciones opuestas, y toda la disciplina del muestreo consiste en equilibrarlas.\n\n\n\nFinalidad\nQue el estadístico calculado sobre la muestra se parezca al parámetro de la población. A eso se le llama que la muestra sea representativa.\n\n\n\n\nCosto\nCada unidad observada cuesta tiempo, combustible, personal y disponibilidad operativa. Una muestra mayor da más precisión, pero la precisión no crece proporcionalmente al costo.\n\n\n\n\nDependiendo del tipo de problema, escoger una adecuada técnica de muestreo es resolver parte importante del mismo. — Ordóñez et al. (2025), §1.5\n\n\nLas fuentes de error de una encuesta\nAquí conviene desmontar una creencia común: que el único error de un muestreo es el de muestreo. Scheaffer, Mendenhall y Ott clasifican los errores en dos familias, y sólo una de ellas está bajo su control.\n\n\n\nAjenos al proceso de observación\nAparecen porque se observó una parte y no el todo.\n\nError de muestreo — la desviación entre lo que da una muestra ideal y el valor verdadero. Existe por el mero hecho de muestrear, se puede medir teóricamente y se reduce con buen diseño y tamaño adecuado. Es el único que usted controla.\nError de cobertura — el marco muestral no coincide con la población objetivo.\nNo respuesta — el elemento seleccionado no se localiza, no sabe responder o se niega.\n\n\n\n\n\nDel proceso de observación\nAparecen porque el dato registrado se desvía de la verdad.\nSe atribuyen al encuestador, al entrevistado, al instrumento o al método de recolección.\nEs exactamente la advertencia del tema 1.1: el indicador es el producto de un instrumento aplicado bajo una regla. Aquí esa advertencia deja de ser una precaución general y pasa a ser una categoría de error con nombre propio.\n\n\n\n\nPoblación objetivo es el conjunto sobre el que queremos concluir: por ejemplo, todas las unidades de la Armada en servicio este año.\nMarco muestral es la lista concreta de la que efectivamente sorteamos: el registro, el padrón, la base de datos que tenemos a mano.\nIdealmente coinciden. En la práctica casi nunca lo hacen, y a esa diferencia se le llama error de cobertura.\n\nEl error de cobertura no se nota, y por eso es el más traicionero. Si el listado de unidades se actualizó en enero, las que entraron a dique en marzo no están en su marco. Ninguna aleatorización las recupera.\n\nSesgo: error que se repite siempre en la misma dirección. Más datos no lo corrigen, porque cada dato nuevo lo arrastra igual.\nUna balanza descalibrada que suma dos kilos a todo produce sesgo. Una balanza que oscila produce error aleatorio, y ese sí se compensa al promediar.\n\nLa no respuesta suele ser el error más grave. Dos cosas que conviene retener:\n\nUna tasa baja no garantiza nada. Importa quiénes faltan, no cuántos: si el 5 % ausente son todas las unidades de un tipo, se perdió una parte entera de la población.\nNunca se sustituye al elemento sorteado. Cambiarlo por el que está atracado al lado destruye la estructura probabilística del diseño, y con ella la posibilidad de estimar el error.\n\n\nGallup, citado por los mismos autores: sin selección aleatoria, una encuesta a un millón puede representar peor que una de mil bien elegida. El tamaño no compra representatividad; el azar sí.\n\n\nDetectar el error. Un guardiamarina debe encuestar a 20 unidades sorteadas de la flota. Tres de ellas están en dique seco y no puede contactarlas, así que las reemplaza por otras tres de la misma base, «para no perder el tamaño de muestra». Entrega las 20 respuestas.\n¿Cuál es el problema de fondo?\na) Ninguno: mantuvo el tamaño de muestra y las reemplazó por unidades parecidas. b) Que las tres sustitutas están en la misma base, y debió tomarlas de otra. c) Que la sustitución rompe el diseño probabilístico y hace imposible estimar el error; además las unidades en dique probablemente difieren justo en lo que se está midiendo.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.2 Muestreo"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-2.html#muestreo-probabilístico",
-    "href": "unidad-1/tema-1-2.html#muestreo-probabilístico",
-    "title": "1.2 Muestreo",
-    "section": "1.2.2 Muestreo probabilístico",
-    "text": "1.2.2 Muestreo probabilístico\nCada elemento de la población objetivo tiene una probabilidad conocida —y frecuentemente igual— de ser elegido. La aleatorización es vital: una mala aleatorización, o el incumplimiento de lo que ella establece, produce muestras sesgadas y conclusiones erróneas.\nOrdóñez et al., 2025, §1.7.\nEs el único tipo que permite extender los resultados a toda la población.\n\nMuestreo aleatorio simple\nTambién llamado muestreo al azar irrestricto: los elementos se escogen al azar de la totalidad de la población, sin ningún privilegio, y cada uno posee la misma probabilidad de formar parte de la muestra. Se recomienda cuando la característica está distribuida de forma homogénea.\nOrdóñez et al., 2025, §1.7.1.\n\n\n\n\n\n\n\n\n\n\nMuestreo aleatorio sistemático\nSe eligen los elementos a intervalos uniformes a partir de un listado: cada k-ésimo elemento después de un arranque aleatorio. Su principal razón de uso es la sencillez de aplicación y de supervisión.\nOrdóñez et al., 2025, §1.7.2.\n\nCon 40 unidades y k = 5, ¿cuántas unidades entrarán en la muestra? Escríbalo antes de ejecutar.\n\n\n\n\n\n\n\n\n\n\n\nMuestreo aleatorio estratificado\nSe usa cuando la característica medida presenta mucha dispersión y en la población se distinguen grupos o estratos.\n\nDividir la población en estratos distintos y excluyentes.\nExtraer dentro de cada estrato una muestra aleatoria simple o sistemática.\n\nVentaja: para una precisión dada requiere menos muestra que el aleatorio simple, con la consiguiente reducción de costos.\nOrdóñez et al., 2025, §1.7.3.\n\n\n\n\n\n\n\n\nCuántas de cada estrato: la afijación. Tomar dos de cada tipo, como hace la celda anterior, es cómodo pero rara vez óptimo. Los estratos no tienen el mismo tamaño: en esta flota hay dieciséis patrulleras y seis fragatas, así que darles la misma cuota sobrerrepresenta a las fragatas.\nLa afijación proporcional reparte la muestra según el peso de cada estrato en la población: \\(n_i = n \\cdot N_i / N\\).\n\nCon una muestra total de 12 sobre esta flota de 40, ¿cuántas patrulleras espera que le toquen? Calcúlelo antes de ejecutar.\n\n\n\n\n\n\n\n\n\nScheaffer, Mendenhall y Ott dedican su §5.5 a la afijación y muestran que la proporcional no siempre es la mejor: cuando un estrato es mucho más variable, o más caro de medir, conviene desviarse de ella. Ese refinamiento —la afijación de Neyman— excede este curso, pero conviene saber que existe.\n\n\nMuestreo aleatorio por conglomerados\nLa unidad de muestreo contiene más de un elemento de la población. Se usa cuando los elementos se agrupan de forma natural en masas difíciles de descomponer o de acceder directamente. Se eligen al azar primero los conglomerados y luego los elementos dentro de ellos.\nCada elemento debe estar identificado unívocamente con una y sólo una unidad de muestreo.\nOrdóñez et al., 2025, §1.7.4, pp. 29–30.\n\n\n\n\n\n\n\n\n\nEstratos vs. conglomerados: en el estratificado se muestrea DENTRO de TODOS los grupos; en el de conglomerados se sortean PRIMERO los grupos y sólo esos se estudian.\n\n\nLa regla de oro: estratos y conglomerados se construyen al revés.\n\nUn estrato debe ser lo más homogéneo posible por dentro, y lo más distinto posible de los demás estratos.\nUn conglomerado debe ser lo más heterogéneo posible por dentro, y lo más parecido posible a los demás conglomerados.\n\nLa razón es económica. Un conglomerado ideal es una miniatura de la población: si sus elementos ya son muy semejantes entre sí, medir el segundo, el tercero y el cuarto añade poca información y sí cuesta dinero.\nScheaffer, Mendenhall y Ott, 2007, §8.2, p. 283.\n\nPor eso el criterio de Scheaffer para elegir este diseño no es la comodidad, sino dos condiciones: que no exista o resulte muy costoso un marco que liste los elementos, mientras que sí sea fácil listar los conglomerados; y que el costo de observar aumente con la distancia que separa a los elementos.\nScheaffer, Mendenhall y Ott, 2007, §8.1, pp. 280–281.\nLos conglomerados no tienen por qué ser geográficos: un buque es un conglomerado de sus equipos, y una escuadrilla, un conglomerado de unidades.\n\nDetectar el error. Se encarga a un guardiamarina que tome una muestra aleatoria de 12 unidades para inspeccionar el consumo. Entrega este código y afirma que la muestra es aleatoria simple.\n\n\n\n\n\n\n\n\n\n\n¿Por qué esa muestra no es aleatoria simple?\na) Porque no interviene el azar: se toman siempre las mismas doce, y si el listado está ordenado por algún criterio —antigüedad, tipo, base— la muestra queda sesgada por ese criterio. b) Porque doce unidades son pocas para una flota de cuarenta. c) Porque habría que haber usado sample() con reemplazo.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.2 Muestreo"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-2.html#muestreo-no-probabilístico",
-    "href": "unidad-1/tema-1-2.html#muestreo-no-probabilístico",
-    "title": "1.2 Muestreo",
-    "section": "1.2.3 Muestreo no probabilístico",
-    "text": "1.2.3 Muestreo no probabilístico\nEs el muestreo típico que se hace a la salida de un centro comercial, del metro o en una esquina: se encuesta a quien esté disponible. Los resultados representan sólo el pensamiento de los encuestados, no necesariamente el de la población en estudio.\n\n\n\nAplicaciones admisibles\nExplorar. Detectar qué preguntas vale la pena hacer, cómo se entiende un cuestionario, qué respuestas aparecen. Es barato y rápido.\n\n\n\n\nLimitaciones\nConcluir. No hay probabilidad conocida de selección, así que no existe forma de cuantificar el error ni de extender el resultado a la población.\n\n\n\n\nCriterios de selección de la técnica\n\n\n\n\n\n\n\n\n\n\nTécnica\nCuándo conviene\nCómo se selecciona\nEjemplo naval\n\n\n\n\nAleatorio simple\nLa característica se distribuye de forma homogénea\nSorteo al azar sobre el listado completo\nSortear 12 de las 60 patrulleras\n\n\nSistemático\nExiste un listado ordenado; se busca sencillez\nArranque aleatorio y cada k-ésimo elemento\nRol de 240 tripulantes, k = 10\n\n\nEstratificado\nMucha dispersión y grupos claros\nDividir en estratos y muestrear en cada uno\nEstratificar por tipo de unidad\n\n\nPor conglomerados\nElementos agrupados y difíciles de separar\nSortear conglomerados completos\nSortear 5 buques y encuestar toda la dotación\n\n\nNo probabilístico\nSólo exploración previa\nPor conveniencia o disponibilidad\nPreguntar a quien sale del comedor\n\n\n\n\n\nNinguna de ellas corrige un mal marco muestral: si el listado de partida está incompleto, la aleatorización no salva la inferencia. Eso es error de cobertura, y ya vimos que no se arregla con más muestra.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.2 Muestreo"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-2.html#determinación-del-tamaño-de-muestra",
-    "href": "unidad-1/tema-1-2.html#determinación-del-tamaño-de-muestra",
-    "title": "1.2 Muestreo",
-    "section": "1.2.4 Determinación del tamaño de muestra",
-    "text": "1.2.4 Determinación del tamaño de muestra\n\nEste apartado se trabaja en la semana 5, no en la semana 2. Su fórmula necesita la desviación típica, que se estudia en el tema 1.3.4 durante la semana 4. Si está leyendo esta página en la semana 2, deténgase aquí: vuelva después de la sesión de dispersión y encontrará que el cálculo se explica solo.\n\nLa pregunta operativa no es qué técnica sino cuántas unidades. Y tiene respuesta cuantitativa: el tamaño depende de tres cosas que el oficial decide antes de salir a medir.\n\n\n\nConfianza\nQué tan seguro se quiere estar. Al 95 % corresponde z = 1.96; al 99 %, z = 2.576.\n\n\n\n\nError admisible\nCuánto se tolera equivocarse, en las unidades de la variable. Es la decisión operativa, no estadística.\n\n\n\n\nVariabilidad\nCuánto varía la característica en la población. Se estima con una muestra piloto o con datos históricos.\n\n\n\n\nDesviación típica —\\(\\sigma\\) en la población, \\(s\\) en la muestra— mide cuánto se separan los datos de su promedio. Vale cero si todos son iguales; crece con la dispersión. La varianza es su cuadrado, \\(\\sigma^2\\).\nSe estudia en el tema 1.3.4. Aquí basta la idea operativa: medir algo uniforme requiere pocas unidades; medir algo disperso requiere muchas.\n\nScheaffer, Mendenhall y Ott fijan un límite para el error de estimación \\(B\\): el valor que el error no debe superar. Como el límite se pone en dos desviaciones típicas del estimador, se resuelve \\(2\\sqrt{V(\\bar{y})} = B\\) y se despeja \\(n\\).\n\n¿Por qué dos desviaciones típicas? En una distribución acampanada, cerca del 95 % de los valores caen dentro de esa distancia del centro. «El error no supera \\(B\\)» significa entonces «no lo supera en el 95 % de los casos», no «nunca».\nEl valor exacto es 1.96; los autores redondean a 2. La diferencia en el tamaño resultante es del orden del 2 %.\n\nPara estimar una media poblacional \\(\\mu\\) con límite de error \\(B\\):\n\\[n = \\frac{N\\sigma^{2}}{(N-1)\\,D + \\sigma^{2}}, \\qquad D = \\frac{B^{2}}{4}\\]\nEsta expresión ya lleva incorporada la corrección por población finita —el ajuste que reconoce que muestrear 30 de 40 unidades da mucha más información que muestrear 30 de 40 000—, así que no hace falta aplicarla aparte. Cuando \\(N\\) es grande, \\((N-1)\\) puede sustituirse por \\(N\\) sin consecuencia práctica.\n\nEstimación de σ cuando se desconoce\nEs el caso normal la primera vez que se mide algo. Los autores dan una regla práctica: la amplitud de variación de los datos abarca aproximadamente cuatro desviaciones típicas, de modo que\n\\[\\sigma \\approx \\frac{\\text{rango}}{4}\\]\nSu ejemplo: si las cuentas de un hospital caen en una amplitud de 100 $, entonces \\(\\sigma \\approx 25\\).\nÚsela con cuidado. El 4 solo acierta con muestras piloto de unas 25 o 30 observaciones. Con más, el rango crece y la regla sobrestima \\(\\sigma\\): sale una muestra mayor de la necesaria, error del lado seguro. Con muy pocas, la subestima y el tamaño se queda corto. Ese es el lado peligroso.\n\n\n\n\n\n\n\n\n\n\nCompare n_necesario con el tamaño de su flota. ¿Le está diciendo la fórmula que inspeccione casi toda la población? Si es así, la pregunta operativa no es cuántas medir sino si vale la pena muestrear en lugar de censar.\n\n\nCalcular a mano y verificar. Con la desviación que acaba de obtener, calcule a mano el tamaño de muestra sin corregir para un error admisible de 3 m³/día al 95 % de confianza. Redondee hacia arriba, porque no se pueden inspeccionar fracciones de buque.\nEscriba su número antes de ejecutar la comprobación.\n\n\n\n\n\n\n\n\n\n\nInterpretar sin calcular. Suponga que quiere reducir el error admisible de 3 m³/día a 1.5 m³/día, manteniendo la confianza. ¿Qué pasa con el tamaño de muestra?\na) Se duplica. b) Se cuadruplica. c) No cambia, porque la confianza es la misma.\n\n\n\n\n\n\n\n\n\n\nAhí está la razón económica del muestreo estratificado: si reducir el error a la mitad cuesta cuadruplicar la muestra, cualquier técnica que gane precisión sin aumentar el número de unidades observadas se traduce directamente en combustible y horas de tripulación ahorrados.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.2 Muestreo"
-    ]
-  },
-  {
-    "objectID": "unidad-1/tema-1-2.html#para-leer-esta-semana",
-    "href": "unidad-1/tema-1-2.html#para-leer-esta-semana",
-    "title": "1.2 Muestreo",
-    "section": "Para leer esta semana",
-    "text": "Para leer esta semana\n\nTexto guía\nOrdóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). Estadística para la Seguridad y Defensa (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército Ecuatoriano. ISBN 978-9942-652-21-8.\nLea el Capítulo I, §§1.5 a 1.7, páginas 25 a 30. Son seis páginas y traen los cuatro esquemas de muestreo dibujados, que ayudan a fijar la diferencia entre estratos y conglomerados mejor que cualquier explicación en prosa.\n\n\nLectura de la unidad\nBologna, E. (2018). «Obtención de la muestra», en Métodos Estadísticos de Investigación, pp. 155–171. Córdoba: Editorial Brujas & Encuentro Grupo Editor.\nDisponible en ProQuest Ebook Central con su cuenta @espe.edu.ec: https://ebookcentral.proquest.com/lib/espeec/detail.action?docID=6802586\n\n\nEjercicios adicionales\nDevore, J. L. (2016). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). México: Cengage Learning.\nEstá en la carpeta del curso, junto con Johnson, R. A. (2012). Miller y Freund. Probabilidad y estadística para ingenieros (8.ª ed.). México: Pearson Educación. ISBN 978-607-32-0799-7. Para esta semana, su §6.1 «Poblaciones y muestras», página 175, conecta el muestreo con lo que veremos en el tema 3.1.\n\n\nEl texto especializado en muestreo\nScheaffer, R. L., Mendenhall, W., III, & Ott, R. L. (2007). Elementos de muestreo (6.ª ed.; I. Sánchez García, trad.). Madrid: Thomson Paraninfo. ISBN 84-9732-493-5. Traducción de Elementary Survey Sampling, 6.ª ed.\nEstá en la carpeta del curso. Es el único de los cuatro dedicado íntegramente a este tema, y de él salen la taxonomía de errores y la fórmula del tamaño de muestra que usa esta página.\n\n§2.4 «Fuentes de error en las encuestas» (pp. 19–31)\n§4.4 «Selección del tamaño de muestra para estimar las medias y totales» (pp. 95–97)\n§5.5 «Afijación de la muestra» (p. 137), si quiere ir más allá de la afijación proporcional\n\n\n\nRecurso de acceso libre\nIllowsky, B., & Dean, S. (2022). Introducción a la estadística. Houston: OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.\nCapítulo 1, «Muestreo y datos»: https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion\nNo hace falta cuenta ni descarga. Es el más accesible de los cuatro y trae varios casos de muestras mal tomadas con el análisis de qué falló en cada una.\n\nLa lista completa, con qué capítulo corresponde a cada semana, está en la bibliografía del curso.",
-    "crumbs": [
-      "Inicio",
-      "UC 1 · Estadística descriptiva y probabilidad",
-      "1.2 Muestreo"
     ]
   }
 ]

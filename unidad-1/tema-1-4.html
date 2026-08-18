@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1.4 Conteo y probabilidad – Estadística para Ciencias Navales</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../unidad-1/tema-1-3.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-19c3eee6a0a2d9d9e995021330c87b7f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística para Ciencias Navales</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../plan.html"> 
+<span class="menu-text">Plan semanal</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad-1/tema-1-1.html">UC 1 · Estadística descriptiva y probabilidad</a></li><li class="breadcrumb-item"><a href="../unidad-1/tema-1-4.html">1.4 Conteo y probabilidad</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación del curso</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plan semanal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliografía</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discrepancias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discrepancias entre textos y R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">UC 1 · Estadística descriptiva y probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.1 Introducción a la Estadística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.2 Muestreo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.3 Estadística descriptiva</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unidad-1/tema-1-4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">1.4 Conteo y probabilidad</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#semana-6" id="toc-semana-6" class="nav-link active" data-scroll-target="#semana-6">Semana 6</a>
+  <ul class="collapse">
+  <li><a href="#técnicas-de-conteo" id="toc-técnicas-de-conteo" class="nav-link" data-scroll-target="#técnicas-de-conteo">1.4.1 Técnicas de conteo</a>
+  <ul class="collapse">
+  <li><a href="#los-dos-principios-fundamentales" id="toc-los-dos-principios-fundamentales" class="nav-link" data-scroll-target="#los-dos-principios-fundamentales">Los dos principios fundamentales</a></li>
+  </ul></li>
+  <li><a href="#permutaciones" id="toc-permutaciones" class="nav-link" data-scroll-target="#permutaciones">1.4.2 Permutaciones</a>
+  <ul class="collapse">
+  <li><a href="#permutaciones-de-tamaño-k" id="toc-permutaciones-de-tamaño-k" class="nav-link" data-scroll-target="#permutaciones-de-tamaño-k">Permutaciones de tamaño <span class="math inline">\(k\)</span></a></li>
+  </ul></li>
+  <li><a href="#combinaciones" id="toc-combinaciones" class="nav-link" data-scroll-target="#combinaciones">1.4.3 Combinaciones</a></li>
+  <li><a href="#probabilidad-clásica" id="toc-probabilidad-clásica" class="nav-link" data-scroll-target="#probabilidad-clásica">1.4.4 Probabilidad clásica</a>
+  <ul class="collapse">
+  <li><a href="#sucesos-compuestos" id="toc-sucesos-compuestos" class="nav-link" data-scroll-target="#sucesos-compuestos">Sucesos compuestos</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#semana-7" id="toc-semana-7" class="nav-link" data-scroll-target="#semana-7">Semana 7</a>
+  <ul class="collapse">
+  <li><a href="#probabilidad-condicional" id="toc-probabilidad-condicional" class="nav-link" data-scroll-target="#probabilidad-condicional">1.4.5 Probabilidad condicional</a></li>
+  <li><a href="#probabilidad-total" id="toc-probabilidad-total" class="nav-link" data-scroll-target="#probabilidad-total">1.4.6 Probabilidad total</a></li>
+  <li><a href="#teorema-de-bayes" id="toc-teorema-de-bayes" class="nav-link" data-scroll-target="#teorema-de-bayes">1.4.7 Teorema de Bayes</a>
+  <ul class="collapse">
+  <li><a href="#la-falacia-de-la-tasa-base" id="toc-la-falacia-de-la-tasa-base" class="nav-link" data-scroll-target="#la-falacia-de-la-tasa-base">La falacia de la tasa base</a></li>
+  <li><a href="#ejercicio-integrador" id="toc-ejercicio-integrador" class="nav-link" data-scroll-target="#ejercicio-integrador">Ejercicio integrador</a></li>
+  </ul></li>
+  <li><a href="#para-leer-esta-semana" id="toc-para-leer-esta-semana" class="nav-link" data-scroll-target="#para-leer-esta-semana">Para leer esta semana</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad-1/tema-1-1.html">UC 1 · Estadística descriptiva y probabilidad</a></li><li class="breadcrumb-item"><a href="../unidad-1/tema-1-4.html">1.4 Conteo y probabilidad</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">1.4 Conteo y probabilidad</h1>
+<p class="subtitle lead">UC 1 · Estadística descriptiva y probabilidad · Semanas 6 y 7</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiXG4jIFNlbWlsbGEgZGVyaXZhZGEgZGVsIGNvcnJlbyBpbnN0aXR1Y2lvbmFsOiBjYWRhIGd1YXJkaWFtYXJpbmEgcmVjaWJlIHN1IHByb3BpYSBmbG90YVxuc2VtaWxsYV9kZXNkZSA8LSBmdW5jdGlvbihjb3JyZW8pIHtcbiAgY3MgPC0gdXRmOFRvSW50KHRvbG93ZXIodHJpbXdzKGNvcnJlbykpKVxuICBhcy5pbnRlZ2VyKHN1bShjcyAqIHNlcV9hbG9uZyhjcykpICUlIDk5OTkxTClcbn1cblxuZ2VuZXJhcl9mbG90YSA8LSBmdW5jdGlvbihjb3JyZW8pIHtcbiAgc2V0LnNlZWQoc2VtaWxsYV9kZXNkZShjb3JyZW8pKVxuICBuIDwtIDQwXG5cbiAgIyBFbCBvcmRlbiBkZSBlc3RhcyBsbGFtYWRhcyBmaWphIGxvcyB2YWxvcmVzLiBObyBhbHRlcmFybG8uXG4gIHRpcG8gICAgICAgPC0gc2FtcGxlKHJlcChjKFwiRnJhZ2F0YVwiLCBcIkNvcmJldGFcIiwgXCJQYXRydWxsZXJhXCIsIFwiTGFuY2hhIG1pc2lsZXJhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgdGltZXMgPSBjKDYsIDEwLCAxNiwgOCkpKVxuICBiYXNlICAgICAgIDwtIHNhbXBsZShjKFwiR3VheWFxdWlsXCIsIFwiTWFudGFcIiwgXCJFc21lcmFsZGFzXCIpLCBuLCByZXBsYWNlID0gVFJVRSlcbiAgdmVsb2NpZGFkICA8LSByb3VuZChybm9ybShuLCBydW5pZigxLCAxNi41LCAxOS41KSwgMyksIDEpXG4gIGNhbGFkbyAgICAgPC0gcm91bmQocm5vcm0obiwgcnVuaWYoMSwgNC4wLCA0LjgpLCAwLjkpLCAyKVxuICBjb25zdW1vICAgIDwtIHJvdW5kKHJub3JtKG4sIHJ1bmlmKDEsIDg1LCA5OSksIDE4KSwgMSlcbiAgYXZlcmlhcyAgICA8LSBycG9pcyhuLCBydW5pZigxLCAxLjAsIDEuOSkpXG4gIG1hciAgICAgICAgPC0gc2FtcGxlKGMoXCJtYXJlamFkaWxsYVwiLCBcIm1hcmVqYWRhXCIsIFwiZnVlcnRlIG1hcmVqYWRhXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICBuLCByZXBsYWNlID0gVFJVRSlcblxuICAjIERpc3RpbnRpdm8gw7NwdGljbzogcHJlZmlqbyBwb3IgdGlwbyArIGNvcnJlbGF0aXZvLiBObyBjb25zdW1lIGF6YXIuXG4gIHByZWYgPC0gYyhGcmFnYXRhID0gXCJGTVwiLCBDb3JiZXRhID0gXCJDTVwiLFxuICAgICAgICAgICAgUGF0cnVsbGVyYSA9IFwiUE1cIiwgYExhbmNoYSBtaXNpbGVyYWAgPSBcIkxNXCIpW3RpcG9dXG4gIGRpc3RpbnRpdm8gPC0gcGFzdGUwKHByZWYsIFwiLVwiLCBmb3JtYXRDKGF2ZShzZXFfbGVuKG4pLCB0aXBvLCBGVU4gPSBzZXFfYWxvbmcpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgd2lkdGggPSAyLCBmbGFnID0gXCIwXCIpKVxuXG4gIGRhdGEuZnJhbWUoXG4gICAgZGlzdGludGl2byAgICAgICA9IGRpc3RpbnRpdm8sXG4gICAgdGlwbyAgICAgICAgICAgICA9IHRpcG8sXG4gICAgYmFzZSAgICAgICAgICAgICA9IGJhc2UsXG4gICAgdmVsb2NpZGFkX251ZG9zICA9IHZlbG9jaWRhZCxcbiAgICBjYWxhZG9fbSAgICAgICAgID0gY2FsYWRvLFxuICAgIGNvbnN1bW9fbTNfZGlhICAgPSBjb25zdW1vLFxuICAgIGF2ZXJpYXNfYW5pbyAgICAgPSBhdmVyaWFzLFxuICAgIGVzdGFkb19tYXIgICAgICAgPSBmYWN0b3IobWFyLCBvcmRlcmVkID0gVFJVRSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxldmVscyA9IGMoXCJtYXJlamFkaWxsYVwiLCBcIm1hcmVqYWRhXCIsIFwiZnVlcnRlIG1hcmVqYWRhXCIpKSxcbiAgICBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0VcbiAgKVxufVxuXG4jIFF1w6kgc2lnbmlmaWNhIGNhZGEgY2FtcG8sIGVuIHF1w6kgdW5pZGFkIHNlIG1pZGUgeSBlbiBxdcOpIGVzY2FsYSBlc3TDoVxuZGljY2lvbmFyaW9fZmxvdGEgPC0gZGF0YS5mcmFtZShcbiAgY2FtcG8gPSBjKFwiZGlzdGludGl2b1wiLCBcInRpcG9cIiwgXCJiYXNlXCIsIFwidmVsb2NpZGFkX251ZG9zXCIsIFwiY2FsYWRvX21cIixcbiAgICAgICAgICAgIFwiY29uc3Vtb19tM19kaWFcIiwgXCJhdmVyaWFzX2FuaW9cIiwgXCJlc3RhZG9fbWFyXCIpLFxuICBzaWduaWZpY2FkbyA9IGMoXG4gICAgXCJEaXN0aW50aXZvIMOzcHRpY28gZGUgbGEgdW5pZGFkXCIsXG4gICAgXCJUaXBvIGRlIHVuaWRhZCBkZSBzdXBlcmZpY2llXCIsXG4gICAgXCJCYXNlIG5hdmFsIGRlIGFzaWduYWNpw7NuXCIsXG4gICAgXCJWZWxvY2lkYWQgbcOheGltYSBzb3N0ZW5pZGFcIixcbiAgICBcIkNhbGFkbyBhIHBsZW5hIGNhcmdhXCIsXG4gICAgXCJDb25zdW1vIGRlIGNvbWJ1c3RpYmxlIGVuIG5hdmVnYWNpw7NuXCIsXG4gICAgXCJBdmVyw61hcyBkZWwgw7psdGltbyBhw7FvIHF1ZSBvYmxpZ2Fyb24gYSBzdXNwZW5kZXIgbGEgY29taXNpw7NuXCIsXG4gICAgXCJFc3RhZG8gZGUgbGEgbWFyIGVuIGxhIMO6bHRpbWEgc2FsaWRhIChlc2NhbGEgRG91Z2xhcylcIiksXG4gIHVuaWRhZCA9IGMoXCLigJRcIiwgXCLigJRcIiwgXCLigJRcIiwgXCJudWRvcyAoMSBudWRvID0gMSBtaWxsYSBuw6F1dGljYS9ob3JhID0gMS44NTIga20vaClcIixcbiAgICAgICAgICAgICBcIm1ldHJvc1wiLCBcIm1ldHJvcyBjw7piaWNvcyBwb3IgZMOtYVwiLCBcInJlY3VlbnRvXCIsIFwiZ3JhZG8gRG91Z2xhc1wiKSxcbiAgZXNjYWxhID0gYyhcIk5vbWluYWxcIiwgXCJOb21pbmFsXCIsIFwiTm9taW5hbFwiLCBcIkRlIHJhesOzblwiLCBcIkRlIHJhesOzblwiLFxuICAgICAgICAgICAgIFwiRGUgcmF6w7NuXCIsIFwiRGUgcmF6w7NuXCIsIFwiT3JkaW5hbFwiKSxcbiAgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFXG4pXG5cbm1pX2NvcnJlbyA8LSBcImRlbW9zdHJhY2lvbkBlc3BlLmVkdS5lY1wiXG5mbG90YSA8LSBnZW5lcmFyX2Zsb3RhKG1pX2NvcnJlbylcblxuIyAtLS0gQXV0b3ZlcmlmaWNhY2nDs24gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuXG52ZXJpZmljYXIgPC0gZnVuY3Rpb24odmFsb3IsIGVzcGVyYWRvLCB0b2wgPSAwLjAxLCBwaXN0YSA9IFwiXCIpIHtcbiAgaWYgKG1pc3NpbmcodmFsb3IpIHx8IGxlbmd0aCh2YWxvcikgIT0gMSB8fCAhaXMubnVtZXJpYyh2YWxvcikgfHwgaXMubmEodmFsb3IpKSB7XG4gICAgY2F0KFwiQcO6biBubyBoYXkgdW4gbsO6bWVybyBxdWUgY29tcHJvYmFyLlxcblwiKTsgcmV0dXJuKGludmlzaWJsZShGQUxTRSkpXG4gIH1cbiAgb2sgPC0gYWJzKHZhbG9yIC0gZXNwZXJhZG8pIDw9IHRvbCAqIG1heCgxLCBhYnMoZXNwZXJhZG8pKVxuICBpZiAob2spIHtcbiAgICBjYXQoXCJDb3JyZWN0by4gIFR1IHZhbG9yOlwiLCByb3VuZCh2YWxvciwgNCksIFwiXFxuXCIpXG4gIH0gZWxzZSB7XG4gICAgY2F0KFwiVG9kYXbDrWEgbm8uICBUdSB2YWxvcjpcIiwgcm91bmQodmFsb3IsIDQpLCBcIlxcblwiKVxuICAgIGlmIChuemNoYXIocGlzdGEpKSBjYXQocGlzdGEsIFwiXFxuXCIpXG4gIH1cbiAgaW52aXNpYmxlKG9rKVxufVxuXG4uY2xhdmVzIDwtIGxpc3QoXG4gIHAxID0gbGlzdChvcCA9IFwiYlwiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBtZWRpYSBwb2JsYWNpb25hbCBlcyBmaWphOiBubyBjYW1iaWEgcG9ycXVlIGNhbWJpZSBsYSBtdWVzdHJhLiBMbyBxdWUgdmFyw61hIGVzIGVsIGVzdGFkw61zdGljby5cIiksXG4gIHAyID0gbGlzdChvcCA9IFwiY1wiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBtZWRpYW5hIG9yZGluYWwgZGV2dWVsdmUgdW5hIGNhdGVnb3LDrWEsIG5vIHVuIG7Dum1lcm86ICdtYXJlamFkYScgZXMgdW5hIHJlc3B1ZXN0YSBsZWdpdGltYTsgMi4xIG5vIGxvIGVzLlwiKSxcbiAgcDMgPSBsaXN0KG9wID0gXCJhXCIsXG4gICAgICAgICAgICBwb3IgPSBcIlRvbWFyIGxvcyBwcmltZXJvcyBkZSBsYSBsaXN0YSBubyBlcyBhemFyLiBFbCBvcmRlbiBkZWwgbGlzdGFkbyBwdWVkZSBlc3RhciByZWxhY2lvbmFkbyBjb24gbG8gcXVlIHNlIG1pZGUuXCIpLFxuICBwNCA9IGxpc3Qob3AgPSBcImJcIixcbiAgICAgICAgICAgIHBvciA9IFwiQ29tbyBEID0gQsKyLzQsIGRpdmlkaXIgQiBlbnRyZSBkb3MgZGl2aWRlIEQgZW50cmUgY3VhdHJvLiBFbiB1bmEgcG9ibGFjacOzbiBncmFuZGUgZXNvIGN1YWRydXBsaWNhIG4uIEVuIHVuYSBwb2JsYWNpw7NuIHBlcXVlw7FhIGNvbW8gZXN0YSBmbG90YSBlbCBlZmVjdG8gZXMgbWVub3IsIHBvcnF1ZSBsYSBjb3JyZWNjacOzbiBmaW5pdGEgdG9wYSBlbCBjcmVjaW1pZW50bzogbm8gc2UgcHVlZGUgbmVjZXNpdGFyIG3DoXMgdW5pZGFkZXMgZGUgbGFzIHF1ZSBleGlzdGVuLlwiKSxcbiAgcDUgPSBsaXN0KG9wID0gXCJjXCIsXG4gICAgICAgICAgICBwb3IgPSBcIlNjaGVhZmZlciwgTWVuZGVuaGFsbCB5IE90dCBzb24gZXhwbMOtY2l0b3M6IGxhcyBzdXN0aXR1Y2lvbmVzIGNhcHJpY2hvc2FzIG1vZGlmaWNhbiBsYSBlc3RydWN0dXJhIHByb2JhYmlsw61zdGljYSBkZWwgZGlzZcOxbyB5IHB1ZWRlbiBoYWNlciBpbXBvc2libGUgZXN0aW1hciBlbCBlcnJvciBkZSBtdWVzdHJlby5cIiksXG4gIHA2ID0gbGlzdChvcCA9IFwiYVwiLFxuICAgICAgICAgICAgcG9yID0gXCJKb2huc29uICgyMDEyLCBzZWNjaW9uIDIuMykgbG8gaWx1c3RyYSBjb24gbG9zIGJhbGluZXM6IGRvcyBwaWNvcyByZXZlbGFyb24gcXVlIGVsIGxvdGUgbWV6Y2xhYmEgZG9zIG1hcXVpbmFzIGRpc3RpbnRhcy4gRWwgbnVtZXJvIGRlIHBpY29zIGVzIGluZm9ybWFjaW9uLCBubyBydWlkby5cIiksXG4gIHA3ID0gbGlzdChvcCA9IFwiYlwiLFxuICAgICAgICAgICAgcG9yID0gXCJQYXJhIGVzbyBleGlzdGUgZWwgY29lZmljaWVudGUgZGUgdmFyaWFjaW9uOiBhbCBkaXZpZGlyIGVudHJlIGxhIG1lZGlhLCBlbCByZXN1bHRhZG8gZGVqYSBkZSB0ZW5lciB1bmlkYWRlcyB5IHNpIHNlIHB1ZWRlIGNvbXBhcmFyIGVudHJlIHZhcmlhYmxlcyBkaXN0aW50YXMuIEVzIHN1IHVuaWNhIHZlbnRhamEgc29icmUgbGEgZGVzdmlhY2lvbiB0aXBpY2EuXCIpLFxuICBwOCA9IGxpc3Qob3AgPSBcImJcIixcbiAgICAgICAgICAgIHBvciA9IFwiRGV2b3JlIGxvIGRpY2UgZW4gc3UgcHJvcGlvIHRleHRvOiBleGlzdGVuIGRpc3RpbnRhcyBtYW5lcmFzIHJhem9uYWJsZXMgZGUgY2FsY3VsYXIgbG9zIGN1YXJ0aWxlcywgeSBsb3MgdmFsb3JlcyB2YXJpYW4gZGUgdW4gcHJvZ3JhbWEgYSBvdHJvLiBPcmRvbmV6IHVzYSBsYSBwb3NpY2lvbiBwKG4rMSksIHF1ZSBlbiBSIGVzIHR5cGUgPSA2OyBSIHBvciBvbWlzaW9uIHVzYSB0eXBlID0gNy5cIiksXG4gIHA5ID0gbGlzdChvcCA9IFwiYVwiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBvcGNpb24gYiBjb25mdW5kZSBhc2ltZXRyaWEgY29uIGNhbnRpZGFkIGRlIGRhdG9zOiBlbiB1bmEgZGlzdHJpYnVjaW9uIHNlc2dhZGEgYSBsYSBkZXJlY2hhIGhheSBNRU5PUyBkYXRvcyBhIGxhIGRlcmVjaGEsIHBlcm8gbWFzIGFsZWphZG9zLiBFc28gZXMganVzdG8gbG8gcXVlIGVzdGlyYSBsYSBtZWRpYSBwb3IgZW5jaW1hIGRlIGxhIG1lZGlhbmEuXCIpLFxuICBwMTAgPSBsaXN0KG9wID0gXCJiXCIsXG4gICAgICAgICAgICBwb3IgPSBcIlVuIHByb21lZGlvIHNpbiBzdSBkaXNwZXJzaW9uIG9jdWx0YSBsbyBxdWUgaW50ZXJlc2EuIEVzIGVsIG1pc21vIGVycm9yIHF1ZSBPcmRvbmV6IGV2aXRhIGVuIGVsIGVqZXJjaWNpbyAyLjE3LCBkb25kZSBjb21wYXJhIGRvcyBncnVwb3MgdXNhbmRvIG1lZGlhIHkgdmFyaWFiaWxpZGFkIGEgbGEgdmV6LCBudW5jYSB1bmEgc29sYS5cIiksXG4gIHAxMSA9IGxpc3Qob3AgPSBcImNcIixcbiAgICAgICAgICAgIHBvciA9IFwiRWwgcHJpbmNpcGlvIGRlIGxhIHN1bWEgZXhpZ2UgcXVlIGxvcyBzdWNlc29zIE5PIHB1ZWRhbiBkYXJzZSBhIGxhIHZlei4gQXF1aSB1bmEgbWlzbWEgdW5pZGFkIHBvZHJpYSBjdW1wbGlyIGxhcyBkb3MgY29uZGljaW9uZXMsIGFzaSBxdWUgc3VtYXIgY3VlbnRhIGRvcyB2ZWNlcyBhIGVzYXMgdW5pZGFkZXMuXCIpLFxuICBwMTIgPSBsaXN0KG9wID0gXCJiXCIsXG4gICAgICAgICAgICBwb3IgPSBcIkVuIGxhIGd1YXJkaWEgZWwgb3JkZW4gaW1wb3J0YTogbm8gZXMgbG8gbWlzbW8gcHJpbWVyIHR1cm5vIHF1ZSBzZWd1bmRvLiBFc28gZXMgdW5hIHBlcm11dGFjaW9uIGRlIHRhbWFubyBrLCBubyB1bmEgY29tYmluYWNpb24uIERpdmlkaXIgcG9yIGshIGJvcnJhcmlhIHByZWNpc2FtZW50ZSBsYSBkaXN0aW5jaW9uIHF1ZSBzZSBxdWllcmUgY29uc2VydmFyLlwiKSxcbiAgcDEzID0gbGlzdChvcCA9IFwiYVwiLFxuICAgICAgICAgICAgcG9yID0gXCJQKEF8QikgcmVvcmRlbmEgZWwgZXNwYWNpbyBtdWVzdHJhbDogcGFzYSBhIHNlciBCLiBQb3IgZXNvIGVsIGRlbm9taW5hZG9yIGVzIFAoQikgeSBubyAxLiBObyBlcyBsYSBwcm9iYWJpbGlkYWQgZGUgcXVlIG9jdXJyYW4gbG9zIGRvcywgcXVlIHNlcmlhIGxhIGludGVyc2VjY2lvbi5cIiksXG4gIHAxNCA9IGxpc3Qob3AgPSBcImNcIixcbiAgICAgICAgICAgIHBvciA9IFwiRXMgbGEgZmFsYWNpYSBkZSBsYSB0YXNhIGJhc2UuIENvbiB1biBzdWNlc28gcmFybywgbGEgbWF5b3JpYSBkZSBsYXMgYWxhcm1hcyBwcm92aWVuZW4gZGUgZmFsc29zIHBvc2l0aXZvcywgYXVucXVlIGVsIHNlbnNvciBzZWEgbXV5IGJ1ZW5vOiBoYXkgbXVjaGlzaW1hcyBtYXMgb2Nhc2lvbmVzIGRlIGVxdWl2b2NhcnNlIHF1ZSBkZSBhY2VydGFyLlwiKSxcbiAgcDE1ID0gbGlzdChvcCA9IFwiYlwiLFxuICAgICAgICAgICAgcG9yID0gXCJMYSBwcm9iYWJpbGlkYWQgdG90YWwgZXhpZ2UgcXVlIGxhcyBjYXVzYXMgc2VhbiBleGNsdXllbnRlcyB5IGV4aGF1c3RpdmFzOiBjYWRhIHVuaWRhZCB2aWVuZSBkZSB1bmEgYmFzZSB5IGRlIHVuYSBzb2xhLCB5IG5vIGhheSB1bmEgY3VhcnRhIGJhc2UuIFNpbiBlc2FzIGRvcyBjb25kaWNpb25lcyBsYSBzdW1hIG5vIGN1YnJlIGVsIGVzcGFjaW8gbXVlc3RyYWwuXCIpXG4pXG5cbnJldmlzYXIgPC0gZnVuY3Rpb24oaWQsIGxldHJhKSB7XG4gIGsgPC0gLmNsYXZlc1tbaWRdXVxuICBsZXRyYSA8LSB0b2xvd2VyKHRyaW13cyhhcy5jaGFyYWN0ZXIobGV0cmEpKSlcbiAgaWYgKGlkZW50aWNhbChsZXRyYSwgayRvcCkpIHtcbiAgICBjYXQoXCJDb3JyZWN0by5cXG5cIiwgayRwb3IsIFwiXFxuXCIpXG4gIH0gZWxzZSB7XG4gICAgY2F0KFwiTm8gZXMgbGFcIiwgdG91cHBlcihsZXRyYSksIFwiLiBWdWVsdmUgYSBsZWVyIGxhIHNhbGlkYSB5IHBydWViYSBvdHJhIG9wY2nDs24uXFxuXCIpXG4gIH1cbiAgaW52aXNpYmxlKGlkZW50aWNhbChsZXRyYSwgayRvcCkpXG59XG5cbnZlcmlmaWNhcl9tZWRpYV9jYWxhZG8gPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIG1lYW4oZmxvdGEkY2FsYWRvX20pLCBwaXN0YSA9IFwiU3VtYSBsb3MgNDAgY2FsYWRvcywgZW4gbWV0cm9zLCB5IGRpdmlkZSBlbnRyZSA0MC5cIilcblxudmVyaWZpY2FyX3Byb3BfcmFwaWRhcyA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgbWVhbihmbG90YSR2ZWxvY2lkYWRfbnVkb3MgPiAyMCksXG4gICAgICAgICAgICBwaXN0YSA9IFwiQ3VlbnRhIGN1w6FudGFzIHVuaWRhZGVzIHN1cGVyYW4gbG9zIDIwIG51ZG9zIHkgZGl2aWRlIGVudHJlIDQwLlwiKVxuXG52ZXJpZmljYXJfcmFuZ29fY29uc3VtbyA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgZGlmZihyYW5nZShmbG90YSRjb25zdW1vX20zX2RpYSkpLFxuICAgICAgICAgICAgcGlzdGEgPSBcIkVsIHJhbmdvIGVzIGVsIG1heW9yIG1lbm9zIGVsIG1lbm9yLlwiKVxuXG52ZXJpZmljYXJfdGFtYW5vIDwtIGZ1bmN0aW9uKHgpIHtcbiAgcyA8LSBzZChmbG90YSRjb25zdW1vX20zX2RpYSk7IE4gPC0gNDA7IEQgPC0gM14yIC8gNFxuICB2ZXJpZmljYXIoeCwgY2VpbGluZyhOICogc14yIC8gKChOIC0gMSkgKiBEICsgc14yKSksIHRvbCA9IDAuMDIsXG4gICAgICAgICAgICBwaXN0YSA9IFwibiA9IE7Ct3PCsi8oKE4tMSnCt0QgKyBzwrIpLCBjb24gRCA9IELCsi80IHkgQiA9IDMuIFJlZG9uZGVhIGhhY2lhIGFycmliYS5cIilcbn1cblxuIyAtLS0gVGVtYSAxLjMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG5cbnZlcmlmaWNhcl9zdHVyZ2VzIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCByb3VuZCgxICsgMy4zMiAqIGxvZzEwKG5yb3coZmxvdGEpKSksIHRvbCA9IDAsXG4gICAgICAgICAgICBwaXN0YSA9IFwiSyA9IDEgKyAzLjMywrdsb2cxMChuKSwgY29uIG4gPSA0MC4gUmVkb25kZWEgYWwgZW50ZXJvIG1hcyBwcm94aW1vLlwiKVxuXG52ZXJpZmljYXJfYW1wbGl0dWQgPC0gZnVuY3Rpb24oeCkge1xuICBLIDwtIHJvdW5kKDEgKyAzLjMyICogbG9nMTAobnJvdyhmbG90YSkpKVxuICB2ZXJpZmljYXIoeCwgZGlmZihyYW5nZShmbG90YSRjb25zdW1vX20zX2RpYSkpIC8gSywgdG9sID0gMC4wMixcbiAgICAgICAgICAgIHBpc3RhID0gXCJDID0gKG1heGltbyAtIG1pbmltbykgLyBLLiBVc2EgZWwgSyBxdWUgYWNhYmFzIGRlIG9idGVuZXIuXCIpXG59XG5cbnZlcmlmaWNhcl9tZWRpYTUgPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIG1lYW4oZmxvdGEkY29uc3Vtb19tM19kaWFbMTo1XSksXG4gICAgICAgICAgICBwaXN0YSA9IFwiU3VtYSBsb3MgY2luY28gY29uc3Vtb3MgcXVlIGFwYXJlY2VuIGFycmliYSB5IGRpdmlkZSBlbnRyZSBjaW5jby5cIilcblxudmVyaWZpY2FyX3NkX2NvbnN1bW8gPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIHNkKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJEaXZpZGUgbGEgc3VtYSBkZSBjdWFkcmFkb3MgZW50cmUgbi0xLCBubyBlbnRyZSBuLCB5IHNhY2EgbGEgcmFpei5cIilcblxudmVyaWZpY2FyX2N2IDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCBzZChmbG90YSRjb25zdW1vX20zX2RpYSkgLyBtZWFuKGZsb3RhJGNvbnN1bW9fbTNfZGlhKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJDViA9IHMgLyBtZWRpYS4gRXMgdW4gY29jaWVudGUgc2luIHVuaWRhZGVzLlwiKVxuXG52ZXJpZmljYXJfcTMgPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIHVubmFtZShxdWFudGlsZShmbG90YSRjb25zdW1vX20zX2RpYSwgLjc1LCB0eXBlID0gNikpLFxuICAgICAgICAgICAgcGlzdGEgPSBcIlVzYSBsYSBjb252ZW5jaW9uIGRlbCB0ZXh0byBndWlhOiBwb3NpY2lvbiAwLjc1KihuKzEpIGNvbiBpbnRlcnBvbGFjaW9uLCBxdWUgZW4gUiBlcyB0eXBlID0gNi5cIilcblxudmVyaWZpY2FyX2lxciA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgdW5uYW1lKGRpZmYocXVhbnRpbGUoZmxvdGEkY29uc3Vtb19tM19kaWEsIGMoLjI1LCAuNzUpLCB0eXBlID0gNikpKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJJUVIgPSBRMyAtIFExLCBhbWJvcyBjb24gbGEgY29udmVuY2lvbiBkZWwgdGV4dG8gZ3VpYSAodHlwZSA9IDYpLlwiKVxuXG4jIC0tLSBUZW1hIDEuNCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxudmVyaWZpY2FyX3Blcm11dGFjaW9uIDwtIGZ1bmN0aW9uKHgpXG4gIHZlcmlmaWNhcih4LCBmYWN0b3JpYWwoNDApIC8gZmFjdG9yaWFsKDM3KSwgdG9sID0gMCxcbiAgICAgICAgICAgIHBpc3RhID0gXCJFbCBvcmRlbiBpbXBvcnRhOiBQKG4saykgPSBuIS8obi1rKSEgY29uIG4gPSA0MCB5IGsgPSAzLlwiKVxuXG52ZXJpZmljYXJfY29tYmluYWNpb24gPC0gZnVuY3Rpb24oeClcbiAgdmVyaWZpY2FyKHgsIGNob29zZSg0MCwgMyksIHRvbCA9IDAsXG4gICAgICAgICAgICBwaXN0YSA9IFwiRWwgb3JkZW4gbm8gaW1wb3J0YTogQyhuLGspID0gbiEvKGshKG4taykhKS4gRW4gUiwgY2hvb3NlKDQwLCAzKS5cIilcblxudmVyaWZpY2FyX3Byb2JfcGF0cnVsbGVyYSA8LSBmdW5jdGlvbih4KVxuICB2ZXJpZmljYXIoeCwgbWVhbihmbG90YSR0aXBvID09IFwiUGF0cnVsbGVyYVwiKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJDYXNvcyBmYXZvcmFibGVzIHNvYnJlIGNhc29zIHBvc2libGVzOiBjdWVudGUgbGFzIHBhdHJ1bGxlcmFzIHkgZGl2aWRhIGVudHJlIDQwLlwiKVxuXG52ZXJpZmljYXJfY29uZGljaW9uYWwgPC0gZnVuY3Rpb24oeCkge1xuICBwYSA8LSBtZWFuKGZsb3RhJHRpcG8gPT0gXCJQYXRydWxsZXJhXCIgJiBmbG90YSRhdmVyaWFzX2FuaW8gPj0gMilcbiAgcGIgPC0gbWVhbihmbG90YSR0aXBvID09IFwiUGF0cnVsbGVyYVwiKVxuICB2ZXJpZmljYXIoeCwgcGEgLyBwYixcbiAgICAgICAgICAgIHBpc3RhID0gXCJQKEF8QikgPSBQKEEgeSBCKSAvIFAoQikuIEVsIGRlbm9taW5hZG9yIGVzIGxhIHByb3BvcmNpb24gZGUgcGF0cnVsbGVyYXMsIG5vIDEuXCIpXG59XG5cbnZlcmlmaWNhcl90b3RhbCA8LSBmdW5jdGlvbih4KSB7XG4gIHAgIDwtIHByb3AudGFibGUodGFibGUoZmxvdGEkYmFzZSkpXG4gIHBkIDwtIGMoRXNtZXJhbGRhcyA9IC4wNSwgR3VheWFxdWlsID0gLjAyLCBNYW50YSA9IC4wMylbbmFtZXMocCldXG4gIHZlcmlmaWNhcih4LCBzdW0ocCAqIHBkKSxcbiAgICAgICAgICAgIHBpc3RhID0gXCJQKEQpID0gc3VtYSBkZSBQKGJhc2UpIHBvciBQKER8YmFzZSksIHNvYnJlIGxhcyB0cmVzIGJhc2VzLlwiKVxufVxuXG52ZXJpZmljYXJfYmF5ZXMgPC0gZnVuY3Rpb24oeCkge1xuICBwICA8LSBwcm9wLnRhYmxlKHRhYmxlKGZsb3RhJGJhc2UpKVxuICBwZCA8LSBjKEVzbWVyYWxkYXMgPSAuMDUsIEd1YXlhcXVpbCA9IC4wMiwgTWFudGEgPSAuMDMpW25hbWVzKHApXVxuICB2ZXJpZmljYXIoeCwgdW5uYW1lKHBbXCJNYW50YVwiXSAqIHBkW1wiTWFudGFcIl0gLyBzdW0ocCAqIHBkKSksXG4gICAgICAgICAgICBwaXN0YSA9IFwiQmF5ZXM6IFAoTWFudGF8RCkgPSBQKE1hbnRhKSpQKER8TWFudGEpIC8gUChEKS4gRWwgZGVub21pbmFkb3IgZXMgbGEgcHJvYmFiaWxpZGFkIHRvdGFsLlwiKVxufSJ9
+</script>
+</div>
+</div>
+<p>Los temas anteriores describían datos ya observados. Este describe lo que <strong>todavía no ha ocurrido</strong>: cuántas maneras hay de que algo suceda, y con qué probabilidad sucede. Es el puente entre la estadística descriptiva y la inferencia.</p>
+<div class="franja">
+<p><strong>Cómo leer esta página.</strong> Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque <strong>Inferencia razonable</strong> es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en <strong>Recomendación del docente</strong> es una decisión de este curso, no una verdad estadística.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBlbGxpZG8ubm9tYnJlQGVzcGUuZWR1LmVjXCJcblxuZmxvdGEgPC0gZ2VuZXJhcl9mbG90YShtaV9jb3JyZW8pXG50YWJsZShmbG90YSR0aXBvKSJ9
+</script>
+</div>
+</div>
+<div class="franja">
+<p>¿No recuerda qué mide cada columna? Ejecute <code>diccionario_flota</code> en cualquier celda: devuelve el campo, su significado, su unidad y su escala.</p>
+</div>
+<section id="semana-6" class="level1">
+<h1>Semana 6</h1>
+<section id="técnicas-de-conteo" class="level2">
+<h2 class="anchored" data-anchor-id="técnicas-de-conteo">1.4.1 Técnicas de conteo</h2>
+<p>A veces es imposible, y casi siempre demasiado largo, contar uno por uno los elementos de un suceso. Las técnicas de conteo permiten obtener ese número sin enumerarlo.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.4.</span></p>
+<p>Todo descansa sobre dos principios y una operación.</p>
+<div class="definicion">
+<p><strong>Factorial.</strong> Para un entero positivo <span class="math inline">\(n\)</span>, el factorial <span class="math inline">\(n!\)</span> es el producto descendente <span class="math inline">\(n(n-1)(n-2)\cdots 2 \cdot 1\)</span>. Así <span class="math inline">\(4! = 4 \times 3 \times 2 \times 1 = 24\)</span>.</p>
+<p>Por convención <strong><span class="math inline">\(0! = 1\)</span></strong>. No es un capricho: es lo que hace que las fórmulas siguientes den el resultado correcto en los casos extremos.</p>
+<p><span class="fuente">Devore, 2016, §2.3.</span></p>
+</div>
+<section id="los-dos-principios-fundamentales" class="level3">
+<h3 class="anchored" data-anchor-id="los-dos-principios-fundamentales">Los dos principios fundamentales</h3>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="principio-de-la-suma" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="principio-de-la-suma">Principio de la suma</h4>
+<p>Si un suceso puede realizarse de <span class="math inline">\(p_1\)</span> formas y otro de <span class="math inline">\(p_2\)</span> formas, <strong>pero no pueden darse simultáneamente</strong>, el número total de formas es <span class="math inline">\(p_1 + p_2\)</span>.</p>
+<p><span class="ejemplo">Ej.: para llegar a la base hay 2 rutas por tierra y 4 por aire. En total, 6 rutas.</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="principio-del-producto" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="principio-del-producto">Principio del producto</h4>
+<p>Si una actividad puede realizarse de <span class="math inline">\(p_1\)</span> formas y una segunda de <span class="math inline">\(p_2\)</span> formas, las dos <strong>en conjunto</strong> pueden realizarse de <span class="math inline">\(p_1 \times p_2\)</span> formas.</p>
+<p><span class="ejemplo">Ej.: 5 rutas de salida y 3 fondeaderos de destino dan 15 singladuras distintas.</span></p>
+</section>
+</div>
+</div>
+<p><span class="fuente">Ordóñez et al., 2025, §3.4.4; Devore, 2016, §2.3.</span></p>
+<div class="franja">
+<p>La palabra que decide cuál usar es <strong>«o»</strong> frente a <strong>«y»</strong>. Sucesos que se excluyen —<em>o</em> uno <em>o</em> el otro— se suman. Etapas que se encadenan —primero una <em>y</em> después la otra— se multiplican.</p>
+</div>
+<p>Devore enuncia el principio del producto de forma general: si la primera etapa admite <span class="math inline">\(n_1\)</span> maneras, y por cada una la segunda admite <span class="math inline">\(n_2\)</span>, y así hasta <span class="math inline">\(k\)</span> etapas, el total es <span class="math inline">\(n_1 n_2 \cdots n_k\)</span>.</p>
+<p><span class="fuente">Devore, 2016, §2.3.</span></p>
+<div class="predice">
+<p>Una comisión requiere elegir una base de zarpe entre 3, un tipo de unidad entre 4 y un estado de la mar admisible entre 3. ¿Cuántas configuraciones distintas hay? Calcúlelo antes de ejecutar.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmFzZXMgICA8LSBsZXZlbHMoZmFjdG9yKGZsb3RhJGJhc2UpKVxudGlwb3MgICA8LSB1bmlxdWUoZmxvdGEkdGlwbylcbmVzdGFkb3MgPC0gbGV2ZWxzKGZsb3RhJGVzdGFkb19tYXIpXG5cbmxlbmd0aChiYXNlcykgKiBsZW5ndGgodGlwb3MpICogbGVuZ3RoKGVzdGFkb3MpXG5cbiMgWSBjb21wcm9iYWRvIGVudW1lcmFuZG8gdG9kYXMgbGFzIGNvbmZpZ3VyYWNpb25lc1xubnJvdyhleHBhbmQuZ3JpZChiYXNlID0gYmFzZXMsIHRpcG8gPSB0aXBvcywgbWFyID0gZXN0YWRvcykpIn0=
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Detectar el error.</strong> Un guardiamarina debe contar cuántas unidades de la flota son patrulleras <strong>o</strong> tienen calado mayor a 5 m. Cuenta 16 patrulleras, cuenta las de calado mayor a 5 m, y suma las dos cifras.</p>
+<p>¿Dónde está el problema?</p>
+<p><strong>a)</strong> En ninguna parte: el principio de la suma dice que se suman las dos cantidades. <strong>b)</strong> Debió multiplicar, porque son dos condiciones sobre la misma flota. <strong>c)</strong> El principio de la suma exige que los dos sucesos no puedan darse a la vez, y aquí una patrullera puede tener calado mayor a 5 m. Esas unidades se cuentan dos veces.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxMVwiLCBcImVzY3JpYmEgYXF1w60gYSwgYiBvIGNcIikifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSA8LSBzdW0oZmxvdGEkdGlwbyA9PSBcIlBhdHJ1bGxlcmFcIilcbmIgPC0gc3VtKGZsb3RhJGNhbGFkb19tID4gNSlcbmFtYmFzIDwtIHN1bShmbG90YSR0aXBvID09IFwiUGF0cnVsbGVyYVwiICYgZmxvdGEkY2FsYWRvX20gPiA1KVxuXG5jKHN1bWFfaW5nZW51YSA9IGEgKyBiLCBjb3JyZWN0byA9IGEgKyBiIC0gYW1iYXMsIGNvbnRhZGFzX2Rvc192ZWNlcyA9IGFtYmFzKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="permutaciones" class="level2">
+<h2 class="anchored" data-anchor-id="permutaciones">1.4.2 Permutaciones</h2>
+<div class="definicion">
+<p><strong>Permutación.</strong> Arreglo de <span class="math inline">\(n\)</span> elementos distintos colocados en <strong>distinto orden</strong>. Dos arreglos con los mismos elementos son permutaciones diferentes si difieren en el orden: 345, 354 y 435 son tres arreglos distintos.</p>
+<p>El número de permutaciones de <span class="math inline">\(n\)</span> elementos es</p>
+<p><span class="math display">\[P_n = n!\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.4.1.</span></p>
+</div>
+<p>El razonamiento del texto guía es directo: con la palabra LIBROS, la primera letra puede ocupar 6 sitios, la segunda 5 —uno ya está ocupado—, la tercera 4, y así hasta agotar las posiciones. En total <span class="math inline">\(6! = 720\)</span> ordenaciones.</p>
+<p><strong>Cuando hay elementos repetidos</strong> se divide entre el factorial de cada repetición, porque intercambiar dos elementos iguales no produce un arreglo nuevo:</p>
+<p><span class="math display">\[P_n^{r_1, r_2, \dots} = \frac{n!}{r_1!\, r_2! \cdots}\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.4.1.</span></p>
+<section id="permutaciones-de-tamaño-k" class="level3">
+<h3 class="anchored" data-anchor-id="permutaciones-de-tamaño-k">Permutaciones de tamaño <span class="math inline">\(k\)</span></h3>
+<p>Hasta aquí se han ordenado <strong>todos</strong> los elementos. Lo habitual es tomar sólo algunos: de las 40 unidades de la flota se designan tres para cargos distintos, no las cuarenta.</p>
+<div class="definicion">
+<p><strong>Permutación de tamaño <span class="math inline">\(k\)</span>.</strong> Arreglo <strong>ordenado</strong> de <span class="math inline">\(k\)</span> elementos tomados de un conjunto de <span class="math inline">\(n\)</span>. Se nota <span class="math inline">\(P(n,k)\)</span> y vale</p>
+<p><span class="math display">\[P(n,k) = \frac{n!}{(n-k)!}\]</span></p>
+<p>Cuando <span class="math inline">\(k = n\)</span> se recupera el caso anterior: <span class="math inline">\(P(n,n) = n! = P_n\)</span>. La permutación completa es el caso particular en que se toman todos.</p>
+<p><span class="fuente">Devore, 2016, §2.3, donde se escribe <span class="math inline">\(P_{k,n}\)</span>.</span></p>
+</div>
+<div class="franja">
+<p><strong>Atención al nombre.</strong> El texto guía llama <strong>variación</strong> a esto mismo, y lo nota <span class="math inline">\(V(n,k)\)</span>, reservando la palabra «permutación» para el caso <span class="math inline">\(k = n\)</span>.</p>
+<p>La fórmula es idéntica; sólo cambia la palabra. <strong>Este curso emplea «permutación»</strong>, siguiendo a Devore y a Johnson, porque es la nomenclatura que encontrará en la bibliografía internacional y en el software. Reconozca la otra al leer a Ordóñez.</p>
+</div>
+<div class="predice">
+<p>Se debe designar entre las 40 unidades de la flota un buque insignia, un segundo de la formación y un buque de retaguardia. Los tres cargos son distintos. ¿Cree que el número de designaciones posibles pasa del millón? Escriba su estimación.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibiA8LSA0MDsgayA8LSAzXG5cbiMgUG9yIGVsIHByaW5jaXBpbyBkZWwgcHJvZHVjdG8sIGV0YXBhIGEgZXRhcGFcbnByb2QoNDA6MzgpXG5cbiMgUG9yIGxhIGbDs3JtdWxhIGRlIGxhIHBlcm11dGFjacOzbiBkZSB0YW1hw7FvIGtcbmZhY3RvcmlhbChuKSAvIGZhY3RvcmlhbChuIC0gaykifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Obtenga <span class="math inline">\(P(40,3)\)</span> con la fórmula, a mano, y compruébelo.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfcGVybXV0YWNpb24gPC0gMCAgICAgICMgc3VzdGl0dXlhXG5cbnZlcmlmaWNhcl9wZXJtdXRhY2lvbihtaV9wZXJtdXRhY2lvbikifQ==
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="combinaciones" class="level2">
+<h2 class="anchored" data-anchor-id="combinaciones">1.4.3 Combinaciones</h2>
+<div class="definicion">
+<p><strong>Combinación.</strong> Arreglo <strong>no ordenado</strong> de <span class="math inline">\(k\)</span> elementos tomados de <span class="math inline">\(n\)</span>. Dos arreglos son la misma combinación si contienen los mismos elementos, sin importar en qué orden: 134, 143 y 413 son <strong>una sola</strong> combinación, mientras que como permutaciones serían tres.</p>
+<p><span class="math display">\[C(n,k) = \binom{n}{k} = \frac{n!}{k!\,(n-k)!}\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.4.3; Devore, 2016, §2.3.</span></p>
+</div>
+<div class="inferencia">
+<p>De dónde sale el <span class="math inline">\(k!\)</span> del denominador: cada combinación de <span class="math inline">\(k\)</span> elementos puede ordenarse de <span class="math inline">\(k!\)</span> maneras, y todas ellas son permutaciones distintas pero una sola combinación. Por eso</p>
+<p><span class="math display">\[C(n,k) = \frac{P(n,k)}{k!}\]</span></p>
+<p><strong>La combinación no es una fórmula nueva: es la permutación descontando los órdenes.</strong> Recordar esta relación evita tener que memorizar la segunda fórmula.</p>
+</div>
+<div class="franja">
+<p>La pregunta que decide cuál de las dos se usa es siempre la misma: <strong>¿importa el orden?</strong> Si los puestos son distinguibles —insignia, segundo, retaguardia— es permutación. Si sólo se elige un grupo —tres unidades para una patrulla, sin cargos— es combinación.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBFbCBtaXNtbyBwcm9ibGVtYSwgY29uIHkgc2luIG9yZGVuXG5wZXJtdXRhY2lvbiA8LSBmYWN0b3JpYWwoNDApIC8gZmFjdG9yaWFsKDM3KVxuY29tYmluYWNpb24gPC0gY2hvb3NlKDQwLCAzKVxuXG5jKGNvbl9vcmRlbiA9IHBlcm11dGFjaW9uLCBzaW5fb3JkZW4gPSBjb21iaW5hY2lvbixcbiAgY29jaWVudGUgPSBwZXJtdXRhY2lvbiAvIGNvbWJpbmFjaW9uLCBmYWN0b3JpYWxfZGVfMyA9IGZhY3RvcmlhbCgzKSkifQ==
+</script>
+</div>
+</div>
+<div class="predice">
+<p>Antes de ejecutar la celda siguiente: <code>choose(200, 100)</code> es un número enorme. ¿Cree que R puede calcularlo? ¿Y podrá calcularlo la fórmula escrita con factoriales?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYyhjb25fY2hvb3NlICAgICAgICA9IGNob29zZSgyMDAsIDEwMCksXG4gIGNvbl9mYWN0b3JpYWxlcyAgID0gZmFjdG9yaWFsKDIwMCkgLyAoZmFjdG9yaWFsKDEwMCkgKiBmYWN0b3JpYWwoMTAwKSkpIn0=
+</script>
+</div>
+</div>
+<div class="recomendacion">
+<p><strong>Use siempre <code>choose()</code>, nunca la fórmula con factoriales.</strong> En R el factorial desborda a partir de <span class="math inline">\(171!\)</span>, que devuelve <code>Inf</code>, y entonces el cociente da <code>NaN</code>: ni siquiera avisa de que el resultado es falso, simplemente no es un número. <code>choose()</code> calcula por otra vía y devuelve el valor correcto.</p>
+<p>Es un caso concreto de una regla más general: <strong>una fórmula matemáticamente correcta puede ser numéricamente inservible.</strong></p>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Se deben escoger 3 unidades de las 40 para una patrulla conjunta, sin asignarles cargos. Calcule cuántas patrullas distintas pueden formarse.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29tYmluYWNpb24gPC0gMCAgICAgICMgc3VzdGl0dXlhXG5cbnZlcmlmaWNhcl9jb21iaW5hY2lvbihtaV9jb21iaW5hY2lvbikifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar sin calcular.</strong> Para designar la guardia de mar de una noche hay que nombrar un oficial de guardia y un oficial de derrota, dos cargos distintos, entre 8 candidatos. Un guardiamarina resuelve con <code>choose(8, 2)</code>.</p>
+<p>¿Es correcto?</p>
+<p><strong>a)</strong> Sí: se eligen dos personas de ocho, y eso es una combinación. <strong>b)</strong> No: los dos cargos son distintos, así que el orden importa y corresponde una permutación de tamaño 2, <span class="math inline">\(P(8,2) = 56\)</span>. Con <code>choose</code> se obtiene la mitad. <strong>c)</strong> No: habría que usar <span class="math inline">\(8^2\)</span>, porque cada cargo se elige de forma independiente.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-11" class="exercise-cell">
+
+</div>
+<script type="webr-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxMlwiLCBcImVzY3JpYmEgYXF1w60gYSwgYiBvIGNcIikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="probabilidad-clásica" class="level2">
+<h2 class="anchored" data-anchor-id="probabilidad-clásica">1.4.4 Probabilidad clásica</h2>
+<div class="definicion">
+<p><strong>Espacio muestral.</strong> Conjunto de todas las respuestas posibles de un experimento. En el lanzamiento de un dado es <span class="math inline">\(\{1,2,3,4,5,6\}\)</span>.</p>
+<p><strong>Suceso.</strong> Cualquier subconjunto del espacio muestral: que salga un 6, o que salga un número par.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.1.</span></p>
+</div>
+<p>La probabilidad es el valor numérico que representa la frecuencia relativa con que un suceso ocurre respecto de los resultados posibles. Relaciona los casos favorables con el total, <strong>fluctúa entre 0 y 1</strong>, y puede expresarse como fracción, decimal o porcentaje.</p>
+<p><span class="math display">\[P(A) = \frac{\text{casos favorables a } A}{\text{casos posibles}}\]</span></p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.1.</span></p>
+<div class="cell">
+<div>
+<div id="webr-12" class="exercise-cell">
+
+</div>
+<script type="webr-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBQcm9iYWJpbGlkYWQgZGUgcXVlIHVuYSB1bmlkYWQgdG9tYWRhIGFsIGF6YXIgc2VhIHBhdHJ1bGxlcmFcbmZhdm9yYWJsZXMgPC0gc3VtKGZsb3RhJHRpcG8gPT0gXCJQYXRydWxsZXJhXCIpXG5wb3NpYmxlcyAgIDwtIG5yb3coZmxvdGEpXG5cbmMoZmF2b3JhYmxlcyA9IGZhdm9yYWJsZXMsIHBvc2libGVzID0gcG9zaWJsZXMsIHByb2JhYmlsaWRhZCA9IGZhdm9yYWJsZXMgLyBwb3NpYmxlcylcblxuIyBFbiBSLCBtZWFuKCkgc29icmUgdW5hIGNvbmRpY2nDs24gaGFjZSBsYXMgZG9zIGNvc2FzIGEgbGEgdmV6XG5tZWFuKGZsb3RhJHRpcG8gPT0gXCJQYXRydWxsZXJhXCIpIn0=
+</script>
+</div>
+</div>
+<section id="sucesos-compuestos" class="level3">
+<h3 class="anchored" data-anchor-id="sucesos-compuestos">Sucesos compuestos</h3>
+<p>Los sucesos compuestos aparecen cuando intervienen dos o más sucesos simples.</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<section id="independientes" class="level4 tarjeta">
+<h4 class="anchored" data-anchor-id="independientes">Independientes</h4>
+<p>La ocurrencia de uno no afecta a la del otro.</p>
+<p><span class="math display">\[P(A \cap B) = P(A)\,P(B)\]</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="excluyentes" class="level4 tarjeta-media">
+<h4 class="anchored" data-anchor-id="excluyentes">Excluyentes</h4>
+<p>No pueden ocurrir a la vez.</p>
+<p><span class="math display">\[P(A \cup B) = P(A) + P(B)\]</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="complementarios" class="level4 tarjeta-oscura">
+<h4 class="anchored" data-anchor-id="complementarios">Complementarios</h4>
+<p>Excluyentes y sólo dos. Uno de los dos ocurre necesariamente.</p>
+<p><span class="math display">\[P(\bar{A}) = 1 - P(A)\]</span></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-6">
+<section id="no-excluyentes" class="level4 tarjeta-teal">
+<h4 class="anchored" data-anchor-id="no-excluyentes">No excluyentes</h4>
+<p>Pueden ocurrir a la vez, y hay que descontar la parte común.</p>
+<p><span class="math display">\[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</span></p>
+</section>
+</div>
+</div>
+<p><span class="fuente">Ordóñez et al., 2025, §§3.2–3.3, citando a Walpole et al.&nbsp;(2012).</span></p>
+<div class="inferencia">
+<p>La última fórmula es el mismo problema del ejercicio del apartado 1.4.1, escrito en lenguaje de probabilidad: al sumar <span class="math inline">\(P(A)\)</span> y <span class="math inline">\(P(B)\)</span>, los elementos que están en ambos se contaron dos veces, y por eso se resta una vez la intersección. <strong>El principio de la suma es el caso particular en que esa intersección está vacía.</strong></p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-13" class="exercise-cell">
+
+</div>
+<script type="webr-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGEgPC0gbWVhbihmbG90YSR0aXBvID09IFwiUGF0cnVsbGVyYVwiKVxucGIgPC0gbWVhbihmbG90YSRjYWxhZG9fbSA+IDUpXG5wYWIgPC0gbWVhbihmbG90YSR0aXBvID09IFwiUGF0cnVsbGVyYVwiICYgZmxvdGEkY2FsYWRvX20gPiA1KVxuXG5jKHVuaW9uX2NvcnJlY3RhID0gcGEgKyBwYiAtIHBhYixcbiAgY29tcHJvYmFjaW9uICAgPSBtZWFuKGZsb3RhJHRpcG8gPT0gXCJQYXRydWxsZXJhXCIgfCBmbG90YSRjYWxhZG9fbSA+IDUpKSJ9
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Obtenga la probabilidad de que una unidad tomada al azar de su flota sea patrullera.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-14" class="exercise-cell">
+
+</div>
+<script type="webr-14-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfcHJvYmFiaWxpZGFkIDwtIDAgICAgICMgc3VzdGl0dXlhXG5cbnZlcmlmaWNhcl9wcm9iX3BhdHJ1bGxlcmEobWlfcHJvYmFiaWxpZGFkKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="semana-7" class="level1">
+<h1>Semana 7</h1>
+<section id="probabilidad-condicional" class="level2">
+<h2 class="anchored" data-anchor-id="probabilidad-condicional">1.4.5 Probabilidad condicional</h2>
+<div class="definicion">
+<p><strong>Probabilidad condicional.</strong> Probabilidad de que ocurra <span class="math inline">\(A\)</span> <strong>sabiendo que <span class="math inline">\(B\)</span> ya ha ocurrido</strong>. Se escribe <span class="math inline">\(P(A \mid B)\)</span> y, para cualquier <span class="math inline">\(B\)</span> con <span class="math inline">\(P(B) &gt; 0\)</span>,</p>
+<p><span class="math display">\[P(A \mid B) = \frac{P(A \cap B)}{P(B)}\]</span></p>
+<p><span class="fuente">Devore, 2016, §2.4; Ordóñez et al., 2025, §3.3.3.</span></p>
+</div>
+<div class="franja">
+<p><strong>Por qué el denominador es <span class="math inline">\(P(B)\)</span> y no 1.</strong> Saber que <span class="math inline">\(B\)</span> ocurrió <strong>reduce el espacio muestral</strong>: ya no se mira toda la flota, sino sólo la parte donde <span class="math inline">\(B\)</span> se cumple. Dividir entre <span class="math inline">\(P(B)\)</span> es reescalar ese trozo para que vuelva a sumar 1. Devore lo dice con esas palabras: la constante <span class="math inline">\(1/P(B)\)</span> garantiza que <span class="math inline">\(P(B \mid B) = 1\)</span>.</p>
+</div>
+<p>Despejando se obtiene la <strong>regla de multiplicación</strong>, que es como se usa en la práctica:</p>
+<p><span class="math display">\[P(A \cap B) = P(A \mid B)\,P(B)\]</span></p>
+<p><span class="fuente">Devore, 2016, §2.4.</span></p>
+<div class="predice">
+<p>En su flota, ¿cree que la probabilidad de que una unidad tenga dos o más averías cambia si se sabe que es patrullera? Escriba «sube», «baja» o «no cambia» antes de ejecutar.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-15" class="exercise-cell">
+
+</div>
+<script type="webr-15-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicF9hdmVyaWFzICAgICAgPC0gbWVhbihmbG90YSRhdmVyaWFzX2FuaW8gPj0gMikgICAgICAgICAgICAgICAgICAgICMgc2luIGNvbmRpY2lvbmFyXG5wX2ludGVyc2VjY2lvbiA8LSBtZWFuKGZsb3RhJHRpcG8gPT0gXCJQYXRydWxsZXJhXCIgJiBmbG90YSRhdmVyaWFzX2FuaW8gPj0gMilcbnBfcGF0cnVsbGVyYSAgIDwtIG1lYW4oZmxvdGEkdGlwbyA9PSBcIlBhdHJ1bGxlcmFcIilcblxuYyhpbmNvbmRpY2lvbmFsID0gcF9hdmVyaWFzLFxuICBjb25kaWNpb25hbCAgID0gcF9pbnRlcnNlY2Npb24gLyBwX3BhdHJ1bGxlcmEsXG4gICMgY29tcHJvYmFjacOzbiBkaXJlY3RhOiBtaXJhciBzw7NsbyBsYXMgcGF0cnVsbGVyYXNcbiAgZGlyZWN0YSAgICAgICA9IG1lYW4oZmxvdGEkYXZlcmlhc19hbmlvW2Zsb3RhJHRpcG8gPT0gXCJQYXRydWxsZXJhXCJdID49IDIpKSJ9
+</script>
+</div>
+</div>
+<div class="inferencia">
+<p>Las dos últimas cifras coinciden, y esa coincidencia <strong>es</strong> la definición. Condicionar no es aplicar una fórmula: es quedarse con el subconjunto donde la condición se cumple y volver a calcular la proporción dentro de él. La fórmula sólo pone eso por escrito.</p>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar sin calcular.</strong> ¿Qué significa exactamente <span class="math inline">\(P(A \mid B)\)</span>?</p>
+<p><strong>a)</strong> La proporción de casos con <span class="math inline">\(A\)</span> <strong>dentro</strong> de los casos con <span class="math inline">\(B\)</span>, lo que exige dividir entre <span class="math inline">\(P(B)\)</span> porque el espacio muestral pasó a ser <span class="math inline">\(B\)</span>. <strong>b)</strong> La probabilidad de que ocurran <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span> a la vez. <strong>c)</strong> La probabilidad de que ocurra <span class="math inline">\(A\)</span> o de que ocurra <span class="math inline">\(B\)</span>.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-16" class="exercise-cell">
+
+</div>
+<script type="webr-16-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxM1wiLCBcImVzY3JpYmEgYXF1w60gYSwgYiBvIGNcIikifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Calcular a mano y verificar.</strong> Obtenga <span class="math inline">\(P(\text{dos o más averías} \mid \text{patrullera})\)</span> en su flota.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-17" class="exercise-cell">
+
+</div>
+<script type="webr-17-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29uZGljaW9uYWwgPC0gMCAgICAgICMgc3VzdGl0dXlhXG5cbnZlcmlmaWNhcl9jb25kaWNpb25hbChtaV9jb25kaWNpb25hbCkifQ==
+</script>
+</div>
+</div>
+<div class="franja">
+<p><strong>Sucesos dependientes en la práctica.</strong> Ordóñez señala que la dependencia aparece típicamente cuando <strong>no hay reposición</strong>: en un sorteo los números eliminados no vuelven a la urna, y por eso la segunda extracción depende de la primera. Es el mismo motivo por el que en el tema 1.2 el muestreo sin reposición obliga a la corrección por población finita.</p>
+<p><span class="fuente">Ordóñez et al., 2025, §3.2.</span></p>
+</div>
+</section>
+<section id="probabilidad-total" class="level2">
+<h2 class="anchored" data-anchor-id="probabilidad-total">1.4.6 Probabilidad total</h2>
+<p>Cuando un suceso puede llegar por varios caminos, su probabilidad es la suma de lo que aporta cada camino.</p>
+<div class="definicion">
+<p><strong>Ley de probabilidad total.</strong> Sean <span class="math inline">\(A_1, \dots, A_k\)</span> sucesos <strong>mutuamente excluyentes y exhaustivos</strong>. Entonces, para cualquier otro suceso <span class="math inline">\(B\)</span>,</p>
+<p><span class="math display">\[P(B) = \sum_{i=1}^{k} P(B \mid A_i)\, P(A_i)\]</span></p>
+<p><span class="fuente">Devore, 2016, §2.4.</span></p>
+</div>
+<div class="definicion">
+<p><strong>Excluyentes</strong> significa que dos cualesquiera de los <span class="math inline">\(A_i\)</span> no pueden ocurrir a la vez. <strong>Exhaustivos</strong> significa que alguno de ellos ocurre necesariamente: entre todos cubren el espacio muestral.</p>
+<p>Las dos condiciones juntas dicen que los <span class="math inline">\(A_i\)</span> <strong>parten</strong> el espacio muestral en trozos que no se solapan y no dejan huecos. Si faltara cualquiera de las dos, la suma contaría de más o de menos.</p>
+</div>
+<p><strong>Ejemplo naval.</strong> Las unidades de la flota se mantienen en tres bases, y cada base tiene su propia tasa histórica de avería recurrente tras la carena: Esmeraldas 5 %, Guayaquil 2 %, Manta 3 %. Se toma una unidad al azar. ¿Cuál es la probabilidad de que presente avería recurrente?</p>
+<p>Las tres bases son excluyentes —cada unidad se mantuvo en una y sólo una— y exhaustivas —no hay una cuarta base—, así que la ley se aplica.</p>
+<div class="predice">
+<p>La tasa mayor es 5 % y la menor 2 %. Sin calcular: ¿entre qué dos valores tiene que quedar forzosamente el resultado?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-18" class="exercise-cell">
+
+</div>
+<script type="webr-18-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicF9iYXNlIDwtIHByb3AudGFibGUodGFibGUoZmxvdGEkYmFzZSkpICAgICAgICAgICAgICAgICAgICAgICAjIGN1w6FudG8gcGVzYSBjYWRhIGJhc2VcbnBfZGFkbyA8LSBjKEVzbWVyYWxkYXMgPSAuMDUsIEd1YXlhcXVpbCA9IC4wMiwgTWFudGEgPSAuMDMpW25hbWVzKHBfYmFzZSldXG5cbnJvdW5kKHJiaW5kKHBlc28gPSBwX2Jhc2UsIHRhc2EgPSBwX2RhZG8sIGFwb3J0ZSA9IHBfYmFzZSAqIHBfZGFkbyksIDQpXG5cbnN1bShwX2Jhc2UgKiBwX2RhZG8pICAgICAjIHByb2JhYmlsaWRhZCB0b3RhbCJ9
+</script>
+</div>
+</div>
+<div class="inferencia">
+<p>El resultado queda siempre entre la tasa menor y la mayor, porque es un <strong>promedio ponderado</strong> de las tasas, con las proporciones de cada base como pesos. Si esa comprobación falla, hay un error de cálculo: no hace falta revisar la aritmética para saberlo.</p>
+</div>
+<div class="ejercicio">
+<p><strong>Detectar el error.</strong> Un guardiamarina aplica la ley de probabilidad total sumando las tasas de las tres bases y dividiendo entre tres: <span class="math inline">\((0.05 + 0.02 + 0.03)/3 = 0.0333\)</span>.</p>
+<p>¿Por qué no es correcto?</p>
+<p><strong>a)</strong> Porque las tasas hay que multiplicarlas, no sumarlas. <strong>b)</strong> Porque ignora el peso de cada base. Sólo coincidiría si las tres tuvieran exactamente el mismo número de unidades; en general hay que ponderar por <span class="math inline">\(P(A_i)\)</span>. <strong>c)</strong> Porque la ley de probabilidad total no se aplica a proporciones.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-19" class="exercise-cell">
+
+</div>
+<script type="webr-19-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxNVwiLCBcImVzY3JpYmEgYXF1w60gYSwgYiBvIGNcIikifQ==
+</script>
+</div>
+</div>
+<div class="cell">
+<div>
+<div id="webr-20" class="exercise-cell">
+
+</div>
+<script type="webr-20-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfdG90YWwgPC0gMCAgICAgICAgICAgICMgc3VzdGl0dXlhXG5cbnZlcmlmaWNhcl90b3RhbChtaV90b3RhbCkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="teorema-de-bayes" class="level2">
+<h2 class="anchored" data-anchor-id="teorema-de-bayes">1.4.7 Teorema de Bayes</h2>
+<p>La probabilidad total va de las causas al efecto. <strong>Bayes recorre el camino inverso:</strong> observado el efecto, ¿de qué causa vino?</p>
+<div class="definicion">
+<p><strong>Teorema de Bayes.</strong> Con <span class="math inline">\(A_1, \dots, A_k\)</span> excluyentes y exhaustivos, y <span class="math inline">\(P(B) &gt; 0\)</span>,</p>
+<p><span class="math display">\[P(A_j \mid B) = \frac{P(B \mid A_j)\,P(A_j)}{\sum_{i=1}^{k} P(B \mid A_i)\,P(A_i)}\]</span></p>
+<p><span class="fuente">Devore, 2016, §2.4, ecuación 2.6; Ordóñez et al., 2025, §3.4.6, citando a Lind et al.&nbsp;(2019).</span></p>
+</div>
+<div class="definicion">
+<p><strong>Probabilidad previa</strong> o <em>a priori</em>: <span class="math inline">\(P(A_j)\)</span>, lo que se sabía antes de observar nada.</p>
+<p><strong>Probabilidad posterior</strong> o <em>a posteriori</em>: <span class="math inline">\(P(A_j \mid B)\)</span>, lo que se sabe después de observar <span class="math inline">\(B\)</span>.</p>
+<p>Bayes es, literalmente, <strong>la regla para actualizar una creencia con evidencia nueva</strong>.</p>
+</div>
+<div class="inferencia">
+<p>Obsérvese que el denominador de Bayes es exactamente la probabilidad total del apartado anterior. <strong>Bayes no es una fórmula independiente</strong>: es la definición de probabilidad condicional, con la regla de multiplicación en el numerador y la ley de probabilidad total en el denominador. Reconocer esas tres piezas hace innecesario memorizarla.</p>
+</div>
+<p><strong>Continuación del ejemplo.</strong> Una unidad presenta avería recurrente. ¿Cuál es la probabilidad de que se hubiera mantenido en Manta?</p>
+<div class="predice">
+<p>Manta tiene una tasa intermedia, 3 %. Antes de calcular: ¿la probabilidad posterior de Manta será mayor o menor que su peso previo en la flota?</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-21" class="exercise-cell">
+
+</div>
+<script type="webr-21-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicF9iYXNlIDwtIHByb3AudGFibGUodGFibGUoZmxvdGEkYmFzZSkpXG5wX2RhZG8gPC0gYyhFc21lcmFsZGFzID0gLjA1LCBHdWF5YXF1aWwgPSAuMDIsIE1hbnRhID0gLjAzKVtuYW1lcyhwX2Jhc2UpXVxuXG5wb3N0ZXJpb3IgPC0gcF9iYXNlICogcF9kYWRvIC8gc3VtKHBfYmFzZSAqIHBfZGFkbylcblxucm91bmQocmJpbmQocHJldmlhID0gcF9iYXNlLCBwb3N0ZXJpb3IgPSBwb3N0ZXJpb3IpLCA0KSJ9
+</script>
+</div>
+</div>
+<div class="franja">
+<p>Las bases con tasa alta <strong>suben</strong> al pasar de previa a posterior, y las de tasa baja <strong>bajan</strong>. La evidencia de que hubo avería redistribuye la sospecha hacia donde las averías son más frecuentes, en la proporción exacta que fija el teorema.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-22" class="exercise-cell">
+
+</div>
+<script type="webr-22-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfYmF5ZXMgPC0gMCAgICAgICAgICAgICMgc3VzdGl0dXlhXG5cbnZlcmlmaWNhcl9iYXllcyhtaV9iYXllcykifQ==
+</script>
+</div>
+</div>
+<section id="la-falacia-de-la-tasa-base" class="level3">
+<h3 class="anchored" data-anchor-id="la-falacia-de-la-tasa-base">La falacia de la tasa base</h3>
+<p>El resultado más útil de todo el tema, y el más contraintuitivo, aparece cuando el suceso buscado es <strong>raro</strong>.</p>
+<p><strong>Caso.</strong> Un sensor de entrada de agua en sentina se activa correctamente en el 99 % de las inundaciones reales, y da falsa alarma sólo en el 2 % de las guardias normales. Las inundaciones ocurren en 1 de cada 1000 guardias. <strong>Suena la alarma. ¿Cuál es la probabilidad de que haya inundación real?</strong></p>
+<div class="predice">
+<p>Escriba su respuesta antes de ejecutar. Casi todo el mundo dice una cifra muy por encima de la correcta.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-23" class="exercise-cell">
+
+</div>
+<script type="webr-23-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJldmlhIDwtIDAuMDAxICAgICAgIyBpbnVuZGFjaW9uZXMgcG9yIGd1YXJkaWFcbnNlbnMgICA8LSAwLjk5ICAgICAgICMgYWxhcm1hIGN1YW5kbyBzw60gaGF5IGludW5kYWNpw7NuXG5mYWxzYSAgPC0gMC4wMiAgICAgICAjIGFsYXJtYSBjdWFuZG8gbm8gbGEgaGF5XG5cbnBfYWxhcm1hIDwtIHByZXZpYSAqIHNlbnMgKyAoMSAtIHByZXZpYSkgKiBmYWxzYSAgICAgICAjIHByb2JhYmlsaWRhZCB0b3RhbFxucG9zdGVyaW9yIDwtIHByZXZpYSAqIHNlbnMgLyBwX2FsYXJtYSAgICAgICAgICAgICAgICAgICMgQmF5ZXNcblxucm91bmQoYyhQX2FsYXJtYSA9IHBfYWxhcm1hLCBQX2ludW5kYWNpb25fZGFkb19hbGFybWEgPSBwb3N0ZXJpb3IpLCA1KSJ9
+</script>
+</div>
+</div>
+<div class="inferencia">
+<p>Sale <strong>menos del 5 %</strong>, con un sensor que acierta el 99 % de las veces. La razón no es que el sensor sea malo: es que hay <strong>999 guardias normales por cada guardia con inundación</strong>, y un 2 % de falsas alarmas sobre 999 produce muchas más alarmas que un 99 % de aciertos sobre 1.</p>
+<p>La probabilidad pasó de 0.001 a 0.047: la alarma multiplicó por 47 la sospecha, que es mucho. Pero partía de tan abajo que sigue siendo improbable. <strong>Ignorar de dónde se parte es el error que el teorema corrige.</strong></p>
+</div>
+<div class="franja">
+<p>Este resultado no es una curiosidad de manual. Devore lo presenta con una enfermedad rara y una prueba diagnóstica, y obtiene la misma cifra: 0.047. La estructura es idéntica siempre que se busque algo poco frecuente con un detector imperfecto — averías críticas, contactos hostiles, fallos estructurales.</p>
+<p><span class="fuente">Devore, 2016, §2.4, ejemplo 2.31.</span></p>
+</div>
+<p>Que el razonamiento es correcto puede comprobarse sin fiarse de la fórmula: se simulan doscientas mil guardias y se cuenta.</p>
+<div class="cell">
+<div>
+<div id="webr-24" class="exercise-cell">
+
+</div>
+<script type="webr-24-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2V0LnNlZWQoNDIpXG5OIDwtIDIwMDAwMFxuXG5pbnVuZGFjaW9uIDwtIHJ1bmlmKE4pIDwgcHJldmlhXG5hbGFybWEgPC0gaWZlbHNlKGludW5kYWNpb24sIHJ1bmlmKE4pIDwgc2VucywgcnVuaWYoTikgPCBmYWxzYSlcblxuYyhzaW11bGFkbyA9IG1lYW4oaW51bmRhY2lvblthbGFybWFdKSwgZm9ybXVsYSA9IHBvc3RlcmlvcikifQ==
+</script>
+</div>
+</div>
+<div class="ejercicio">
+<p><strong>Interpretar sin calcular.</strong> ¿Por qué la probabilidad de inundación real, dada la alarma, es tan baja?</p>
+<p><strong>a)</strong> Porque el sensor es poco fiable. <strong>b)</strong> Porque el cálculo está mal: con un 99 % de acierto debería salir cerca de 0.99. <strong>c)</strong> Porque el suceso es raro. Hay tantas más guardias sin inundación que el 2 % de falsas alarmas sobre ellas supera con creces a los aciertos sobre el 0.1 % restante.</p>
+</div>
+<div class="cell">
+<div>
+<div id="webr-25" class="exercise-cell">
+
+</div>
+<script type="webr-25-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxNFwiLCBcImVzY3JpYmEgYXF1w60gYSwgYiBvIGNcIikifQ==
+</script>
+</div>
+</div>
+<div class="recomendacion">
+<p>Retenga la consecuencia operativa: <strong>una alarma que salta rara vez y acierta casi siempre puede seguir siendo, en su mayoría, falsa alarma.</strong> Antes de dimensionar una respuesta a un detector, hay que preguntar con qué frecuencia ocurre de verdad lo que detecta.</p>
+</div>
+</section>
+<section id="ejercicio-integrador" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-integrador">Ejercicio integrador</h3>
+<div class="ejercicio">
+<p><strong>Estudio de caso: reparto de una guardia.</strong> De las 40 unidades de su flota debe usted:</p>
+<ol type="1">
+<li>Formar un grupo de 4 unidades para una patrulla conjunta, sin cargos asignados. ¿Cuántos grupos distintos son posibles?</li>
+<li>Del mismo conjunto, designar 4 unidades con cargos distintos —insignia, segundo, retaguardia y enlace—. ¿Cuántas designaciones son posibles?</li>
+<li>Explicar en una frase por qué el segundo número es exactamente 24 veces el primero.</li>
+<li>Calcular la probabilidad de que un grupo de 4 tomado al azar esté formado <strong>sólo</strong> por patrulleras.</li>
+</ol>
+</div>
+<div class="cell">
+<div>
+<div id="webr-26" class="exercise-cell">
+
+</div>
+<script type="webr-26-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibiA8LSA0MDsgayA8LSA0XG5uX3BhdHJ1bGxlcmFzIDwtIHN1bShmbG90YSR0aXBvID09IFwiUGF0cnVsbGVyYVwiKVxuXG5jKHNpbl9jYXJnb3MgICA9IGNob29zZShuLCBrKSxcbiAgY29uX2NhcmdvcyAgID0gZmFjdG9yaWFsKG4pIC8gZmFjdG9yaWFsKG4gLSBrKSxcbiAgY29jaWVudGUgICAgID0gZmFjdG9yaWFsKGspLFxuICBwX3RvZGFzX3BhdHJ1bGxlcmFzID0gY2hvb3NlKG5fcGF0cnVsbGVyYXMsIGspIC8gY2hvb3NlKG4sIGspKSJ9
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="para-leer-esta-semana" class="level2">
+<h2 class="anchored" data-anchor-id="para-leer-esta-semana">Para leer esta semana</h2>
+<section id="lectura-mínima" class="level4">
+<h4 class="anchored" data-anchor-id="lectura-mínima">Lectura mínima</h4>
+<p><strong>Ordóñez Moreno, F. M., Rosero Camacho, W. N., &amp; Paredes Calderón, D. M. (2025).</strong> <em>Estadística para la Seguridad y Defensa</em> (1.ª ed.&nbsp;electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.</p>
+<p>Capítulo III, «Teoría de la probabilidad», páginas 81 a 96. Cubre §3.1 probabilidad de un suceso, §§3.2–3.3 sucesos compuestos y sus reglas, §3.4 técnicas de conteo con permutaciones, variaciones —lo que aquí se llama permutación de tamaño <span class="math inline">\(k\)</span>— y combinaciones, §3.4.5 diagramas de árbol y §3.4.6 teorema de Bayes. Sus ejercicios 3.7 a 3.18 están planteados en contexto militar.</p>
+</section>
+<section id="ampliación-por-subtema" class="level4">
+<h4 class="anchored" data-anchor-id="ampliación-por-subtema">Ampliación por subtema</h4>
+<p><strong>Devore, J. L. (2016).</strong> <em>Probabilidad y estadística para ingeniería y ciencias</em> (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.</p>
+<p>— §2.3 «Técnicas de conteo», páginas 66 a 73: la regla del producto para <span class="math inline">\(k\)</span> etapas, y la deducción de las fórmulas de permutación y combinación paso a paso.</p>
+<p>— §2.4 «Probabilidad condicional», páginas 75 a 82: la definición de <span class="math inline">\(P(A\mid B)\)</span>, la regla de multiplicación, la <strong>ley de probabilidad total</strong> —que el texto guía no enuncia por separado— y el teorema de Bayes con el ejemplo de la enfermedad rara.</p>
+<p><strong>Johnson, R. A. (2012).</strong> <em>Probabilidad y estadística para ingenieros</em> (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.</p>
+<p>Capítulo 3, «Probabilidad»: el mismo material con ejemplos de control de calidad y fiabilidad industrial, que es el contexto más próximo al mantenimiento naval.</p>
+</section>
+<section id="apoyo-complementario" class="level4">
+<h4 class="anchored" data-anchor-id="apoyo-complementario">Apoyo complementario</h4>
+<p>Si tiene dificultades para comprender un contenido con los textos impresos, consulte esta obra.</p>
+<p><strong>Illowsky, B., &amp; Dean, S. (2022).</strong> <em>Introducción a la estadística</em>. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.</p>
+<p>Capítulo 3, «Temas de probabilidad»: <a href="https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/3-introduccion" class="uri">https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/3-introduccion</a></p>
+<p>De acceso libre, en español y con mayor cantidad de ejemplos resueltos. Consúltelo como complemento del texto guía, no como sustituto.</p>
+<div class="franja">
+<p>Las diferencias de nomenclatura y de convención entre los textos —empezando por «permutación de tamaño <span class="math inline">\(k\)</span>» frente a «variación»— están recogidas en <a href="../discrepancias.html">Discrepancias entre los textos y R</a>.</p>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzI0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIxID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTk7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE5ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTktY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xOSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTg7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE4ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTgtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE3ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzEgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTEtY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiMVwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiMVwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../unidad-1";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Thc02\.github\.io\/Estadistica\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../unidad-1/tema-1-3.html" class="pagination-link" aria-label="1.3 Estadística descriptiva">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1.3 Estadística descriptiva</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Estadística · Ciencias Navales · Unidad 1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Dr.&nbsp;Daniel Lagos Llaguno</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

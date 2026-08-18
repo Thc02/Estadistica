@@ -214,6 +214,12 @@ window.Quarto = {
  <span class="menu-text">1.3 Estadística descriptiva</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./unidad-1/tema-1-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.4 Conteo y probabilidad</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -233,6 +239,7 @@ window.Quarto = {
   <li><a href="#asimetría-tres-estimadores" id="toc-asimetría-tres-estimadores" class="nav-link" data-scroll-target="#asimetría-tres-estimadores">4. Asimetría: tres estimadores</a></li>
   <li><a href="#el-umbral-del-coeficiente-de-variación" id="toc-el-umbral-del-coeficiente-de-variación" class="nav-link" data-scroll-target="#el-umbral-del-coeficiente-de-variación">5. El umbral del coeficiente de variación</a></li>
   <li><a href="#una-errata-del-texto-guía" id="toc-una-errata-del-texto-guía" class="nav-link" data-scroll-target="#una-errata-del-texto-guía">6. Una errata del texto guía</a></li>
+  <li><a href="#permutación-de-tamaño-k-frente-a-variación" id="toc-permutación-de-tamaño-k-frente-a-variación" class="nav-link" data-scroll-target="#permutación-de-tamaño-k-frente-a-variación">7. «Permutación de tamaño k» frente a «variación»</a></li>
   <li><a href="#declaración-de-la-convención-en-un-informe" id="toc-declaración-de-la-convención-en-un-informe" class="nav-link" data-scroll-target="#declaración-de-la-convención-en-un-informe">Declaración de la convención en un informe</a></li>
   </ul>
 </nav>
@@ -319,6 +326,12 @@ window.Quarto = {
 <td><strong>Errata en el texto guía</strong></td>
 <td>El cuerpo del texto y su propia tabla no coinciden</td>
 <td>Prevalece la tabla</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>«Permutación de tamaño k» frente a «variación»</strong></td>
+<td>Misma fórmula, dos nombres según la tradición del texto</td>
+<td>Se usa «permutación»; se declara la equivalencia</td>
 </tr>
 </tbody>
 </table>
@@ -551,6 +564,45 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTEkgPC0gYygxMCwgMjQuNjcs
 </div>
 <div class="franja">
 <p>Encontrar una errata en un libro publicado no lo invalida. Lo que enseña es más útil: <strong>ningún texto es infalible, y toda fórmula se comprueba antes de usarse.</strong> Esa comprobación cabe en cuatro líneas de código.</p>
+</div>
+</section>
+<section id="permutación-de-tamaño-k-frente-a-variación" class="level2">
+<h2 class="anchored" data-anchor-id="permutación-de-tamaño-k-frente-a-variación">7. «Permutación de tamaño k» frente a «variación»</h2>
+<p>No es una discrepancia de cálculo sino de vocabulario, y por eso desconcierta más de lo que debería.</p>
+<table class="table-striped caption-top table">
+<caption>El mismo arreglo con dos nombres</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fuente</th>
+<th>Nombre</th>
+<th>Notación</th>
+<th>Fórmula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Devore</strong> (§2.3), <strong>Johnson</strong> (cap. 3)</td>
+<td>Permutación de tamaño <span class="math inline">\(k\)</span></td>
+<td><span class="math inline">\(P_{k,n}\)</span></td>
+<td><span class="math inline">\(n!/(n-k)!\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Ordóñez et al.</strong> (§3.4.2)</td>
+<td>Variación</td>
+<td><span class="math inline">\(V(n,k)\)</span></td>
+<td><span class="math inline">\(n!/(n-k)!\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Para Ordóñez, <strong>permutación</strong> designa únicamente el caso <span class="math inline">\(k = n\)</span>, es decir <span class="math inline">\(P_n = n!\)</span>, y reserva <strong>variación</strong> para el caso general. Para Devore no existe la palabra «variación»: todo arreglo ordenado es una permutación, y se especifica el tamaño. Es la diferencia entre la tradición hispana y la anglosajona, y sobrevive en el software: las hojas de cálculo ofrecen <code>PERMUTACIONES</code> para lo que Ordóñez llamaría variación.</p>
+<div class="recomendacion">
+<p>Este curso usa <strong>permutación de tamaño <span class="math inline">\(k\)</span></strong>, notada <span class="math inline">\(P(n,k)\)</span>, por ser la nomenclatura de la bibliografía internacional y del software. Al leer el texto guía, recuerde que su «variación» <span class="math inline">\(V(n,k)\)</span> es exactamente lo mismo.</p>
 </div>
 </section>
 <section id="declaración-de-la-convención-en-un-informe" class="level2">
