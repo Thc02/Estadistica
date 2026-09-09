@@ -64,12 +64,26 @@ El único de la lista dedicado íntegramente al muestreo, y el más práctico: c
 ::: {.tarjeta-teal}
 #### Introducción a la estadística — OpenStax
 
-Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio>
+Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
 
 De acceso libre, en línea y en español. Es el más asequible de los cuatro: expone con menor grado de formalización y mayor cantidad de ejemplos. Si tiene dificultades para comprender un concepto con el texto guía, consúltelo aquí.
 
 - Cap. 1 «Muestreo y datos» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion>
-- Cap. 2 «Estadística descriptiva» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva>
+  - §1.3 Frecuencia, tablas de frecuencia y **niveles de medición** — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-3-frecuencia-tablas-de-frecuencia-y-niveles-de-medicion>
+- Cap. 2 «Estadística descriptiva» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-introduccion>
+- Cap. 3 «Temas de probabilidad» — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/3-introduccion>
+- Cap. 4, variables aleatorias discretas — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/4-introduccion>
+  - §4.2 Media o valor esperado y desviación típica, con la **ley de los grandes números** — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/4-2-media-o-valor-esperado-y-desviacion-tipica>
+- Cap. 5, variables aleatorias continuas: uniforme y exponencial — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/5-introduccion>
+- Cap. 6, la distribución normal y la normal estándar — <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/6-introduccion>
+
+[Todos los enlaces de esta ficha se abrieron y se comprobaron uno por uno. Los títulos de los capítulos 2 y 3 están tomados del propio libro; los de los capítulos 4 a 6 describen su contenido según los objetivos que cada uno enuncia.]{.ejemplo}
+:::
+
+::: {.franja}
+**Sobre el uso de esta obra.** OpenStax publica el libro bajo licencia Creative Commons Attribution 4.0, que permite consultarlo, redistribuirlo y adaptarlo siempre que se le atribuya. En sus páginas advierte además que el libro no puede emplearse para entrenar modelos de lenguaje ni incorporarse a sistemas de inteligencia artificial generativa sin su permiso.
+
+Este curso lo usa **como lectura de apoyo y lo cita**, que es exactamente lo que la licencia contempla. El contenido de las páginas del curso proviene de los textos de la carpeta, con la fuente indicada en cada apartado.
 :::
 
 ## Obra citada por el texto guía
@@ -100,7 +114,9 @@ No es lectura obligatoria del curso. Se consulta sólo para verificar en su fuen
 | 5 | 1.3.5–1.3.7 Posición y forma | Ordóñez, cap. II §§2.5.1, 2.6–2.7 | **Johnson §2.6**; **Devore §1.4** |
 | 6 | 1.4.1–1.4.4 Conteo y probabilidad clásica | Ordóñez, cap. III §§3.1–3.4.4 | **Devore §2.3**; OpenStax cap. 3 |
 | 7 | 1.4.5–1.4.7 Condicional, total y Bayes | Ordóñez, cap. III §3.4.6 | **Devore §2.4** (ley de probabilidad total); Johnson cap. 3 |
-| 8–12 | 2.x Modelos estocásticos | Ordóñez, cap. IV | Johnson cap. 5; Devore caps. 3–4 |
+| 8 | 2.1 Variables aleatorias | Ordóñez, cap. IV §4.1 | **Devore §§3.1–3.3, 4.1**; OpenStax cap. 4 |
+| 9–10 | 2.2 Modelos discretos | Ordóñez, cap. IV §4.2 | **Devore §§3.4–3.6**; Johnson cap. 4 |
+| 11–12 | 2.3 Modelos continuos | Ordóñez, cap. IV §4.3 | **Devore cap. 4**; **Johnson §§5.2, 5.5**; OpenStax caps. 5–6 |
 | 13–16 | 3.x Inferencia y regresión | Ordóñez, cap. IV y apéndices | Johnson caps. 6 y 11; Devore caps. 5–7 |
 :::
 

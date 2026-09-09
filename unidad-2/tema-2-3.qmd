@@ -1,0 +1,420 @@
+---
+title: "2.3 Modelos estocásticos continuos"
+subtitle: "UC 2 · Modelos estocásticos · Semanas 11 y 12"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include ../unidad-1/_setup.qmd >}}
+
+Cuando lo que se mide es un tiempo, una duración o una magnitud física, la variable deja de contarse y pasa a medirse. Tres modelos continuos cubren la mayor parte de los casos navales: **uniforme**, **exponencial** y **normal**.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+
+Las **aplicaciones navales** del apartado 2.3.4 del sílabo —tiempo entre fallas, tiempo de respuesta y vida útil de equipos— aparecen dentro del modelo que describe cada una.
+:::
+
+### Su registro de fallas
+
+Esta página trabaja sobre un segundo conjunto de datos, también generado a partir de su correo institucional: **60 registros de avería** de la flota.
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+registro <- registro_fallas(mi_correo)
+head(registro, 5)
+```
+
+```{webr}
+diccionario_fallas
+```
+
+::: {.franja}
+**Los datos son sintéticos.** Están generados por computador para que usted practique, y no corresponden a registros reales de la Armada. La última columna del diccionario indica con qué modelo se generó cada variable: sirve para comprobar si el modelo que usted elija coincide con el que produjo los datos.
+:::
+
+# Semana 11
+
+## 2.3.1 Distribución uniforme
+
+::: {.definicion}
+**Distribución uniforme continua.** La probabilidad es **constante** a lo largo de un intervalo $[a,b]$ y nula fuera de él. Su función de densidad es
+
+$$f(x) = \frac{1}{b-a} \quad \text{si } a \le x \le b, \qquad f(x) = 0 \text{ en otro caso}$$
+
+$$E(X) = \frac{a+b}{2} \qquad\qquad V(X) = \frac{(b-a)^2}{12}$$
+
+[Ordóñez et al., 2025, §4.3.1, citando a Webster (2000).]{.fuente}
+:::
+
+::: {.inferencia}
+Con densidad constante, la probabilidad de un tramo es **la proporción de longitud que ocupa**:
+
+$$P(c < X < d) = \frac{d-c}{b-a}$$
+
+No hace falta integrar: es una regla de tres sobre longitudes. Ésa es la única distribución continua del curso en que la probabilidad se lee directamente como un cociente de longitudes.
+:::
+
+::: {.franja}
+**El aviso que cuesta caro.** El tramo hay que **recortarlo al intervalo donde vive la variable**. Si el enunciado pregunta por $P(22 < X < 26)$ y la variable sólo existe entre 22.5 y 27.5, el tramo efectivo empieza en 22.5, no en 22: por debajo de $a$ la densidad es cero y no aporta nada.
+
+Olvidarlo produce siempre una probabilidad **mayor** que la real.
+:::
+
+### Aplicación naval: tiempo de respuesta
+
+**Caso.** El tiempo que transcurre entre el aviso de una avería y la llegada del equipo de reparación varía entre 8 y 25 minutos, sin que ningún valor del intervalo sea más frecuente que otro.
+
+::: {.predice}
+El intervalo mide 17 minutos. Si se pregunta por el tramo de 12 a 20 minutos, que mide 8, ¿qué probabilidad espera? Calcúlelo mentalmente antes de ejecutar.
+:::
+
+```{webr}
+a <- 8; b <- 25
+
+round(c(entre_12_y_20 = punif(20, a, b) - punif(12, a, b),
+        a_mano        = (20 - 12)/(b - a),
+        esperanza     = (a + b)/2,
+        varianza      = (b - a)^2/12), 4)
+```
+
+```{webr}
+# Comprobacion con sus propios datos
+r <- registro$respuesta_min
+
+round(c(minimo = min(r), maximo = max(r),
+        media_observada = mean(r), media_teorica = (a + b)/2,
+        proporcion_12_20 = mean(r > 12 & r < 20)), 3)
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Con la uniforme en $[8, 25]$, obtenga $P(12 < X < 20)$.
+:::
+
+```{webr}
+mi_uniforme <- 0         # sustituya
+
+verificar_uniforme(mi_uniforme)
+```
+
+## 2.3.2 Distribución exponencial
+
+::: {.definicion}
+**Distribución exponencial.** Modela el **tiempo de espera entre dos sucesos** cuyo comportamiento se considera de Poisson. Con parámetro $\lambda > 0$:
+
+$$f(x) = \lambda e^{-\lambda x} \quad (x > 0), \qquad F(x) = 1 - e^{-\lambda x}$$
+
+$$E(X) = \frac{1}{\lambda} \qquad\qquad V(X) = \frac{1}{\lambda^{2}}$$
+
+[Ordóñez et al., 2025, §4.3.2, citando a Galindo (2015).]{.fuente}
+:::
+
+::: {.franja}
+**Poisson y exponencial son el mismo fenómeno visto de dos maneras.** Si los sucesos ocurren a razón de $\lambda$ por unidad de tiempo —Poisson—, el tiempo que transcurre entre uno y el siguiente es exponencial con esa misma $\lambda$. Contar sucesos por hora y medir horas entre sucesos son dos preguntas sobre el mismo proceso.
+:::
+
+::: {.definicion}
+**Cuidado con el parámetro.** $\lambda$ es una **tasa** —sucesos por unidad de tiempo—, y la esperanza es su inverso, $1/\lambda$. Si la media entre fallas es 400 horas, entonces $\lambda = 1/400$ fallas por hora.
+
+En R, `pexp(x, rate)` espera la **tasa**, no la media. Pasarle la media es el error más común: dividir siempre.
+:::
+
+### Aplicación naval: tiempo entre fallas
+
+::: {.predice}
+En la exponencial, la esperanza es $1/\lambda$ y la desviación típica también. ¿Qué espera que ocurra al comparar la media y la desviación típica de sus horas entre fallas?
+:::
+
+```{webr}
+h <- registro$horas_entre_fallas
+
+media <- mean(h)
+lambda <- 1/media
+
+round(c(media = media, desviacion = sd(h), lambda = lambda), 5)
+```
+
+```{webr}
+hist(h, breaks = 12, freq = FALSE, col = "grey85",
+     main = "Horas entre fallas", xlab = "horas", ylab = "densidad")
+curve(dexp(x, lambda), add = TRUE, lwd = 2)
+```
+
+::: {.inferencia}
+Media y desviación típica salen muy parecidas, y el histograma sigue la curva teórica. Es la firma de la exponencial: **una masa grande de tiempos cortos y una cola larga de tiempos muy superiores a la media**.
+
+Consecuencia operativa: en un proceso exponencial la mayoría de los intervalos entre fallas son **más cortos** que la media. El promedio no es un valor típico.
+:::
+
+```{webr}
+c(proporcion_por_debajo_de_la_media = mean(h < media),
+  teorico = pexp(media, lambda))
+```
+
+::: {.definicion}
+**Falta de memoria.** En la exponencial, la probabilidad de que un equipo aguante 200 horas más **no depende de las horas que ya lleve funcionando**:
+
+$$P(X > s + t \mid X > s) = P(X > t)$$
+
+Por eso modela fallas debidas a causas externas y aleatorias —un golpe de mar, una sobretensión—, y **no** fallas por desgaste, donde la probabilidad crece con el uso.
+:::
+
+```{webr}
+# Comprobacion de la falta de memoria
+p_directa      <- 1 - pexp(200, lambda)
+p_condicionada <- (1 - pexp(500 + 200, lambda)) / (1 - pexp(500, lambda))
+
+round(c(aguantar_200_desde_cero = p_directa,
+        aguantar_200_mas_tras_500_horas = p_condicionada), 6)
+```
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Un equipo lleva 500 horas sin fallar. ¿Qué dice el modelo exponencial sobre su probabilidad de aguantar 200 horas más?
+
+**a)** Que es menor, porque el equipo está más desgastado.
+**b)** Que es la misma que tenía al empezar: la exponencial no tiene memoria, y por eso no sirve para modelar desgaste.
+**c)** Que es mayor, porque ha demostrado ser fiable.
+:::
+
+```{webr}
+revisar("p20", "escriba aquí a, b o c")
+```
+
+::: {.recomendacion}
+Antes de aplicar la exponencial a un equipo, pregúntese si sus fallas son por **azar externo** o por **desgaste acumulado**. Si es lo segundo —cojinetes, cables, recubrimientos—, el modelo subestimará las fallas tardías. Existen modelos con envejecimiento, como el de Weibull, que este curso no cubre pero cuya existencia conviene conocer.
+:::
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Con la tasa estimada de su registro, obtenga la probabilidad de que el tiempo hasta la próxima falla sea menor de 200 horas.
+:::
+
+```{webr}
+mi_exponencial <- 0      # sustituya
+
+verificar_exponencial(mi_exponencial)
+```
+
+# Semana 12
+
+## 2.3.3 Distribución normal
+
+Es la más importante de todas. Usa como parámetros la media $\mu$ y la varianza $\sigma^2$, tiene forma de campana y su eje de simetría es a la vez media, mediana y moda, que coinciden.
+
+[Ordóñez et al., 2025, §4.3.3, citando a Lind et al. (2019).]{.fuente}
+
+::: {.definicion}
+**Distribución normal.** Notada $N(\mu, \sigma^2)$, con densidad
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}}\, e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^{2}}$$
+
+[Ordóñez et al., 2025, §4.3.3.]{.fuente}
+:::
+
+::: {.recomendacion}
+**Esta fórmula no se memoriza.** Illowsky y Dean son tajantes al presentarla: es una función complicada y no hace falta retenerla. Lo que sí hay que retener es qué hacen sus dos parámetros — $\mu$ desplaza la curva y $\sigma$ la ensancha o la estrecha — y cómo se obtiene un área con ella.
+
+[Illowsky & Dean (OpenStax, 2022), cap. 6, introducción.]{.fuente}
+:::
+
+::: {.franja}
+**Sobre las tablas de la normal.** El texto guía incluye tablas de la normal estándar en sus apéndices, y conviene saber leerlas porque aparecen en exámenes y en documentos antiguos. Pero Illowsky y Dean advierten que **la tecnología las ha vuelto prácticamente obsoletas**, y por eso ni siquiera incluyen instrucciones para usarlas.
+
+Este curso adopta la misma posición: se explica la tipificación porque es un concepto, no porque haga falta para consultar una tabla. El cálculo se hace con `pnorm()`.
+
+[Illowsky & Dean (OpenStax, 2022), cap. 6, introducción.]{.fuente}
+:::
+
+::: {.franja}
+Ya se usó sin nombrarla: la **regla empírica** del apartado 1.3.4 —68 %, 95.5 % y 99.7 % dentro de una, dos y tres desviaciones típicas— es una propiedad de esta distribución. Aquello era la consecuencia; esto es la causa.
+:::
+
+### La tipificación
+
+Calcular la integral para cada par $(\mu, \sigma)$ sería inabordable, y por eso se transforma cualquier normal en la **normal estándar** $N(0,1)$:
+
+$$z = \frac{x - \mu}{\sigma}$$
+
+[Ordóñez et al., 2025, §4.3.3.]{.fuente}
+
+::: {.definicion}
+**Puntuación tipificada $z$.** Expresa a cuántas desviaciones típicas está un valor por encima o por debajo de la media. Un $z = 1.5$ significa «una desviación y media por encima del promedio», **sea cual sea la unidad original**.
+
+Al tipificar, la variable pierde sus unidades. Por eso una sola tabla sirve para todas las normales, y por eso permite comparar magnitudes medidas en escalas distintas.
+:::
+
+::: {.predice}
+Tipificar desplaza y reescala la variable. ¿Cree que eso cambia la probabilidad de un intervalo, o sólo la forma de escribirlo?
+:::
+
+```{webr}
+v <- registro$vida_util_meses
+mu <- mean(v); sigma <- sd(v)
+
+z <- (48 - mu) / sigma
+
+round(c(media = mu, desviacion = sigma, z_de_48 = z,
+        con_pnorm_directo = pnorm(48, mu, sigma),
+        con_z_tipificado  = pnorm(z)), 5)
+```
+
+::: {.inferencia}
+Los dos últimos números son idénticos. **Tipificar no cambia ninguna probabilidad**: sólo cambia las unidades en que se mide la distancia al centro. Antes de que existieran los computadores era la única forma de usar una tabla; hoy es sobre todo una manera de comparar.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** ¿Qué hace exactamente la tipificación?
+
+**a)** Reexpresa la variable en desviaciones típicas respecto de su media, sin alterar las probabilidades.
+**b)** Convierte cualquier variable en normal, aunque no lo fuera.
+**c)** Reduce la dispersión de los datos.
+:::
+
+```{webr}
+revisar("p21", "escriba aquí a, b o c")
+```
+
+::: {.recomendacion}
+Retenga la opción **b** como advertencia: tipificar **no normaliza**. Si la variable no es normal, su versión tipificada tampoco lo es — tendrá media 0 y desviación 1, pero conservará su asimetría. Es un error frecuente en informes.
+:::
+
+```{webr}
+# Tipificar la variable exponencial: media 0, desviacion 1... y sigue sin ser normal
+z_exp <- (registro$horas_entre_fallas - mean(registro$horas_entre_fallas)) /
+          sd(registro$horas_entre_fallas)
+
+round(c(media = mean(z_exp), desviacion = sd(z_exp),
+        asimetria = sum((z_exp - mean(z_exp))^3)/(length(z_exp)*sd(z_exp)^3)), 4)
+```
+
+::: {.franja}
+Media 0 y desviación 1, como era de esperar. Y una asimetría claramente positiva, que delata que la distribución sigue siendo la exponencial de partida. **Tipificar cambia la escala, no la forma.**
+
+Es la misma advertencia que da OpenStax al presentar la normal: es la distribución más importante, «pero no se puede aplicar a todo en el mundo real».
+
+[Illowsky & Dean (OpenStax, 2022), cap. 6, introducción.]{.fuente}
+:::
+
+### Aplicación naval: vida útil de equipos
+
+**Caso.** Las piezas sustituidas en las averías registradas duran, en promedio, unos 60 meses. Se quiere saber qué proporción falla antes de los 48 meses, que es el plazo de garantía.
+
+```{webr}
+round(c(antes_de_48_meses = pnorm(48, mu, sigma),
+        entre_48_y_72     = pnorm(72, mu, sigma) - pnorm(48, mu, sigma),
+        mas_de_72         = 1 - pnorm(72, mu, sigma),
+        proporcion_observada_antes_de_48 = mean(v < 48)), 4)
+```
+
+```{webr}
+hist(v, breaks = 10, freq = FALSE, col = "grey85",
+     main = "Vida util de las piezas sustituidas",
+     xlab = "meses", ylab = "densidad")
+curve(dnorm(x, mu, sigma), add = TRUE, lwd = 2)
+abline(v = 48, lwd = 2, lty = 2)
+```
+
+::: {.franja}
+**Qué percentil hay que garantizar.** La pregunta operativa suele ser la inversa: no «qué proporción falla antes de 48 meses», sino «qué plazo puedo garantizar si acepto que falle como mucho el 5 %». Eso lo responde `qnorm()`, que invierte la distribución.
+:::
+
+```{webr}
+round(c(garantia_al_5_por_ciento  = qnorm(0.05, mu, sigma),
+        garantia_al_10_por_ciento = qnorm(0.10, mu, sigma),
+        mediana                   = qnorm(0.50, mu, sigma)), 2)
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Tipifique el valor 48 con la media y la desviación de su registro, y obtenga $P(X < 48)$.
+:::
+
+```{webr}
+mi_normal <- 0           # sustituya
+
+verificar_normal(mi_normal)
+```
+
+### Cómo se comprueba si unos datos son normales
+
+::: {.recomendacion}
+Superponer la curva al histograma, como arriba, es orientativo pero poco fiable con 60 datos. El instrumento habitual es el **gráfico cuantil-cuantil**: si los puntos se alinean sobre la recta, la normalidad es razonable.
+
+Este curso lo usa sólo como lectura visual. El contraste formal de normalidad corresponde a la unidad 3.
+:::
+
+```{webr}
+op <- par(mfrow = c(1, 2))
+
+qqnorm(v, main = "Vida util (generada normal)"); qqline(v, lwd = 2)
+qqnorm(registro$horas_entre_fallas, main = "Horas entre fallas (exponencial)")
+qqline(registro$horas_entre_fallas, lwd = 2)
+
+par(op)
+```
+
+::: {.inferencia}
+El contraste entre los dos gráficos es la lección: el primero se alinea, el segundo se curva hacia arriba en el extremo derecho. Esa curvatura **es** la cola larga de la exponencial vista de otro modo.
+
+Un gráfico cuantil-cuantil no dice sólo si hay normalidad: dice **por dónde falla**.
+:::
+
+## Estudio de caso integrador
+
+::: {.ejercicio}
+**Estudio de caso: elección de modelo.** Para cada una de las cuatro situaciones, decida qué distribución de las seis vistas en la unidad la describe, y justifíquelo en una frase antes de calcular nada.
+
+1. Número de unidades que superan la inspección, de 12 elegidas de un lote grande con 90 % de conformidad.
+2. Minutos que tarda en llegar un remolcador, sabiendo únicamente que nunca baja de 10 ni pasa de 40.
+3. Horas de navegación hasta la próxima avería del sistema eléctrico, con una media histórica de 400 horas.
+4. Número de unidades con revisión pendiente entre las 8 inspeccionadas de las 40 de la flota.
+
+Después ejecute la celda y compruebe si su elección coincide.
+:::
+
+```{webr}
+round(c(
+  caso_1_binomial       = dbinom(12, 12, 0.90),
+  caso_2_uniforme       = punif(25, 10, 40) - punif(15, 10, 40),
+  caso_3_exponencial    = 1 - pexp(400, 1/400),
+  caso_4_hipergeometrica= dhyper(0, 6, 34, 8)), 4)
+```
+
+::: {.franja}
+El caso 3 tiene una lectura que conviene subrayar: la probabilidad de superar la media es **0.368**, no 0.5. En una distribución asimétrica la media no parte la probabilidad por la mitad. Quien planifique suponiendo que «la mitad de las veces se pasa de 400 horas» se equivoca en trece puntos.
+:::
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+**Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025).** *Estadística para la Seguridad y Defensa* (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.
+
+Capítulo IV, §4.3 «Distribuciones continuas», páginas 134 a 154. Cubre §4.3.1 uniforme con los ejercicios 4.8 y 4.9, §4.3.2 exponencial con el ejercicio 4.10 sobre vida de una batería, y §4.3.3 normal con la tipificación y el ejercicio 4.11. Las tablas de la normal estándar están en los apéndices.
+
+::: {.franja}
+**Dos resultados de esa lectura no cuadran, y conviene saberlo antes de leerla.** Al reproducir los once ejemplos resueltos del capítulo IV, nueve coinciden hasta la cuarta cifra y dos no: el **ejercicio 4.9** de la mochila uniforme y el **apartado c del ejercicio 4.10**, el de la batería.
+
+Ambos están verificados y explicados en [Discrepancias entre los textos y R](../discrepancias.qmd), entradas 8 y 9. Lea primero esa página y después el capítulo: los dos casos ilustran justamente las advertencias de los apartados 2.3.1 y 2.3.2 de esta página.
+:::
+
+#### Ampliación por subtema
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.
+
+Capítulo 4, «Variables aleatorias continuas y distribuciones de probabilidad»: §4.1 funciones de densidad, §4.2 funciones de distribución acumulada y percentiles, §4.3 la distribución normal, §4.4 la exponencial y su falta de memoria, §4.6 los gráficos de probabilidad.
+
+**Johnson, R. A. (2012).** *Probabilidad y estadística para ingenieros* (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.
+
+Capítulo 5, «Densidades de probabilidad» — §5.2 la distribución normal (p. 125); §5.5 la distribución uniforme (p. 135). Su enfoque de fiabilidad y vida útil de componentes es el más cercano al problema del mantenimiento naval.
+
+#### Apoyo complementario
+
+Si tiene dificultades para comprender un contenido con los textos impresos, consulte esta obra.
+
+**Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+Capítulo 5, «Variables aleatorias continuas»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/5-introduccion>
+
+Capítulo 6, «La distribución normal»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/6-introduccion>
+
+De acceso libre, en español y con mayor cantidad de ejemplos resueltos. Consúltelo como complemento del texto guía, no como sustituto.

@@ -51,6 +51,36 @@ toc: false
 - **1.4.7** Teorema de Bayes
 :::
 
+### Unidad curricular 2 (UC 2) · Modelos estocásticos
+
+::: {.tarjeta}
+#### [Tema 2.1 · Variables aleatorias](unidad-2/tema-2-1.qmd) · Semana 8
+
+- **2.1.1** Variables aleatorias discretas
+- **2.1.2** Variables aleatorias continuas
+- **2.1.3** Funciones de probabilidad
+- **2.1.4** Esperanza matemática
+- **2.1.5** Varianza
+:::
+
+::: {.tarjeta}
+#### [Tema 2.2 · Modelos estocásticos discretos](unidad-2/tema-2-2.qmd) · Semanas 9 y 10
+
+- **2.2.1** Distribución binomial
+- **2.2.2** Distribución hipergeométrica
+- **2.2.3** Distribución de Poisson
+- **2.2.4** Aplicaciones navales · *integradas en cada modelo*
+:::
+
+::: {.tarjeta}
+#### [Tema 2.3 · Modelos estocásticos continuos](unidad-2/tema-2-3.qmd) · Semanas 11 y 12
+
+- **2.3.1** Distribución uniforme
+- **2.3.2** Distribución exponencial
+- **2.3.3** Distribución normal
+- **2.3.4** Aplicaciones navales · *integradas en cada modelo*
+:::
+
 ## Uso del material
 
 Cada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.

@@ -835,7 +835,7 @@ Si tiene dificultades para comprender un contenido con los tres textos impresos,
 
 Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
 
-Capítulo 2, «Estadística descriptiva»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-8-estadistica-descriptiva>
+Capítulo 2, «Estadística descriptiva»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/2-introduccion>
 
 De acceso libre, en español y con mayor cantidad de ejemplos resueltos que los tres textos impresos. Cubre los mismos contenidos con menor grado de formalización. Consúltelo como complemento del texto guía, no como sustituto.
 :::

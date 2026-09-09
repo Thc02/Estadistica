@@ -69,6 +69,16 @@ La razón es que el software no es un tema, sino el instrumento con que se traba
 | **11** | 2.3 Modelos continuos I | Uniforme; exponencial; tiempo entre fallas y tiempo de respuesta | Investigación bibliográfica 2.1 — modelos estocásticos en gestión del riesgo marítimo |
 | **12** | 2.3 Modelos continuos II | Normal; vida útil de equipos; simulación | **Proyecto Fase II** — aplicar un modelo probabilístico a la base de la UC 1 |
 
+::: {.definicion}
+**Por qué el tema 2.4 no ocupa semana propia**
+
+El sílabo enuncia **2.4 Aplicaciones con software estadístico** —modelado probabilístico, simulación e interpretación de resultados— como contenido de la unidad. Igual que el 1.5, se imparte **distribuido en las cinco semanas**: cada modelo se calcula, se grafica y se simula en la misma sesión en que se define.
+
+La simulación, en particular, no es un añadido: es el instrumento con que se comprueba que un modelo describe los datos. Aparece desde la semana 9, cuando se contrasta la aproximación de Poisson a la binomial, y culmina en la semana 12 con los gráficos cuantil-cuantil.
+
+**El tema 2.3 es, por tanto, el último de la unidad 2.**
+:::
+
 ## Unidad 3 · Inferencia y regresión
 
 **Resultado de aprendizaje.** Aplica técnicas de inferencia estadística y modelos de regresión lineal para analizar datos y sustentar decisiones estratégicas y operacionales en el ámbito naval.

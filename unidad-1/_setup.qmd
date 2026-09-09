@@ -63,6 +63,34 @@ diccionario_flota <- data.frame(
   stringsAsFactors = FALSE
 )
 
+# --- Unidad 2: registro de fallas ------------------------------------------
+# Generador independiente. NO toca generar_flota: las flotas ya repartidas
+# conservan exactamente sus valores.
+
+registro_fallas <- function(correo) {
+  set.seed(semilla_desde(correo) + 7919L)      # desplazamiento primo
+  n <- 60
+  data.frame(
+    distintivo      = paste0("R-", formatC(1:n, width = 3, flag = "0")),
+    horas_entre_fallas = round(rexp(n, rate = 1/runif(1, 380, 460)), 1),
+    respuesta_min      = round(runif(n, 8, 25), 1),
+    vida_util_meses    = round(rnorm(n, runif(1, 52, 62), 9), 1),
+    stringsAsFactors = FALSE
+  )
+}
+
+diccionario_fallas <- data.frame(
+  campo = c("distintivo", "horas_entre_fallas", "respuesta_min", "vida_util_meses"),
+  significado = c(
+    "Identificador del registro de avería",
+    "Horas de navegación transcurridas desde la avería anterior",
+    "Tiempo transcurrido entre el aviso y la llegada del equipo de reparación",
+    "Meses de servicio de la pieza sustituida antes de fallar"),
+  unidad = c("—", "horas", "minutos", "meses"),
+  modelo = c("—", "Exponencial", "Uniforme", "Normal"),
+  stringsAsFactors = FALSE
+)
+
 mi_correo <- "demostracion@espe.edu.ec"
 flota <- generar_flota(mi_correo)
 
@@ -112,7 +140,19 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p14 = list(op = "c",
             por = "Es la falacia de la tasa base. Con un suceso raro, la mayoria de las alarmas provienen de falsos positivos, aunque el sensor sea muy bueno: hay muchisimas mas ocasiones de equivocarse que de acertar."),
   p15 = list(op = "b",
-            por = "La probabilidad total exige que las causas sean excluyentes y exhaustivas: cada unidad viene de una base y de una sola, y no hay una cuarta base. Sin esas dos condiciones la suma no cubre el espacio muestral.")
+            por = "La probabilidad total exige que las causas sean excluyentes y exhaustivas: cada unidad viene de una base y de una sola, y no hay una cuarta base. Sin esas dos condiciones la suma no cubre el espacio muestral."),
+  p16 = list(op = "b",
+            por = "En una variable continua la probabilidad de un valor exacto es cero: lo que tiene probabilidad es un intervalo. Por eso en la continua da igual escribir < que <=, y en la discreta no."),
+  p17 = list(op = "c",
+            por = "La esperanza es un promedio ponderado por las probabilidades, no el promedio simple de los valores posibles. Puede caer donde la variable nunca toma valor: una avería y media no existe, pero es el valor esperado."),
+  p18 = list(op = "a",
+            por = "La binomial exige reposicion, o poblacion grande: p debe ser constante en cada ensayo. Al inspeccionar sin reponer de una flota de 40, p cambia despues de cada extraccion, y el modelo correcto es el hipergeometrico."),
+  p19 = list(op = "c",
+            por = "En Poisson la esperanza y la varianza valen lo mismo, lambda. Si en los datos la varianza es muy superior a la media, el modelo de Poisson no describe bien el fenomeno: hay sobredispersion."),
+  p20 = list(op = "b",
+            por = "La exponencial no tiene memoria: la probabilidad de aguantar 200 horas mas no depende de las horas ya acumuladas. Por eso modela fallas por causa externa, no desgaste."),
+  p21 = list(op = "a",
+            por = "Tipificar no cambia la forma de la distribucion ni las probabilidades: solo cambia las unidades a desviaciones tipicas. Por eso una sola tabla sirve para todas las normales.")
 )
 
 revisar <- function(id, letra) {
@@ -208,5 +248,47 @@ verificar_bayes <- function(x) {
   pd <- c(Esmeraldas = .05, Guayaquil = .02, Manta = .03)[names(p)]
   verificar(x, unname(p["Manta"] * pd["Manta"] / sum(p * pd)),
             pista = "Bayes: P(Manta|D) = P(Manta)*P(D|Manta) / P(D). El denominador es la probabilidad total.")
+}
+
+# --- Unidad 2 ---------------------------------------------------------------
+
+verificar_esperanza <- function(x) {
+  v <- 0:3; p <- c(.45, .30, .18, .07)
+  verificar(x, sum(v * p),
+            pista = "E(X) = suma de cada valor por su probabilidad. No es el promedio de 0,1,2,3.")
+}
+
+verificar_varianza <- function(x) {
+  v <- 0:3; p <- c(.45, .30, .18, .07); mu <- sum(v * p)
+  verificar(x, sum((v - mu)^2 * p),
+            pista = "V(X) = suma de (valor - esperanza)^2 por su probabilidad.")
+}
+
+verificar_binomial <- function(x)
+  verificar(x, dbinom(2, 15, 0.12),
+            pista = "P(X=k) = C(n,k) p^k (1-p)^(n-k), con n = 15, k = 2 y p = 0.12.")
+
+verificar_hiper <- function(x)
+  verificar(x, dhyper(2, 6, 34, 8),
+            pista = "Hipergeometrica: C(K,k)*C(N-K,n-k)/C(N,n), con N=40, K=6, n=8, k=2.")
+
+verificar_poisson <- function(x)
+  verificar(x, dpois(3, 1.8),
+            pista = "P(X=k) = e^(-lambda) lambda^k / k!, con lambda = 1.8 y k = 3.")
+
+verificar_uniforme <- function(x)
+  verificar(x, punif(20, 8, 25) - punif(12, 8, 25),
+            pista = "En la uniforme la probabilidad es longitud del tramo sobre longitud total: (20-12)/(25-8).")
+
+verificar_exponencial <- function(x) {
+  reg <- registro_fallas(mi_correo); m <- mean(reg$horas_entre_fallas)
+  verificar(x, pexp(200, 1/m),
+            pista = "P(X < 200) = 1 - exp(-200/media). La tasa lambda es 1/media.")
+}
+
+verificar_normal <- function(x) {
+  reg <- registro_fallas(mi_correo)
+  verificar(x, pnorm(48, mean(reg$vida_util_meses), sd(reg$vida_util_meses)),
+            pista = "Tipifique: z = (48 - media)/desviacion, y busque P(Z < z). En R, pnorm().")
 }
 ```

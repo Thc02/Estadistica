@@ -1,0 +1,373 @@
+---
+title: "2.2 Modelos estocásticos discretos"
+subtitle: "UC 2 · Modelos estocásticos · Semanas 9 y 10"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include ../unidad-1/_setup.qmd >}}
+
+Tres modelos cubren la mayor parte de los problemas navales que se cuentan: **binomial**, **hipergeométrica** y **Poisson**. Elegir bien entre ellos es casi todo el trabajo; el cálculo lo hace el computador.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+
+Las **aplicaciones navales** que el sílabo enumera en el apartado 2.2.4 —inspecciones, accidentes marítimos y eventos de mantenimiento— no van al final: cada una aparece dentro del modelo que la describe.
+:::
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+table(flota$tipo)
+```
+
+# Semana 9
+
+## 2.2.1 Distribución binomial
+
+Permite hallar la probabilidad de un suceso entre dos posibles al repetir el experimento $n$ veces. Los dos resultados se llaman **éxito**, con probabilidad $p$, y **fracaso**, con probabilidad $q = 1 - p$, y son complementarios: $p + q = 1$.
+
+[Ordóñez et al., 2025, §4.2.1.]{.fuente}
+
+::: {.definicion}
+**Distribución binomial.** Si $X$ es el número de éxitos en $n$ ensayos,
+
+$$P(X = x) = \binom{n}{x} p^x q^{\,n-x}, \qquad x = 0, 1, \dots, n$$
+
+$$E(X) = np \qquad\qquad V(X) = npq$$
+
+[Ordóñez et al., 2025, §4.2.1, citando a Levin y Rubin (2010).]{.fuente}
+:::
+
+::: {.franja}
+**Las cuatro condiciones.** El modelo sólo vale si se cumplen todas:
+
+1. Número **fijo** de ensayos, $n$.
+2. Cada ensayo tiene **dos** resultados posibles.
+3. La probabilidad de éxito $p$ es **la misma en cada ensayo**.
+4. Los ensayos son **independientes**.
+
+La tercera es la que más se incumple en la práctica, y el apartado siguiente explica por qué.
+:::
+
+::: {.inferencia}
+Obsérvese de dónde sale la fórmula: $p^x q^{n-x}$ es la probabilidad de **una** secuencia concreta con $x$ éxitos, por la regla del producto para sucesos independientes del apartado 1.4.4. Y $\binom{n}{x}$ cuenta **cuántas** secuencias distintas tienen $x$ éxitos, que es la combinación del apartado 1.4.3.
+
+**La binomial no es una fórmula nueva: es conteo por probabilidad.** Reconocer sus dos piezas evita memorizarla.
+:::
+
+### Aplicación naval: inspecciones
+
+Ordóñez señala que en la binomial **la probabilidad $p$ se mantiene igual en cada ensayo**, lo que equivale a suponer reposición: el elemento examinado vuelve al conjunto.
+
+[Ordóñez et al., 2025, §4.2.1.]{.fuente}
+
+**Caso.** Un lote grande de chalecos salvavidas tiene históricamente un 12 % de unidades que no superan la prueba de flotabilidad. Se inspeccionan 15 chalecos tomados del almacén. Como el almacén es grande, retirar 15 no altera apreciablemente la proporción, y $p$ puede tomarse constante.
+
+::: {.predice}
+Se esperan $np = 15 \times 0.12 = 1.8$ chalecos defectuosos. Entonces, ¿cuál cree que será el número **más probable**: 1 o 2? Escríbalo antes de ejecutar.
+:::
+
+```{webr}
+n <- 15; p <- 0.12
+
+probabilidades <- dbinom(0:6, n, p)
+names(probabilidades) <- 0:6
+round(probabilidades, 4)
+
+c(esperanza = n * p, varianza = n * p * (1 - p))
+```
+
+```{webr}
+barplot(dbinom(0:8, 15, 0.12), names.arg = 0:8, col = "grey85",
+        main = "Chalecos defectuosos en una inspeccion de 15",
+        xlab = "defectuosos", ylab = "probabilidad")
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Obtenga $P(X = 2)$ con la fórmula binomial, para $n = 15$ y $p = 0.12$.
+:::
+
+```{webr}
+mi_binomial <- 0         # sustituya
+
+verificar_binomial(mi_binomial)
+```
+
+::: {.franja}
+**Cuidado con «hasta» y «al menos».** En una variable discreta el extremo cuenta. En R:
+
+- `dbinom(2, n, p)` es $P(X = 2)$, exactamente dos.
+- `pbinom(2, n, p)` es $P(X \le 2)$, hasta dos **incluido**.
+- `1 - pbinom(2, n, p)` es $P(X > 2)$, es decir tres o más.
+- $P(X \ge 2)$ es `1 - pbinom(1, n, p)`, **no** `1 - pbinom(2, n, p)`.
+
+Ordóñez lo advierte en su ejercicio 4.4: cuando el enunciado incluye el límite inferior, se acumula hasta el valor anterior.
+:::
+
+```{webr}
+c(exactamente_2 = dbinom(2, 15, 0.12),
+  hasta_2       = pbinom(2, 15, 0.12),
+  al_menos_2    = 1 - pbinom(1, 15, 0.12),
+  mas_de_2      = 1 - pbinom(2, 15, 0.12))
+```
+
+## 2.2.2 Distribución hipergeométrica
+
+::: {.definicion}
+**Distribución hipergeométrica.** Describe el número de éxitos al extraer $n$ elementos **sin reposición** de una población finita de tamaño $N$ que contiene $K$ éxitos:
+
+$$P(X = x) = \frac{\dbinom{K}{x}\dbinom{N-K}{\,n-x}}{\dbinom{N}{n}}$$
+
+$$E(X) = n\frac{K}{N} \qquad\qquad V(X) = n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1}$$
+
+[Ordóñez et al., 2025, §4.2.4, citando a Galindo (2015).]{.fuente}
+:::
+
+Ordóñez la describe como una **probabilidad condicional**: al no haber reposición, cada extracción cambia lo que queda, y se aplica a muestras pequeñas tomadas de poblaciones de tamaño conocido.
+
+[Ordóñez et al., 2025, §4.2.4.]{.fuente}
+
+::: {.franja}
+**Es el reencuentro con el muestreo sin reposición del tema 1.2.** Allí la falta de reposición obligaba a la corrección por población finita en el tamaño de muestra; aquí obliga a cambiar de modelo. El factor $\frac{N-n}{N-1}$ de la varianza **es exactamente la misma corrección**.
+:::
+
+### Aplicación naval: inspección de la propia flota
+
+**Caso.** De las 40 unidades de su flota, 6 tienen pendiente la revisión de equipos de salvamento. El comando inspecciona 8 unidades elegidas al azar. Aquí **no hay reposición**: una unidad ya inspeccionada no vuelve al sorteo, y la flota tiene sólo 40 elementos.
+
+::: {.predice}
+Con los mismos números, ¿cree que la binomial y la hipergeométrica darán resultados muy distintos, o parecidos? Escriba su expectativa.
+:::
+
+```{webr}
+N <- 40; K <- 6; n <- 8
+
+hiper <- dhyper(0:6, m = K, n = N - K, k = n)
+binom <- dbinom(0:6, n, K/N)          # lo que saldria si hubiera reposicion
+
+round(rbind(hipergeometrica = hiper, binomial = binom,
+            diferencia = hiper - binom), 4)
+```
+
+```{webr}
+c(E_hiper   = n * K/N,
+  V_hiper   = n * (K/N) * (1 - K/N) * (N - n)/(N - 1),
+  V_binom   = n * (K/N) * (1 - K/N),
+  correccion = (N - n)/(N - 1))
+```
+
+::: {.inferencia}
+Las **esperanzas coinciden**: $nK/N$ en ambos casos. Lo que cambia es la varianza, que en la hipergeométrica es menor por el factor $\frac{N-n}{N-1}$.
+
+Tiene sentido: sin reposición, la muestra no puede repetir unidades, así que hay menos margen para resultados extremos. Muestrear sin reposición **da más precisión**, exactamente el mismo argumento del tema 1.2.4.
+:::
+
+::: {.recomendacion}
+**Regla práctica para elegir.** Si la muestra es menor al 5 % de la población, la diferencia es despreciable y la binomial sirve. Por encima de eso, use la hipergeométrica. Aquí la muestra es el 20 % de la flota, muy por encima del umbral.
+:::
+
+::: {.ejercicio}
+**Detectar el error.** Un guardiamarina calcula con `dbinom` la probabilidad de encontrar exactamente 2 unidades pendientes al inspeccionar 8 de las 40 de la flota.
+
+¿Cuál es el problema?
+
+**a)** El modelo correcto es el hipergeométrico: la inspección es sin reposición sobre una población de 40, así que $p$ no se mantiene constante entre extracciones.
+**b)** Ninguno: con dos resultados posibles siempre se aplica la binomial.
+**c)** Debió usar Poisson, porque se trata de un recuento.
+:::
+
+```{webr}
+revisar("p18", "escriba aquí a, b o c")
+```
+
+```{webr}
+mi_hiper <- 0            # sustituya
+
+verificar_hiper(mi_hiper)
+```
+
+# Semana 10
+
+## 2.2.3 Distribución de Poisson
+
+::: {.definicion}
+**Distribución de Poisson.** Modela el número de sucesos que ocurren en un intervalo de tiempo o de espacio, con un único parámetro $\lambda$:
+
+$$P(X = x) = \frac{e^{-\lambda}\lambda^{x}}{x!}, \qquad x = 0, 1, 2, \dots$$
+
+$$E(X) = \lambda \qquad\qquad V(X) = \lambda$$
+
+[Ordóñez et al., 2025, §4.2.2, citando a Rincón (2013).]{.fuente}
+:::
+
+Ordóñez la presenta como **aproximación de la binomial** cuando el número de ensayos es muy grande y la probabilidad de éxito muy pequeña, con $\lambda = np$, y señala que se presenta como variable temporal o espacial: 2.5 unidades por hora, 4.5 fallas por kilómetro.
+
+[Ordóñez et al., 2025, §4.2.2.]{.fuente}
+
+::: {.predice}
+Si Poisson aproxima a la binomial cuando $n$ es grande y $p$ pequeña, ¿qué tan parecidas serán con $n = 2000$ y $p = 0.0009$? Escriba su expectativa antes de ejecutar.
+:::
+
+```{webr}
+n <- 2000; p <- 0.0009; lambda <- n * p
+
+round(rbind(binomial = dbinom(0:6, n, p),
+            poisson  = dpois(0:6, lambda),
+            diferencia = dbinom(0:6, n, p) - dpois(0:6, lambda)), 6)
+```
+
+::: {.inferencia}
+Coinciden hasta la cuarta o quinta cifra decimal. La afirmación del texto guía **no es una analogía, es un hecho comprobable**: con $n$ grande y $p$ pequeña las dos distribuciones son prácticamente la misma.
+
+Eso explica por qué Poisson necesita un solo parámetro donde la binomial necesita dos. Cuando $p$ es diminuta, $n$ y $p$ dejan de importar por separado: **sólo importa su producto**.
+:::
+
+### La propiedad que la delata
+
+::: {.franja}
+En Poisson **la esperanza y la varianza valen lo mismo**, $\lambda$. Ninguna otra de las distribuciones de este tema tiene esa propiedad, y sirve como prueba rápida: si en unos datos de recuento la varianza es muy superior a la media, el modelo de Poisson no los describe bien. Se dice entonces que hay **sobredispersión**.
+:::
+
+```{webr}
+x <- flota$averias_anio
+
+c(media = mean(x), varianza = var(x), cociente = var(x)/mean(x))
+```
+
+::: {.recomendacion}
+Interprete el cociente varianza/media con prudencia: con 40 datos oscila bastante por puro azar. Un valor entre 0.7 y 1.4 es compatible con Poisson; muy por encima de 2 sugiere que el fenómeno tiene una fuente de variabilidad adicional —por ejemplo, que unas unidades son sistemáticamente más averiables que otras—.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** ¿Qué significa que en la distribución de Poisson $E(X) = V(X) = \lambda$?
+
+**a)** Que la distribución es simétrica.
+**b)** Que $\lambda$ debe ser un número entero.
+**c)** Que centro y dispersión quedan fijados por un solo parámetro, y que si en los datos la varianza supera con mucho a la media, el modelo no es adecuado.
+:::
+
+```{webr}
+revisar("p19", "escriba aquí a, b o c")
+```
+
+### Aplicación naval: accidentes marítimos
+
+Ordóñez plantea el caso con un promedio de 2.3 accidentes por semestre y **transforma $\lambda$ al cambiar de unidad de tiempo mediante una proporción**.
+
+[Ordóñez et al., 2025, §4.2.2, ejercicio 4.5.]{.fuente}
+
+::: {.definicion}
+**$\lambda$ va siempre unido a un intervalo.** Decir «$\lambda = 2.3$» no significa nada sin añadir «por semestre». Si el intervalo cambia, $\lambda$ cambia en la misma proporción: 2.3 por semestre son 4.6 por año y 0.383 por mes.
+
+Es el error más frecuente con este modelo: aplicar un $\lambda$ semestral a una pregunta mensual.
+:::
+
+::: {.predice}
+Con 2.3 accidentes por semestre, ¿la probabilidad de que no ocurra ninguno en un mes será mayor o menor que la de que no ocurra ninguno en un semestre?
+:::
+
+```{webr}
+lambda_semestre <- 2.3
+lambda_mes      <- lambda_semestre / 6
+lambda_anio     <- lambda_semestre * 2
+
+round(c(ninguno_en_un_mes      = dpois(0, lambda_mes),
+        ninguno_en_un_semestre = dpois(0, lambda_semestre),
+        uno_en_el_semestre     = dpois(1, lambda_semestre),
+        hasta_4_en_el_anio     = ppois(4, lambda_anio)), 4)
+```
+
+::: {.franja}
+El texto guía reporta para este caso 23.06 % y 51.34 %. Se comprobaron ambos y coinciden. Cuando un libro y el computador coinciden hasta la cuarta cifra, **las dos vías se refuerzan**: no es que R tenga razón, es que dos procedimientos independientes dan lo mismo.
+:::
+
+### Aplicación naval: eventos de mantenimiento
+
+**Caso.** Un taller de la base registra en promedio 1.8 solicitudes urgentes de mantenimiento por semana. La dotación disponible puede atender hasta 3 por semana sin recurrir a horas extraordinarias.
+
+::: {.predice}
+Se atienden hasta 3 y llegan 1.8 de media. ¿Cree que las semanas problemáticas serán raras, digamos menos del 5 %?
+:::
+
+```{webr}
+lambda <- 1.8
+
+round(c(exactamente_3   = dpois(3, lambda),
+        hasta_3         = ppois(3, lambda),
+        mas_de_3        = 1 - ppois(3, lambda),
+        semanas_al_anio = 52 * (1 - ppois(3, lambda))), 4)
+```
+
+::: {.inferencia}
+Alrededor del 9 % de las semanas superan la capacidad, es decir unas cinco al año. **La capacidad media es suficiente y aun así el sistema se desborda con regularidad**, porque la demanda no llega al ritmo medio sino a rachas.
+
+Dimensionar por el promedio es el error de fondo que ya apareció en el apartado 1.3.7 al presupuestar el consumo con la media. Aquí reaparece con la distribución que lo cuantifica.
+:::
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Con $\lambda = 1.8$ solicitudes por semana, obtenga la probabilidad de que lleguen exactamente 3 en una semana.
+:::
+
+```{webr}
+mi_poisson <- 0          # sustituya
+
+verificar_poisson(mi_poisson)
+```
+
+## Cómo elegir entre los tres modelos
+
+::: {.tabla-ancha}
+| Pregunta | Binomial | Hipergeométrica | Poisson |
+|---|---|---|---|
+| ¿Qué se cuenta? | Éxitos en $n$ ensayos | Éxitos en $n$ extracciones | Sucesos en un intervalo |
+| ¿Hay un $n$ fijo? | Sí | Sí | **No**: el intervalo no acota el máximo |
+| ¿Hay reposición? | Sí, o población muy grande | **No** | No aplica |
+| Parámetros | $n$, $p$ | $N$, $K$, $n$ | $\lambda$ |
+| Esperanza | $np$ | $nK/N$ | $\lambda$ |
+| Varianza | $npq$ | $npq\frac{N-n}{N-1}$ | $\lambda$ |
+| Caso naval | Inspección de un lote grande | Inspección de la propia flota | Accidentes, mantenimiento |
+:::
+
+::: {.recomendacion}
+**Tres preguntas, en este orden.**
+
+1. ¿Hay un número fijo de ensayos? Si no lo hay y se cuentan sucesos en un tiempo o un espacio, es **Poisson**.
+2. Si lo hay, ¿la población es finita y se muestrea sin reposición? Entonces es **hipergeométrica**.
+3. En otro caso, **binomial**.
+
+El sílabo dedica el Taller 2.1 exactamente a esto: elegir el modelo antes de calcular nada.
+:::
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+**Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025).** *Estadística para la Seguridad y Defensa* (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.
+
+Capítulo IV, §4.2 «Distribuciones discretas», páginas 119 a 134. Cubre §4.2.1 binomial con el ejercicio 4.4 resuelto en once apartados, §4.2.2 Poisson con el ejercicio 4.5 sobre accidentes, y §4.2.4 hipergeométrica con el ejercicio 4.7. Incluye las tablas de los apéndices A1 a A4 y las pantallas de R.
+
+::: {.franja}
+El texto guía trata además en §4.2.3 la **distribución geométrica**, que no figura en el sílabo de esta asignatura. Puede leerla, pero no entra en la evaluación.
+:::
+
+#### Ampliación por subtema
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.
+
+Capítulo 3, §§3.4 a 3.6: la distribución binomial, la hipergeométrica y la de Poisson, con la deducción de esperanza y varianza en cada caso y las condiciones de validez discutidas con más detalle que en el texto guía.
+
+**Johnson, R. A. (2012).** *Probabilidad y estadística para ingenieros* (8.ª ed.; V. Campos Olguín, trad.). Pearson Educación. ISBN 978-607-32-0799-7.
+
+Capítulo 4, «Distribuciones de probabilidad»: los mismos tres modelos aplicados a control de calidad y aceptación de lotes, que es el problema de las inspecciones con otro nombre.
+
+#### Apoyo complementario
+
+Si tiene dificultades para comprender un contenido con los textos impresos, consulte esta obra.
+
+**Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+Capítulo 4, «Variables aleatorias discretas»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/4-introduccion>
+
+De acceso libre, en español y con mayor cantidad de ejemplos resueltos. Consúltelo como complemento del texto guía, no como sustituto.

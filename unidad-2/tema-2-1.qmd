@@ -1,0 +1,326 @@
+---
+title: "2.1 Variables aleatorias"
+subtitle: "UC 2 · Modelos estocásticos · Semana 8"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include ../unidad-1/_setup.qmd >}}
+
+En la unidad 1 se describieron datos ya observados y se calcularon probabilidades de sucesos concretos. Aquí se da el paso que hace posible todo lo demás: **asignar un número al resultado de un experimento** y estudiar cómo se reparte la probabilidad entre esos números.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+:::
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+table(flota$averias_anio)
+```
+
+## 2.1.1 Variables aleatorias discretas
+
+::: {.definicion}
+**Variable aleatoria.** Regla que asocia un número a cada resultado posible de un experimento. Se llama **variable** porque son posibles distintos valores numéricos, y **aleatoria** porque el valor observado depende de cuál de los resultados se obtenga.
+
+[Devore, 2016, §3.1.]{.fuente}
+:::
+
+::: {.definicion}
+**Variable aleatoria discreta.** Aquella cuyos valores posibles forman un conjunto finito, o bien pueden ponerse en lista en una secuencia —un primer elemento, un segundo, y así sucesivamente—.
+
+[Devore, 2016, §3.1.]{.fuente}
+:::
+
+En el campo `averias_anio` de su flota, la variable aleatoria es «número de averías que sufre una unidad en el año». Sus valores posibles son 0, 1, 2, … : se cuentan, no se miden.
+
+::: {.franja}
+La distinción es la misma del apartado 1.1.3, ahora con nombre propio: lo que allí eran **variables discretas y continuas** son aquí **variables aleatorias discretas y continuas**. La novedad no es el tipo de variable, sino que ahora se le asocia una probabilidad a cada valor.
+:::
+
+## 2.1.2 Variables aleatorias continuas
+
+::: {.definicion}
+**Variable aleatoria continua.** Aquella que cumple dos condiciones:
+
+1. Sus valores posibles son todos los números de un intervalo, o de una unión de intervalos.
+2. **Ningún valor concreto tiene probabilidad positiva**: $P(X = c) = 0$ para cualquier $c$.
+
+[Devore, 2016, §3.1.]{.fuente}
+:::
+
+La segunda condición desconcierta al leerla por primera vez, y conviene detenerse en ella.
+
+::: {.inferencia}
+Que $P(X = c) = 0$ no significa que el valor $c$ sea imposible. Significa que hay **infinitos valores posibles** en cualquier intervalo, y que preguntar por uno exacto —que el calado sea exactamente 4.370000… m— es preguntar por un punto sin anchura.
+
+En una variable continua lo que tiene probabilidad es un **intervalo**, no un punto. De ahí una consecuencia práctica: en la continua da igual escribir $P(X < a)$ que $P(X \le a)$, porque difieren en un punto de probabilidad nula. **En la discreta esa distinción sí importa**, y confundirlas es el error más frecuente al pasar de un tipo al otro.
+:::
+
+::: {.franja}
+No es una interpretación de este curso: Illowsky y Dean lo enuncian entre las propiedades de las distribuciones continuas, y dan la razón geométrica. El área comprendida entre $x = c$ y $x = c$ **no tiene anchura, luego no tiene área**, y como la probabilidad es área, vale cero. De ahí que $P(c < x < d)$ y $P(c \le x \le d)$ sean lo mismo.
+
+[Illowsky & Dean (OpenStax, 2022), cap. 5, «Propiedades de las distribuciones de probabilidad continuas».]{.fuente}
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** ¿Por qué en una variable continua $P(X < 20)$ y $P(X \le 20)$ valen lo mismo?
+
+**a)** Porque el signo `<` y el signo `≤` son equivalentes en estadística.
+**b)** Porque difieren únicamente en el punto $X = 20$, y en una variable continua un punto aislado tiene probabilidad cero.
+**c)** Porque en la práctica la diferencia es tan pequeña que se desprecia.
+:::
+
+```{webr}
+revisar("p16", "escriba aquí a, b o c")
+```
+
+## 2.1.3 Funciones de probabilidad
+
+Una distribución de probabilidad es el conjunto de todos los resultados posibles de un experimento **junto con la probabilidad asociada a cada uno**.
+
+[Ordóñez et al., 2025, cap. IV.]{.fuente}
+
+La forma de escribirla depende del tipo de variable.
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta}
+#### Discreta: función de probabilidad
+Asigna a cada valor $x$ su probabilidad $p(x)$. Debe cumplir
+
+$$p(x) \ge 0, \qquad \sum_x p(x) = 1$$
+
+Devore la llama **función de masa de probabilidad**.
+:::
+:::
+::: {.g-col-12 .g-col-md-6}
+::: {.tarjeta-media}
+#### Continua: función de densidad
+No da probabilidades, sino **área**. La probabilidad de un intervalo es el área bajo la curva:
+
+$$P(a < X < b) = \int_a^b f(x)\,dx$$
+
+con $f(x) \ge 0$ y área total igual a 1.
+:::
+:::
+:::
+
+[Ordóñez et al., 2025, cap. IV; Devore, 2016, §§3.2 y 4.1.]{.fuente}
+
+::: {.definicion}
+**Función de distribución acumulada**, notada $F(x)$. Acumula la probabilidad **hasta** un valor: $F(x) = P(X \le x)$.
+
+En la discreta se obtiene sumando las probabilidades parciales; en la continua, integrando la densidad. En ambos casos es una función creciente que empieza en 0 y termina en 1.
+
+[Ordóñez et al., 2025, cap. IV.]{.fuente}
+:::
+
+::: {.franja}
+Es la misma idea de la **frecuencia relativa acumulada** $H_i$ del apartado 1.3.1. Allí se acumulaban frecuencias observadas; aquí se acumulan probabilidades teóricas. La construcción es idéntica.
+:::
+
+Construyamos una distribución de probabilidad con las averías de su flota.
+
+::: {.predice}
+Antes de ejecutar: la suma de la tercera fila, la de las probabilidades, ¿qué valor tiene que dar forzosamente?
+:::
+
+```{webr}
+f <- table(flota$averias_anio)
+p <- prop.table(f)                    # función de probabilidad
+F_ <- cumsum(p)                       # función de distribución acumulada
+
+round(rbind(frecuencia = f, probabilidad = p, acumulada = F_), 4)
+
+sum(p)                                # tiene que valer 1
+```
+
+::: {.inferencia}
+Esto es una **distribución empírica**: sale de contar lo que ocurrió. Los modelos de los temas 2.2 y 2.3 son distribuciones **teóricas**, dadas por una fórmula. Todo el trabajo de la unidad consiste en decidir qué fórmula teórica describe razonablemente un conjunto de datos observados, y en qué medida.
+:::
+
+## 2.1.4 Esperanza matemática
+
+::: {.definicion}
+**Esperanza matemática** o **valor esperado**, notada $E(X)$ o $\mu$. Es el promedio de los valores posibles **ponderado por sus probabilidades**:
+
+$$E(X) = \sum_x x \, p(x) \qquad \text{(discreta)} \qquad\qquad E(X) = \int x\,f(x)\,dx \qquad \text{(continua)}$$
+
+[Ordóñez et al., 2025, §4.1, citando a Galindo (2015); Devore, 2016, §3.3.]{.fuente}
+:::
+
+::: {.franja}
+**No es el promedio de los valores posibles.** Es el promedio de los valores posibles pesados por lo probable que es cada uno. Si una unidad sufre 0 averías con probabilidad 0.45 y 3 averías con probabilidad 0.07, el 3 pesa mucho menos que el 0 en el resultado.
+:::
+
+Ordóñez lo interpreta con dos dados: la esperanza vale 7, y eso significa que **si se lanzan los dados muchas veces y se promedian los resultados, ese promedio será 7**.
+
+[Ordóñez et al., 2025, §4.1, ejercicio 4.2.]{.fuente}
+
+::: {.definicion}
+**Ley de los grandes números.** Ese «muchas veces» tiene nombre propio. La ley establece que, **al aumentar el número de ensayos, la diferencia entre la probabilidad teórica y la frecuencia relativa observada tiende a cero**. Por eso al valor esperado se le llama también *promedio a largo plazo*.
+
+Illowsky y Dean lo ilustran con un episodio real: **Karl Pearson lanzó una moneda 24 000 veces y obtuvo 12 012 caras**, una frecuencia relativa de 0.5005 frente a la probabilidad teórica de 0.5.
+
+[Illowsky & Dean (OpenStax, 2022), §4.2.]{.fuente}
+:::
+
+::: {.franja}
+La consecuencia importante es la inversa, y es la que suele olvidarse: **la probabilidad no describe el resultado a corto plazo.** Que la esperanza de averías sea 1.1 no dice nada sobre la próxima unidad que se inspeccione. Sólo dice qué ocurre al promediar muchas.
+:::
+
+::: {.predice}
+La celda simula inspecciones de una unidad tomada al azar y va promediando. ¿A partir de cuántas inspecciones cree que el promedio dejará de moverse apreciablemente: 10, 100 o 1000?
+:::
+
+```{webr}
+set.seed(1)
+sorteos <- sample(flota$averias_anio, 3000, replace = TRUE)
+promedio_acumulado <- cumsum(sorteos) / seq_along(sorteos)
+
+plot(promedio_acumulado, type = "l", log = "x",
+     main = "Convergencia del promedio hacia la esperanza",
+     xlab = "numero de inspecciones (escala log)", ylab = "promedio acumulado")
+abline(h = mean(flota$averias_anio), lwd = 2, lty = 2)
+
+round(promedio_acumulado[c(10, 100, 1000, 3000)], 4)
+```
+
+::: {.inferencia}
+La curva oscila con violencia al principio y se aquieta después. Con diez inspecciones el promedio puede alejarse mucho del valor esperado; con mil ya casi no se despega de la línea.
+
+**Ésta es la justificación de fondo de todo el tema 1.2.** Una muestra grande estima bien porque la ley de los grandes números lo garantiza; una muestra pequeña no, y por eso hacía falta calcular el tamaño en el apartado 1.2.4.
+:::
+
+::: {.predice}
+El valor esperado de las averías de su flota, ¿puede ser un número con decimales, si las averías se cuentan de una en una? Responda antes de ejecutar.
+:::
+
+```{webr}
+valores <- as.numeric(names(p))
+
+esperanza <- sum(valores * p)
+c(esperanza = esperanza, media_de_los_datos = mean(flota$averias_anio))
+```
+
+::: {.inferencia}
+Las dos cifras coinciden, y no por casualidad: **la esperanza de una distribución empírica es exactamente la media aritmética de los datos**. La esperanza no es un concepto nuevo, es la media del apartado 1.3.3 escrita en el lenguaje de la probabilidad.
+
+Y sí puede tener decimales aunque la variable sea entera. Una unidad no sufre 1.1 averías: 1.1 es lo que sufre **en promedio a la larga**. Un valor esperado no tiene por qué ser un valor posible.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Una unidad sufre 0, 1, 2 o 3 averías al año con probabilidades 0.45, 0.30, 0.18 y 0.07. ¿Qué es $E(X)$?
+
+**a)** El valor más probable, es decir 0.
+**b)** El promedio de 0, 1, 2 y 3, es decir 1.5.
+**c)** El promedio ponderado por las probabilidades, que puede no coincidir con ningún valor posible.
+:::
+
+```{webr}
+revisar("p17", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Con esa misma distribución —valores 0, 1, 2, 3 y probabilidades 0.45, 0.30, 0.18, 0.07— obtenga la esperanza a mano.
+:::
+
+```{webr}
+mi_esperanza <- 0        # sustituya
+
+verificar_esperanza(mi_esperanza)
+```
+
+## 2.1.5 Varianza
+
+::: {.definicion}
+**Varianza de una variable aleatoria**, notada $V(X)$ o $\sigma^2$. Es la **desviación al cuadrado esperada** respecto de la media:
+
+$$V(X) = \sum_x (x - \mu)^2\, p(x) = E\big[(X-\mu)^2\big]$$
+
+La desviación típica es su raíz cuadrada.
+
+[Devore, 2016, §3.3; Ordóñez et al., 2025, §4.1.]{.fuente}
+:::
+
+Existe una expresión equivalente, más cómoda para calcular:
+
+$$V(X) = E(X^2) - \mu^2$$
+
+[Ordóñez et al., 2025, §4.1.]{.fuente}
+
+::: {.predice}
+Las dos fórmulas deben dar el mismo número. ¿Cuál cree que acumulará menos error de redondeo si los valores son grandes?
+:::
+
+```{webr}
+mu <- sum(valores * p)
+
+por_definicion  <- sum((valores - mu)^2 * p)
+por_la_atajo    <- sum(valores^2 * p) - mu^2
+
+c(definicion = por_definicion, equivalente = por_la_atajo,
+  diferencia = por_definicion - por_la_atajo)
+```
+
+::: {.recomendacion}
+La segunda fórmula es la que aparece en los libros porque ahorra pasadas sobre los datos, pero **resta dos números grandes y parecidos**, y eso amplifica el error de redondeo. Con los tamaños de este curso da igual; en cálculos con cifras grandes, prefiera la definición.
+
+Es el mismo aviso que Devore da sobre la fórmula de cálculo de $s^2$ en su §1.4: matemáticamente equivalente no significa numéricamente equivalente.
+:::
+
+::: {.ejercicio}
+**Calcular a mano y verificar.** Con la misma distribución de averías, obtenga la varianza.
+:::
+
+```{webr}
+mi_varianza <- 0         # sustituya
+
+verificar_varianza(mi_varianza)
+```
+
+### Interpretación conjunta
+
+::: {.franja}
+Esperanza y varianza cumplen aquí el mismo papel que centro y dispersión en el apartado 1.3.7: **una sola de las dos no describe nada**. Dos unidades con la misma esperanza de averías, una con varianza baja y otra alta, exigen decisiones logísticas distintas: la primera permite planificar, la segunda obliga a reservar holgura.
+:::
+
+```{webr}
+tipos <- split(flota$averias_anio, flota$tipo)
+
+round(t(sapply(tipos, function(v) c(n = length(v), esperanza = mean(v),
+                                    varianza = var(v), desviacion = sd(v)))), 3)
+```
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+**Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025).** *Estadística para la Seguridad y Defensa* (1.ª ed. electrónica). Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.
+
+Capítulo IV, introducción y §4.1 «Esperanza y varianza de las distribuciones de probabilidad», páginas 115 a 118. Distingue distribución discreta y continua, enuncia las propiedades que debe cumplir cada una y define esperanza y varianza para ambos casos.
+
+#### Ampliación por subtema
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.; J. León Cárdenas y J. M. Torres Flores, trads.). Cengage Learning.
+
+— §3.1 «Variables aleatorias», páginas 96 a 99: la definición de variable aleatoria y la distinción formal entre discreta y continua.
+
+— §3.2 «Distribuciones de probabilidad para variables aleatorias discretas», páginas 99 a 107: función de masa de probabilidad y función de distribución acumulada, con la advertencia sobre cuándo $F(b) - F(a)$ incluye o excluye el extremo.
+
+— §3.3 «Valores esperados», páginas 108 a 116: esperanza, varianza y las reglas del valor esperado de una función lineal.
+
+— §4.1 «Funciones de densidad de probabilidad», páginas 143 a 146: por qué en el caso continuo la probabilidad es un área.
+
+#### Apoyo complementario
+
+Si tiene dificultades para comprender un contenido con los textos impresos, consulte esta obra.
+
+**Illowsky, B., & Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
+
+Capítulo 4, «Variables aleatorias discretas»: <https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/4-introduccion>
+
+De acceso libre, en español y con mayor cantidad de ejemplos resueltos. Consúltelo como complemento del texto guía, no como sustituto.

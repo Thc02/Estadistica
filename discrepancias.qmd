@@ -1,18 +1,22 @@
 ---
 title: "Discrepancias entre los textos y R"
-subtitle: "Convenciones divergentes entre los textos del curso y R"
+subtitle: "Convenciones divergentes y errores verificados en los textos del curso"
 toc: true
 toc-depth: 2
 ---
 
 {{< include _extensions/r-wasm/live/_knitr.qmd >}}
 
-Una fórmula estadística no siempre tiene una única forma correcta. Hay puntos en los que los tres textos del curso hacen cosas distintas, y otros en los que R hace algo distinto de los tres. Ninguno está equivocado: son **convenciones**, y lo que importa es declarar cuál se usa.
+Una fórmula estadística no siempre tiene una única forma correcta. Hay puntos en los que los tres textos del curso hacen cosas distintas, y otros en los que R hace algo distinto de los tres. La mayoría de las veces ninguno está equivocado: son **convenciones**, y lo que importa es declarar cuál se usa.
 
-Esta página reúne las que se han verificado numéricamente. Cada una indica qué adopta este curso.
+En unos pocos casos, en cambio, la comprobación numérica revela un **error**. También se recoge aquí, con la verificación a la vista.
+
+Todo lo de esta página se ha comprobado numéricamente, y cada entrada indica qué adopta este curso.
 
 ::: {.franja}
-**Por qué existe esta página.** Un guardiamarina que calcule un cuartil a mano con el texto guía y luego lo compruebe con `quantile()` obtendrá dos números distintos y creerá que se equivocó. No se equivocó: son dos convenciones. Saber eso es parte de la formación.
+**Por qué existe esta página.** Un guardiamarina que calcule un cuartil a mano con el texto guía y luego lo compruebe con `quantile()` obtendrá dos números distintos y creerá que se equivocó. Casi siempre no se equivocó: son dos convenciones. Alguna vez, sin embargo, el número del libro sí está mal, y conviene poder distinguir un caso del otro.
+
+Aprender a hacer esa distinción —y a comprobar antes de dar por bueno— es parte de la formación de un oficial que va a firmar informes.
 :::
 
 ## Resumen
@@ -24,8 +28,10 @@ Esta página reúne las que se han verificado numéricamente. Cada una indica qu
 | 3 | **`hist()` y el número de clases** | R trata `breaks` como sugerencia, no como orden | Se acepta; se comprueba siempre el resultado |
 | 4 | **Asimetría** | Tres estimadores en uso, con hasta 8 % de diferencia | El de Ordóñez, escrito a mano |
 | 5 | **Umbral del coeficiente de variación** | El umbral del texto guía no concuerda con su propia fórmula. **Resuelto en la fuente original** | El CV como fracción si se compara con umbrales |
-| 6 | **Errata en el texto guía** | El cuerpo del texto y su propia tabla no coinciden | Prevalece la tabla |
+| 6 | **Errata de transcripción** | El cuerpo del texto y su propia tabla no coinciden | Prevalece la tabla |
 | 7 | **«Permutación de tamaño k» frente a «variación»** | Misma fórmula, dos nombres según la tradición del texto | Se usa «permutación»; se declara la equivalencia |
+| 8 | **Uniforme: intervalo sin recortar** | El ejercicio 4.9 da 80 %; el valor correcto es 70 % | Se recorta siempre el tramo al soporte |
+| 9 | **Exponencial: valor imposible** | El ejercicio 4.10c da 32.13 %; el máximo que la distribución admite es 25 % | Se usa 23.25 %, verificado y acotado |
 
 : Discrepancias verificadas {.striped}
 
@@ -171,7 +177,7 @@ c(media = mean(sueldos), s = sd(sueldos),
   CV_porcentaje = 100 * sd(sueldos) / mean(sueldos))
 ```
 
-## 6. Una errata del texto guía
+## 6. Una errata de transcripción en el texto guía
 
 En el ejercicio de la moda para datos agrupados (§2.5.1), el cuerpo del texto indica que el límite inferior de la clase modal es **68.27**, mientras que su propia Tabla 2.8 lo fija en **68.67**.
 
@@ -207,6 +213,77 @@ Para Ordóñez, **permutación** designa únicamente el caso $k = n$, es decir $
 
 ::: {.recomendacion}
 Este curso usa **permutación de tamaño $k$**, notada $P(n,k)$, por ser la nomenclatura de la bibliografía internacional y del software. Al leer el texto guía, recuerde que su «variación» $V(n,k)$ es exactamente lo mismo.
+:::
+
+## 8. Un intervalo sin recortar en la distribución uniforme
+
+En el ejercicio 4.9 (§4.3.1), una mochila pesa en promedio 25 lb con un rango de 5 lb. El propio texto deduce correctamente que la variable es uniforme en $[22.5,\ 27.5]$. A continuación pide $P(22 < X < 26)$ y responde **80 %**.
+
+El valor correcto es **70 %**. El tramo pedido empieza en 22, pero **la variable no existe por debajo de 22.5**: allí la densidad vale cero y no aporta probabilidad. El tramo efectivo va de 22.5 a 26, mide 3.5 y no 4, sobre una amplitud total de 5.
+
+$$P(22 < X < 26) = \frac{26 - 22.5}{27.5 - 22.5} = \frac{3.5}{5} = 0.70$$
+
+```{webr}
+a <- 22.5; b <- 27.5
+
+# Por la fórmula, recortando el tramo al soporte
+formula <- punif(26, a, b) - punif(22, a, b)
+
+# Por simulación: un millón de mochilas
+set.seed(1)
+x <- runif(1e6, a, b)
+simulado <- mean(x > 22 & x < 26)
+
+round(c(libro = 0.80, formula = formula, simulado = simulado,
+        sin_recortar = (26 - 22)/(b - a)), 4)
+```
+
+::: {.inferencia}
+La última cifra reproduce el 0.80 del libro: sale de calcular $(26-22)/5$ sin recortar en $a$. **El error no está en la aritmética sino en el paso previo**, el de comprobar que el tramo cabe dentro del soporte de la variable.
+
+Es un error que siempre exagera la probabilidad, nunca la reduce, porque cuenta como probable un tramo donde la variable no puede caer.
+:::
+
+::: {.recomendacion}
+En toda distribución uniforme, antes de dividir longitudes, recorte el intervalo pedido al intervalo $[a,b]$. En R no hace falta pensarlo: `punif()` lo hace sola. Ése es precisamente uno de los motivos para comprobar siempre el cálculo manual con el computador.
+:::
+
+## 9. Un valor imposible en la distribución exponencial
+
+En el ejercicio 4.10 (§4.3.2), una batería tiene una vida media de 12 meses, de donde $\lambda = 1/12$. El apartado c pide $P(12 < X < 24)$ y el texto responde **32.13 %**.
+
+El valor correcto es **23.25 %**:
+
+$$P(12 < X < 24) = e^{-1} - e^{-2} = 0.367879 - 0.135335 = 0.232544$$
+
+Pero aquí ocurre algo más contundente que una diferencia numérica.
+
+::: {.franja}
+**El 32.13 % no es sólo incorrecto para este caso: es inalcanzable para cualquier exponencial.**
+
+La probabilidad de que la variable caiga entre su media y el doble de su media vale $e^{-1} - e^{-2}$ **con independencia de $\lambda$**. La tasa se cancela, porque el intervalo está definido en términos de la propia media. Sea la vida media de doce meses o de cinco mil horas, el resultado es siempre 23.25 %.
+:::
+
+```{webr}
+# La probabilidad no depende de lambda: se comprueba con cinco tasas distintas
+medias <- c(0.5, 1, 12, 100, 5000)
+
+sapply(medias, function(m) pexp(2*m, 1/m) - pexp(m, 1/m))
+```
+
+::: {.inferencia}
+Hay además una cota que cierra el asunto. Escribiendo $u = e^{-\lambda a}$, toda probabilidad de la forma $P(a < X < 2a)$ vale $u - u^{2}$, cuyo **máximo es 0.25**, alcanzado en $u = 0.5$.
+
+Ninguna distribución exponencial puede asignar más del 25 % a un intervalo que va de un valor a su doble. **El 32.13 % está por encima de ese techo**, así que no procede de otra lectura del enunciado ni de otro valor de $\lambda$: es sencillamente un valor que la distribución no admite.
+:::
+
+```{webr}
+# El máximo teórico de u - u^2 en [0, 1]
+optimize(function(u) u - u^2, c(0, 1), maximum = TRUE)
+```
+
+::: {.franja}
+Reténgase el método, más que el caso. Se ha refutado un resultado publicado **sin recalcularlo**, mostrando que excede una cota que la distribución impone. Comprobar que un número cae dentro del rango que su modelo permite es la verificación más barata que existe, y detecta errores que el recálculo puede repetir.
 :::
 
 ## Declaración de la convención en un informe
