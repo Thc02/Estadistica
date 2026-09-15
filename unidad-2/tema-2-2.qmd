@@ -340,6 +340,56 @@ verificar_poisson(mi_poisson)
 El sílabo dedica el Taller 2.1 exactamente a esto: elegir el modelo antes de calcular nada.
 :::
 
+### Taller 2.1 · Clasificar sin calcular
+
+Lo difícil de estos modelos no es la fórmula, es **saber ante cuál se está**. Los ocho enunciados siguientes no piden ningún número: piden nombrar el modelo y justificarlo en una frase.
+
+::: {.franja}
+**Resuélvalos sin tocar la calculadora.** Escriba su respuesta y su razón en el cuaderno **antes** de comprobar. Si acierta el modelo pero por el motivo equivocado, el acierto no sirve: la próxima vez con otros números fallará.
+:::
+
+::: {.ejercicio}
+**d1** · De un lote de 5000 chalecos con un 12 % histórico de defectuosos se inspeccionan 15.
+
+**d2** · De las 40 unidades de la flota, 6 tienen revisión pendiente; se inspeccionan 8 elegidas al azar.
+
+**d3** · Número de solicitudes urgentes de mantenimiento que llegan al taller en una semana.
+
+**d4** · Número de avisos de hombre al agua registrados en toda la flota durante un año.
+
+**d5** · De 12 guardiamarinas examinados se cuenta cuántos aprueban, con una tasa histórica del 80 %.
+
+**d6** · Se extraen 5 cartuchos, sin reponer, de una caja de 50 que contiene 4 defectuosos.
+
+**d7** · Número de ecos espurios que registra el radar por hora de vigilancia.
+
+**d8** · Se fondean 20 boyas y se cuenta cuántas transmiten, con fiabilidad 0.95 e independientes entre sí.
+:::
+
+```{webr}
+# Escriba el modelo: binomial, hipergeometrica o poisson
+clasificar("d1", "escriba aquí el modelo")
+```
+
+```{webr}
+clasificar("d2", "escriba aquí el modelo")
+clasificar("d3", "escriba aquí el modelo")
+clasificar("d4", "escriba aquí el modelo")
+```
+
+```{webr}
+clasificar("d5", "escriba aquí el modelo")
+clasificar("d6", "escriba aquí el modelo")
+clasificar("d7", "escriba aquí el modelo")
+clasificar("d8", "escriba aquí el modelo")
+```
+
+::: {.inferencia}
+Los pares **d1 y d2** y **d5 y d6** están puestos a propósito: cada par se parece mucho y se resuelve con modelos distintos. Lo que los separa no es el tema —inspecciones en los dos casos— sino **si la población es finita y se muestrea sin reponer**.
+
+Si acertó los cuatro, tiene el criterio. Si confundió alguno, el error está en una sola pregunta, y conviene localizarla antes de seguir.
+:::
+
 ## Para leer esta semana
 
 #### Lectura mínima

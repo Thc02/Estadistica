@@ -152,7 +152,9 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p20 = list(op = "b",
             por = "La exponencial no tiene memoria: la probabilidad de aguantar 200 horas mas no depende de las horas ya acumuladas. Por eso modela fallas por causa externa, no desgaste."),
   p21 = list(op = "a",
-            por = "Tipificar no cambia la forma de la distribucion ni las probabilidades: solo cambia las unidades a desviaciones tipicas. Por eso una sola tabla sirve para todas las normales.")
+            por = "Tipificar no cambia la forma de la distribucion ni las probabilidades: solo cambia las unidades a desviaciones tipicas. Por eso una sola tabla sirve para todas las normales."),
+  p22 = list(op = "b",
+            por = "Ninguna de las tres es mas exacta que las otras: cada una responde a una pregunta distinta. 27 supone repuestos distinguibles uno a uno; 10 supone que solo importa cuantos de cada clase; 1 anade que ninguna clase puede repetirse. La aritmetica no decide el supuesto: lo decide el enunciado.")
 )
 
 revisar <- function(id, letra) {
@@ -225,6 +227,10 @@ verificar_combinacion <- function(x)
   verificar(x, choose(40, 3), tol = 0,
             pista = "El orden no importa: C(n,k) = n!/(k!(n-k)!). En R, choose(40, 3).")
 
+verificar_combinacion_repeticion <- function(x)
+  verificar(x, choose(3 + 3 - 1, 3), tol = 0,
+            pista = "CR(n,k) = C(n+k-1, k), con n = 3 clases y k = 3 piezas. En R, choose(5, 3).")
+
 verificar_prob_patrullera <- function(x)
   verificar(x, mean(flota$tipo == "Patrullera"),
             pista = "Casos favorables sobre casos posibles: cuente las patrulleras y divida entre 40.")
@@ -290,5 +296,82 @@ verificar_normal <- function(x) {
   reg <- registro_fallas(mi_correo)
   verificar(x, pnorm(48, mean(reg$vida_util_meses), sd(reg$vida_util_meses)),
             pista = "Tipifique: z = (48 - media)/desviacion, y busque P(Z < z). En R, pnorm().")
+}
+
+# --- Banco de clasificacion: elegir el modelo sin calcular -------------------
+
+.sin_tildes <- function(x) chartr("áéíóúÁÉÍÓÚñÑ", "aeiouAEIOUnN", x)
+
+.normaliza_modelo <- function(x) {
+  x <- tolower(.sin_tildes(trimws(as.character(x))))
+  x <- gsub("^(distribucion|modelo|la|el)\\s+", "", x)
+  syn <- c(binom = "binomial", binomial = "binomial",
+           hiper = "hipergeometrica", hipergeometrica = "hipergeometrica",
+           hipergeometrico = "hipergeometrica", poisson = "poisson",
+           unif = "uniforme", uniforme = "uniforme",
+           exp = "exponencial", exponencial = "exponencial",
+           normal = "normal", gauss = "normal", gaussiana = "normal")
+  if (x %in% names(syn)) unname(syn[x]) else x
+}
+
+.pistas <- list(
+  binomial        = "Binomial exige un numero FIJO de ensayos y una p constante en cada uno.",
+  hipergeometrica = "Hipergeometrica exige poblacion finita conocida y extraccion SIN reposicion.",
+  poisson         = "Poisson cuenta sucesos en un intervalo de tiempo o espacio, y NO tiene un n fijo.",
+  uniforme        = "Uniforme exige que ningun valor del intervalo sea mas probable que otro.",
+  exponencial     = "Exponencial mide el TIEMPO entre sucesos, no cuantos sucesos hay.",
+  normal          = "Normal describe una variable simetrica que se acumula en torno a un centro."
+)
+
+.banco <- list(
+  d1 = list(m = "binomial",
+            por = "Numero fijo de ensayos (15), dos resultados y p constante: el lote es tan grande que retirar 15 no altera la proporcion."),
+  d2 = list(m = "hipergeometrica",
+            por = "Poblacion finita y conocida (40), sin reposicion, y la muestra es el 20 % del total: muy por encima del 5 % que permitiria usar la binomial."),
+  d3 = list(m = "poisson",
+            por = "Se cuentan sucesos en un intervalo de tiempo. No hay un numero fijo de ensayos: podrian llegar cero solicitudes o veinte."),
+  d4 = list(m = "poisson",
+            por = "Igual que el anterior: recuento de sucesos en un intervalo, sin tope superior fijado por el enunciado."),
+  d5 = list(m = "binomial",
+            por = "Doce ensayos fijos, cada guardiamarina aprueba o no, y la tasa historica hace de p constante."),
+  d6 = list(m = "hipergeometrica",
+            por = "Caja de 50 con 4 defectuosos y extraccion sin reponer: poblacion finita conocida y p que cambia en cada extraccion."),
+  d7 = list(m = "poisson",
+            por = "Impactos espurios por hora: sucesos por unidad de tiempo, que es la definicion misma del parametro lambda."),
+  d8 = list(m = "binomial",
+            por = "Veinte boyas, cada una transmite o no, fiabilidad identica e independiente: las cuatro condiciones de la binomial."),
+  c1 = list(m = "exponencial",
+            por = "Se mide el TIEMPO que transcurre hasta el proximo suceso, con una tasa media constante."),
+  c2 = list(m = "uniforme",
+            por = "El enunciado dice que ningun valor del intervalo es mas probable que otro: densidad constante entre 10 y 40."),
+  c3 = list(m = "normal",
+            por = "Variable continua que se acumula simetricamente en torno a un valor central, con dispersion a ambos lados."),
+  c4 = list(m = "binomial",
+            por = "Quince inspecciones fijas, conforme o no conforme, con tasa constante."),
+  c5 = list(m = "hipergeometrica",
+            por = "Ocho extracciones sin reposicion de una flota finita de 40 unidades."),
+  c6 = list(m = "poisson",
+            por = "Recuento de sucesos en un semestre, sin numero fijo de ensayos."),
+  c7 = list(m = "exponencial",
+            por = "Horas ENTRE dos llamadas: tiempo de espera, no recuento. Si se contaran las llamadas por hora seria Poisson."),
+  c8 = list(m = "normal",
+            por = "Error de medida simetrico en torno a cero: el caso clasico de la normal.")
+)
+
+clasificar <- function(id, modelo) {
+  b <- .banco[[id]]
+  if (is.null(b)) { cat("No hay un enunciado con ese identificador.\n"); return(invisible(FALSE)) }
+  m <- .normaliza_modelo(modelo)
+  if (identical(m, b$m)) {
+    cat("Correcto:", b$m, "\n", b$por, "\n"); return(invisible(TRUE))
+  }
+  cat("Todavia no.\n")
+  if (!is.null(.pistas[[m]])) {
+    cat("Usted respondio", m, "-", .pistas[[m]], "\n")
+  } else {
+    cat("Escriba uno de: binomial, hipergeometrica, poisson, uniforme, exponencial, normal.\n")
+  }
+  cat("Vuelva a las preguntas: hay un numero fijo de ensayos? hay reposicion? se cuenta o se mide?\n")
+  invisible(FALSE)
 }
 ```

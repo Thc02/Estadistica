@@ -360,16 +360,52 @@ Un gráfico cuantil-cuantil no dice sólo si hay normalidad: dice **por dónde f
 
 ## Estudio de caso integrador
 
+Con los seis modelos de la unidad ya definidos, la dificultad deja de ser el cálculo y pasa a ser **la elección**. Este cierre la practica en dos tiempos: primero se decide, después se calcula.
+
+### Primer tiempo · clasificar
+
 ::: {.ejercicio}
-**Estudio de caso: elección de modelo.** Para cada una de las cuatro situaciones, decida qué distribución de las seis vistas en la unidad la describe, y justifíquelo en una frase antes de calcular nada.
+**Estudio de caso: elección de modelo.** Nombre el modelo que describe cada situación y justifíquelo en una frase. **Sin calcular nada.**
 
-1. Número de unidades que superan la inspección, de 12 elegidas de un lote grande con 90 % de conformidad.
-2. Minutos que tarda en llegar un remolcador, sabiendo únicamente que nunca baja de 10 ni pasa de 40.
-3. Horas de navegación hasta la próxima avería del sistema eléctrico, con una media histórica de 400 horas.
-4. Número de unidades con revisión pendiente entre las 8 inspeccionadas de las 40 de la flota.
+**c1** · Horas de navegación hasta la próxima avería del sistema eléctrico, con una media histórica de 400 horas.
 
-Después ejecute la celda y compruebe si su elección coincide.
+**c2** · Minutos que tarda en llegar un remolcador, sabiendo sólo que nunca baja de 10 ni pasa de 40, y que ningún valor intermedio es más probable.
+
+**c3** · Vida útil de las piezas sustituidas, en torno a 60 meses y con dispersión simétrica a ambos lados.
+
+**c4** · Cuántas de 15 inspecciones resultan conformes, con una tasa histórica del 88 %.
+
+**c5** · Cuántas de las 8 unidades inspeccionadas, de las 40 de la flota, tienen revisión pendiente.
+
+**c6** · Número de accidentes marítimos registrados en un semestre.
+
+**c7** · Horas transcurridas entre dos llamadas consecutivas al servicio de emergencia marítima.
+
+**c8** · Error de lectura de un instrumento, simétrico en torno a cero.
 :::
+
+```{webr}
+# binomial, hipergeometrica, poisson, uniforme, exponencial o normal
+clasificar("c1", "escriba aquí el modelo")
+clasificar("c2", "escriba aquí el modelo")
+clasificar("c3", "escriba aquí el modelo")
+clasificar("c4", "escriba aquí el modelo")
+```
+
+```{webr}
+clasificar("c5", "escriba aquí el modelo")
+clasificar("c6", "escriba aquí el modelo")
+clasificar("c7", "escriba aquí el modelo")
+clasificar("c8", "escriba aquí el modelo")
+```
+
+::: {.inferencia}
+**c6 y c7 son el mismo fenómeno.** Uno cuenta sucesos en un intervalo y el otro mide el tiempo entre sucesos consecutivos. El primero es Poisson y el segundo exponencial, y la elección no depende del tema sino del **verbo**: contar o medir.
+
+Es la relación que se enunció al abrir el apartado 2.3.2, ahora puesta a prueba.
+:::
+
+### Segundo tiempo · calcular
 
 ```{webr}
 round(c(
