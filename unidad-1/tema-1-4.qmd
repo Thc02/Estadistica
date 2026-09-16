@@ -73,6 +73,32 @@ Devore enuncia el principio del producto de forma general: si la primera etapa a
 
 [Devore, 2016, §2.3.]{.fuente}
 
+::: {.definicion}
+**Cuando todas las etapas ofrecen lo mismo.** Si las $k$ etapas admiten las **mismas** $n$ opciones, el producto tiene todos los factores iguales y se reduce a una potencia:
+
+$$n_1 n_2 \cdots n_k \;=\; \underbrace{n \times n \times \cdots \times n}_{k \text{ etapas}} \;=\; n^{k}$$
+
+**No es una regla nueva.** Es el principio del producto cuando nada se agota entre una etapa y la siguiente, porque cada elección se hace sobre el mismo conjunto completo.
+:::
+
+Es lo que ocurre en el ejercicio 3.15 del texto guía: contar las cédulas que pueden emitirse para una provincia cuyo código son dos dígitos fijos y los ocho restantes son libres. Cada una de las ocho posiciones admite los mismos diez dígitos, así que salen $10^8$, **cien millones**.
+
+[Ordóñez et al., 2025, §3.4.4, ejercicio 3.15.]{.fuente}
+
+::: {.franja}
+**Es el único caso de este tema en que importa el orden y además se puede repetir.** Una bandera puede izarse dos veces en la misma señal; un dígito puede repetirse en una matrícula. Cuando eso ocurre no hay que buscar fórmula: la potencia sale directamente del principio del producto.
+:::
+
+```{webr}
+# Una señal de 3 banderas, escogidas de un juego de 6, pudiendo repetir bandera
+banderas <- 6; posiciones <- 3
+
+c(por_el_principio_del_producto = banderas * banderas * banderas,
+  como_potencia                 = banderas^posiciones,
+  # y enumerando todas las señales posibles, para comprobarlo
+  enumerado = nrow(expand.grid(rep(list(1:banderas), posiciones))))
+```
+
 ::: {.predice}
 Una comisión requiere elegir una base de zarpe entre 3, un tipo de unidad entre 4 y un estado de la mar admisible entre 3. ¿Cuántas configuraciones distintas hay? Calcúlelo antes de ejecutar.
 :::
@@ -307,7 +333,7 @@ No es una propiedad de los objetos sino **de la pregunta**. Dos granadas del mis
 ::: {.tabla-ancha}
 | | ¿objetos distinguibles? | ¿tope por tipo? | fórmula | 3 objetos en 3 tipos |
 |---|---|---|---|---|
-| **A** | Sí | ninguno | $n^k$ | **27** |
+| **A** | Sí | ninguno | $n^k$ · *el del apartado 1.4.1* | **27** |
 | **B** | No | ninguno | $\binom{n+k-1}{k}$ | **10** |
 | **C** | No | máximo uno | $\binom{n}{k}$ | **1** |
 
@@ -334,17 +360,24 @@ rbind(enumerado = enum(3, 3),
 :::
 
 ::: {.franja}
-**Un caso real de ambigüedad, en el propio texto guía.** Su ejercicio 3.12 plantea un arsenal con 45 fusiles, 25 revólveres y 40 granadas, del que se escogen 3 objetos pudiendo repetir. El enunciado admite más de una lectura, y cada una da un número distinto:
+**Un caso real de ambigüedad, en el propio texto guía.** Su ejercicio 3.12 plantea un arsenal con 45 fusiles, 25 revólveres y 40 granadas, del que se escogen 3 objetos **pudiendo repetir**.
 
-| lectura | $n$ | resultado |
+Que se puede repetir lo dice el enunciado, así que esa decisión está tomada. Lo que **no** dice es qué cuenta como un tipo, y de ahí salen dos respuestas igual de legítimas:
+
+| ¿qué es un «tipo»? | $n$ | resultado |
 |---|---|---|
-| Los 110 objetos son distintos entre sí y se puede repetir | 110 | **227 920** ← la del texto guía |
-| Los 110 son distintos y **no** se repite | 110 | 215 820 |
-| Sólo importan las 3 clases, y se puede repetir | 3 | 10 |
+| Cada objeto, individualizado | 110 | **227 920** ← la del texto guía |
+| Cada clase de armamento | 3 | **10** |
 
-El texto guía adopta la primera. **No es un error: es una declaración**, la de tratar cada objeto como individualizado. Pero conviene ver que el enunciado, por sí solo, no la impone.
+El texto guía adopta la primera: tratar cada fusil como distinto de los demás fusiles. **No es un error, es una declaración.** Pero el enunciado, por sí solo, no la impone.
+:::
 
-[La comparación entre las tres lecturas es de este curso. El texto guía sólo desarrolla la primera.]{.ejemplo}
+::: {.inferencia}
+**Cuál de las dos decisiones pesa más.** Si el enunciado no hubiese permitido repetir, la respuesta del texto guía sería 215 820 en lugar de 227 920: un **5.6 %** de diferencia. Cambiar qué cuenta como un tipo, en cambio, la multiplica por **22 792**.
+
+De las dos declaraciones que hace falta hacer, el enunciado hace la que casi no altera el resultado y calla la que lo decide todo. Por eso la pregunta sobre la distinguibilidad va antes que las demás.
+
+[La comparación es de este curso. El texto guía sólo desarrolla la primera lectura.]{.ejemplo}
 :::
 
 ::: {.recomendacion}
@@ -427,10 +460,16 @@ Con los mismos datos, las cuatro reglas dan **720, 120, 56 y 20**. Un factor de 
 Es la mejor razón para no elegir fórmula por parecido: **equivocarse de regla no produce un error pequeño.** No es como redondear mal; es responder a otra pregunta.
 :::
 
+::: {.franja}
+**La casilla que el árbol no cubre.** Las cuatro reglas describen cómo **tomar elementos de un conjunto**, y en tres de ellas cada elemento se agota al usarse. Falta el caso en que **importa el orden y además se puede repetir**: una bandera que se iza dos veces en la misma señal, un dígito que reaparece en una matrícula.
+
+Ahí no hace falta regla nueva. Es el **principio del producto con etapas idénticas**, $n^k$, del apartado 1.4.1: cada posición se elige sobre el conjunto completo, porque nada se ha agotado.
+:::
+
 ::: {.recomendacion}
 **El orden de las preguntas no es negociable.** La de la distinguibilidad va primero porque fija $n$, y las otras dos operan sobre ese $n$ ya fijado. Contestarlas al revés lleva a aplicar la regla correcta sobre el conjunto equivocado, que es el error más difícil de detectar después, porque el cálculo sale impecable.
 
-Este árbol es una ordenación de este curso. Los textos enuncian las cuatro reglas por separado, pero ninguno las presenta como un procedimiento de decisión.
+Este árbol es una ordenación de este curso. Los textos enuncian las reglas por separado, pero ninguno las presenta como un procedimiento de decisión.
 :::
 
 ## 1.4.4 Probabilidad clásica
