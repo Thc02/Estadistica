@@ -394,9 +394,24 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAxNlwiLCBc
 </div>
 <p><span class="fuente">Ordóñez et al., 2025, cap. IV; Devore, 2016, §§3.2 y 4.1.</span></p>
 <div class="definicion">
-<p><strong>Función de distribución acumulada</strong>, notada <span class="math inline">\(F(x)\)</span>. Acumula la probabilidad <strong>hasta</strong> un valor: <span class="math inline">\(F(x) = P(X \le x)\)</span>.</p>
-<p>En la discreta se obtiene sumando las probabilidades parciales; en la continua, integrando la densidad. En ambos casos es una función creciente que empieza en 0 y termina en 1.</p>
-<p><span class="fuente">Ordóñez et al., 2025, cap. IV.</span></p>
+<p><strong>Función de distribución acumulada</strong>, notada <span class="math inline">\(F(x)\)</span>. Acumula la probabilidad <strong>hasta</strong> un valor: <span class="math display">\[F(x) = P(X \le x)\]</span></p>
+<p>En el caso <strong>discreto</strong> se suman las probabilidades de todos los valores que no superan <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[F(x) = P(X \le x) = \sum_{y \,\le\, x} p(y)\]</span></p>
+<p>En el caso <strong>continuo</strong> se integra la función de densidad desde <span class="math inline">\(-\infty\)</span> hasta <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[F(x) = P(X \le x) = \int_{-\infty}^{\,x} f(y)\,dy\]</span></p>
+<p>En ambos casos es una función creciente que empieza en 0 y termina en 1.</p>
+<p><span class="fuente">Ordóñez et al., 2025, cap. IV; Devore, 2016, §4.2.</span></p>
+</div>
+<div class="franja">
+<p><strong>Fíjese en la letra de la variable de integración.</strong> Se integra <span class="math inline">\(f(y)\,dy\)</span>, no <span class="math inline">\(f(x)\,dx\)</span>: la <span class="math inline">\(x\)</span> ya está ocupada como <strong>extremo superior</strong> del intervalo, así que la variable que recorre el intervalo necesita otro nombre. Devore usa <span class="math inline">\(y\)</span> por ese motivo, y Ordóñez hace lo mismo en su versión discreta con <span class="math inline">\(w\)</span>.</p>
+<p>Escribir <span class="math inline">\(\int_{-\infty}^{x} f(x)\,dx\)</span> es el error de notación más frecuente aquí, y no es inocuo: confunde el valor donde se evalúa la función con el que se está recorriendo.</p>
+</div>
+<div class="inferencia">
+<p>La integral dice en lenguaje de cálculo lo que Illowsky y Dean enuncian geométricamente: <strong><span class="math inline">\(F(x)\)</span> es el área bajo la curva de densidad a la izquierda de <span class="math inline">\(x\)</span></strong>. Devore lo describe con esas mismas palabras.</p>
+<p>De ahí se sigue de inmediato la fórmula que se usará en todo el tema 2.3:</p>
+<p><span class="math display">\[P(a &lt; X &lt; b) = F(b) - F(a)\]</span></p>
+<p>porque restar dos áreas acumuladas deja exactamente el área del tramo intermedio.</p>
+<p><span class="fuente">Devore, 2016, §4.2; Illowsky &amp; Dean (OpenStax, 2022), cap. 5.</span></p>
 </div>
 <div class="franja">
 <p>Es la misma idea de la <strong>frecuencia relativa acumulada</strong> <span class="math inline">\(H_i\)</span> del apartado 1.3.1. Allí se acumulaban frecuencias observadas; aquí se acumulan probabilidades teóricas. La construcción es idéntica.</p>
@@ -422,9 +437,39 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZiA8LSB0YWJsZShmbG90YSRh
 <section id="esperanza-matemática" class="level2">
 <h2 class="anchored" data-anchor-id="esperanza-matemática">2.1.4 Esperanza matemática</h2>
 <div class="definicion">
-<p><strong>Esperanza matemática</strong> o <strong>valor esperado</strong>, notada <span class="math inline">\(E(X)\)</span> o <span class="math inline">\(\mu\)</span>. Es el promedio de los valores posibles <strong>ponderado por sus probabilidades</strong>:</p>
+<p><strong>Esperanza matemática</strong>, notada <span class="math inline">\(E(X)\)</span> o <span class="math inline">\(\mu\)</span>. Es el promedio de los valores posibles <strong>ponderado por sus probabilidades</strong>:</p>
 <p><span class="math display">\[E(X) = \sum_x x \, p(x) \qquad \text{(discreta)} \qquad\qquad E(X) = \int x\,f(x)\,dx \qquad \text{(continua)}\]</span></p>
-<p><span class="fuente">Ordóñez et al., 2025, §4.1, citando a Galindo (2015); Devore, 2016, §3.3.</span></p>
+<p><strong>Tiene tres nombres, y los tres significan lo mismo:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>nombre</th>
+<th>dónde aparece</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Esperanza matemática · valor esperado</td>
+<td>Ordóñez et al.&nbsp;(§4.1)</td>
+</tr>
+<tr class="even">
+<td><strong>Valor medio</strong></td>
+<td>Devore (§3.3), que escribe «el valor esperado o valor medio de <span class="math inline">\(X\)</span>»</td>
+</tr>
+<tr class="odd">
+<td>Media · promedio a largo plazo</td>
+<td>Illowsky &amp; Dean (§4.2), cuyo apartado se titula «Media o valor esperado»</td>
+</tr>
+</tbody>
+</table>
+<p><span class="fuente">Ordóñez et al., 2025, §4.1, citando a Galindo (2015); Devore, 2016, §3.3; Illowsky &amp; Dean (OpenStax, 2022), §4.2.</span></p>
+</div>
+<div class="franja">
+<p>Que se llame <strong>media</strong> no es una coincidencia de vocabulario: es la misma media del apartado 1.3.3, calculada ahora sobre una distribución de probabilidad en lugar de sobre un conjunto de datos observados. Por eso comparte símbolo, <span class="math inline">\(\mu\)</span>, con la media poblacional del tema 1.1.</p>
 </div>
 <div class="franja">
 <p><strong>No es el promedio de los valores posibles.</strong> Es el promedio de los valores posibles pesados por lo probable que es cada uno. Si una unidad sufre 0 averías con probabilidad 0.45 y 3 averías con probabilidad 0.07, el 3 pesa mucho menos que el 0 en el resultado.</p>
