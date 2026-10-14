@@ -111,11 +111,38 @@ con $f(x) \ge 0$ y área total igual a 1.
 [Ordóñez et al., 2025, cap. IV; Devore, 2016, §§3.2 y 4.1.]{.fuente}
 
 ::: {.definicion}
-**Función de distribución acumulada**, notada $F(x)$. Acumula la probabilidad **hasta** un valor: $F(x) = P(X \le x)$.
+**Función de distribución acumulada**, notada $F(x)$. Acumula la probabilidad **hasta** un valor:
+$$F(x) = P(X \le x)$$
 
-En la discreta se obtiene sumando las probabilidades parciales; en la continua, integrando la densidad. En ambos casos es una función creciente que empieza en 0 y termina en 1.
+En el caso **discreto** se suman las probabilidades de todos los valores que no superan $x$:
 
-[Ordóñez et al., 2025, cap. IV.]{.fuente}
+$$F(x) = P(X \le x) = \sum_{y \,\le\, x} p(y)$$
+
+En el caso **continuo** se integra la función de densidad desde $-\infty$ hasta $x$:
+
+$$F(x) = P(X \le x) = \int_{-\infty}^{\,x} f(y)\,dy$$
+
+En ambos casos es una función creciente que empieza en 0 y termina en 1.
+
+[Ordóñez et al., 2025, cap. IV; Devore, 2016, §4.2.]{.fuente}
+:::
+
+::: {.franja}
+**Fíjese en la letra de la variable de integración.** Se integra $f(y)\,dy$, no $f(x)\,dx$: la $x$ ya está ocupada como **extremo superior** del intervalo, así que la variable que recorre el intervalo necesita otro nombre. Devore usa $y$ por ese motivo, y Ordóñez hace lo mismo en su versión discreta con $w$.
+
+Escribir $\int_{-\infty}^{x} f(x)\,dx$ es el error de notación más frecuente aquí, y no es inocuo: confunde el valor donde se evalúa la función con el que se está recorriendo.
+:::
+
+::: {.inferencia}
+La integral dice en lenguaje de cálculo lo que Illowsky y Dean enuncian geométricamente: **$F(x)$ es el área bajo la curva de densidad a la izquierda de $x$**. Devore lo describe con esas mismas palabras.
+
+De ahí se sigue de inmediato la fórmula que se usará en todo el tema 2.3:
+
+$$P(a < X < b) = F(b) - F(a)$$
+
+porque restar dos áreas acumuladas deja exactamente el área del tramo intermedio.
+
+[Devore, 2016, §4.2; Illowsky & Dean (OpenStax, 2022), cap. 5.]{.fuente}
 :::
 
 ::: {.franja}
@@ -145,11 +172,23 @@ Esto es una **distribución empírica**: sale de contar lo que ocurrió. Los mod
 ## 2.1.4 Esperanza matemática
 
 ::: {.definicion}
-**Esperanza matemática** o **valor esperado**, notada $E(X)$ o $\mu$. Es el promedio de los valores posibles **ponderado por sus probabilidades**:
+**Esperanza matemática**, notada $E(X)$ o $\mu$. Es el promedio de los valores posibles **ponderado por sus probabilidades**:
 
 $$E(X) = \sum_x x \, p(x) \qquad \text{(discreta)} \qquad\qquad E(X) = \int x\,f(x)\,dx \qquad \text{(continua)}$$
 
-[Ordóñez et al., 2025, §4.1, citando a Galindo (2015); Devore, 2016, §3.3.]{.fuente}
+**Tiene tres nombres, y los tres significan lo mismo:**
+
+| nombre | dónde aparece |
+|---|---|
+| Esperanza matemática · valor esperado | Ordóñez et al. (§4.1) |
+| **Valor medio** | Devore (§3.3), que escribe «el valor esperado o valor medio de $X$» |
+| Media · promedio a largo plazo | Illowsky & Dean (§4.2), cuyo apartado se titula «Media o valor esperado» |
+
+[Ordóñez et al., 2025, §4.1, citando a Galindo (2015); Devore, 2016, §3.3; Illowsky & Dean (OpenStax, 2022), §4.2.]{.fuente}
+:::
+
+::: {.franja}
+Que se llame **media** no es una coincidencia de vocabulario: es la misma media del apartado 1.3.3, calculada ahora sobre una distribución de probabilidad en lugar de sobre un conjunto de datos observados. Por eso comparte símbolo, $\mu$, con la media poblacional del tema 1.1.
 :::
 
 ::: {.franja}
