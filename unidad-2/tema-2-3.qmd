@@ -185,6 +185,41 @@ revisar("p20", "escriba aquí a, b o c")
 Antes de aplicar la exponencial a un equipo, pregúntese si sus fallas son por **azar externo** o por **desgaste acumulado**. Si es lo segundo —cojinetes, cables, recubrimientos—, el modelo subestimará las fallas tardías. Existen modelos con envejecimiento, como el de Weibull, que este curso no cubre pero cuya existencia conviene conocer.
 :::
 
+### La falta de memoria no es una propiedad general
+
+::: {.franja}
+Conviene no confundir una propiedad de **un modelo** con una propiedad de **las variables continuas**. La falta de memoria caracteriza a la exponencial, y de hecho la define: es la única distribución continua que la posee. Cualquier otro modelo de espera sí tiene memoria.
+:::
+
+Illowsky y Dean proponen un contraejemplo útil. Un tren de enlace llega cada ocho minutos, de modo que el tiempo de espera de un viajero que se presenta en el andén sin consultar el horario es **uniforme** en $(0, 8)$. Preguntan por la probabilidad de esperar más de siete minutos dado que ya se ha esperado más de cuatro.
+
+::: {.predice}
+Un viajero lleva cuatro minutos en el andén. ¿Diría que la probabilidad de que aún le queden tres minutos de espera es mayor, menor o igual a la que tenía al llegar?
+:::
+
+```{webr}
+# Esperar 3 minutos mas, sin y con 4 minutos de espera previa
+sup_unif <- function(t) punif(t, 0, 8, lower.tail = FALSE)
+
+lam     <- 1/8                       # exponencial con la misma espera media
+sup_exp <- function(t) pexp(t, lam, lower.tail = FALSE)
+
+round(rbind(
+  uniforme    = c(al_llegar = sup_unif(3), tras_esperar_4 = sup_unif(7)/sup_unif(4)),
+  exponencial = c(al_llegar = sup_exp(3),  tras_esperar_4 = sup_exp(7)/sup_exp(4))
+), 4)
+```
+
+::: {.inferencia}
+En la uniforme la probabilidad **se desploma** de $0.625$ a $0.25$; en la exponencial no se mueve.
+
+La razón es el soporte. El de la uniforme está acotado: el tren llega a más tardar en el minuto ocho, de modo que cada minuto transcurrido estrecha la ventana que queda y acerca la llegada. El viajero que lleva cuatro minutos esperando **sabe más** que el que acaba de llegar. El soporte de la exponencial, en cambio, no tiene cota superior y su tasa es constante, así que el tiempo ya transcurrido no aporta información.
+
+Traducido al registro de fallas: si un equipo tiene una vida útil con tope —se reemplaza obligatoriamente a las 2.000 horas—, su tiempo hasta la falla **no** puede modelarse como exponencial, por mucho que el histograma se le parezca.
+:::
+
+[Illowsky, B., & Dean, S. (2022). *Introducción a la estadística*, cap. 5, «Tarea para la casa», ejercicios 79 a 81. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0. Enunciado adaptado.]{.fuente}
+
 ::: {.ejercicio}
 **Calcular a mano y verificar.** Con la tasa estimada de su registro, obtenga la probabilidad de que el tiempo hasta la próxima falla sea menor de 200 horas.
 :::
