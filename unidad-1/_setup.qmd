@@ -154,7 +154,15 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p21 = list(op = "a",
             por = "Tipificar no cambia la forma de la distribucion ni las probabilidades: solo cambia las unidades a desviaciones tipicas. Por eso una sola tabla sirve para todas las normales."),
   p22 = list(op = "b",
-            por = "Ninguna de las tres es mas exacta que las otras: cada una responde a una pregunta distinta. 27 supone repuestos distinguibles uno a uno; 10 supone que solo importa cuantos de cada clase; 1 anade que ninguna clase puede repetirse. La aritmetica no decide el supuesto: lo decide el enunciado.")
+            por = "Ninguna de las tres es mas exacta que las otras: cada una responde a una pregunta distinta. 27 supone repuestos distinguibles uno a uno; 10 supone que solo importa cuantos de cada clase; 1 anade que ninguna clase puede repetirse. La aritmetica no decide el supuesto: lo decide el enunciado."),
+  p23 = list(op = "b",
+             por = "El teorema central del limite no dice nada sobre los datos: dice que se aproxima a la normal la distribucion de la MEDIA MUESTRAL. La poblacion conserva su forma por mucho que crezca n; lo que se vuelve acampanado es el histograma de las medias."),
+  p24 = list(op = "c",
+             por = "Devore lo advierte expresamente: el nivel de confianza describe el porcentaje de captura a largo plazo cuando la formula se aplica a muchas muestras. Para un intervalo ya calculado, mu esta dentro o no esta; no hay probabilidad que repartir."),
+  p25 = list(op = "a",
+             por = "No rechazar no es demostrar. Significa que la muestra no aporta evidencia suficiente contra H0 en ese nivel de significancia; H0 sigue siendo factible, igual que un acusado absuelto no queda probado inocente."),
+  p26 = list(op = "c",
+             por = "El valor-p se calcula SUPONIENDO que H0 es verdadera, de modo que no puede ser la probabilidad de que H0 sea verdadera. Es la probabilidad de obtener una muestra al menos tan contradictoria con H0 como la observada.")
 )
 
 revisar <- function(id, letra) {
@@ -296,6 +304,56 @@ verificar_normal <- function(x) {
   reg <- registro_fallas(mi_correo)
   verificar(x, pnorm(48, mean(reg$vida_util_meses), sd(reg$vida_util_meses)),
             pista = "Tipifique: z = (48 - media)/desviacion, y busque P(Z < z). En R, pnorm().")
+}
+
+# --- Unidad 3: muestreo desde la flota propia -------------------------------
+# La flota de 40 unidades hace de POBLACION. Las muestras se extraen CON
+# reposicion, de modo que las extracciones son independientes y se cumple
+# exactamente sigma_xbarra = sigma / sqrt(n), sin correccion por poblacion finita.
+
+sigma_poblacional <- function(x) sqrt(mean((x - mean(x))^2))
+
+extraer_muestra <- function(correo, n = 50, replica = 1) {
+  poblacion <- generar_flota(correo)$velocidad_nudos
+  set.seed(semilla_desde(correo) + 104729L + replica)
+  sample(poblacion, n, replace = TRUE)
+}
+
+medias_repetidas <- function(correo, n = 8, repeticiones = 2000) {
+  poblacion <- generar_flota(correo)$velocidad_nudos
+  set.seed(semilla_desde(correo) + 104729L)
+  replicate(repeticiones, mean(sample(poblacion, n, replace = TRUE)))
+}
+
+mi_muestra <- extraer_muestra(mi_correo)
+velocidad_declarada <- 18.0   # valor nominal de la ficha tecnica del astillero
+
+verificar_error_estandar <- function(x)
+  verificar(x, sd(mi_muestra) / sqrt(length(mi_muestra)), tol = 0.02,
+            pista = "Divida la desviacion tipica de la muestra entre la raiz del tamano de muestra.")
+
+verificar_ic <- function(li, ls) {
+  if (missing(li) || missing(ls) || !is.numeric(li) || !is.numeric(ls)) {
+    cat("Hacen falta los dos extremos del intervalo.\n"); return(invisible(FALSE))
+  }
+  e <- qnorm(0.975) * sd(mi_muestra) / sqrt(length(mi_muestra))
+  ok1 <- verificar(li, mean(mi_muestra) - e, tol = 0.02,
+                   pista = "Extremo inferior: media muestral menos 1.96 errores estandar.")
+  ok2 <- verificar(ls, mean(mi_muestra) + e, tol = 0.02,
+                   pista = "Extremo superior: media muestral mas 1.96 errores estandar.")
+  invisible(ok1 && ok2)
+}
+
+verificar_z_media <- function(x)
+  verificar(x, (mean(mi_muestra) - velocidad_declarada) /
+               (sd(mi_muestra) / sqrt(length(mi_muestra))), tol = 0.02,
+            pista = "z = (media muestral - valor nulo) / error estandar.")
+
+verificar_valor_p <- function(x) {
+  z <- (mean(mi_muestra) - velocidad_declarada) /
+       (sd(mi_muestra) / sqrt(length(mi_muestra)))
+  verificar(x, 2 * (1 - pnorm(abs(z))), tol = 0.03,
+            pista = "La alternativa es de dos colas: el valor-p es 2*(1 - pnorm(abs(z))).")
 }
 
 # --- Banco de clasificacion: elegir el modelo sin calcular -------------------

@@ -81,6 +81,32 @@ toc: false
 - **2.3.4** Aplicaciones navales · *integradas en cada modelo*
 :::
 
+### Unidad curricular 3 (UC 3) · Inferencia y regresión
+
+::: {.tarjeta}
+#### [Tema 3.1 · Distribuciones muestrales](unidad-3/tema-3-1.qmd) · Semana 13
+
+- **3.1.1** Distribución muestral de la media
+- **3.1.2** Teorema Central del Límite
+:::
+
+::: {.tarjeta}
+#### [Tema 3.2 · Estimación de parámetros](unidad-3/tema-3-2.qmd) · Semana 14
+
+- **3.2.1** Estimación puntual
+- **3.2.2** Intervalos de confianza para la media
+:::
+
+::: {.tarjeta}
+#### [Tema 3.3 · Contraste de hipótesis](unidad-3/tema-3-3.qmd) · Semana 15
+
+- **3.3.1** Formulación de hipótesis
+- **3.3.2** Nivel de significancia
+- **3.3.3** Valor-p
+- **3.3.4** Errores Tipo I y Tipo II
+- **3.3.5** Pruebas para la media
+:::
+
 ## Uso del material
 
 Cada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.

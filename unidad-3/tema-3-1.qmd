@@ -1,0 +1,229 @@
+---
+title: "3.1 Distribuciones muestrales"
+subtitle: "UC 3 · Inferencia y regresión · Semana 13"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include ../unidad-1/_setup.qmd >}}
+
+Hasta aquí el curso ha descrito datos y ha modelado variables. A partir de esta unidad hace algo distinto: **sacar conclusiones sobre una población a partir de una muestra**. El puente entre ambas cosas es el objeto de esta página.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+
+**Un aviso sobre las fuentes.** El texto de Ordóñez termina en el capítulo IV y no cubre inferencia. Desde esta unidad las referencias son Devore, Johnson e Illowsky y Dean.
+:::
+
+### Su flota, ahora como población
+
+En las unidades 1 y 2 sus 40 unidades eran los datos. En esta unidad cambian de papel: **son la población**, con una media $\mu$ y una desviación típica $\sigma$ que usted puede calcular exactamente. De ella se extraerán muestras.
+
+Esa inversión es deliberada. En un problema real nunca se conoce $\mu$; aquí sí, y eso permite comprobar si los métodos de inferencia funcionan.
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+poblacion <- flota$velocidad_nudos
+
+c(unidades = length(poblacion),
+  mu       = mean(poblacion),
+  sigma    = sigma_poblacional(poblacion))
+```
+
+::: {.definicion}
+**Por qué `sigma_poblacional()` y no `sd()`.** La función `sd()` de R divide entre $n-1$ porque supone que los datos son una **muestra** y estima la dispersión de una población mayor. Aquí los 40 barcos **son** la población entera, de modo que el divisor correcto es $n$:
+
+$$\sigma = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2}$$
+
+Con $N = 40$ la diferencia entre los dos divisores es de alrededor del 1 %, pero la distinción conceptual no es menor: una es un parámetro, la otra un estimador.
+:::
+
+## 3.1.1 Distribución muestral de la media
+
+::: {.definicion}
+**Estadístico.** Cualquier cantidad calculada a partir de una muestra: la media muestral $\bar{X}$, la desviación típica muestral $S$, la proporción $\hat{p}$. Como su valor depende de qué muestra salió, **un estadístico es una variable aleatoria** y tiene su propia distribución de probabilidad.
+
+**Distribución muestral.** La distribución de probabilidad de un estadístico.
+
+[Devore, 2016, §5.3; Johnson, 2012, §6.1.]{.fuente}
+:::
+
+Esta es la idea que organiza toda la unidad, y conviene detenerse en ella. El parámetro $\mu$ es un número fijo y desconocido. La media muestral $\bar{x}$ es un número conocido que cambia con cada muestra. La inferencia consiste en aprovechar lo que se sabe sobre **cómo varía $\bar{X}$** para acotar dónde puede estar $\mu$.
+
+::: {.predice}
+Va a extraer muchas muestras de 8 unidades de su flota y a calcular la media de cada una. ¿Dónde espera que se sitúe el promedio de todas esas medias? ¿Y espera que las medias estén más o menos dispersas que las velocidades individuales?
+:::
+
+```{webr}
+# 2000 muestras de 8 unidades, con reposicion
+medias <- medias_repetidas(mi_correo, n = 8, repeticiones = 2000)
+
+round(c(mu_poblacion       = mean(poblacion),
+        promedio_de_medias = mean(medias),
+        sigma_poblacion    = sigma_poblacional(poblacion),
+        desviacion_medias  = sd(medias)), 4)
+```
+
+::: {.definicion}
+**Esperanza y error estándar de la media muestral.** Si $X_1, \dots, X_n$ son una muestra aleatoria de una población con media $\mu$ y desviación típica $\sigma$:
+
+$$E(\bar{X}) = \mu \qquad\qquad \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$$
+
+A la cantidad $\sigma/\sqrt{n}$ se la llama **error estándar de la media**. Describe la magnitud de una desviación típica de la media muestral respecto de la media poblacional.
+
+[Devore, 2016, §5.4.]{.fuente}
+:::
+
+```{webr}
+# El error estandar teorico frente al observado en la simulacion
+c(teorico  = sigma_poblacional(poblacion)/sqrt(8),
+  simulado = sd(medias))
+```
+
+::: {.inferencia}
+Las dos cifras coinciden hasta la segunda o tercera decimal. Conviene leer con cuidado qué dice cada una de las dos fórmulas.
+
+La primera, $E(\bar{X}) = \mu$, dice que la media muestral **no está sesgada**: no tiende a quedarse corta ni a pasarse. Promediar muchas muestras devuelve el valor verdadero.
+
+La segunda, $\sigma_{\bar{X}} = \sigma/\sqrt{n}$, dice que la media muestral es **menos variable que un dato suelto**, y que esa variabilidad disminuye al crecer $n$. Pero disminuye como $\sqrt{n}$, no como $n$: para reducir a la mitad el error estándar hay que **cuadruplicar** el tamaño de muestra. Esa raíz cuadrada es la que fija el coste de la precisión, y reaparecerá en el ancho de los intervalos del tema 3.2 y en la potencia de las pruebas del 3.3.
+:::
+
+```{webr}
+# El precio de la precision: error estandar para distintos tamanos de muestra
+sigma <- sigma_poblacional(poblacion)
+data.frame(n = c(4, 8, 16, 32, 64, 128),
+           error_estandar = round(sigma/sqrt(c(4, 8, 16, 32, 64, 128)), 4))
+```
+
+### Aplicación naval: precisión de una estimación de velocidad
+
+```{webr}
+# Cuantas unidades hay que medir para que el error estandar baje de 0.5 nudos?
+n <- 1:60
+min(n[sigma/sqrt(n) < 0.5])
+```
+
+::: {.recomendacion}
+Cuando alguien proponga «medir unas cuantas unidades más» para mejorar una estimación, pida el número. La raíz cuadrada castiga la improvisación: pasar de 16 a 20 unidades apenas mueve la precisión, mientras que pasar de 16 a 64 la duplica. Conviene calcular el $n$ necesario antes de salir a medir, no después.
+:::
+
+## 3.1.2 Teorema Central del Límite
+
+Las dos fórmulas anteriores dan el centro y la dispersión de $\bar{X}$, pero no su **forma**. Sin la forma no se pueden calcular probabilidades. El teorema central del límite la proporciona.
+
+::: {.definicion}
+**Teorema central del límite (TCL).** Sean $X_1, \dots, X_n$ una muestra aleatoria de una distribución con media $\mu$ y varianza $\sigma^2$. Si $n$ es suficientemente grande, $\bar{X}$ tiene **aproximadamente** una distribución normal con
+
+$$\mu_{\bar{X}} = \mu \qquad\qquad \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$$
+
+Cuanto mayor es $n$, mejor es la aproximación.
+
+**Regla empírica.** Si $n > 30$, se puede utilizar el teorema central del límite.
+
+[Devore, 2016, §5.4; Illowsky y Dean (OpenStax, 2022), cap. 7.]{.fuente}
+:::
+
+::: {.franja}
+**Lo notable del teorema es de qué no depende.** No exige que la población sea normal. No exige que sea continua. No exige conocer su forma. Sea cual sea la distribución de partida, el promedio de muchas observaciones se comporta como una normal. Por eso la normal aparece en tantos sitios: la mayoría de las magnitudes que medimos son agregados de muchas contribuciones pequeñas.
+:::
+
+::: {.predice}
+Las horas entre fallas de su registro son exponenciales: muy asimétricas, con una cola larga a la derecha. Si promedia 30 de esas horas y repite el experimento muchas veces, ¿qué forma espera que tenga el histograma de las medias?
+:::
+
+```{webr}
+# Partimos de una poblacion deliberadamente NO normal
+registro <- registro_fallas(mi_correo)
+horas <- registro$horas_entre_fallas
+
+par(mfrow = c(1, 2))
+hist(horas, breaks = 15, col = "grey85",
+     main = "Poblacion: horas entre fallas", xlab = "horas", ylab = "frecuencia")
+
+set.seed(1)
+medias30 <- replicate(2000, mean(sample(horas, 30, replace = TRUE)))
+hist(medias30, breaks = 20, col = "grey85",
+     main = "Medias de 30 observaciones", xlab = "horas", ylab = "frecuencia")
+par(mfrow = c(1, 1))
+```
+
+```{webr}
+# La asimetria de la poblacion frente a la de las medias
+asimetria <- function(x) sum((x - mean(x))^3) / (length(x) * sd(x)^3)
+
+round(c(poblacion = asimetria(horas),
+        medias_n30 = asimetria(medias30)), 4)
+```
+
+::: {.inferencia}
+La población es claramente asimétrica; el histograma de las medias es prácticamente simétrico, y su coeficiente de asimetría ha caído casi a cero. El promediar ha enderezado la distribución.
+
+Nótese qué es lo que cambió y qué no. La población de horas entre fallas **sigue siendo exponencial**: no se ha vuelto normal, ni se volverá por mucho que crezca $n$. Lo que se aproxima a la normal es la distribución de la **media muestral**. Confundir ambas cosas es el malentendido más frecuente sobre este teorema.
+:::
+
+```{webr}
+# Cuanto n hace falta? Asimetria de las medias para tamanos crecientes
+set.seed(2)
+tamanos <- c(2, 5, 10, 30, 100)
+data.frame(
+  n = tamanos,
+  asimetria_de_las_medias = round(sapply(tamanos, function(k)
+    asimetria(replicate(1500, mean(sample(horas, k, replace = TRUE))))), 3))
+```
+
+::: {.recomendacion}
+La regla de $n > 30$ es un convenio práctico, no un teorema. Devore advierte que existen poblaciones para las que ni siquiera 40 o 50 bastan, y que para muchas otras un $n$ bastante menor sería suficiente: en una población uniforme la aproximación ya es buena con $n > 12$. La tabla anterior permite verlo en sus propios datos. Cuanto más asimétrica es la población, mayor debe ser la muestra.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Un compañero afirma: «Con una muestra grande los datos de la flota se vuelven normales». ¿Qué está mal en esa frase?
+
+**a)** Nada: es exactamente lo que dice el teorema central del límite.
+**b)** El teorema no habla de los datos sino de la media muestral. La población conserva su forma; lo que se vuelve acampanado es el histograma de las medias.
+**c)** El error está en el tamaño: haría falta $n > 100$, no $n > 30$.
+:::
+
+```{webr}
+revisar("p23", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Calcular y verificar.** Extraiga su muestra de 50 unidades con `extraer_muestra()` y obtenga el **error estándar de la media**, usando la desviación típica de la muestra.
+:::
+
+```{webr}
+mi_muestra <- extraer_muestra(mi_correo)
+
+mi_error_estandar <- 0      # sustituya
+
+verificar_error_estandar(mi_error_estandar)
+```
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+- **Devore**, §5.4 «Distribución de la media muestral», hasta la regla empírica.
+
+#### Ampliación por subtema
+
+- **3.1.1** · Johnson, §6.1 «Poblaciones y muestras» y §6.2 «La distribución muestral de la media».
+- **3.1.2** · Illowsky y Dean, cap. 7 «El teorema central del límite».
+
+#### Apoyo complementario
+
+- **Devore**, §5.3, para la noción general de estadístico y distribución muestral.
+
+::: {.franja}
+Si tiene dificultades para comprender el teorema central del límite, vuelva a la primera simulación de esta página y cambie el tamaño de muestra. Ver cómo se estrecha y se endereza el histograma de las medias suele aclarar más que el enunciado formal.
+:::
+
+---
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). Cengage Learning.
+
+**Johnson, R. A. (2012).** *Probabilidad y estadística para ingenieros* (8.ª ed.). Pearson Educación.
+
+**Illowsky, B., y Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.

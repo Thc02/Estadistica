@@ -1,0 +1,366 @@
+---
+title: "3.3 Contraste de hipótesis"
+subtitle: "UC 3 · Inferencia y regresión · Semana 15"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include ../unidad-1/_setup.qmd >}}
+
+Un intervalo de confianza responde «¿dónde está $\mu$?». Un contraste de hipótesis responde una pregunta distinta y más operativa: «¿es compatible lo observado con lo que alguien afirma?».
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+:::
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+poblacion <- flota$velocidad_nudos
+mi_muestra <- extraer_muestra(mi_correo)
+
+velocidad_declarada   # valor nominal de la ficha tecnica del astillero
+```
+
+**El caso de esta semana.** La ficha técnica del astillero declara que las unidades de su flota alcanzan una velocidad media de **18.0 nudos**. Usted ha medido una muestra de 50. ¿Contradicen sus datos la ficha técnica?
+
+## 3.3.1 Formulación de hipótesis
+
+::: {.definicion}
+**Hipótesis nula y alternativa.** La **hipótesis nula** $H_0$ es la pretensión que inicialmente se supone verdadera. La **hipótesis alternativa** $H_a$ es la aseveración contradictoria.
+
+$H_0$ se rechazará en favor de $H_a$ **solo si la evidencia muestral sugiere que es falsa**. Si la muestra no la contradice con fuerza, se continuará considerándola factible. Las dos conclusiones posibles son, por tanto, **rechazar $H_0$** o **no rechazar $H_0$**.
+
+[Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.franja}
+**La analogía judicial, que es del propio Devore.** En un juicio criminal la pretensión inicial es que el acusado es inocente, y solo frente a evidencia fuerte en contra el jurado la rechaza en favor de la alternativa. La carga de la prueba recae sobre quien sostiene la alternativa.
+
+Esa asimetría es deliberada y tiene una consecuencia que conviene fijar desde el principio: **no rechazar no es demostrar**. Un acusado absuelto no queda probado inocente; queda sin evidencia suficiente en su contra.
+:::
+
+::: {.definicion}
+**Forma de las hipótesis.** $H_0$ se formula siempre como una **igualdad**: $H_0: \mu = \mu_0$, donde $\mu_0$ es el **valor nulo**. La alternativa adopta una de tres formas:
+
+| forma | $H_a$ | tipo de prueba |
+|---|---|---|
+| unilateral derecha | $\mu > \mu_0$ | cola superior |
+| unilateral izquierda | $\mu < \mu_0$ | cola inferior |
+| bilateral | $\mu \neq \mu_0$ | dos colas |
+
+[Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.recomendacion}
+La elección de la alternativa se decide **antes** de mirar los datos, y la decide la pregunta, no el resultado. Si la cuestión es si la flota alcanza o no lo declarado —sin prejuzgar la dirección—, la alternativa es bilateral. Si la cuestión fuera si el astillero exagera, sería $\mu < 18$.
+
+Elegir la dirección después de ver hacia dónde apunta la muestra duplica de hecho el nivel de significancia y convierte la prueba en un trámite para confirmar lo que ya se creía.
+:::
+
+Para el caso de esta semana:
+
+$$H_0: \mu = 18.0 \qquad\qquad H_a: \mu \neq 18.0$$
+
+## 3.3.2 Nivel de significancia
+
+::: {.definicion}
+**Nivel de significancia.** Un número $\alpha$, razonablemente cercano a cero, fijado antes de la prueba. Si el valor-p resulta menor que $\alpha$ se rechaza $H_0$; si resulta mayor, no se rechaza.
+
+Los niveles más utilizados son, por orden, $\alpha = 0.05$, $0.01$, $0.001$ y $0.10$.
+
+[Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.franja}
+**El 0.05 es un convenio, no una constante de la naturaleza.** El propio Devore cita el caso contrario: en física de partículas la elección habitual es $\alpha = 3\times10^{-7}$, que corresponde a cinco desviaciones típicas de una normal. La razón que da el artículo citado es que la historia reciente ofrece muchos ejemplos de señales de tres sigmas que resultaron ser casualidades.
+
+El nivel de significancia expresa cuánta evidencia se exige antes de abandonar $H_0$, y eso depende de lo que cueste equivocarse.
+:::
+
+## 3.3.3 Valor-p
+
+::: {.definicion}
+**Valor-p.** La probabilidad, **calculada suponiendo que $H_0$ es verdadera**, de obtener un valor del estadístico de prueba al menos tan contradictorio con $H_0$ como el calculado a partir de la muestra disponible.
+
+[Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.franja}
+Cada una de las dos partes de la definición hace falta.
+
+«**Suponiendo que $H_0$ es verdadera**» fija el mundo en el que se calcula la probabilidad. Por eso el valor-p **no puede ser** la probabilidad de que $H_0$ sea verdadera: $H_0$ se da por cierta para poder hacer la cuenta.
+
+«**Al menos tan contradictorio**» explica por qué no basta con la probabilidad del resultado observado. En una variable continua, la probabilidad de un valor exacto es cero; lo que mide la discrepancia es la cola.
+:::
+
+## 3.3.4 Errores Tipo I y Tipo II
+
+::: {.definicion}
+**Los dos errores.** Un **error de tipo I** consiste en rechazar $H_0$ cuando es verdadera. Un **error de tipo II** consiste en no rechazar $H_0$ cuando es falsa.
+
+| | $H_0$ verdadera | $H_0$ falsa |
+|---|---|---|
+| **No rechazar $H_0$** | decisión correcta | **error de tipo II** ($\beta$) |
+| **Rechazar $H_0$** | **error de tipo I** ($\alpha$) | decisión correcta (potencia) |
+
+$\alpha = P(\text{error de tipo I})$, $\;\beta = P(\text{error de tipo II})$, y la **potencia** de la prueba es $1 - \beta$.
+
+[Devore, 2016, §8.1; Illowsky y Dean (OpenStax, 2022), §9.2.]{.fuente}
+:::
+
+::: {.definicion}
+**El nivel de significancia es la probabilidad de error de tipo I.** El procedimiento que rechaza $H_0$ cuando el valor-p es menor que $\alpha$ tiene $P(\text{error de tipo I}) = \alpha$.
+
+[Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.inferencia}
+Los dos errores no se pueden reducir a la vez con la misma muestra. Bajar $\alpha$ exige más evidencia para rechazar, lo que protege a $H_0$ y por tanto **aumenta** $\beta$. Subir $\alpha$ hace lo contrario. El único modo de mejorar ambos a la vez es aumentar $n$.
+
+Hay además una asimetría que conviene no perder de vista: $\alpha$ es un número único, porque $H_0$ fija un solo valor del parámetro. $\beta$ no lo es: hay un valor de $\beta$ distinto para cada manera en que $H_0$ puede ser falsa. Cuanto más cerca esté el valor verdadero del valor nulo, mayor es $\beta$ y más difícil es detectar la diferencia.
+:::
+
+### Cuál de los dos errores pesa más
+
+Illowsky y Dean organizan este punto con ejemplos donde las consecuencias son claramente desiguales. Trasladado al ámbito naval:
+
+::: {.ejemplo}
+**$H_0$: el equipo de salvamento de una unidad está en condiciones de servicio.**
+
+**Error de tipo I.** Declarar el equipo inservible cuando sí servía. Consecuencia: una revisión innecesaria, una unidad inmovilizada, un gasto.
+
+**Error de tipo II.** Declararlo apto cuando no lo estaba. Consecuencia: el equipo falla cuando hace falta.
+
+Aquí el error de tipo II es incomparablemente más grave, de modo que conviene un $\alpha$ **alto** —rechazar con facilidad— para que $\beta$ baje.
+:::
+
+::: {.ejemplo}
+**$H_0$: la unidad sospechosa no transporta carga ilícita.**
+
+**Error de tipo I.** Abordar e inspeccionar una embarcación legítima. Consecuencia: molestia, tiempo, un posible incidente diplomático.
+
+**Error de tipo II.** Dejarla pasar cuando sí llevaba carga ilícita.
+
+Qué error pesa más ya no es una cuestión estadística, sino de doctrina y de derecho. La estadística aporta el marco; la decisión sobre $\alpha$ corresponde al mando.
+:::
+
+::: {.recomendacion}
+Antes de elegir $\alpha$, escriba las dos frases: «me equivoco de tipo I si…» y «me equivoco de tipo II si…», en el lenguaje del problema y no en el del álgebra. El número adecuado suele hacerse evidente al leerlas juntas.
+:::
+
+## 3.3.5 Pruebas para la media
+
+::: {.definicion}
+**Prueba z para una media, muestra grande.** Con $n$ grande y $\sigma$ desconocida, el estadístico de prueba es
+
+$$z = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$$
+
+que mide a cuántos errores estándar queda la media observada del valor nulo. Bajo $H_0$ tiene aproximadamente distribución normal estándar. El valor-p depende de la forma de $H_a$:
+
+| $H_a$ | valor-p |
+|---|---|
+| $\mu > \mu_0$ | $1 - \Phi(z)$ |
+| $\mu < \mu_0$ | $\Phi(z)$ |
+| $\mu \neq \mu_0$ | $2\,[1 - \Phi(|z|)]$ |
+
+[Devore, 2016, §8.2.]{.fuente}
+:::
+
+### El procedimiento, paso a paso
+
+Devore resuelve sus ejemplos con una secuencia fija que conviene adoptar:
+
+1. Identificar el parámetro.
+2. Escribir $H_0$.
+3. Escribir $H_a$.
+4. Escribir el estadístico de prueba.
+5. Sustituir los valores de la muestra.
+6. Calcular el valor-p.
+7. Comparar con $\alpha$ y concluir **en el lenguaje del problema**.
+
+```{webr}
+n <- length(mi_muestra)
+xbar <- mean(mi_muestra)
+s <- sd(mi_muestra)
+mu0 <- velocidad_declarada
+
+z <- (xbar - mu0) / (s/sqrt(n))
+valor_p <- 2 * (1 - pnorm(abs(z)))
+
+round(c(n = n, media_muestral = xbar, s = s, valor_nulo = mu0,
+        z = z, valor_p = valor_p), 4)
+```
+
+```{webr}
+alfa <- 0.05
+
+if (valor_p < alfa) {
+  cat("Se rechaza H0 al nivel", alfa,
+      "\nHay evidencia de que la velocidad media difiere de", mu0, "nudos.\n")
+} else {
+  cat("No se rechaza H0 al nivel", alfa,
+      "\nNo hay evidencia suficiente de que la velocidad media difiera de", mu0, "nudos.\n")
+}
+```
+
+### Región de rechazo y valor-p dan la misma decisión
+
+::: {.definicion}
+**Región de rechazo.** El conjunto de valores del estadístico de prueba para los cuales se rechaza $H_0$. Para una prueba bilateral de nivel $\alpha$ es $|z| > z_{\alpha/2}$.
+
+[Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.predice}
+Las dos reglas —comparar $|z|$ con el valor crítico, o comparar el valor-p con $\alpha$— ¿pueden dar conclusiones distintas sobre la misma muestra?
+:::
+
+```{webr}
+z_critico <- qnorm(1 - alfa/2)
+
+data.frame(
+  regla = c("region de rechazo", "valor-p"),
+  comparacion = c(paste("|z| =", round(abs(z),4), "vs", round(z_critico,4)),
+                  paste("p =", round(valor_p,4), "vs", alfa)),
+  rechaza_H0 = c(abs(z) > z_critico, valor_p < alfa))
+```
+
+```{webr}
+curve(dnorm(x), from = -4, to = 4, lwd = 2,
+      xlab = "z", ylab = "densidad",
+      main = "Region de rechazo al 5 % y el z observado")
+zc <- qnorm(0.975)
+xs <- seq(zc, 4, length.out = 200)
+polygon(c(zc, xs, 4), c(0, dnorm(xs), 0), col = "grey80", border = NA)
+xs <- seq(-4, -zc, length.out = 200)
+polygon(c(-4, xs, -zc), c(0, dnorm(xs), 0), col = "grey80", border = NA)
+abline(v = c(-zc, zc), lty = 2)
+abline(v = z, lwd = 3, col = "red")
+```
+
+::: {.inferencia}
+Las dos columnas coinciden siempre, y no por casualidad: son la misma desigualdad escrita de dos maneras. Rechazar cuando $|z|$ supera $z_{\alpha/2}$ equivale a rechazar cuando el área de las colas más allá de $|z|$ —que es el valor-p— queda por debajo de $\alpha$.
+
+La diferencia es de información, no de decisión. La región de rechazo responde sí o no para el $\alpha$ elegido. El valor-p entrega el **nivel más pequeño al que $H_0$ podría rechazarse**, y con él cada lector puede aplicar su propio umbral. Devore lo plantea así: si alguien informa únicamente de que rechazó al 5 %, impone su nivel de significancia a los demás; publicar el valor-p impide esa imposición.
+:::
+
+### La ventaja de conocer la verdad
+
+En un problema real la historia termina en la conclusión. Aquí no: usted conoce $\mu$, de modo que puede auditar su propia decisión.
+
+```{webr}
+mu <- mean(poblacion)
+H0_era_verdadera <- isTRUE(all.equal(mu, mu0))
+se_rechazo <- valor_p < alfa
+
+cat("mu verdadero:", round(mu, 4), " | valor nulo:", mu0, "\n")
+cat("H0 era verdadera:", H0_era_verdadera, " | se rechazo H0:", se_rechazo, "\n\n")
+
+if (!H0_era_verdadera && !se_rechazo) {
+  cat("Decision: ERROR DE TIPO II. H0 era falsa y no se rechazo.\n")
+} else if (H0_era_verdadera && se_rechazo) {
+  cat("Decision: ERROR DE TIPO I. H0 era verdadera y se rechazo.\n")
+} else {
+  cat("Decision correcta.\n")
+}
+```
+
+::: {.franja}
+**Si le salió un error de tipo II, el procedimiento no falló.** La velocidad declarada y la verdadera difieren poco, y con 50 unidades la prueba no tiene potencia suficiente para distinguirlas. Es la situación que Devore describe: el valor verdadero está demasiado cerca del valor nulo para el tamaño de muestra empleado.
+
+Aquí está la lección que no se puede aprender con datos reales: **no rechazar $H_0$ no significa que $H_0$ sea cierta**. Puede significar, simplemente, que la muestra era demasiado pequeña para notar la diferencia.
+:::
+
+```{webr}
+# Cuanta potencia tiene la prueba frente a la diferencia real?
+dif <- abs(mu - mu0)
+potencia <- function(n) {
+  ee <- s/sqrt(n)
+  pnorm(-qnorm(0.975) - dif/ee) + 1 - pnorm(qnorm(0.975) - dif/ee)
+}
+data.frame(n = c(50, 100, 200, 400, 800),
+           potencia = round(potencia(c(50, 100, 200, 400, 800)), 3))
+```
+
+### Prueba e intervalo son la misma herramienta
+
+```{webr}
+# El intervalo del tema 3.2, junto al valor nulo
+margen <- qnorm(0.975) * s/sqrt(n)
+c(inferior = xbar - margen, superior = xbar + margen,
+  valor_nulo = mu0,
+  nulo_dentro_del_intervalo = (xbar - margen) < mu0 && mu0 < (xbar + margen))
+```
+
+::: {.inferencia}
+El valor nulo cae dentro del intervalo exactamente cuando la prueba bilateral **no** rechaza, y cae fuera exactamente cuando rechaza. No es coincidencia: ambos procedimientos comparan la misma distancia $|\bar{x} - \mu_0|$ contra el mismo margen $z_{\alpha/2}\,s/\sqrt{n}$.
+
+De ahí una lectura útil: el intervalo de confianza al $100(1-\alpha)\%$ contiene **todos los valores nulos que no serían rechazados** por una prueba bilateral de nivel $\alpha$. Johnson dedica a esta equivalencia su apartado §7.7.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Su prueba no rechazó $H_0: \mu = 18.0$. ¿Qué se puede afirmar?
+
+**a)** Que no hay evidencia suficiente contra $H_0$ en este nivel de significancia; $H_0$ sigue siendo factible, pero no queda demostrada.
+**b)** Que $\mu$ vale 18.0 nudos.
+**c)** Que la probabilidad de que $\mu$ valga 18.0 es alta.
+:::
+
+```{webr}
+revisar("p25", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Obtuvo un valor-p de 0.32. ¿Qué significa esa cifra?
+
+**a)** Que hay un 32 % de probabilidad de que $H_0$ sea verdadera.
+**b)** Que hay un 32 % de probabilidad de equivocarse al rechazar $H_0$.
+**c)** Que, si $H_0$ fuera verdadera, el 32 % de las muestras darían un resultado al menos tan contradictorio con ella como el observado.
+:::
+
+```{webr}
+revisar("p26", "escriba aquí a, b o c")
+```
+
+::: {.ejercicio}
+**Calcular y verificar.** Obtenga el estadístico de prueba y el valor-p de la prueba bilateral sobre la velocidad declarada.
+:::
+
+```{webr}
+mi_z <- 0           # sustituya
+mi_valor_p <- 0     # sustituya
+
+verificar_z_media(mi_z)
+verificar_valor_p(mi_valor_p)
+```
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+- **Devore**, §8.1 «Hipótesis y procedimientos de prueba» y §8.2 «Pruebas de hipótesis z sobre una media de población».
+
+#### Ampliación por subtema
+
+- **3.3.1** · Johnson, §7.5 «Hipótesis nulas y pruebas de hipótesis»; Illowsky y Dean, §9.1.
+- **3.3.4** · Illowsky y Dean, §9.2 «Resultados y errores de tipo I y II», con sus ejemplos de consecuencias desiguales.
+- **3.3.5** · Johnson, §7.6 «Hipótesis concernientes a una media».
+
+#### Apoyo complementario
+
+- **Johnson**, §7.7 «Relación entre pruebas de hipótesis e intervalos de confianza».
+- **Devore**, §8.5 «Otros aspectos de las pruebas de hipótesis».
+
+::: {.franja}
+Si tiene dificultades para comprender el valor-p, vuelva a su definición y léala en dos tiempos: primero «suponiendo que $H_0$ es verdadera», y solo después «la probabilidad de una muestra al menos tan contradictoria». Casi todos los errores de interpretación consisten en olvidar la primera mitad.
+:::
+
+---
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). Cengage Learning.
+
+**Johnson, R. A. (2012).** *Probabilidad y estadística para ingenieros* (8.ª ed.). Pearson Educación.
+
+**Illowsky, B., y Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.

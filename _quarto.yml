@@ -46,6 +46,14 @@ website:
             text: "2.2 Modelos discretos"
           - href: unidad-2/tema-2-3.qmd
             text: "2.3 Modelos continuos"
+      - section: "UC 3 · Inferencia y regresión"
+        contents:
+          - href: unidad-3/tema-3-1.qmd
+            text: "3.1 Distribuciones muestrales"
+          - href: unidad-3/tema-3-2.qmd
+            text: "3.2 Estimación de parámetros"
+          - href: unidad-3/tema-3-3.qmd
+            text: "3.3 Contraste de hipótesis"
   page-footer:
     background: light
     left: "Estadística · Carrera en Ciencias Navales"

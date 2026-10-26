@@ -1,0 +1,271 @@
+---
+title: "3.2 Estimación de parámetros"
+subtitle: "UC 3 · Inferencia y regresión · Semana 14"
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+{{< include ../unidad-1/_setup.qmd >}}
+
+El tema anterior estableció cómo varía la media muestral alrededor de $\mu$. Este lo usa al revés: a partir de una muestra, acotar dónde puede estar el parámetro.
+
+::: {.franja}
+**Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
+:::
+
+```{webr}
+mi_correo <- "apellido.nombre@espe.edu.ec"
+
+flota <- generar_flota(mi_correo)
+poblacion <- flota$velocidad_nudos
+mi_muestra <- extraer_muestra(mi_correo)   # 50 unidades, con reposicion
+
+round(c(n = length(mi_muestra),
+        media_muestral = mean(mi_muestra),
+        s = sd(mi_muestra)), 4)
+```
+
+## 3.2.1 Estimación puntual
+
+::: {.definicion}
+**Estimación puntual.** Un **estimador puntual** de un parámetro $\theta$ es un estadístico $\hat{\theta}$ cuyo valor calculado sobre una muestra se propone como valor del parámetro. El número obtenido es la **estimación puntual**.
+
+**Estimador insesgado.** $\hat{\theta}$ es insesgado si $E(\hat{\theta}) = \theta$: aplicado a muchas muestras, no tiende a quedarse corto ni a pasarse.
+
+[Devore, 2016, §6.1; Johnson, 2012, §7.1.]{.fuente}
+:::
+
+Para la media poblacional el estimador natural es la media muestral, y el tema 3.1 ya demostró que es insesgado:
+
+$$\hat{\mu} = \bar{X}, \qquad E(\bar{X}) = \mu$$
+
+::: {.predice}
+Usted conoce $\mu$ exactamente, porque su flota es la población. ¿Espera que la media de su muestra de 50 unidades coincida con $\mu$? ¿A qué distancia le parece razonable que quede?
+:::
+
+```{webr}
+# La estimacion puntual frente al valor verdadero
+round(c(estimacion = mean(mi_muestra),
+        mu_verdadero = mean(poblacion),
+        error = mean(mi_muestra) - mean(poblacion)), 4)
+```
+
+::: {.inferencia}
+La estimación no acierta el valor exacto, y no tenía por qué: insesgado no significa correcto en cada muestra, sino **correcto en promedio a lo largo de muchas muestras**. Es una propiedad del procedimiento, no del número que salió hoy.
+
+De ahí la limitación de fondo de la estimación puntual: entrega un número y no dice nada sobre su precisión. Decir «la velocidad media es de 17.6 nudos» no distingue entre una estimación hecha con 5 unidades y otra hecha con 500. Para eso hace falta acompañar la estimación de su error estándar, y de ahí se pasa al intervalo.
+:::
+
+::: {.definicion}
+**Error estándar estimado.** Como $\sigma$ rara vez se conoce, se sustituye por la desviación típica muestral $s$:
+
+$$\widehat{\sigma}_{\bar{X}} = \frac{s}{\sqrt{n}}$$
+
+[Devore, 2016, §6.1.]{.fuente}
+:::
+
+```{webr}
+error_estandar <- sd(mi_muestra)/sqrt(length(mi_muestra))
+
+round(c(estimacion = mean(mi_muestra), error_estandar = error_estandar), 4)
+```
+
+## 3.2.2 Intervalos de confianza para la media
+
+La construcción parte del teorema central del límite. Si $n$ es grande, la variable tipificada
+
+$$Z = \frac{\bar{X} - \mu}{S/\sqrt{n}}$$
+
+tiene aproximadamente una distribución normal estándar, cualquiera que sea la forma de la población. Entonces, con probabilidad $1 - \alpha$,
+
+$$-z_{\alpha/2} \;<\; \frac{\bar{X} - \mu}{S/\sqrt{n}} \;<\; z_{\alpha/2}$$
+
+y despejando $\mu$ en el centro se obtiene el intervalo.
+
+::: {.definicion}
+**Intervalo de confianza de muestra grande para $\mu$.** Si $n$ es suficientemente grande,
+
+$$\bar{x} \;\pm\; z_{\alpha/2}\,\frac{s}{\sqrt{n}}$$
+
+es un intervalo de confianza para $\mu$ con nivel de confianza aproximadamente $100(1-\alpha)\,\%$. **La fórmula es válida sin importar la forma de la distribución de la población.**
+
+En general, $n > 40$ será suficiente para justificar su uso. Devore lo advierte: es algo más exigente que la regla de $n > 30$ del teorema central del límite, «debido a la variabilidad adicional introducida por el uso de $S$ en lugar de $\sigma$».
+
+[Devore, 2016, §7.2.]{.fuente}
+:::
+
+::: {.definicion}
+**Notación de los valores críticos.** En Devore el subíndice de $z_\alpha$ es el **área de la cola derecha**, no el percentil. Así, $z_{0.025} = 1.96$ y $z_{0.05} = 1.645$. Para un intervalo al 95 % se usa $\alpha = 0.05$ y por tanto $z_{\alpha/2} = z_{0.025} = 1.96$.
+
+R sigue el convenio contrario: `qnorm(0.975)` devuelve ese mismo 1.96, porque su argumento es la probabilidad acumulada a la izquierda. Los dos símbolos nombran el mismo número.
+
+[Devore, 2016, §4.3, tabla 4.1.]{.fuente}
+:::
+
+```{webr}
+# Los valores criticos mas usados
+data.frame(confianza = c("90 %", "95 %", "99 %"),
+           alfa = c(.10, .05, .01),
+           z_alfa_medios = round(qnorm(1 - c(.10, .05, .01)/2), 4))
+```
+
+### Construcción del intervalo
+
+```{webr}
+n <- length(mi_muestra)
+xbar <- mean(mi_muestra)
+s <- sd(mi_muestra)
+
+margen <- qnorm(0.975) * s/sqrt(n)
+
+round(c(inferior = xbar - margen, estimacion = xbar,
+        superior = xbar + margen, margen = margen), 4)
+```
+
+::: {.predice}
+Usted conoce $\mu$. Antes de ejecutar la celda siguiente: ¿cree que su intervalo contiene el valor verdadero?
+:::
+
+```{webr}
+mu <- mean(poblacion)
+
+c(mu_verdadero = round(mu, 4),
+  lo_captura = (xbar - margen) < mu && mu < (xbar + margen))
+```
+
+::: {.franja}
+**Si le dio `FALSE`, su intervalo no funcionó, y eso es exactamente lo previsto.** Un intervalo al 95 % falla una de cada veinte veces. En un curso de treinta guardiamarinas lo esperable es que a uno o dos les ocurra. Compárenlo en clase: la proporción de fallos es la demostración más directa de qué significa el nivel de confianza.
+:::
+
+### Qué significa «95 % de confianza»
+
+::: {.predice}
+Antes de seguir: ¿diría que hay un 95 % de probabilidad de que $\mu$ esté dentro del intervalo que acaba de calcular?
+:::
+
+```{webr}
+# 100 muestras independientes, 100 intervalos
+set.seed(7)
+reps <- 100
+lim <- t(replicate(reps, {
+  m <- sample(poblacion, 50, replace = TRUE)
+  mean(m) + c(-1, 1) * qnorm(0.975) * sd(m)/sqrt(50)
+}))
+captura <- lim[, 1] < mu & mu < lim[, 2]
+
+plot(NA, xlim = range(lim), ylim = c(0, reps + 1),
+     xlab = "velocidad media (nudos)", ylab = "numero de muestra",
+     main = "Cien intervalos de confianza al 95 %")
+segments(lim[, 1], 1:reps, lim[, 2], 1:reps,
+         col = ifelse(captura, "grey60", "red"), lwd = 2)
+abline(v = mu, lwd = 2)
+
+c(intervalos = reps, capturaron_mu = sum(captura))
+```
+
+::: {.definicion}
+**El nivel de confianza describe el procedimiento, no el intervalo.** Devore es explícito: «el nivel de confianza se refiere al porcentaje de captura a largo plazo cuando la fórmula se utiliza repetidamente en varias muestras; no se puede interpretar para una sola muestra y el intervalo resultante».
+
+[Devore, 2016, §7.2.]{.fuente}
+:::
+
+::: {.inferencia}
+El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero $\mu$— está fija. Lo que cambia de una muestra a otra es el intervalo, que salta de posición y de ancho. Alrededor de 95 de cada 100 lo atrapan; los rojos no.
+
+Por eso la frase «hay un 95 % de probabilidad de que $\mu$ esté en mi intervalo» es incorrecta. Una vez calculado el intervalo, $\mu$ está dentro o está fuera: no queda probabilidad que repartir. El 95 % califica al **método**, no al resultado. La formulación correcta es: «este intervalo procede de un procedimiento que acierta el 95 % de las veces».
+:::
+
+### Qué controla el ancho del intervalo
+
+```{webr}
+ancho <- function(n, conf) 2 * qnorm(1 - (1-conf)/2) * s/sqrt(n)
+
+data.frame(n = c(25, 50, 100, 200, 400),
+           al_90 = round(ancho(c(25,50,100,200,400), .90), 3),
+           al_95 = round(ancho(c(25,50,100,200,400), .95), 3),
+           al_99 = round(ancho(c(25,50,100,200,400), .99), 3))
+```
+
+::: {.inferencia}
+Los dos mandos de la tabla tiran en sentidos opuestos, y conviene nombrarlos.
+
+Bajar por una columna **estrecha** el intervalo: más datos, más precisión, pero al ritmo de $\sqrt{n}$. Cuadruplicar la muestra reduce el ancho a la mitad.
+
+Moverse a la derecha por una fila lo **ensancha**: más confianza cuesta precisión. Exigir 99 % en lugar de 90 % ensancha el intervalo alrededor de un 56 %, con el mismo número de datos. No hay forma de ganar en los dos frentes sin pagar con muestra.
+:::
+
+### Aplicación naval: tamaño de muestra para una precisión exigida
+
+Si se fija de antemano el semiancho admisible $E$ —el margen de error—, el tamaño de muestra sale de despejar $E = z_{\alpha/2}\,s/\sqrt{n}$:
+
+$$n = \left(\frac{z_{\alpha/2}\,s}{E}\right)^{2}$$
+
+```{webr}
+# Unidades necesarias para estimar la velocidad media con +-0.5 nudos al 95 %
+E <- 0.5
+ceiling((qnorm(0.975) * s / E)^2)
+```
+
+::: {.recomendacion}
+Esta cuenta exige un valor de $s$ que todavía no se tiene, porque los datos no se han recogido. Devore propone una salida práctica: si se puede estimar el **rango** de la población —la diferencia entre el valor mayor y el menor— y la distribución no es muy asimétrica, dividirlo entre 4 da un valor aproximado de $s$. Es una estimación conservadora y suficiente para planificar.
+:::
+
+::: {.ejercicio}
+**Interpretar sin calcular.** Usted calculó un intervalo del 95 % y obtuvo $(16.9,\ 18.4)$. ¿Cuál de estas afirmaciones es correcta?
+
+**a)** Hay un 95 % de probabilidad de que $\mu$ esté entre 16.9 y 18.4.
+**b)** El 95 % de las unidades de la flota navegan entre 16.9 y 18.4 nudos.
+**c)** El intervalo procede de un procedimiento que, aplicado repetidamente a muestras distintas, captura $\mu$ el 95 % de las veces.
+:::
+
+```{webr}
+revisar("p24", "escriba aquí a, b o c")
+```
+
+::: {.franja}
+La opción **b** merece un comentario aparte, porque es un error distinto y muy frecuente. El intervalo acota **la media**, no los datos. Un intervalo estrecho no significa que las unidades sean parecidas entre sí: significa que la media está bien determinada. Si quisiera un tramo que contuviera al 95 % de las unidades necesitaría $\bar{x} \pm 1.96\,s$, que es mucho más ancho porque no lleva $\sqrt{n}$ en el denominador.
+:::
+
+```{webr}
+# Intervalo para la MEDIA frente a tramo que contiene al 95 % de las UNIDADES
+rbind(para_la_media   = xbar + c(-1, 1) * qnorm(.975) * s/sqrt(n),
+      para_las_unidades = xbar + c(-1, 1) * qnorm(.975) * s)
+```
+
+::: {.ejercicio}
+**Calcular y verificar.** Construya el intervalo de confianza del 95 % para la velocidad media de su flota y compruebe los dos extremos.
+:::
+
+```{webr}
+mi_inferior <- 0      # sustituya
+mi_superior <- 0      # sustituya
+
+verificar_ic(mi_inferior, mi_superior)
+```
+
+## Para leer esta semana
+
+#### Lectura mínima
+
+- **Devore**, §7.2 «Intervalos de confianza de muestra grande para una media», hasta el final del ejemplo 7.6.
+
+#### Ampliación por subtema
+
+- **3.2.1** · Devore, §6.1 «Algunos conceptos generales de estimación puntual»; Johnson, §7.1 «Estimación puntual».
+- **3.2.2** · Johnson, §7.2 «Estimación por intervalo»; Illowsky y Dean, cap. 8 «Intervalos de confianza».
+
+#### Apoyo complementario
+
+- **Devore**, §7.1, para el razonamiento general que hay detrás de cualquier intervalo de confianza.
+
+::: {.franja}
+Si tiene dificultades para comprender el nivel de confianza, vuelva al gráfico de los cien intervalos y ejecútelo cambiando la semilla. Lo que permanece fijo es la línea vertical; lo que se mueve son los intervalos.
+:::
+
+---
+
+**Devore, J. L. (2016).** *Probabilidad y estadística para ingeniería y ciencias* (9.ª ed.). Cengage Learning.
+
+**Johnson, R. A. (2012).** *Probabilidad y estadística para ingenieros* (8.ª ed.). Pearson Educación.
+
+**Illowsky, B., y Dean, S. (2022).** *Introducción a la estadística*. OpenStax, Rice University. Licencia Creative Commons Attribution 4.0.
