@@ -72,7 +72,9 @@ round(c(estimacion = mean(mi_muestra), error_estandar = error_estandar), 4)
 
 ## 3.2.2 Intervalos de confianza para la media
 
-La construcción parte del teorema del límite central. Si $n$ es grande, la variable tipificada
+La construcción parte del teorema del límite central. Las dos líneas siguientes llevan **mayúsculas**, $\bar{X}$ y $S$, porque describen el estimador como variable aleatoria, antes de ver los datos; el intervalo que resulta al final se escribe en **minúsculas**, con las cifras de la muestra. El convenio está explicado en el [tema 3.1](tema-3-1.qmd).
+
+Si $n$ es grande, la variable tipificada
 
 $$Z = \frac{\bar{X} - \mu}{S/\sqrt{n}}$$
 

@@ -52,6 +52,21 @@ Con $N = 40$ la diferencia entre los dos divisores es de alrededor del 1 %, pero
 
 Esta es la idea que organiza toda la unidad, y conviene detenerse en ella. El parámetro $\mu$ es un número fijo y desconocido. La media muestral $\bar{x}$ es un número conocido que cambia con cada muestra. La inferencia consiste en aprovechar lo que se sabe sobre **cómo varía $\bar{X}$** para acotar dónde puede estar $\mu$.
 
+::: {.definicion}
+**Mayúscula y minúscula no significan lo mismo.** A partir de aquí la distinción es deliberada, y conviene fijarla antes de que aparezca en las fórmulas:
+
+| símbolo | qué denota | cuándo tiene valor |
+|---|---|---|
+| $\bar{X}$, $S$ | el estimador como **variable aleatoria**: el procedimiento, antes de ver los datos | nunca toma un valor; tiene distribución, esperanza y varianza |
+| $\bar{x}$, $s$ | el **número** que dio esta muestra concreta | una vez recogidos los datos |
+
+Por eso se escribe $E(\bar{X}) = \mu$, que es una afirmación sobre la distribución del estimador, pero el intervalo del tema 3.2 se construye con $\bar{x}$ y $s$, que son las cifras de la muestra que usted tiene delante. En R todo es minúscula, porque R solo maneja lo segundo.
+
+Es el convenio de Devore y se mantiene en toda la unidad.
+
+[Devore, 2016, §5.3.]{.fuente}
+:::
+
 ::: {.predice}
 Va a extraer muchas muestras de 8 unidades de su flota y a calcular la media de cada una. ¿Dónde espera que se sitúe el promedio de todas esas medias? ¿Y espera que las medias estén más o menos dispersas que las velocidades individuales?
 :::
