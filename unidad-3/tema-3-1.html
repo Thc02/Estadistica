@@ -366,6 +366,38 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBl
 <p><span class="fuente">Devore, 2016, §5.3; Johnson, 2012, §6.1.</span></p>
 </div>
 <p>Esta es la idea que organiza toda la unidad, y conviene detenerse en ella. El parámetro <span class="math inline">\(\mu\)</span> es un número fijo y desconocido. La media muestral <span class="math inline">\(\bar{x}\)</span> es un número conocido que cambia con cada muestra. La inferencia consiste en aprovechar lo que se sabe sobre <strong>cómo varía <span class="math inline">\(\bar{X}\)</span></strong> para acotar dónde puede estar <span class="math inline">\(\mu\)</span>.</p>
+<div class="definicion">
+<p><strong>Mayúscula y minúscula no significan lo mismo.</strong> A partir de aquí la distinción es deliberada, y conviene fijarla antes de que aparezca en las fórmulas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>símbolo</th>
+<th>qué denota</th>
+<th>cuándo tiene valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\bar{X}\)</span>, <span class="math inline">\(S\)</span></td>
+<td>el estimador como <strong>variable aleatoria</strong>: el procedimiento, antes de ver los datos</td>
+<td>nunca toma un valor; tiene distribución, esperanza y varianza</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(s\)</span></td>
+<td>el <strong>número</strong> que dio esta muestra concreta</td>
+<td>una vez recogidos los datos</td>
+</tr>
+</tbody>
+</table>
+<p>Por eso se escribe <span class="math inline">\(E(\bar{X}) = \mu\)</span>, que es una afirmación sobre la distribución del estimador, pero el intervalo del tema 3.2 se construye con <span class="math inline">\(\bar{x}\)</span> y <span class="math inline">\(s\)</span>, que son las cifras de la muestra que usted tiene delante. En R todo es minúscula, porque R solo maneja lo segundo.</p>
+<p>Es el convenio de Devore y se mantiene en toda la unidad.</p>
+<p><span class="fuente">Devore, 2016, §5.3.</span></p>
+</div>
 <div class="predice">
 <p>Va a extraer muchas muestras de 8 unidades de su flota y a calcular la media de cada una. ¿Dónde espera que se sitúe el promedio de todas esas medias? ¿Y espera que las medias estén más o menos dispersas que las velocidades individuales?</p>
 </div>
