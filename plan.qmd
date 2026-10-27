@@ -85,7 +85,7 @@ La simulación, en particular, no es un añadido: es el instrumento con que se c
 
 | Sem. | Tema del sílabo | En clase (2 h) | Trabajo autónomo |
 |---|---|---|---|
-| **13** | 3.1 Distribuciones muestrales | Distribución muestral de la media; teorema central del límite (TCL) | Simulación del TCL sobre la flota propia |
+| **13** | 3.1 Distribuciones muestrales | Distribución muestral de la media; teorema del límite central (TLC) | Simulación del TLC sobre la flota propia |
 | **14** | 3.2 Estimación | Estimación puntual; intervalos de confianza para la media | Taller 3.1 — estimaciones e intervalos para variables navales |
 | **15** | 3.3 Contraste de hipótesis | Formulación; nivel de significancia; valor-p; errores tipo I y II; pruebas para la media | Taller 3.2 — plantear y contrastar hipótesis con datos de caso |
 | **16** | 3.4 Regresión lineal | Correlación; modelo simple; interpretación; predicción | **Proyecto Fase III** — informe final y exposición |

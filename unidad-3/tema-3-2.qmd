@@ -72,7 +72,7 @@ round(c(estimacion = mean(mi_muestra), error_estandar = error_estandar), 4)
 
 ## 3.2.2 Intervalos de confianza para la media
 
-La construcción parte del teorema central del límite. Si $n$ es grande, la variable tipificada
+La construcción parte del teorema del límite central. Si $n$ es grande, la variable tipificada
 
 $$Z = \frac{\bar{X} - \mu}{S/\sqrt{n}}$$
 
@@ -89,7 +89,7 @@ $$\bar{x} \;\pm\; z_{\alpha/2}\,\frac{s}{\sqrt{n}}$$
 
 es un intervalo de confianza para $\mu$ con nivel de confianza aproximadamente $100(1-\alpha)\,\%$. **La fórmula es válida sin importar la forma de la distribución de la población.**
 
-En general, $n > 40$ será suficiente para justificar su uso. Devore lo advierte: es algo más exigente que la regla de $n > 30$ del teorema central del límite, «debido a la variabilidad adicional introducida por el uso de $S$ en lugar de $\sigma$».
+En general, $n > 40$ será suficiente para justificar su uso. Devore lo advierte: es algo más exigente que la regla de $n > 30$ del teorema del límite central, «debido a la variabilidad adicional introducida por el uso de $S$ en lugar de $\sigma$».
 
 [Devore, 2016, §7.2.]{.fuente}
 :::

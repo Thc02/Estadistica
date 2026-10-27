@@ -156,7 +156,7 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p22 = list(op = "b",
             por = "Ninguna de las tres es mas exacta que las otras: cada una responde a una pregunta distinta. 27 supone repuestos distinguibles uno a uno; 10 supone que solo importa cuantos de cada clase; 1 anade que ninguna clase puede repetirse. La aritmetica no decide el supuesto: lo decide el enunciado."),
   p23 = list(op = "b",
-             por = "El teorema central del limite no dice nada sobre los datos: dice que se aproxima a la normal la distribucion de la MEDIA MUESTRAL. La poblacion conserva su forma por mucho que crezca n; lo que se vuelve acampanado es el histograma de las medias."),
+             por = "El teorema del limite central no dice nada sobre los datos: dice que se aproxima a la normal la distribucion de la MEDIA MUESTRAL. La poblacion conserva su forma por mucho que crezca n; lo que se vuelve acampanado es el histograma de las medias."),
   p24 = list(op = "c",
              por = "Devore lo advierte expresamente: el nivel de confianza describe el porcentaje de captura a largo plazo cuando la formula se aplica a muchas muestras. Para un intervalo ya calculado, mu esta dentro o no esta; no hay probabilidad que repartir."),
   p25 = list(op = "a",

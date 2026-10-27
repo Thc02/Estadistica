@@ -109,18 +109,18 @@ min(n[sigma/sqrt(n) < 0.5])
 Cuando alguien proponga «medir unas cuantas unidades más» para mejorar una estimación, pida el número. La raíz cuadrada castiga la improvisación: pasar de 16 a 20 unidades apenas mueve la precisión, mientras que pasar de 16 a 64 la duplica. Conviene calcular el $n$ necesario antes de salir a medir, no después.
 :::
 
-## 3.1.2 Teorema Central del Límite
+## 3.1.2 Teorema del Límite Central
 
-Las dos fórmulas anteriores dan el centro y la dispersión de $\bar{X}$, pero no su **forma**. Sin la forma no se pueden calcular probabilidades. El teorema central del límite la proporciona.
+Las dos fórmulas anteriores dan el centro y la dispersión de $\bar{X}$, pero no su **forma**. Sin la forma no se pueden calcular probabilidades. El teorema del límite central la proporciona.
 
 ::: {.definicion}
-**Teorema central del límite (TCL).** Sean $X_1, \dots, X_n$ una muestra aleatoria de una distribución con media $\mu$ y varianza $\sigma^2$. Si $n$ es suficientemente grande, $\bar{X}$ tiene **aproximadamente** una distribución normal con
+**Teorema del límite central (TLC).** Sean $X_1, \dots, X_n$ una muestra aleatoria de una distribución con media $\mu$ y varianza $\sigma^2$. Si $n$ es suficientemente grande, $\bar{X}$ tiene **aproximadamente** una distribución normal con
 
 $$\mu_{\bar{X}} = \mu \qquad\qquad \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$$
 
 Cuanto mayor es $n$, mejor es la aproximación.
 
-**Regla empírica.** Si $n > 30$, se puede utilizar el teorema central del límite.
+**Regla empírica.** Si $n > 30$, se puede utilizar el teorema del límite central.
 
 [Devore, 2016, §5.4; Illowsky y Dean (OpenStax, 2022), cap. 7.]{.fuente}
 :::
@@ -180,7 +180,7 @@ La regla de $n > 30$ es un convenio práctico, no un teorema. Devore advierte qu
 ::: {.ejercicio}
 **Interpretar sin calcular.** Un compañero afirma: «Con una muestra grande los datos de la flota se vuelven normales». ¿Qué está mal en esa frase?
 
-**a)** Nada: es exactamente lo que dice el teorema central del límite.
+**a)** Nada: es exactamente lo que dice el teorema del límite central.
 **b)** El teorema no habla de los datos sino de la media muestral. La población conserva su forma; lo que se vuelve acampanado es el histograma de las medias.
 **c)** El error está en el tamaño: haría falta $n > 100$, no $n > 30$.
 :::
@@ -217,7 +217,7 @@ verificar_error_estandar(mi_error_estandar)
 - **Devore**, §5.3, para la noción general de estadístico y distribución muestral.
 
 ::: {.franja}
-Si tiene dificultades para comprender el teorema central del límite, vuelva a la primera simulación de esta página y cambie el tamaño de muestra. Ver cómo se estrecha y se endereza el histograma de las medias suele aclarar más que el enunciado formal.
+Si tiene dificultades para comprender el teorema del límite central, vuelva a la primera simulación de esta página y cambie el tamaño de muestra. Ver cómo se estrecha y se endereza el histograma de las medias suele aclarar más que el enunciado formal.
 :::
 
 ---
