@@ -9,6 +9,8 @@ subtitle: "UC 3 · Inferencia y regresión · Semana 14"
 
 El tema anterior estableció cómo varía la media muestral alrededor de $\mu$. Este lo usa al revés: a partir de una muestra, acotar dónde puede estar el parámetro.
 
+**La variable sigue siendo la misma:** la **velocidad en nudos** de su flota. La población son los 40 valores de velocidad, con media $\mu$ y desviación típica $\sigma$ conocidas; la muestra, 50 valores extraídos de ella con reposición.
+
 ::: {.franja}
 **Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
 :::
@@ -17,8 +19,8 @@ El tema anterior estableció cómo varía la media muestral alrededor de $\mu$. 
 mi_correo <- "apellido.nombre@espe.edu.ec"
 
 flota <- generar_flota(mi_correo)
-poblacion <- flota$velocidad_nudos
-mi_muestra <- extraer_muestra(mi_correo)   # 50 unidades, con reposicion
+poblacion <- flota$velocidad_nudos        # poblacion: 40 velocidades, en nudos
+mi_muestra <- extraer_muestra(mi_correo)  # muestra: 50 velocidades, con reposicion
 
 round(c(n = length(mi_muestra),
         media_muestral = mean(mi_muestra),
@@ -40,7 +42,7 @@ Para la media poblacional el estimador natural es la media muestral, y el tema 3
 $$\hat{\mu} = \bar{X}, \qquad E(\bar{X}) = \mu$$
 
 ::: {.predice}
-Usted conoce $\mu$ exactamente, porque su flota es la población. ¿Espera que la media de su muestra de 50 unidades coincida con $\mu$? ¿A qué distancia le parece razonable que quede?
+Usted conoce $\mu$ exactamente, porque su flota es la población. ¿Espera que la velocidad media de su muestra de 50 unidades coincida con $\mu$? ¿A qué distancia le parece razonable que quede?
 :::
 
 ```{webr}
@@ -125,7 +127,7 @@ round(c(inferior = xbar - margen, estimacion = xbar,
 ```
 
 ::: {.predice}
-Usted conoce $\mu$. Antes de ejecutar la celda siguiente: ¿cree que su intervalo contiene el valor verdadero?
+Usted conoce $\mu$, la velocidad media verdadera de su flota. Antes de ejecutar la celda siguiente: ¿cree que su intervalo la contiene?
 :::
 
 ```{webr}
@@ -142,7 +144,7 @@ c(mu_verdadero = round(mu, 4),
 ### Qué significa «95 % de confianza»
 
 ::: {.predice}
-Antes de seguir: ¿diría que hay un 95 % de probabilidad de que $\mu$ esté dentro del intervalo que acaba de calcular?
+Antes de seguir: ¿diría que hay un 95 % de probabilidad de que la velocidad media $\mu$ esté dentro del intervalo que acaba de calcular?
 :::
 
 ```{webr}
@@ -213,7 +215,7 @@ Esta cuenta exige un valor de $s$ que todavía no se tiene, porque los datos no 
 :::
 
 ::: {.ejercicio}
-**Interpretar sin calcular.** Usted calculó un intervalo del 95 % y obtuvo $(16.9,\ 18.4)$. ¿Cuál de estas afirmaciones es correcta?
+**Interpretar sin calcular.** Usted calculó un intervalo del 95 % para la velocidad media y obtuvo $(16.9,\ 18.4)$ nudos. ¿Cuál de estas afirmaciones es correcta?
 
 **a)** Hay un 95 % de probabilidad de que $\mu$ esté entre 16.9 y 18.4.
 **b)** El 95 % de las unidades de la flota navegan entre 16.9 y 18.4 nudos.

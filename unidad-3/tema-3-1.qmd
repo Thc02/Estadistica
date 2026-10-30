@@ -17,20 +17,34 @@ Hasta aquí el curso ha descrito datos y ha modelado variables. A partir de esta
 
 ### Su flota, ahora como población
 
-En las unidades 1 y 2 sus 40 unidades eran los datos. En esta unidad cambian de papel: **son la población**, con una media $\mu$ y una desviación típica $\sigma$ que usted puede calcular exactamente. De ella se extraerán muestras.
+En las unidades 1 y 2 sus 40 unidades eran **los datos**: lo que había que describir y resumir. En esta unidad cambian de papel y pasan a ser **la población**: el conjunto completo sobre el que se quiere concluir algo, y del que se extraerán muestras.
 
-Esa inversión es deliberada. En un problema real nunca se conoce $\mu$; aquí sí, y eso permite comprobar si los métodos de inferencia funcionan.
+De los ocho campos de la flota, esta unidad trabaja con **uno solo: la velocidad, en nudos**. Es una variable continua medida en escala de razón, que es el caso al que se aplican la media y la desviación típica. De aquí en adelante, cuando se diga «la población» hay que entender **los 40 valores de velocidad**, no los 40 barcos ni sus demás características.
+
+Esa inversión de papeles es deliberada. En un problema real nunca se conoce $\mu$; aquí sí, y eso permite auditar los métodos de inferencia contra la verdad.
 
 ```{webr}
 mi_correo <- "apellido.nombre@espe.edu.ec"
 
 flota <- generar_flota(mi_correo)
-poblacion <- flota$velocidad_nudos
+poblacion <- flota$velocidad_nudos        # los 40 valores de velocidad, en nudos
 
-c(unidades = length(poblacion),
-  mu       = mean(poblacion),
-  sigma    = sigma_poblacional(poblacion))
+c(unidades    = length(poblacion),
+  mu_nudos    = mean(poblacion),
+  sigma_nudos = sigma_poblacional(poblacion))
 ```
+
+```{webr}
+hist(poblacion, breaks = 10, col = "grey85",
+     main = "La poblacion: 40 velocidades",
+     xlab = "nudos", ylab = "numero de unidades")
+abline(v = mean(poblacion), lwd = 3)
+abline(v = mean(poblacion) + c(-1, 1) * sigma_poblacional(poblacion), lty = 2)
+```
+
+::: {.franja}
+**Fíjese en esta figura, porque es la referencia de toda la página.** La línea gruesa marca $\mu$ y las discontinuas señalan $\mu \pm \sigma$: la distancia entre ellas es el ancho de la población. Todo lo que viene después —las medias muestrales, los intervalos del tema 3.2— se compara contra este ancho.
+:::
 
 ::: {.definicion}
 **Por qué `sigma_poblacional()` y no `sd()`.** La función `sd()` de R divide entre $n-1$ porque supone que los datos son una **muestra** y estima la dispersión de una población mayor. Aquí los 40 barcos **son** la población entera, de modo que el divisor correcto es $n$:
@@ -68,7 +82,7 @@ Es el convenio de Devore y se mantiene en toda la unidad.
 :::
 
 ::: {.predice}
-Va a extraer muchas muestras de 8 unidades de su flota y a calcular la media de cada una. ¿Dónde espera que se sitúe el promedio de todas esas medias? ¿Y espera que las medias estén más o menos dispersas que las velocidades individuales?
+Va a extraer 2000 muestras de 8 unidades y a calcular la media de cada una. Tendrá entonces **dos conjuntos de números**: las 40 velocidades de su flota, una por barco, y las 2000 medias. ¿Dónde espera que se sitúe el promedio de las medias? ¿Y cuál de los dos conjuntos espera que esté más disperso?
 :::
 
 ```{webr}
@@ -144,8 +158,12 @@ Cuanto mayor es $n$, mejor es la aproximación.
 **Lo notable del teorema es de qué no depende.** No exige que la población sea normal. No exige que sea continua. No exige conocer su forma. Sea cual sea la distribución de partida, el promedio de muchas observaciones se comporta como una normal. Por eso la normal aparece en tantos sitios: la mayoría de las magnitudes que medimos son agregados de muchas contribuciones pequeñas.
 :::
 
+::: {.franja}
+**Aquí se cambia de variable a propósito.** Para comprobar que el teorema no exige normalidad hace falta una población claramente **no** normal, y la velocidad de su flota no lo es. Se usan por eso las **horas entre fallas** del registro de la unidad 2, que son exponenciales. Es el único tramo de la unidad que no trabaja con la velocidad; después se vuelve a ella.
+:::
+
 ::: {.predice}
-Las horas entre fallas de su registro son exponenciales: muy asimétricas, con una cola larga a la derecha. Si promedia 30 de esas horas y repite el experimento muchas veces, ¿qué forma espera que tenga el histograma de las medias?
+Las horas entre fallas son muy asimétricas, con una cola larga a la derecha. Si promedia 30 de esas horas y repite el experimento muchas veces, ¿qué forma espera que tenga el histograma de las medias?
 :::
 
 ```{webr}
@@ -193,7 +211,7 @@ La regla de $n > 30$ es un convenio práctico, no un teorema. Devore advierte qu
 :::
 
 ::: {.ejercicio}
-**Interpretar sin calcular.** Un compañero afirma: «Con una muestra grande los datos de la flota se vuelven normales». ¿Qué está mal en esa frase?
+**Interpretar sin calcular.** Un compañero afirma: «Con una muestra grande las velocidades de la flota se vuelven normales». ¿Qué está mal en esa frase?
 
 **a)** Nada: es exactamente lo que dice el teorema del límite central.
 **b)** El teorema no habla de los datos sino de la media muestral. La población conserva su forma; lo que se vuelve acampanado es el histograma de las medias.
@@ -205,7 +223,7 @@ revisar("p23", "escriba aquí a, b o c")
 ```
 
 ::: {.ejercicio}
-**Calcular y verificar.** Extraiga su muestra de 50 unidades con `extraer_muestra()` y obtenga el **error estándar de la media**, usando la desviación típica de la muestra.
+**Calcular y verificar.** Extraiga su muestra de 50 unidades con `extraer_muestra()` y obtenga el **error estándar de la velocidad media**, usando la desviación típica de las velocidades de la muestra.
 :::
 
 ```{webr}
