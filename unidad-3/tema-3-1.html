@@ -525,18 +525,28 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBMYSBhc2ltZXRyaWEgZGUg
 <p>La población es claramente asimétrica; el histograma de las medias es prácticamente simétrico, y su coeficiente de asimetría ha caído casi a cero. El promediar ha enderezado la distribución.</p>
 <p>Nótese qué es lo que cambió y qué no. La población de horas entre fallas <strong>sigue siendo exponencial</strong>: no se ha vuelto normal, ni se volverá por mucho que crezca <span class="math inline">\(n\)</span>. Lo que se aproxima a la normal es la distribución de la <strong>media muestral</strong>. Confundir ambas cosas es el malentendido más frecuente sobre este teorema.</p>
 </div>
+<p>¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y la tabla siguiente compara las dos situaciones extremas: las horas entre fallas, muy asimétricas, frente a una población <strong>uniforme</strong>, que es simétrica.</p>
 <div class="cell">
 <div>
 <div id="webr-10" class="exercise-cell">
 
 </div>
 <script type="webr-10-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDdWFudG8gbiBoYWNlIGZhbHRhPyBBc2ltZXRyaWEgZGUgbGFzIG1lZGlhcyBwYXJhIHRhbWFub3MgY3JlY2llbnRlc1xuc2V0LnNlZWQoMilcbnRhbWFub3MgPC0gYygyLCA1LCAxMCwgMzAsIDEwMClcbmRhdGEuZnJhbWUoXG4gIG4gPSB0YW1hbm9zLFxuICBhc2ltZXRyaWFfZGVfbGFzX21lZGlhcyA9IHJvdW5kKHNhcHBseSh0YW1hbm9zLCBmdW5jdGlvbihrKVxuICAgIGFzaW1ldHJpYShyZXBsaWNhdGUoMTUwMCwgbWVhbihzYW1wbGUoaG9yYXMsIGssIHJlcGxhY2UgPSBUUlVFKSkpKSksIDMpKSJ9
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDdWFudG8gbiBoYWNlIGZhbHRhPyBEZXBlbmRlIGRlIGxhIGFzaW1ldHJpYSBkZSBsYSBwb2JsYWNpb24gZGUgcGFydGlkYVxudW5pZm9ybWUgPC0gcnVuaWYoNjAsIDAsIDEpICAgICAgICAgICMgcG9ibGFjaW9uIHNpbWV0cmljYSwgcGFyYSBjb250cmFzdGFyXG50YW1hbm9zICA8LSBjKDIsIDUsIDEwLCAzMCwgMTAwKVxuXG5hc2ltX21lZGlhcyA8LSBmdW5jdGlvbihwb2JsLCBrKVxuICBhc2ltZXRyaWEocmVwbGljYXRlKDE1MDAsIG1lYW4oc2FtcGxlKHBvYmwsIGssIHJlcGxhY2UgPSBUUlVFKSkpKVxuXG5zZXQuc2VlZCgyKTsgY29sX2V4cCAgPC0gc2FwcGx5KHRhbWFub3MsIGZ1bmN0aW9uKGspIGFzaW1fbWVkaWFzKGhvcmFzLCBrKSlcbnNldC5zZWVkKDIpOyBjb2xfdW5pZiA8LSBzYXBwbHkodGFtYW5vcywgZnVuY3Rpb24oaykgYXNpbV9tZWRpYXModW5pZm9ybWUsIGspKVxuXG5kYXRhLmZyYW1lKG4gPSB0YW1hbm9zLFxuICAgICAgICAgICBwb2JsYWNpb25fZXhwb25lbmNpYWwgPSByb3VuZChjb2xfZXhwLCAzKSxcbiAgICAgICAgICAgZ2FtbWFfc29icmVfcmFpel9uICAgID0gcm91bmQoYXNpbWV0cmlhKGhvcmFzKS9zcXJ0KHRhbWFub3MpLCAzKSxcbiAgICAgICAgICAgcG9ibGFjaW9uX3VuaWZvcm1lICAgID0gcm91bmQoY29sX3VuaWYsIDMpKSJ9
 </script>
 </div>
 </div>
+<div class="inferencia">
+<p>Las dos primeras columnas casi coinciden, y esa coincidencia tiene nombre. La asimetría de la media muestral vale</p>
+<p><span class="math display">\[\text{asimetría}(\bar{X}) = \frac{\gamma}{\sqrt{n}}\]</span></p>
+<p>donde <span class="math inline">\(\gamma\)</span> es la asimetría de la <strong>población</strong>. Sus horas entre fallas tienen <span class="math inline">\(\gamma \approx 2\)</span> —el valor exacto de cualquier exponencial—, de modo que la columna simulada sigue a <span class="math inline">\(\gamma/\sqrt{n}\)</span> salvo ruido de simulación.</p>
+<p>Léase lo que implica: la asimetría <strong>se desvanece como <span class="math inline">\(\sqrt{n}\)</span>, pero nunca llega a cero</strong>. Con <span class="math inline">\(n = 100\)</span> todavía queda alrededor de 0.2. Para esta población, <span class="math inline">\(n &gt; 30\)</span> es un mínimo razonable, no un punto de llegada.</p>
+<p>La tercera columna es el otro extremo. La uniforme es simétrica, así que <span class="math inline">\(\gamma = 0\)</span> <strong>exactamente</strong>, y la media es simétrica <strong>con cualquier <span class="math inline">\(n\)</span></strong>, incluso con <span class="math inline">\(n = 2\)</span>: los <span class="math inline">\(\pm 0.1\)</span> que aparecen son ruido de la simulación, no asimetría. Cuando la población es simétrica, la asimetría no es nunca el obstáculo.</p>
+</div>
 <div class="recomendacion">
-<p>La regla de <span class="math inline">\(n &gt; 30\)</span> es un convenio práctico, no un teorema. Devore advierte que existen poblaciones para las que ni siquiera 40 o 50 bastan, y que para muchas otras un <span class="math inline">\(n\)</span> bastante menor sería suficiente: en una población uniforme la aproximación ya es buena con <span class="math inline">\(n &gt; 12\)</span>. La tabla anterior permite verlo en sus propios datos. Cuanto más asimétrica es la población, mayor debe ser la muestra.</p>
+<p>La regla de <span class="math inline">\(n &gt; 30\)</span> es un convenio práctico, no un teorema, y la fórmula <span class="math inline">\(\gamma/\sqrt{n}\)</span> explica de dónde salen sus excepciones.</p>
+<p>Devore advierte que existen poblaciones para las que ni siquiera 40 o 50 bastan: son las de <span class="math inline">\(\gamma\)</span> grande, donde el cociente tarda en hacerse pequeño. Y señala el caso opuesto: <strong>en una población uniforme la aproximación ya es buena con <span class="math inline">\(n &gt; 12\)</span></strong>, porque al ser simétrica no hay asimetría que corregir y lo único que debe converger es la forma de las colas, que converge deprisa.</p>
+<p>Antes de fiarse de la regla, mire la asimetría de su población. Ese número, y no el 30, es el que decide.</p>
 </div>
 <div class="ejercicio">
 <p><strong>Interpretar sin calcular.</strong> Un compañero afirma: «Con una muestra grande las velocidades de la flota se vuelven normales». ¿Qué está mal en esa frase?</p>
