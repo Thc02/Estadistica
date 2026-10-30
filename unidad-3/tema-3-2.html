@@ -336,6 +336,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 </div>
 </div>
 <p>El tema anterior estableció cómo varía la media muestral alrededor de <span class="math inline">\(\mu\)</span>. Este lo usa al revés: a partir de una muestra, acotar dónde puede estar el parámetro.</p>
+<p><strong>La variable sigue siendo la misma:</strong> la <strong>velocidad en nudos</strong> de su flota. La población son los 40 valores de velocidad, con media <span class="math inline">\(\mu\)</span> y desviación típica <span class="math inline">\(\sigma\)</span> conocidas; la muestra, 50 valores extraídos de ella con reposición.</p>
 <div class="franja">
 <p><strong>Cómo leer esta página.</strong> Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque <strong>Inferencia razonable</strong> es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en <strong>Recomendación del docente</strong> es una decisión de este curso, no una verdad estadística.</p>
 </div>
@@ -345,7 +346,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 
 </div>
 <script type="webr-2-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBlbGxpZG8ubm9tYnJlQGVzcGUuZWR1LmVjXCJcblxuZmxvdGEgPC0gZ2VuZXJhcl9mbG90YShtaV9jb3JyZW8pXG5wb2JsYWNpb24gPC0gZmxvdGEkdmVsb2NpZGFkX251ZG9zXG5taV9tdWVzdHJhIDwtIGV4dHJhZXJfbXVlc3RyYShtaV9jb3JyZW8pICAgIyA1MCB1bmlkYWRlcywgY29uIHJlcG9zaWNpb25cblxucm91bmQoYyhuID0gbGVuZ3RoKG1pX211ZXN0cmEpLFxuICAgICAgICBtZWRpYV9tdWVzdHJhbCA9IG1lYW4obWlfbXVlc3RyYSksXG4gICAgICAgIHMgPSBzZChtaV9tdWVzdHJhKSksIDQpIn0=
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBlbGxpZG8ubm9tYnJlQGVzcGUuZWR1LmVjXCJcblxuZmxvdGEgPC0gZ2VuZXJhcl9mbG90YShtaV9jb3JyZW8pXG5wb2JsYWNpb24gPC0gZmxvdGEkdmVsb2NpZGFkX251ZG9zICAgICAgICAjIHBvYmxhY2lvbjogNDAgdmVsb2NpZGFkZXMsIGVuIG51ZG9zXG5taV9tdWVzdHJhIDwtIGV4dHJhZXJfbXVlc3RyYShtaV9jb3JyZW8pICAjIG11ZXN0cmE6IDUwIHZlbG9jaWRhZGVzLCBjb24gcmVwb3NpY2lvblxuXG5yb3VuZChjKG4gPSBsZW5ndGgobWlfbXVlc3RyYSksXG4gICAgICAgIG1lZGlhX211ZXN0cmFsID0gbWVhbihtaV9tdWVzdHJhKSxcbiAgICAgICAgcyA9IHNkKG1pX211ZXN0cmEpKSwgNCkifQ==
 </script>
 </div>
 </div>
@@ -359,7 +360,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBl
 <p>Para la media poblacional el estimador natural es la media muestral, y el tema 3.1 ya demostró que es insesgado:</p>
 <p><span class="math display">\[\hat{\mu} = \bar{X}, \qquad E(\bar{X}) = \mu\]</span></p>
 <div class="predice">
-<p>Usted conoce <span class="math inline">\(\mu\)</span> exactamente, porque su flota es la población. ¿Espera que la media de su muestra de 50 unidades coincida con <span class="math inline">\(\mu\)</span>? ¿A qué distancia le parece razonable que quede?</p>
+<p>Usted conoce <span class="math inline">\(\mu\)</span> exactamente, porque su flota es la población. ¿Espera que la velocidad media de su muestra de 50 unidades coincida con <span class="math inline">\(\mu\)</span>? ¿A qué distancia le parece razonable que quede?</p>
 </div>
 <div class="cell">
 <div>
@@ -434,7 +435,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibiA8LSBsZW5ndGgobWlfbXVl
 </div>
 </div>
 <div class="predice">
-<p>Usted conoce <span class="math inline">\(\mu\)</span>. Antes de ejecutar la celda siguiente: ¿cree que su intervalo contiene el valor verdadero?</p>
+<p>Usted conoce <span class="math inline">\(\mu\)</span>, la velocidad media verdadera de su flota. Antes de ejecutar la celda siguiente: ¿cree que su intervalo la contiene?</p>
 </div>
 <div class="cell">
 <div>
@@ -453,7 +454,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibXUgPC0gbWVhbihwb2JsYWNp
 <section id="qué-significa-95-de-confianza" class="level3">
 <h3 class="anchored" data-anchor-id="qué-significa-95-de-confianza">Qué significa «95 % de confianza»</h3>
 <div class="predice">
-<p>Antes de seguir: ¿diría que hay un 95 % de probabilidad de que <span class="math inline">\(\mu\)</span> esté dentro del intervalo que acaba de calcular?</p>
+<p>Antes de seguir: ¿diría que hay un 95 % de probabilidad de que la velocidad media <span class="math inline">\(\mu\)</span> esté dentro del intervalo que acaba de calcular?</p>
 </div>
 <div class="cell">
 <div>
@@ -510,7 +511,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBVbmlkYWRlcyBuZWNlc2Fy
 <p>Esta cuenta exige un valor de <span class="math inline">\(s\)</span> que todavía no se tiene, porque los datos no se han recogido. Devore propone una salida práctica: si se puede estimar el <strong>rango</strong> de la población —la diferencia entre el valor mayor y el menor— y la distribución no es muy asimétrica, dividirlo entre 4 da un valor aproximado de <span class="math inline">\(s\)</span>. Es una estimación conservadora y suficiente para planificar.</p>
 </div>
 <div class="ejercicio">
-<p><strong>Interpretar sin calcular.</strong> Usted calculó un intervalo del 95 % y obtuvo <span class="math inline">\((16.9,\ 18.4)\)</span>. ¿Cuál de estas afirmaciones es correcta?</p>
+<p><strong>Interpretar sin calcular.</strong> Usted calculó un intervalo del 95 % para la velocidad media y obtuvo <span class="math inline">\((16.9,\ 18.4)\)</span> nudos. ¿Cuál de estas afirmaciones es correcta?</p>
 <p><strong>a)</strong> Hay un 95 % de probabilidad de que <span class="math inline">\(\mu\)</span> esté entre 16.9 y 18.4. <strong>b)</strong> El 95 % de las unidades de la flota navegan entre 16.9 y 18.4 nudos. <strong>c)</strong> El intervalo procede de un procedimiento que, aplicado repetidamente a muestras distintas, captura <span class="math inline">\(\mu\)</span> el 95 % de las veces.</p>
 </div>
 <div class="cell">
