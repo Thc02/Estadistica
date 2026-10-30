@@ -307,9 +307,11 @@ verificar_normal <- function(x) {
 }
 
 # --- Unidad 3: muestreo desde la flota propia -------------------------------
-# La flota de 40 unidades hace de POBLACION. Las muestras se extraen CON
-# reposicion, de modo que las extracciones son independientes y se cumple
-# exactamente sigma_xbarra = sigma / sqrt(n), sin correccion por poblacion finita.
+# La flota de 40 unidades hace de POBLACION. Cada extraccion es una MEDICION de
+# velocidad sobre una unidad elegida al azar, de modo que el muestreo es CON
+# reposicion: una misma unidad puede medirse varias veces. Por eso n no esta
+# limitado por 40, las extracciones son independientes y se cumple exactamente
+# sigma_xbarra = sigma / sqrt(n), sin correccion por poblacion finita.
 
 sigma_poblacional <- function(x) sqrt(mean((x - mean(x))^2))
 

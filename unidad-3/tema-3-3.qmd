@@ -20,12 +20,12 @@ mi_correo <- "apellido.nombre@espe.edu.ec"
 
 flota <- generar_flota(mi_correo)
 poblacion <- flota$velocidad_nudos        # poblacion: 40 velocidades, en nudos
-mi_muestra <- extraer_muestra(mi_correo)  # muestra: 50 velocidades, con reposicion
+mi_muestra <- extraer_muestra(mi_correo)  # muestra: 50 mediciones, con reposicion
 
 velocidad_declarada   # valor nominal de la ficha tecnica del astillero
 ```
 
-**El caso de esta semana.** La ficha técnica del astillero declara que las unidades de su flota alcanzan una velocidad media de **18.0 nudos**. Usted ha medido una muestra de 50. ¿Contradicen sus datos la ficha técnica?
+**El caso de esta semana.** La ficha técnica del astillero declara que las unidades de su flota alcanzan una velocidad media de **18.0 nudos**. Usted ha tomado 50 mediciones de velocidad sobre unidades elegidas al azar. ¿Contradicen sus datos la ficha técnica?
 
 ## 3.3.1 Formulación de hipótesis
 

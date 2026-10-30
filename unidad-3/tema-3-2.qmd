@@ -9,7 +9,7 @@ subtitle: "UC 3 · Inferencia y regresión · Semana 14"
 
 El tema anterior estableció cómo varía la media muestral alrededor de $\mu$. Este lo usa al revés: a partir de una muestra, acotar dónde puede estar el parámetro.
 
-**La variable sigue siendo la misma:** la **velocidad en nudos** de su flota. La población son los 40 valores de velocidad, con media $\mu$ y desviación típica $\sigma$ conocidas; la muestra, 50 valores extraídos de ella con reposición.
+**La variable sigue siendo la misma:** la **velocidad en nudos** de su flota. La población son los 40 valores de velocidad, con media $\mu$ y desviación típica $\sigma$ conocidas; la muestra, **50 mediciones** tomadas al azar con reposición, en el sentido explicado en el tema 3.1.
 
 ::: {.franja}
 **Cómo leer esta página.** Lo que se afirma sin marca proviene de los textos del curso, con la fuente indicada. Lo que va en un bloque **Inferencia razonable** es una consecuencia que se sigue de lo anterior pero que ningún texto enuncia así. Lo que va en **Recomendación del docente** es una decisión de este curso, no una verdad estadística.
@@ -20,7 +20,7 @@ mi_correo <- "apellido.nombre@espe.edu.ec"
 
 flota <- generar_flota(mi_correo)
 poblacion <- flota$velocidad_nudos        # poblacion: 40 velocidades, en nudos
-mi_muestra <- extraer_muestra(mi_correo)  # muestra: 50 velocidades, con reposicion
+mi_muestra <- extraer_muestra(mi_correo)  # muestra: 50 mediciones, con reposicion
 
 round(c(n = length(mi_muestra),
         media_muestral = mean(mi_muestra),
@@ -42,7 +42,7 @@ Para la media poblacional el estimador natural es la media muestral, y el tema 3
 $$\hat{\mu} = \bar{X}, \qquad E(\bar{X}) = \mu$$
 
 ::: {.predice}
-Usted conoce $\mu$ exactamente, porque su flota es la población. ¿Espera que la velocidad media de su muestra de 50 unidades coincida con $\mu$? ¿A qué distancia le parece razonable que quede?
+Usted conoce $\mu$ exactamente, porque su flota es la población. ¿Espera que la velocidad media de sus 50 mediciones coincida con $\mu$? ¿A qué distancia le parece razonable que quede?
 :::
 
 ```{webr}
@@ -200,12 +200,12 @@ Moverse a la derecha por una fila lo **ensancha**: más confianza cuesta precisi
 
 ### Aplicación naval: tamaño de muestra para una precisión exigida
 
-Si se fija de antemano el semiancho admisible $E$ —el margen de error—, el tamaño de muestra sale de despejar $E = z_{\alpha/2}\,s/\sqrt{n}$:
+Si se fija de antemano el semiancho admisible $E$ —el margen de error—, el número de mediciones sale de despejar $E = z_{\alpha/2}\,s/\sqrt{n}$:
 
 $$n = \left(\frac{z_{\alpha/2}\,s}{E}\right)^{2}$$
 
 ```{webr}
-# Unidades necesarias para estimar la velocidad media con +-0.5 nudos al 95 %
+# Mediciones necesarias para estimar la velocidad media con +-0.5 nudos al 95 %
 E <- 0.5
 ceiling((qnorm(0.975) * s / E)^2)
 ```
@@ -233,7 +233,7 @@ La opción **b** merece un comentario aparte, porque es un error distinto y muy 
 ```{webr}
 # Intervalo para la MEDIA frente a tramo que contiene al 95 % de las UNIDADES
 rbind(para_la_media   = xbar + c(-1, 1) * qnorm(.975) * s/sqrt(n),
-      para_las_unidades = xbar + c(-1, 1) * qnorm(.975) * s)
+      para_una_medicion = xbar + c(-1, 1) * qnorm(.975) * s)
 ```
 
 ::: {.ejercicio}

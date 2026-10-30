@@ -47,6 +47,17 @@ abline(v = mean(poblacion) + c(-1, 1) * sigma_poblacional(poblacion), lty = 2)
 :::
 
 ::: {.definicion}
+**Qué significa aquí «extraer una muestra».** No es apartar barcos de la flota. Cada extracción es **una medición de velocidad sobre una unidad elegida al azar**, y una misma unidad puede volver a medirse en otra salida. Es decir, se muestrea **con reposición**.
+
+Esa precisión tiene tres consecuencias que conviene fijar ahora:
+
+- El tamaño de muestra **no está limitado por las 40 unidades**. Hablar de $n = 128$ mediciones sobre una flota de 40 es perfectamente sensato: son 128 salidas, no 128 barcos.
+- Las extracciones son **independientes**, de modo que $\sigma_{\bar{X}} = \sigma/\sqrt{n}$ vale exactamente, sin corrección alguna.
+- No aparece la **corrección por población finita** $\sqrt{(N-n)/(N-1)}$ que sí usaron en el tema 2.2 con la hipergeométrica. Allí se extraía sin reposición de un lote y cada extracción alteraba lo que quedaba; aquí no se retira nada.
+:::
+
+
+::: {.definicion}
 **Por qué `sigma_poblacional()` y no `sd()`.** La función `sd()` de R divide entre $n-1$ porque supone que los datos son una **muestra** y estima la dispersión de una población mayor. Aquí los 40 barcos **son** la población entera, de modo que el divisor correcto es $n$:
 
 $$\sigma = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2}$$
@@ -82,11 +93,11 @@ Es el convenio de Devore y se mantiene en toda la unidad.
 :::
 
 ::: {.predice}
-Va a extraer 2000 muestras de 8 unidades y a calcular la media de cada una. Tendrá entonces **dos conjuntos de números**: las 40 velocidades de su flota, una por barco, y las 2000 medias. ¿Dónde espera que se sitúe el promedio de las medias? ¿Y cuál de los dos conjuntos espera que esté más disperso?
+Va a extraer 2000 muestras de 8 mediciones y a calcular la media de cada una. Tendrá entonces **dos conjuntos de números**: las 40 velocidades de su flota, una por barco, y las 2000 medias. ¿Dónde espera que se sitúe el promedio de las medias? ¿Y cuál de los dos conjuntos espera que esté más disperso?
 :::
 
 ```{webr}
-# 2000 muestras de 8 unidades, con reposicion
+# 2000 muestras, de 8 mediciones cada una
 medias <- medias_repetidas(mi_correo, n = 8, repeticiones = 2000)
 
 round(c(mu_poblacion       = mean(poblacion),
@@ -122,6 +133,7 @@ La segunda, $\sigma_{\bar{X}} = \sigma/\sqrt{n}$, dice que la media muestral es 
 ```{webr}
 # El precio de la precision: error estandar para distintos tamanos de muestra
 sigma <- sigma_poblacional(poblacion)
+# n = numero de mediciones, no de barcos: puede pasar de 40
 data.frame(n = c(4, 8, 16, 32, 64, 128),
            error_estandar = round(sigma/sqrt(c(4, 8, 16, 32, 64, 128)), 4))
 ```
@@ -129,7 +141,7 @@ data.frame(n = c(4, 8, 16, 32, 64, 128),
 ### Aplicación naval: precisión de una estimación de velocidad
 
 ```{webr}
-# Cuantas unidades hay que medir para que el error estandar baje de 0.5 nudos?
+# Cuantas mediciones hacen falta para que el error estandar baje de 0.5 nudos?
 n <- 1:60
 min(n[sigma/sqrt(n) < 0.5])
 ```
@@ -223,7 +235,7 @@ revisar("p23", "escriba aquí a, b o c")
 ```
 
 ::: {.ejercicio}
-**Calcular y verificar.** Extraiga su muestra de 50 unidades con `extraer_muestra()` y obtenga el **error estándar de la velocidad media**, usando la desviación típica de las velocidades de la muestra.
+**Calcular y verificar.** Extraiga su muestra de 50 mediciones con `extraer_muestra()` y obtenga el **error estándar de la velocidad media**, usando la desviación típica de las velocidades de la muestra.
 :::
 
 ```{webr}
