@@ -553,7 +553,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBFc3BlcmFyIDMgbWludXRv
 </div>
 </div>
 <div class="inferencia">
-<p>En la uniforme la probabilidad <strong>se desploma</strong> de <span class="math inline">\(0.625\)</span> a <span class="math inline">\(0.25\)</span>; en la exponencial no se mueve.</p>
+<p>Lea la tabla por filas. En la uniforme la probabilidad <strong>se desploma</strong> al pasar de <code>al_llegar</code> a <code>tras_esperar_4</code>, de <span class="math inline">\(0.625\)</span> a <span class="math inline">\(0.25\)</span>; en la fila <code>exponencial</code> las dos columnas dan lo mismo.</p>
 <p>La razón es el soporte. El de la uniforme está acotado: el tren llega a más tardar en el minuto ocho, de modo que cada minuto transcurrido estrecha la ventana que queda y acerca la llegada. El viajero que lleva cuatro minutos esperando <strong>sabe más</strong> que el que acaba de llegar. El soporte de la exponencial, en cambio, no tiene cota superior y su tasa es constante, así que el tiempo ya transcurrido no aporta información.</p>
 <p>Traducido al registro de fallas: si un equipo tiene una vida útil con tope —se reemplaza obligatoriamente a las 2.000 horas—, su tiempo hasta la falla <strong>no</strong> puede modelarse como exponencial, por mucho que el histograma se le parezca.</p>
 </div>
@@ -781,7 +781,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicm91bmQoYyhcbiAgY2Fzb18x
 </div>
 </div>
 <div class="franja">
-<p>El caso 3 tiene una lectura que conviene subrayar: la probabilidad de superar la media es <strong>0.368</strong>, no 0.5. En una distribución asimétrica la media no parte la probabilidad por la mitad. Quien planifique suponiendo que «la mitad de las veces se pasa de 400 horas» se equivoca en trece puntos.</p>
+<p>El caso 3 tiene una lectura que conviene subrayar: <code>caso_3_exponencial</code>, la probabilidad de superar la media, vale <strong>0.368</strong> y no 0.5. En una distribución asimétrica la media no parte la probabilidad por la mitad. Quien planifique suponiendo que «la mitad de las veces se pasa de 400 horas» se equivoca en trece puntos.</p>
 </div>
 </section>
 </section>

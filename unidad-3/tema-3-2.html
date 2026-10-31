@@ -373,8 +373,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBMYSBlc3RpbWFjaW9uIHB1
 </div>
 </div>
 <div class="inferencia">
-<p>La estimación no acierta el valor exacto, y no tenía por qué: insesgado no significa correcto en cada muestra, sino <strong>correcto en promedio a lo largo de muchas muestras</strong>. Es una propiedad del procedimiento, no del número que salió hoy.</p>
-<p>De ahí la limitación de fondo de la estimación puntual: entrega un número y no dice nada sobre su precisión. Decir «la velocidad media es de 17.6 nudos» no distingue entre una estimación hecha con 5 unidades y otra hecha con 500. Para eso hace falta acompañar la estimación de su error estándar, y de ahí se pasa al intervalo.</p>
+<p>La línea <code>error</code> no da cero: la estimación no acierta el valor exacto, y no tenía por qué. Insesgado no significa correcto en cada muestra, sino <strong>correcto en promedio a lo largo de muchas muestras</strong>. Es una propiedad del procedimiento, no del número que salió hoy.</p>
+<p>De ahí la limitación de fondo de la estimación puntual: entrega un número y no dice nada sobre su precisión. Anunciar una velocidad media sin más no distingue entre una estimación hecha con 5 mediciones y otra hecha con 500. Para eso hace falta acompañar la estimación de su error estándar, y de ahí se pasa al intervalo.</p>
 </div>
 <div class="definicion">
 <p><strong>Error estándar estimado.</strong> Como <span class="math inline">\(\sigma\)</span> rara vez se conoce, se sustituye por la desviación típica muestral <span class="math inline">\(s\)</span>:</p>
@@ -448,7 +448,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibXUgPC0gbWVhbihwb2JsYWNp
 </div>
 </div>
 <div class="franja">
-<p><strong>Si le dio <code>FALSE</code>, su intervalo no funcionó, y eso es exactamente lo previsto.</strong> Un intervalo al 95 % falla una de cada veinte veces. En un curso de treinta guardiamarinas lo esperable es que a uno o dos les ocurra. Compárenlo en clase: la proporción de fallos es la demostración más directa de qué significa el nivel de confianza.</p>
+<p><strong>Si <code>lo_captura</code> le dio <code>FALSE</code>, su intervalo no funcionó, y eso es exactamente lo previsto.</strong> Un intervalo al 95 % falla una de cada veinte veces. En un curso de treinta guardiamarinas lo esperable es que a uno o dos les ocurra. Compárenlo en clase: la proporción de fallos es la demostración más directa de qué significa el nivel de confianza.</p>
 </div>
 </section>
 <section id="qué-significa-95-de-confianza" class="level3">
@@ -471,7 +471,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyAxMDAgbXVlc3RyYXMgaW5k
 <p><span class="fuente">Devore, 2016, §7.2.</span></p>
 </div>
 <div class="inferencia">
-<p>El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero <span class="math inline">\(\mu\)</span>— está fija. Lo que cambia de una muestra a otra es el intervalo, que salta de posición y de ancho. Alrededor de 95 de cada 100 lo atrapan; los rojos no.</p>
+<p>El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero <span class="math inline">\(\mu\)</span>— está fija. Lo que cambia de una muestra a otra es el intervalo, que salta de posición y de ancho. La salida <code>capturaron_mu</code> cuenta cuántos de los 100 lo atrapan; los rojos del gráfico son los que no.</p>
 <p>Por eso la frase «hay un 95 % de probabilidad de que <span class="math inline">\(\mu\)</span> esté en mi intervalo» es incorrecta. Una vez calculado el intervalo, <span class="math inline">\(\mu\)</span> está dentro o está fuera: no queda probabilidad que repartir. El 95 % califica al <strong>método</strong>, no al resultado. La formulación correcta es: «este intervalo procede de un procedimiento que acierta el 95 % de las veces».</p>
 </div>
 </section>
@@ -488,7 +488,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYW5jaG8gPC0gZnVuY3Rpb24o
 </div>
 </div>
 <div class="inferencia">
-<p>Los dos mandos de la tabla tiran en sentidos opuestos, y conviene nombrarlos.</p>
+<p>Los dos mandos de la tabla tiran en sentidos opuestos, y conviene nombrarlos. Siga una columna hacia abajo y luego una fila hacia la derecha.</p>
 <p>Bajar por una columna <strong>estrecha</strong> el intervalo: más datos, más precisión, pero al ritmo de <span class="math inline">\(\sqrt{n}\)</span>. Cuadruplicar la muestra reduce el ancho a la mitad.</p>
 <p>Moverse a la derecha por una fila lo <strong>ensancha</strong>: más confianza cuesta precisión. Exigir 99 % en lugar de 90 % ensancha el intervalo alrededor de un 56 %, con el mismo número de datos. No hay forma de ganar en los dos frentes sin pagar con muestra.</p>
 </div>
@@ -511,8 +511,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBNZWRpY2lvbmVzIG5lY2Vz
 <p>Esta cuenta exige un valor de <span class="math inline">\(s\)</span> que todavía no se tiene, porque los datos no se han recogido. Devore propone una salida práctica: si se puede estimar el <strong>rango</strong> de la población —la diferencia entre el valor mayor y el menor— y la distribución no es muy asimétrica, dividirlo entre 4 da un valor aproximado de <span class="math inline">\(s\)</span>. Es una estimación conservadora y suficiente para planificar.</p>
 </div>
 <div class="ejercicio">
-<p><strong>Interpretar sin calcular.</strong> Usted calculó un intervalo del 95 % para la velocidad media y obtuvo <span class="math inline">\((16.9,\ 18.4)\)</span> nudos. ¿Cuál de estas afirmaciones es correcta?</p>
-<p><strong>a)</strong> Hay un 95 % de probabilidad de que <span class="math inline">\(\mu\)</span> esté entre 16.9 y 18.4. <strong>b)</strong> El 95 % de las unidades de la flota navegan entre 16.9 y 18.4 nudos. <strong>c)</strong> El intervalo procede de un procedimiento que, aplicado repetidamente a muestras distintas, captura <span class="math inline">\(\mu\)</span> el 95 % de las veces.</p>
+<p><strong>Interpretar sin calcular.</strong> Acaba de calcular un intervalo del 95 % para la velocidad media, con sus extremos inferior y superior. ¿Cuál de estas afirmaciones es correcta?</p>
+<p><strong>a)</strong> Hay un 95 % de probabilidad de que <span class="math inline">\(\mu\)</span> esté entre esos dos extremos. <strong>b)</strong> El 95 % de las unidades de la flota navegan a una velocidad comprendida entre esos dos extremos. <strong>c)</strong> El intervalo procede de un procedimiento que, aplicado repetidamente a muestras distintas, captura <span class="math inline">\(\mu\)</span> el 95 % de las veces.</p>
 </div>
 <div class="cell">
 <div>

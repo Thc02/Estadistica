@@ -582,7 +582,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3VydmUoZG5vcm0oeCksIGZy
 </div>
 </div>
 <div class="inferencia">
-<p>Las dos columnas coinciden siempre, y no por casualidad: son la misma desigualdad escrita de dos maneras. Rechazar cuando <span class="math inline">\(|z|\)</span> supera <span class="math inline">\(z_{\alpha/2}\)</span> equivale a rechazar cuando el área de las colas más allá de <span class="math inline">\(|z|\)</span> —que es el valor-p— queda por debajo de <span class="math inline">\(\alpha\)</span>.</p>
+<p>La columna <code>rechaza_H0</code> da el mismo valor en las dos filas, y no por casualidad: son la misma desigualdad escrita de dos maneras. Rechazar cuando <span class="math inline">\(|z|\)</span> supera <span class="math inline">\(z_{\alpha/2}\)</span> equivale a rechazar cuando el área de las colas más allá de <span class="math inline">\(|z|\)</span> —que es el valor-p— queda por debajo de <span class="math inline">\(\alpha\)</span>.</p>
 <p>La diferencia es de información, no de decisión. La región de rechazo responde sí o no para el <span class="math inline">\(\alpha\)</span> elegido. El valor-p entrega el <strong>nivel más pequeño al que <span class="math inline">\(H_0\)</span> podría rechazarse</strong>, y con él cada lector puede aplicar su propio umbral. Devore lo plantea así: si alguien informa únicamente de que rechazó al 5 %, impone su nivel de significancia a los demás; publicar el valor-p impide esa imposición.</p>
 </div>
 </section>
@@ -600,7 +600,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibXUgPC0gbWVhbihwb2JsYWNp
 </div>
 </div>
 <div class="franja">
-<p><strong>Si le salió un error de tipo II, el procedimiento no falló.</strong> La velocidad declarada y la verdadera difieren poco, y con 50 unidades la prueba no tiene potencia suficiente para distinguirlas. Es la situación que Devore describe: el valor verdadero está demasiado cerca del valor nulo para el tamaño de muestra empleado.</p>
+<p><strong>Si le salió un error de tipo II, el procedimiento no falló.</strong> La velocidad declarada y la verdadera difieren poco, y con 50 mediciones la prueba no tiene potencia suficiente para distinguirlas: véalo en la columna <code>potencia</code> de la celda siguiente, en la fila <span class="math inline">\(n = 50\)</span>. Es la situación que Devore describe: el valor verdadero está demasiado cerca del valor nulo para el tamaño de muestra empleado.</p>
 <p>Aquí está la lección que no se puede aprender con datos reales: <strong>no rechazar <span class="math inline">\(H_0\)</span> no significa que <span class="math inline">\(H_0\)</span> sea cierta</strong>. Puede significar, simplemente, que la muestra era demasiado pequeña para notar la diferencia.</p>
 </div>
 <div class="cell">
@@ -627,7 +627,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBFbCBpbnRlcnZhbG8gZGVs
 </div>
 </div>
 <div class="inferencia">
-<p>El valor nulo cae dentro del intervalo exactamente cuando la prueba bilateral <strong>no</strong> rechaza, y cae fuera exactamente cuando rechaza. No es coincidencia: ambos procedimientos comparan la misma distancia <span class="math inline">\(|\bar{x} - \mu_0|\)</span> contra el mismo margen <span class="math inline">\(z_{\alpha/2}\,s/\sqrt{n}\)</span>.</p>
+<p>Compare <code>nulo_dentro_del_intervalo</code> con la decisión de la prueba: el valor nulo cae dentro del intervalo exactamente cuando la prueba bilateral <strong>no</strong> rechaza, y cae fuera exactamente cuando rechaza. No es coincidencia: ambos procedimientos comparan la misma distancia <span class="math inline">\(|\bar{x} - \mu_0|\)</span> contra el mismo margen <span class="math inline">\(z_{\alpha/2}\,s/\sqrt{n}\)</span>.</p>
 <p>De ahí una lectura útil: el intervalo de confianza al <span class="math inline">\(100(1-\alpha)\%\)</span> contiene <strong>todos los valores nulos que no serían rechazados</strong> por una prueba bilateral de nivel <span class="math inline">\(\alpha\)</span>. Johnson dedica a esta equivalencia su apartado §7.7.</p>
 </div>
 <div class="ejercicio">
@@ -645,8 +645,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmV2aXNhcihcInAyNVwiLCBc
 </div>
 </div>
 <div class="ejercicio">
-<p><strong>Interpretar sin calcular.</strong> Obtuvo un valor-p de 0.32. ¿Qué significa esa cifra?</p>
-<p><strong>a)</strong> Que hay un 32 % de probabilidad de que <span class="math inline">\(H_0\)</span> sea verdadera. <strong>b)</strong> Que hay un 32 % de probabilidad de equivocarse al rechazar <span class="math inline">\(H_0\)</span>. <strong>c)</strong> Que, si <span class="math inline">\(H_0\)</span> fuera verdadera, el 32 % de las muestras darían un resultado al menos tan contradictorio con ella como el observado.</p>
+<p><strong>Interpretar sin calcular.</strong> Su prueba le devolvió un valor-p.&nbsp;Llámelo <span class="math inline">\(p\)</span>. ¿Qué significa esa cifra?</p>
+<p><strong>a)</strong> Que <span class="math inline">\(p\)</span> es la probabilidad de que <span class="math inline">\(H_0\)</span> sea verdadera. <strong>b)</strong> Que <span class="math inline">\(p\)</span> es la probabilidad de equivocarse al rechazar <span class="math inline">\(H_0\)</span>. <strong>c)</strong> Que, si <span class="math inline">\(H_0\)</span> fuera verdadera, una proporción <span class="math inline">\(p\)</span> de las muestras daría un resultado al menos tan contradictorio con ella como el observado.</p>
 </div>
 <div class="cell">
 <div>
