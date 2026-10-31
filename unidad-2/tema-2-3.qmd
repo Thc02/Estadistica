@@ -211,7 +211,7 @@ round(rbind(
 ```
 
 ::: {.inferencia}
-En la uniforme la probabilidad **se desploma** de $0.625$ a $0.25$; en la exponencial no se mueve.
+Lea la tabla por filas. En la uniforme la probabilidad **se desploma** al pasar de `al_llegar` a `tras_esperar_4`, de $0.625$ a $0.25$; en la fila `exponencial` las dos columnas dan lo mismo.
 
 La razón es el soporte. El de la uniforme está acotado: el tren llega a más tardar en el minuto ocho, de modo que cada minuto transcurrido estrecha la ventana que queda y acerca la llegada. El viajero que lleva cuatro minutos esperando **sabe más** que el que acaba de llegar. El soporte de la exponencial, en cambio, no tiene cota superior y su tasa es constante, así que el tiempo ya transcurrido no aporta información.
 
@@ -451,7 +451,7 @@ round(c(
 ```
 
 ::: {.franja}
-El caso 3 tiene una lectura que conviene subrayar: la probabilidad de superar la media es **0.368**, no 0.5. En una distribución asimétrica la media no parte la probabilidad por la mitad. Quien planifique suponiendo que «la mitad de las veces se pasa de 400 horas» se equivoca en trece puntos.
+El caso 3 tiene una lectura que conviene subrayar: `caso_3_exponencial`, la probabilidad de superar la media, vale **0.368** y no 0.5. En una distribución asimétrica la media no parte la probabilidad por la mitad. Quien planifique suponiendo que «la mitad de las veces se pasa de 400 horas» se equivoca en trece puntos.
 :::
 
 ## Para leer esta semana

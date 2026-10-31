@@ -220,6 +220,12 @@ Nótese qué es lo que cambió y qué no. La población de horas entre fallas **
 
 ¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y conviene compararla con el otro extremo. No hace falta inventar nada: su mismo registro de la unidad 2 trae una variable de cada tipo, como recoge `diccionario_fallas`.
 
+```{webr}
+# Los dos campos del registro que estan en extremos opuestos de la asimetria
+diccionario_fallas[diccionario_fallas$campo %in%
+                     c("horas_entre_fallas", "respuesta_min"), ]
+```
+
 | campo | unidad | modelo del tema 2.3 | asimetría $\gamma$ |
 |---|---|---|---|
 | `horas_entre_fallas` | horas | Exponencial | $2$ |

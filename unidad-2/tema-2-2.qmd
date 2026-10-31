@@ -72,18 +72,23 @@ Se esperan $np = 15 \times 0.12 = 1.8$ chalecos defectuosos. Entonces, ¿cuál c
 ```{webr}
 n <- 15; p <- 0.12
 
-probabilidades <- dbinom(0:6, n, p)
-names(probabilidades) <- 0:6
+# El soporte va de 0 a n: hay que mostrarlo entero para que la suma valga 1
+probabilidades <- dbinom(0:n, n, p)
+names(probabilidades) <- 0:n
 round(probabilidades, 4)
 
-c(esperanza = n * p, varianza = n * p * (1 - p))
+c(suma = sum(probabilidades), esperanza = n * p, varianza = n * p * (1 - p))
 ```
 
 ```{webr}
-barplot(dbinom(0:8, 15, 0.12), names.arg = 0:8, col = "grey85",
+barplot(dbinom(0:n, n, p), names.arg = 0:n, col = "grey85",
         main = "Chalecos defectuosos en una inspeccion de 15",
         xlab = "defectuosos", ylab = "probabilidad")
 ```
+
+::: {.franja}
+**La fila `suma` no es decoración.** Comprueba sobre sus propios números lo que el tema 2.1 definió: una función de masa suma **exactamente 1** sobre todo su soporte. Por eso la tabla llega hasta $x = n = 15$ y no se corta antes, aunque las últimas probabilidades sean minúsculas. Recortar la cola daría una tabla que no suma uno, y eso ya no sería una distribución.
+:::
 
 ::: {.ejercicio}
 **Calcular a mano y verificar.** Obtenga $P(X = 2)$ con la fórmula binomial, para $n = 15$ y $p = 0.12$.
@@ -144,12 +149,21 @@ Con los mismos números, ¿cree que la binomial y la hipergeométrica darán res
 ```{webr}
 N <- 40; K <- 6; n <- 8
 
-hiper <- dhyper(0:6, m = K, n = N - K, k = n)
-binom <- dbinom(0:6, n, K/N)          # lo que saldria si hubiera reposicion
+x <- 0:n                              # 0 a 8: las dos se comparan en el mismo soporte
+hiper <- dhyper(x, m = K, n = N - K, k = n)
+binom <- dbinom(x, n, K/N)            # lo que saldria si hubiera reposicion
 
-round(rbind(hipergeometrica = hiper, binomial = binom,
-            diferencia = hiper - binom), 4)
+tabla <- round(rbind(hipergeometrica = hiper, binomial = binom,
+                     diferencia = hiper - binom), 4)
+colnames(tabla) <- x
+tabla
 ```
+
+::: {.franja}
+**Mire las dos últimas columnas.** La hipergeométrica vale **cero exacto** en $x = 7$ y $x = 8$, y la binomial no. No es un redondeo: solo hay $K = 6$ unidades pendientes, así que encontrar siete es **imposible**. La binomial, que supone reposición, les asigna probabilidad positiva porque permite sacar la misma unidad dos veces.
+
+Los dos modelos no difieren solo en los números: difieren en **qué resultados consideran posibles**.
+:::
 
 ```{webr}
 c(E_hiper   = n * K/N,
@@ -159,7 +173,7 @@ c(E_hiper   = n * K/N,
 ```
 
 ::: {.inferencia}
-Las **esperanzas coinciden**: $nK/N$ en ambos casos. Lo que cambia es la varianza, que en la hipergeométrica es menor por el factor $\frac{N-n}{N-1}$.
+Las **esperanzas coinciden**: $nK/N$ en ambos casos. Lo que cambia es la varianza: compare `V_hiper` con `V_binom`, y verá que la primera es menor en el factor `correccion`, que vale $\frac{N-n}{N-1}$.
 
 Tiene sentido: sin reposición, la muestra no puede repetir unidades, así que hay menos margen para resultados extremos. Muestrear sin reposición **da más precisión**, exactamente el mismo argumento del tema 1.2.4.
 :::
@@ -213,13 +227,21 @@ Si Poisson aproxima a la binomial cuando $n$ es grande y $p$ pequeña, ¿qué ta
 ```{webr}
 n <- 2000; p <- 0.0009; lambda <- n * p
 
-round(rbind(binomial = dbinom(0:6, n, p),
-            poisson  = dpois(0:6, lambda),
-            diferencia = dbinom(0:6, n, p) - dpois(0:6, lambda)), 6)
+x <- 0:6
+tabla <- round(rbind(binomial = dbinom(x, n, p),
+                     poisson  = dpois(x, lambda),
+                     diferencia = dbinom(x, n, p) - dpois(x, lambda)), 6)
+colnames(tabla) <- x
+tabla
+
+# Aqui la tabla SI esta recortada: Poisson no tiene tope superior.
+# Esto es lo que queda fuera por la derecha:
+round(c(cola_binomial = 1 - pbinom(6, n, p),
+        cola_poisson  = 1 - ppois(6, lambda)), 6)
 ```
 
 ::: {.inferencia}
-Coinciden hasta la cuarta o quinta cifra decimal. La afirmación del texto guía **no es una analogía, es un hecho comprobable**: con $n$ grande y $p$ pequeña las dos distribuciones son prácticamente la misma.
+Mire la fila `diferencia`: las dos primeras coinciden hasta la cuarta o quinta cifra decimal. La afirmación del texto guía **no es una analogía, es un hecho comprobable**: con $n$ grande y $p$ pequeña las dos distribuciones son prácticamente la misma.
 
 Eso explica por qué Poisson necesita un solo parámetro donde la binomial necesita dos. Cuando $p$ es diminuta, $n$ y $p$ dejan de importar por separado: **sólo importa su producto**.
 :::
@@ -280,7 +302,7 @@ round(c(ninguno_en_un_mes      = dpois(0, lambda_mes),
 ```
 
 ::: {.franja}
-El texto guía reporta para este caso 23.06 % y 51.34 %. Se comprobaron ambos y coinciden. Cuando un libro y el computador coinciden hasta la cuarta cifra, **las dos vías se refuerzan**: no es que R tenga razón, es que dos procedimientos independientes dan lo mismo.
+El texto guía reporta para este caso 23.06 % y 51.34 %. La primera cifra coincide exactamente con `uno_en_el_semestre`; la segunda, `hasta_4_en_el_anio`, da 51.32 %, de modo que concuerdan hasta la tercera cifra y difieren en la cuarta por el redondeo del libro. Cuando dos procedimientos independientes dan lo mismo, **ambos se refuerzan**: no es que R tenga razón, es que coinciden.
 :::
 
 ### Aplicación naval: eventos de mantenimiento
@@ -301,7 +323,7 @@ round(c(exactamente_3   = dpois(3, lambda),
 ```
 
 ::: {.inferencia}
-Alrededor del 9 % de las semanas superan la capacidad, es decir unas cinco al año. **La capacidad media es suficiente y aun así el sistema se desborda con regularidad**, porque la demanda no llega al ritmo medio sino a rachas.
+Casi el 11 % de las semanas superan la capacidad —es la salida `mas_de_3`— y eso son unas seis al año, según `semanas_al_anio`. **La capacidad media es suficiente y aun así el sistema se desborda con regularidad**, porque la demanda no llega al ritmo medio sino a rachas.
 
 Dimensionar por el promedio es el error de fondo que ya apareció en el apartado 1.3.7 al presupuestar el consumo con la media. Aquí reaparece con la distribución que lo cuantifica.
 :::
