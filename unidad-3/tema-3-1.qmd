@@ -171,7 +171,16 @@ Cuanto mayor es $n$, mejor es la aproximación.
 :::
 
 ::: {.franja}
-**Aquí se cambia de variable a propósito.** Para comprobar que el teorema no exige normalidad hace falta una población claramente **no** normal, y la velocidad de su flota no lo es. Se usan por eso las **horas entre fallas** del registro de la unidad 2, que son exponenciales. Es el único tramo de la unidad que no trabaja con la velocidad; después se vuelve a ella.
+**Aquí se cambia de variable a propósito.** Para comprobar que el teorema no exige normalidad hace falta una población claramente **no** normal, y la velocidad de su flota no lo es. Se usan por eso las **horas entre fallas** del registro de la unidad 2, que son exponenciales.
+
+Conviene no confundir los dos conjuntos, porque tienen tamaños distintos:
+
+| conjunto | tamaño | variable | de dónde sale |
+|---|---|---|---|
+| `flota` | **40** | velocidad, en nudos | `generar_flota()`, unidad 1 |
+| `registro` | **60** | horas entre fallas | `registro_fallas()`, unidad 2 |
+
+Este es el único tramo de la unidad que no trabaja con la velocidad; después se vuelve a ella.
 :::
 
 ::: {.predice}
@@ -198,8 +207,9 @@ par(mfrow = c(1, 1))
 # La asimetria de la poblacion frente a la de las medias
 asimetria <- function(x) sum((x - mean(x))^3) / (length(x) * sd(x)^3)
 
-round(c(poblacion = asimetria(horas),
-        medias_n30 = asimetria(medias30)), 4)
+round(c(registros          = length(horas),
+        asimetria_poblacion = asimetria(horas),
+        asimetria_medias_n30 = asimetria(medias30)), 4)
 ```
 
 ::: {.inferencia}
@@ -208,23 +218,33 @@ La población es claramente asimétrica; el histograma de las medias es práctic
 Nótese qué es lo que cambió y qué no. La población de horas entre fallas **sigue siendo exponencial**: no se ha vuelto normal, ni se volverá por mucho que crezca $n$. Lo que se aproxima a la normal es la distribución de la **media muestral**. Confundir ambas cosas es el malentendido más frecuente sobre este teorema.
 :::
 
-¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y la tabla siguiente compara las dos situaciones extremas: las horas entre fallas, muy asimétricas, frente a una población **uniforme**, que es simétrica.
+¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y la tabla siguiente compara las dos situaciones extremas: sus **60 horas entre fallas**, muy asimétricas, frente a una población **Uniforme(0,1)**, perfectamente simétrica. La columna del medio es el valor teórico $\gamma/\sqrt{n}$ para la primera.
 
 ```{webr}
 # Cuanto n hace falta? Depende de la asimetria de la poblacion de partida
-uniforme <- runif(60, 0, 1)          # poblacion simetrica, para contrastar
-tamanos  <- c(2, 5, 10, 30, 100)
+tamanos <- c(2, 5, 10, 30, 100)
 
-asim_medias <- function(pobl, k)
-  asimetria(replicate(1500, mean(sample(pobl, k, replace = TRUE))))
+# Columna 1: poblacion = sus horas entre fallas, muy asimetricas
+set.seed(2)
+col_exp <- sapply(tamanos, function(k)
+  asimetria(replicate(1500, mean(sample(horas, k, replace = TRUE)))))
 
-set.seed(2); col_exp  <- sapply(tamanos, function(k) asim_medias(horas, k))
-set.seed(2); col_unif <- sapply(tamanos, function(k) asim_medias(uniforme, k))
+# Columna 3: poblacion = la Uniforme(0,1) teorica, perfectamente simetrica
+set.seed(2)
+col_unif <- sapply(tamanos, function(k)
+  asimetria(replicate(1500, mean(runif(k, 0, 1)))))
 
 data.frame(n = tamanos,
            poblacion_exponencial = round(col_exp, 3),
            gamma_sobre_raiz_n    = round(asimetria(horas)/sqrt(tamanos), 3),
            poblacion_uniforme    = round(col_unif, 3))
+```
+
+```{webr}
+# Cuanto ruido mete la simulacion? Con R replicas, la asimetria estimada
+# fluctua alrededor de su valor verdadero con error tipico sqrt(6/R)
+R <- 1500
+round(c(replicas = R, ruido_tipico = sqrt(6/R), banda_2_sigma = 2*sqrt(6/R)), 3)
 ```
 
 ::: {.inferencia}
@@ -236,7 +256,11 @@ donde $\gamma$ es la asimetría de la **población**. Sus horas entre fallas tie
 
 Léase lo que implica: la asimetría **se desvanece como $\sqrt{n}$, pero nunca llega a cero**. Con $n = 100$ todavía queda alrededor de 0.2. Para esta población, $n > 30$ es un mínimo razonable, no un punto de llegada.
 
-La tercera columna es el otro extremo. La uniforme es simétrica, así que $\gamma = 0$ **exactamente**, y la media es simétrica **con cualquier $n$**, incluso con $n = 2$: los $\pm 0.1$ que aparecen son ruido de la simulación, no asimetría. Cuando la población es simétrica, la asimetría no es nunca el obstáculo.
+La tercera columna es el otro extremo. La uniforme es simétrica, así que $\gamma = 0$ **exactamente**, y la media resulta simétrica **con cualquier $n$**, incluso con $n = 2$.
+
+Los valores no salen clavados en cero porque están **estimados** con 1500 réplicas, y toda estimación fluctúa. La celda siguiente da la magnitud de esa fluctuación: la asimetría muestral tiene un error típico de $\sqrt{6/R} \approx 0.06$, de modo que valores de unas pocas centésimas, con signo cambiante, son indistinguibles de cero. Compruebe que la columna entera cae dentro de esa banda, y compárela con la primera, donde a $n=2$ el valor es $1.5$: ahí no hay ruido que explique nada.
+
+Cuando la población es simétrica, la asimetría no es nunca el obstáculo.
 :::
 
 ::: {.recomendacion}
