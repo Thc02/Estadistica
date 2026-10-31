@@ -123,7 +123,7 @@ c(teorico  = sigma_poblacional(poblacion)/sqrt(8),
 ```
 
 ::: {.inferencia}
-Las dos cifras coinciden hasta la segunda o tercera decimal. Conviene leer con cuidado qué dice cada una de las dos fórmulas.
+Compare `teorico` con `simulado`: coinciden hasta la segunda o tercera decimal. Conviene leer con cuidado qué dice cada una de las dos fórmulas.
 
 La primera, $E(\bar{X}) = \mu$, dice que la media muestral **no está sesgada**: no tiende a quedarse corta ni a pasarse. Promediar muchas muestras devuelve el valor verdadero.
 
@@ -218,7 +218,14 @@ La población es claramente asimétrica; el histograma de las medias es práctic
 Nótese qué es lo que cambió y qué no. La población de horas entre fallas **sigue siendo exponencial**: no se ha vuelto normal, ni se volverá por mucho que crezca $n$. Lo que se aproxima a la normal es la distribución de la **media muestral**. Confundir ambas cosas es el malentendido más frecuente sobre este teorema.
 :::
 
-¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y la tabla siguiente compara las dos situaciones extremas: sus **60 horas entre fallas**, muy asimétricas, frente a una población **Uniforme(0,1)**, perfectamente simétrica. La columna del medio es el valor teórico $\gamma/\sqrt{n}$ para la primera.
+¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y conviene compararla con el otro extremo. No hace falta inventar nada: su mismo registro de la unidad 2 trae una variable de cada tipo, como recoge `diccionario_fallas`.
+
+| campo | unidad | modelo del tema 2.3 | asimetría $\gamma$ |
+|---|---|---|---|
+| `horas_entre_fallas` | horas | Exponencial | $2$ |
+| `respuesta_min` | minutos | Uniforme$(8,\,25)$ | $0$ |
+
+La tabla siguiente enfrenta las dos. La columna del medio es el valor teórico $\gamma/\sqrt{n}$ para las horas entre fallas.
 
 ```{webr}
 # Cuanto n hace falta? Depende de la asimetria de la poblacion de partida
@@ -229,22 +236,26 @@ set.seed(2)
 col_exp <- sapply(tamanos, function(k)
   asimetria(replicate(1500, mean(sample(horas, k, replace = TRUE)))))
 
-# Columna 3: poblacion = la Uniforme(0,1) teorica, perfectamente simetrica
+# Columna 3: poblacion = la Uniforme(8, 25) del tiempo de respuesta, tema 2.3.
+# Se muestrea el MODELO, no los 60 registros: asi gamma vale 0 exactamente.
 set.seed(2)
 col_unif <- sapply(tamanos, function(k)
-  asimetria(replicate(1500, mean(runif(k, 0, 1)))))
+  asimetria(replicate(1500, mean(runif(k, 8, 25)))))
 
 data.frame(n = tamanos,
            poblacion_exponencial = round(col_exp, 3),
            gamma_sobre_raiz_n    = round(asimetria(horas)/sqrt(tamanos), 3),
-           poblacion_uniforme    = round(col_unif, 3))
+           tiempo_de_respuesta   = round(col_unif, 3))
 ```
 
 ```{webr}
 # Cuanto ruido mete la simulacion? Con R replicas, la asimetria estimada
 # fluctua alrededor de su valor verdadero con error tipico sqrt(6/R)
 R <- 1500
-round(c(replicas = R, ruido_tipico = sqrt(6/R), banda_2_sigma = 2*sqrt(6/R)), 3)
+round(c(replicas = R,
+        ruido_tipico = sqrt(6/R),
+        banda_2_sigma = 2*sqrt(6/R),
+        exponencial_n2_en_unidades_de_ruido = col_exp[1]/sqrt(6/R)), 3)
 ```
 
 ::: {.inferencia}
@@ -252,13 +263,19 @@ Las dos primeras columnas casi coinciden, y esa coincidencia tiene nombre. La as
 
 $$\text{asimetría}(\bar{X}) = \frac{\gamma}{\sqrt{n}}$$
 
-donde $\gamma$ es la asimetría de la **población**. Sus horas entre fallas tienen $\gamma \approx 2$ —el valor exacto de cualquier exponencial—, de modo que la columna simulada sigue a $\gamma/\sqrt{n}$ salvo ruido de simulación.
+donde $\gamma$ es la asimetría de la **población**: es el valor que la celda anterior imprimió como `asimetria_poblacion`. Con él se construye la columna `gamma_sobre_raiz_n`, y la columna `poblacion_exponencial` la sigue salvo ruido.
 
-Léase lo que implica: la asimetría **se desvanece como $\sqrt{n}$, pero nunca llega a cero**. Con $n = 100$ todavía queda alrededor de 0.2. Para esta población, $n > 30$ es un mínimo razonable, no un punto de llegada.
+Su valor no será exactamente 2, que es la asimetría de **cualquier** exponencial teórica, sino algo menor. No es un defecto de sus datos: con solo 60 registros, la asimetría muestral subestima sistemáticamente a la poblacional. Lo que importa aquí es que la primera y la segunda columna coincidan, sea cual sea ese número.
 
-La tercera columna es el otro extremo. La uniforme es simétrica, así que $\gamma = 0$ **exactamente**, y la media resulta simétrica **con cualquier $n$**, incluso con $n = 2$.
+Léase lo que implica: la asimetría **se desvanece como $\sqrt{n}$, pero nunca llega a cero**. Mire `poblacion_exponencial` en la fila $n = 100$: sigue ahí. Para esta población, $n > 30$ es un mínimo razonable, no un punto de llegada.
 
-Los valores no salen clavados en cero porque están **estimados** con 1500 réplicas, y toda estimación fluctúa. La celda siguiente da la magnitud de esa fluctuación: la asimetría muestral tiene un error típico de $\sqrt{6/R} \approx 0.06$, de modo que valores de unas pocas centésimas, con signo cambiante, son indistinguibles de cero. Compruebe que la columna entera cae dentro de esa banda, y compárela con la primera, donde a $n=2$ el valor es $1.5$: ahí no hay ruido que explique nada.
+La tercera columna es el otro extremo. El tiempo de respuesta se modeló en el tema 2.3 como una uniforme, que es simétrica, así que $\gamma = 0$ **exactamente** y la media resulta simétrica **con cualquier $n$**, incluso con $n = 2$.
+
+Obsérvese que la celda muestrea el **modelo** —`runif(k, 8, 25)`— y no los 60 valores de `respuesta_min`. No es un capricho: esos 60 registros son una *muestra* de la uniforme, y su asimetría empírica no vale cero sino unas décimas, lo bastante para enturbiar la demostración. La población de la que se habla aquí es la distribución, no los datos que salieron de ella.
+
+Los valores no salen clavados en cero porque están **estimados** con un número finito de réplicas, y toda estimación fluctúa. La celda siguiente mide esa fluctuación: `ruido_tipico` es el error típico $\sqrt{6/R}$ de una asimetría muestral, y `banda_2_sigma` el doble.
+
+Compruebe que `tiempo_de_respuesta` cae entera dentro de esa banda, con signos que se alternan: eso es ruido, no asimetría. Y compárela con la primera columna mediante `exponencial_n2_en_unidades_de_ruido`, que dice cuántas bandas de ruido mide el valor a $n = 2$. Ahí no hay fluctuación que explique nada.
 
 Cuando la población es simétrica, la asimetría no es nunca el obstáculo.
 :::

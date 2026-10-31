@@ -243,7 +243,7 @@ abline(v = z, lwd = 3, col = "red")
 ```
 
 ::: {.inferencia}
-Las dos columnas coinciden siempre, y no por casualidad: son la misma desigualdad escrita de dos maneras. Rechazar cuando $|z|$ supera $z_{\alpha/2}$ equivale a rechazar cuando el área de las colas más allá de $|z|$ —que es el valor-p— queda por debajo de $\alpha$.
+La columna `rechaza_H0` da el mismo valor en las dos filas, y no por casualidad: son la misma desigualdad escrita de dos maneras. Rechazar cuando $|z|$ supera $z_{\alpha/2}$ equivale a rechazar cuando el área de las colas más allá de $|z|$ —que es el valor-p— queda por debajo de $\alpha$.
 
 La diferencia es de información, no de decisión. La región de rechazo responde sí o no para el $\alpha$ elegido. El valor-p entrega el **nivel más pequeño al que $H_0$ podría rechazarse**, y con él cada lector puede aplicar su propio umbral. Devore lo plantea así: si alguien informa únicamente de que rechazó al 5 %, impone su nivel de significancia a los demás; publicar el valor-p impide esa imposición.
 :::
@@ -270,7 +270,7 @@ if (!H0_era_verdadera && !se_rechazo) {
 ```
 
 ::: {.franja}
-**Si le salió un error de tipo II, el procedimiento no falló.** La velocidad declarada y la verdadera difieren poco, y con 50 unidades la prueba no tiene potencia suficiente para distinguirlas. Es la situación que Devore describe: el valor verdadero está demasiado cerca del valor nulo para el tamaño de muestra empleado.
+**Si le salió un error de tipo II, el procedimiento no falló.** La velocidad declarada y la verdadera difieren poco, y con 50 mediciones la prueba no tiene potencia suficiente para distinguirlas: véalo en la columna `potencia` de la celda siguiente, en la fila $n = 50$. Es la situación que Devore describe: el valor verdadero está demasiado cerca del valor nulo para el tamaño de muestra empleado.
 
 Aquí está la lección que no se puede aprender con datos reales: **no rechazar $H_0$ no significa que $H_0$ sea cierta**. Puede significar, simplemente, que la muestra era demasiado pequeña para notar la diferencia.
 :::
@@ -297,7 +297,7 @@ c(inferior = xbar - margen, superior = xbar + margen,
 ```
 
 ::: {.inferencia}
-El valor nulo cae dentro del intervalo exactamente cuando la prueba bilateral **no** rechaza, y cae fuera exactamente cuando rechaza. No es coincidencia: ambos procedimientos comparan la misma distancia $|\bar{x} - \mu_0|$ contra el mismo margen $z_{\alpha/2}\,s/\sqrt{n}$.
+Compare `nulo_dentro_del_intervalo` con la decisión de la prueba: el valor nulo cae dentro del intervalo exactamente cuando la prueba bilateral **no** rechaza, y cae fuera exactamente cuando rechaza. No es coincidencia: ambos procedimientos comparan la misma distancia $|\bar{x} - \mu_0|$ contra el mismo margen $z_{\alpha/2}\,s/\sqrt{n}$.
 
 De ahí una lectura útil: el intervalo de confianza al $100(1-\alpha)\%$ contiene **todos los valores nulos que no serían rechazados** por una prueba bilateral de nivel $\alpha$. Johnson dedica a esta equivalencia su apartado §7.7.
 :::
@@ -315,11 +315,11 @@ revisar("p25", "escriba aquí a, b o c")
 ```
 
 ::: {.ejercicio}
-**Interpretar sin calcular.** Obtuvo un valor-p de 0.32. ¿Qué significa esa cifra?
+**Interpretar sin calcular.** Su prueba le devolvió un valor-p. Llámelo $p$. ¿Qué significa esa cifra?
 
-**a)** Que hay un 32 % de probabilidad de que $H_0$ sea verdadera.
-**b)** Que hay un 32 % de probabilidad de equivocarse al rechazar $H_0$.
-**c)** Que, si $H_0$ fuera verdadera, el 32 % de las muestras darían un resultado al menos tan contradictorio con ella como el observado.
+**a)** Que $p$ es la probabilidad de que $H_0$ sea verdadera.
+**b)** Que $p$ es la probabilidad de equivocarse al rechazar $H_0$.
+**c)** Que, si $H_0$ fuera verdadera, una proporción $p$ de las muestras daría un resultado al menos tan contradictorio con ella como el observado.
 :::
 
 ```{webr}

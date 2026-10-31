@@ -53,9 +53,9 @@ round(c(estimacion = mean(mi_muestra),
 ```
 
 ::: {.inferencia}
-La estimación no acierta el valor exacto, y no tenía por qué: insesgado no significa correcto en cada muestra, sino **correcto en promedio a lo largo de muchas muestras**. Es una propiedad del procedimiento, no del número que salió hoy.
+La línea `error` no da cero: la estimación no acierta el valor exacto, y no tenía por qué. Insesgado no significa correcto en cada muestra, sino **correcto en promedio a lo largo de muchas muestras**. Es una propiedad del procedimiento, no del número que salió hoy.
 
-De ahí la limitación de fondo de la estimación puntual: entrega un número y no dice nada sobre su precisión. Decir «la velocidad media es de 17.6 nudos» no distingue entre una estimación hecha con 5 unidades y otra hecha con 500. Para eso hace falta acompañar la estimación de su error estándar, y de ahí se pasa al intervalo.
+De ahí la limitación de fondo de la estimación puntual: entrega un número y no dice nada sobre su precisión. Anunciar una velocidad media sin más no distingue entre una estimación hecha con 5 mediciones y otra hecha con 500. Para eso hace falta acompañar la estimación de su error estándar, y de ahí se pasa al intervalo.
 :::
 
 ::: {.definicion}
@@ -138,7 +138,7 @@ c(mu_verdadero = round(mu, 4),
 ```
 
 ::: {.franja}
-**Si le dio `FALSE`, su intervalo no funcionó, y eso es exactamente lo previsto.** Un intervalo al 95 % falla una de cada veinte veces. En un curso de treinta guardiamarinas lo esperable es que a uno o dos les ocurra. Compárenlo en clase: la proporción de fallos es la demostración más directa de qué significa el nivel de confianza.
+**Si `lo_captura` le dio `FALSE`, su intervalo no funcionó, y eso es exactamente lo previsto.** Un intervalo al 95 % falla una de cada veinte veces. En un curso de treinta guardiamarinas lo esperable es que a uno o dos les ocurra. Compárenlo en clase: la proporción de fallos es la demostración más directa de qué significa el nivel de confianza.
 :::
 
 ### Qué significa «95 % de confianza»
@@ -174,7 +174,7 @@ c(intervalos = reps, capturaron_mu = sum(captura))
 :::
 
 ::: {.inferencia}
-El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero $\mu$— está fija. Lo que cambia de una muestra a otra es el intervalo, que salta de posición y de ancho. Alrededor de 95 de cada 100 lo atrapan; los rojos no.
+El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero $\mu$— está fija. Lo que cambia de una muestra a otra es el intervalo, que salta de posición y de ancho. La salida `capturaron_mu` cuenta cuántos de los 100 lo atrapan; los rojos del gráfico son los que no.
 
 Por eso la frase «hay un 95 % de probabilidad de que $\mu$ esté en mi intervalo» es incorrecta. Una vez calculado el intervalo, $\mu$ está dentro o está fuera: no queda probabilidad que repartir. El 95 % califica al **método**, no al resultado. La formulación correcta es: «este intervalo procede de un procedimiento que acierta el 95 % de las veces».
 :::
@@ -191,7 +191,7 @@ data.frame(n = c(25, 50, 100, 200, 400),
 ```
 
 ::: {.inferencia}
-Los dos mandos de la tabla tiran en sentidos opuestos, y conviene nombrarlos.
+Los dos mandos de la tabla tiran en sentidos opuestos, y conviene nombrarlos. Siga una columna hacia abajo y luego una fila hacia la derecha.
 
 Bajar por una columna **estrecha** el intervalo: más datos, más precisión, pero al ritmo de $\sqrt{n}$. Cuadruplicar la muestra reduce el ancho a la mitad.
 
@@ -215,10 +215,10 @@ Esta cuenta exige un valor de $s$ que todavía no se tiene, porque los datos no 
 :::
 
 ::: {.ejercicio}
-**Interpretar sin calcular.** Usted calculó un intervalo del 95 % para la velocidad media y obtuvo $(16.9,\ 18.4)$ nudos. ¿Cuál de estas afirmaciones es correcta?
+**Interpretar sin calcular.** Acaba de calcular un intervalo del 95 % para la velocidad media, con sus extremos inferior y superior. ¿Cuál de estas afirmaciones es correcta?
 
-**a)** Hay un 95 % de probabilidad de que $\mu$ esté entre 16.9 y 18.4.
-**b)** El 95 % de las unidades de la flota navegan entre 16.9 y 18.4 nudos.
+**a)** Hay un 95 % de probabilidad de que $\mu$ esté entre esos dos extremos.
+**b)** El 95 % de las unidades de la flota navegan a una velocidad comprendida entre esos dos extremos.
 **c)** El intervalo procede de un procedimiento que, aplicado repetidamente a muestras distintas, captura $\mu$ el 95 % de las veces.
 :::
 
