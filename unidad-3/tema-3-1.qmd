@@ -203,8 +203,13 @@ hist(medias30, breaks = 20, col = "grey85",
 par(mfrow = c(1, 1))
 ```
 
+Para medir cuánto se ha ganado, sirve el **coeficiente de asimetría de Fisher** del apartado 1.3.6: positivo si la distribución se sesga a la derecha, negativo si lo hace a la izquierda, cero si es simétrica. Es la misma función de dos líneas que escribieron entonces.
+
+[Ordóñez et al., 2025, §2.6.2, citando a Galindo (2015); se introdujo en el apartado 1.3.6 de este curso.]{.fuente}
+
 ```{webr}
-# La asimetria de la poblacion frente a la de las medias
+# El coeficiente de Fisher del apartado 1.3.6, aplicado ahora a dos conjuntos:
+# la poblacion de partida y las medias obtenidas de ella
 asimetria <- function(x) sum((x - mean(x))^3) / (length(x) * sd(x)^3)
 
 round(c(registros          = length(horas),
@@ -213,85 +218,55 @@ round(c(registros          = length(horas),
 ```
 
 ::: {.inferencia}
-La población es claramente asimétrica; el histograma de las medias es prácticamente simétrico, y su coeficiente de asimetría ha caído casi a cero. El promediar ha enderezado la distribución.
+La población es claramente asimétrica; el histograma de las medias es prácticamente simétrico, y su coeficiente de asimetría ha caído casi a cero. Promediar ha simetrizado la distribución.
 
 Nótese qué es lo que cambió y qué no. La población de horas entre fallas **sigue siendo exponencial**: no se ha vuelto normal, ni se volverá por mucho que crezca $n$. Lo que se aproxima a la normal es la distribución de la **media muestral**. Confundir ambas cosas es el malentendido más frecuente sobre este teorema.
 :::
 
-¿Cuánta muestra hace falta, entonces? Depende de la población de partida, y conviene compararla con el otro extremo. No hace falta inventar nada: su mismo registro de la unidad 2 trae una variable de cada tipo, como recoge `diccionario_fallas`.
+¿Cuánta muestra hace falta, entonces? Depende de cuán asimétrica sea la población de partida. Su propio registro de la unidad 2 trae las dos situaciones extremas, una en cada campo:
 
 ```{webr}
-# Los dos campos del registro que estan en extremos opuestos de la asimetria
+# Los dos campos del registro que estan en extremos opuestos
 diccionario_fallas[diccionario_fallas$campo %in%
                      c("horas_entre_fallas", "respuesta_min"), ]
 ```
 
-| campo | unidad | modelo del tema 2.3 | asimetría $\gamma$ |
-|---|---|---|---|
-| `horas_entre_fallas` | horas | Exponencial | $2$ |
-| `respuesta_min` | minutos | Uniforme$(8,\,25)$ | $0$ |
-
-La tabla siguiente enfrenta las dos. La columna del medio es el valor teórico $\gamma/\sqrt{n}$ para las horas entre fallas.
+Las horas entre fallas son exponenciales y por tanto muy asimétricas; el tiempo de respuesta se modeló como uniforme, que es simétrica. La tabla siguiente promedia muestras de tamaño creciente de cada una y mide la asimetría de las medias resultantes, con el mismo coeficiente de Fisher.
 
 ```{webr}
-# Cuanto n hace falta? Depende de la asimetria de la poblacion de partida
 tamanos <- c(2, 5, 10, 30, 100)
 
-# Columna 1: poblacion = sus horas entre fallas, muy asimetricas
+# De sus horas entre fallas, muy asimetricas
 set.seed(2)
 col_exp <- sapply(tamanos, function(k)
   asimetria(replicate(1500, mean(sample(horas, k, replace = TRUE)))))
 
-# Columna 3: poblacion = la Uniforme(8, 25) del tiempo de respuesta, tema 2.3.
-# Se muestrea el MODELO, no los 60 registros: asi gamma vale 0 exactamente.
+# Del tiempo de respuesta, uniforme entre 8 y 25 minutos (tema 2.3)
 set.seed(2)
 col_unif <- sapply(tamanos, function(k)
   asimetria(replicate(1500, mean(runif(k, 8, 25)))))
 
 data.frame(n = tamanos,
-           poblacion_exponencial = round(col_exp, 3),
-           gamma_sobre_raiz_n    = round(asimetria(horas)/sqrt(tamanos), 3),
-           tiempo_de_respuesta   = round(col_unif, 3))
-```
-
-```{webr}
-# Cuanto ruido mete la simulacion? Con R replicas, la asimetria estimada
-# fluctua alrededor de su valor verdadero con error tipico sqrt(6/R)
-R <- 1500
-round(c(replicas = R,
-        ruido_tipico = sqrt(6/R),
-        banda_2_sigma = 2*sqrt(6/R),
-        exponencial_n2_en_unidades_de_ruido = col_exp[1]/sqrt(6/R)), 3)
+           horas_entre_fallas = round(col_exp, 3),
+           tiempo_de_respuesta = round(col_unif, 3))
 ```
 
 ::: {.inferencia}
-Las dos primeras columnas casi coinciden, y esa coincidencia tiene nombre. La asimetría de la media muestral vale
+Las dos columnas cuentan historias opuestas.
 
-$$\text{asimetría}(\bar{X}) = \frac{\gamma}{\sqrt{n}}$$
+`horas_entre_fallas` empieza muy alta y baja despacio: con $n = 30$ todavía se nota, y con $n = 100$ no ha desaparecido del todo. Una población tan asimétrica exige mucha muestra para que la media alcance la simetría.
 
-donde $\gamma$ es la asimetría de la **población**: es el valor que la celda anterior imprimió como `asimetria_poblacion`. Con él se construye la columna `gamma_sobre_raiz_n`, y la columna `poblacion_exponencial` la sigue salvo ruido.
+`tiempo_de_respuesta` está en cero desde la primera fila. Nunca hubo asimetría que corregir, porque la uniforme ya era simétrica. Los valores no salen clavados en cero porque proceden de una simulación, pero oscilan alrededor de él y cambian de signo, que es lo que distingue una cifra sin tendencia de una que sí la tiene.
 
-Su valor no será exactamente 2, que es la asimetría de **cualquier** exponencial teórica, sino algo menor. No es un defecto de sus datos: con solo 60 registros, la asimetría muestral subestima sistemáticamente a la poblacional. Lo que importa aquí es que la primera y la segunda columna coincidan, sea cual sea ese número.
-
-Léase lo que implica: la asimetría **se desvanece como $\sqrt{n}$, pero nunca llega a cero**. Mire `poblacion_exponencial` en la fila $n = 100$: sigue ahí. Para esta población, $n > 30$ es un mínimo razonable, no un punto de llegada.
-
-La tercera columna es el otro extremo. El tiempo de respuesta se modeló en el tema 2.3 como una uniforme, que es simétrica, así que $\gamma = 0$ **exactamente** y la media resulta simétrica **con cualquier $n$**, incluso con $n = 2$.
-
-Obsérvese que la celda muestrea el **modelo** —`runif(k, 8, 25)`— y no los 60 valores de `respuesta_min`. No es un capricho: esos 60 registros son una *muestra* de la uniforme, y su asimetría empírica no vale cero sino unas décimas, lo bastante para enturbiar la demostración. La población de la que se habla aquí es la distribución, no los datos que salieron de ella.
-
-Los valores no salen clavados en cero porque están **estimados** con un número finito de réplicas, y toda estimación fluctúa. La celda siguiente mide esa fluctuación: `ruido_tipico` es el error típico $\sqrt{6/R}$ de una asimetría muestral, y `banda_2_sigma` el doble.
-
-Compruebe que `tiempo_de_respuesta` cae entera dentro de esa banda, con signos que se alternan: eso es ruido, no asimetría. Y compárela con la primera columna mediante `exponencial_n2_en_unidades_de_ruido`, que dice cuántas bandas de ruido mide el valor a $n = 2$. Ahí no hay fluctuación que explique nada.
-
-Cuando la población es simétrica, la asimetría no es nunca el obstáculo.
+**Cuanto más asimétrica es la población, mayor debe ser la muestra.** Esa es toda la lección.
 :::
 
 ::: {.recomendacion}
-La regla de $n > 30$ es un convenio práctico, no un teorema, y la fórmula $\gamma/\sqrt{n}$ explica de dónde salen sus excepciones.
+La regla de $n > 30$ es un convenio práctico, no un teorema, y la tabla anterior muestra por qué.
 
-Devore advierte que existen poblaciones para las que ni siquiera 40 o 50 bastan: son las de $\gamma$ grande, donde el cociente tarda en hacerse pequeño. Y señala el caso opuesto: **en una población uniforme la aproximación ya es buena con $n > 12$**, porque al ser simétrica no hay asimetría que corregir y lo único que debe converger es la forma de las colas, que converge deprisa.
+Devore advierte que existen poblaciones para las que ni siquiera 40 o 50 bastan: son las muy asimétricas, como la primera columna. Y señala el caso opuesto: **en una población uniforme la aproximación ya es buena con $n > 12$**, que es la segunda.
 
-Antes de fiarse de la regla, mire la asimetría de su población. Ese número, y no el 30, es el que decide.
+Antes de fiarse de la regla, mire la forma de su población. Eso, y no el 30, es lo que decide.
 :::
 
 ::: {.ejercicio}
@@ -334,7 +309,7 @@ verificar_error_estandar(mi_error_estandar)
 - **Devore**, §5.3, para la noción general de estadístico y distribución muestral.
 
 ::: {.franja}
-Si tiene dificultades para comprender el teorema del límite central, vuelva a la primera simulación de esta página y cambie el tamaño de muestra. Ver cómo se estrecha y se endereza el histograma de las medias suele aclarar más que el enunciado formal.
+Si tiene dificultades para comprender el teorema del límite central, vuelva a la primera simulación de esta página y cambie el tamaño de muestra. Ver cómo el histograma de las medias se estrecha y gana simetría suele aclarar más que el enunciado formal.
 :::
 
 ---
