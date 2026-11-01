@@ -274,16 +274,6 @@ mi_prediccion <- 0       # sustituya
 verificar_prediccion(mi_prediccion)
 ```
 
-::: {.ampliacion}
-**Inferencia sobre la pendiente.** Esta página estima $\beta_1$ y lo interpreta, pero no se pregunta si la relación observada podría deberse al azar. Esa pregunta se responde con las herramientas del tema 3.3 aplicadas al coeficiente: un intervalo de confianza para $\beta_1$ y un contraste de $H_0:\beta_1 = 0$, que es la hipótesis de que la velocidad no influye en el consumo.
-
-En R, `summary(modelo)` devuelve ese contraste en la columna del valor-p, y `confint(modelo)` el intervalo.
-
-**Dónde leerlo.** Devore, §12.3 «Inferencias sobre el parámetro de la pendiente», y §12.4 para el intervalo de predicción, que acota un valor futuro de $y$ y no solo su media. Johnson, §11.2 «Inferencias con base en los estimadores de mínimos cuadrados». Illowsky y Dean, capítulo 12.
-
-No entra en la evaluación: el sílabo llega hasta la predicción.
-:::
-
 ## 3.4.5 Aplicaciones en Ciencias Navales
 
 ::: {.ejemplo}
@@ -322,6 +312,16 @@ Y declare el rango de validez junto al modelo. Una recta sin el intervalo de $x$
 - **3.4.1** · Devore, §12.5 «Correlación»; Johnson, §11.6 «Correlación».
 - **3.4.2** · Johnson, §11.1 «El método de mínimos cuadrados».
 - **3.4.3 y 3.4.4** · Illowsky y Dean, capítulo 12 «Regresión lineal y correlación».
+
+::: {.ampliacion}
+**Inferencia sobre la pendiente.** Esta página estima $\beta_1$ y lo interpreta, pero no se pregunta si la relación observada podría deberse al azar. Esa pregunta se responde con las herramientas del tema 3.3 aplicadas al coeficiente: un intervalo de confianza para $\beta_1$ y un contraste de $H_0:\beta_1 = 0$, que es la hipótesis de que la velocidad no influye en el consumo.
+
+En R, `summary(modelo)` devuelve ese contraste en la columna del valor-p, y `confint(modelo)` el intervalo.
+
+**Dónde leerlo.** Devore, §12.3 «Inferencias sobre el parámetro de la pendiente», y §12.4 para el intervalo de predicción, que acota un valor futuro de $y$ y no solo su media. Johnson, §11.2 «Inferencias con base en los estimadores de mínimos cuadrados». Illowsky y Dean, capítulo 12.
+
+No entra en la evaluación: el sílabo llega hasta la predicción.
+:::
 
 #### Apoyo complementario
 

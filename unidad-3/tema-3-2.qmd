@@ -98,20 +98,6 @@ En general, $n > 40$ será suficiente para justificar su uso. Devore lo advierte
 [Devore, 2016, §7.2.]{.fuente}
 :::
 
-::: {.ampliacion}
-**La distribución t de Student y el caso de muestra pequeña.** El intervalo anterior exige $n > 40$. Cuando la muestra es menor y $\sigma$ se desconoce, el procedimiento correcto sustituye el valor crítico $z_{\alpha/2}$ por $t_{\alpha/2,\,n-1}$, de la distribución **t de Student** con $n-1$ grados de libertad:
-
-$$\bar{x} \;\pm\; t_{\alpha/2,\,n-1}\,\frac{s}{\sqrt{n}}$$
-
-La curva t tiene forma de campana y está centrada en cero, como la normal estándar, pero **más extendida**, de modo que produce intervalos más anchos: el precio de no conocer $\sigma$. Al crecer los grados de libertad esa extensión disminuye y la curva t tiende a la normal estándar.
-
-Ahí está, de hecho, el origen del umbral que usamos. Devore explica que la regla de $n > 40$ para el intervalo de muestra grande **proviene de la igualdad aproximada entre las distribuciones normal estándar y t para más de 40 grados de libertad**. Es decir: el intervalo $z$ de esta página es el caso límite del intervalo t.
-
-**Dónde leerlo.** Devore, §7.3 «Intervalos basados en una distribución de población normal», páginas 295 a 302, con las propiedades de la curva t y la tabla de valores críticos en el apéndice A.5. Johnson, §7.2 «Estimación por intervalo». Illowsky y Dean, capítulo 8, apartado sobre una media poblacional con desviación típica desconocida.
-
-No entra en la evaluación de esta asignatura: el sílabo no la incluye. Conviene conocerla porque, con datos reales y muestras reducidas, es el procedimiento que corresponde.
-:::
-
 ::: {.definicion}
 **Notación de los valores críticos.** En Devore el subíndice de $z_\alpha$ es el **área de la cola derecha**, no el percentil. Así, $z_{0.025} = 1.96$ y $z_{0.05} = 1.645$. Para un intervalo al 95 % se usa $\alpha = 0.05$ y por tanto $z_{\alpha/2} = z_{0.025} = 1.96$.
 
@@ -271,6 +257,20 @@ verificar_ic(mi_inferior, mi_superior)
 
 - **3.2.1** · Devore, §6.1 «Algunos conceptos generales de estimación puntual»; Johnson, §7.1 «Estimación puntual».
 - **3.2.2** · Johnson, §7.2 «Estimación por intervalo»; Illowsky y Dean, cap. 8 «Intervalos de confianza».
+
+::: {.ampliacion}
+**La distribución t de Student y el caso de muestra pequeña.** El intervalo anterior exige $n > 40$. Cuando la muestra es menor y $\sigma$ se desconoce, el procedimiento correcto sustituye el valor crítico $z_{\alpha/2}$ por $t_{\alpha/2,\,n-1}$, de la distribución **t de Student** con $n-1$ grados de libertad:
+
+$$\bar{x} \;\pm\; t_{\alpha/2,\,n-1}\,\frac{s}{\sqrt{n}}$$
+
+La curva t tiene forma de campana y está centrada en cero, como la normal estándar, pero **más extendida**, de modo que produce intervalos más anchos: el precio de no conocer $\sigma$. Al crecer los grados de libertad esa extensión disminuye y la curva t tiende a la normal estándar.
+
+Ahí está, de hecho, el origen del umbral que usamos. Devore explica que la regla de $n > 40$ para el intervalo de muestra grande **proviene de la igualdad aproximada entre las distribuciones normal estándar y t para más de 40 grados de libertad**. Es decir: el intervalo $z$ de esta página es el caso límite del intervalo t.
+
+**Dónde leerlo.** Devore, §7.3 «Intervalos basados en una distribución de población normal», páginas 295 a 302, con las propiedades de la curva t y la tabla de valores críticos en el apéndice A.5. Johnson, §7.2 «Estimación por intervalo». Illowsky y Dean, capítulo 8, apartado sobre una media poblacional con desviación típica desconocida.
+
+No entra en la evaluación de esta asignatura: el sílabo no la incluye. Conviene conocerla porque, con datos reales y muestras reducidas, es el procedimiento que corresponde.
+:::
 
 #### Apoyo complementario
 

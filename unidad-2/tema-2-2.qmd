@@ -420,8 +420,8 @@ Si acertó los cuatro, tiene el criterio. Si confundió alguno, el error está e
 
 Capítulo IV, §4.2 «Distribuciones discretas», páginas 119 a 134. Cubre §4.2.1 binomial con el ejercicio 4.4 resuelto en once apartados, §4.2.2 Poisson con el ejercicio 4.5 sobre accidentes, y §4.2.4 hipergeométrica con el ejercicio 4.7. Incluye las tablas de los apéndices A1 a A4 y las pantallas de R.
 
-::: {.franja}
-El texto guía trata además en §4.2.3 la **distribución geométrica**, que no figura en el sílabo de esta asignatura. Puede leerla, pero no entra en la evaluación.
+::: {.ampliacion}
+**La distribución geométrica.** El texto guía la trata en §4.2.3, páginas 129 a 131. No figura en el sílabo de esta asignatura: puede leerla, pero no entra en la evaluación.
 :::
 
 #### Ampliación por subtema
