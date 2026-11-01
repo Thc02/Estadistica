@@ -170,6 +170,20 @@ que mide a cuántos errores estándar queda la media observada del valor nulo. B
 [Devore, 2016, §8.2.]{.fuente}
 :::
 
+::: {.ampliacion}
+**La prueba t de una sola muestra.** La prueba $z$ de esta página supone muestra grande. Con $n$ pequeña y $\sigma$ desconocida, el estadístico es formalmente el mismo,
+
+$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$$
+
+pero su distribución bajo $H_0$ ya no es la normal estándar, sino una **t de Student con $n-1$ grados de libertad**. La consecuencia práctica es que el valor-p se obtiene de la curva t y resulta **mayor** que el que daría la curva normal: con poca muestra se exige más evidencia para rechazar, que es exactamente lo razonable.
+
+Al crecer la muestra las dos curvas se confunden, y por eso la prueba $z$ es válida cuando $n$ es grande.
+
+**Dónde leerlo.** Devore, §8.3 «Prueba t de una sola muestra», páginas 335 a 345, con el procedimiento en los mismos siete pasos que usa esta página. Johnson, §7.6 «Hipótesis concernientes a una media». Illowsky y Dean, capítulo 9, apartado sobre la prueba de una sola media poblacional.
+
+No entra en la evaluación: el sílabo no la incluye. En R basta `t.test()`, que devuelve a la vez el valor-p y el intervalo de confianza, y hace explícita la equivalencia entre ambos que se discute más abajo.
+:::
+
 ### El procedimiento, paso a paso
 
 Devore resuelve sus ejemplos con una secuencia fija que conviene adoptar:

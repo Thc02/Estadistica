@@ -181,14 +181,14 @@ h4 { color: $navy; }
 .definicion p:last-child { margin-bottom: 0; }
 
 // Bloques que declaran de dónde viene lo que se afirma
-.inferencia, .recomendacion, .pendiente {
+.inferencia, .recomendacion, .pendiente, .ampliacion {
   border-radius: 0 8px 8px 0;
   padding: 0.7rem 1.1rem;
   margin: 1.1rem 0;
   background: #FFFFFF;
 }
 
-.inferencia::before, .recomendacion::before, .pendiente::before {
+.inferencia::before, .recomendacion::before, .pendiente::before, .ampliacion::before {
   display: block;
   font-weight: 700;
   font-size: 0.76rem;
@@ -216,8 +216,17 @@ h4 { color: $navy; }
 }
 .pendiente::before { content: "Información pendiente"; color: $rojo; }
 
+// Contenido fuera del sílabo que se señala como lectura recomendada
+.ampliacion {
+  border: 1px solid #CBDCEF;
+  border-left: 5px solid $deep;
+  background: #DCE8F5;
+}
+.ampliacion::before { content: "Lectura recomendada · fuera del sílabo"; color: $deep; }
+
 .inferencia p:last-child,
 .recomendacion p:last-child,
+.ampliacion p:last-child,
 .pendiente p:last-child { margin-bottom: 0; }
 
 // Referencia a la fuente, al final de un párrafo

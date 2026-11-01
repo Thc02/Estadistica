@@ -120,7 +120,7 @@ No es lectura obligatoria del curso. Se consulta sólo para verificar en su fuen
 | 13 | 3.1 Distribuciones muestrales | **Devore §5.4** | Johnson §§6.1–6.2; OpenStax cap. 7 |
 | 14 | 3.2 Estimación de parámetros | **Devore §7.2** | Devore §6.1; Johnson §§7.1–7.2; OpenStax cap. 8 |
 | 15 | 3.3 Contraste de hipótesis | **Devore §§8.1–8.2** | Johnson §§7.4–7.7; OpenStax cap. 9 |
-| 16 | 3.4 Regresión lineal | **Devore cap. 12** | Johnson cap. 11; OpenStax cap. 12 |
+| 16 | 3.4 Regresión lineal | **Devore §§12.1–12.2** | Devore §12.5; Johnson §§11.1, 11.6; OpenStax cap. 12 |
 :::
 
 ::: {.franja}

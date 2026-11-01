@@ -107,6 +107,16 @@ toc: false
 - **3.3.5** Pruebas para la media
 :::
 
+::: {.tarjeta}
+#### [Tema 3.4 · Regresión lineal](unidad-3/tema-3-4.qmd) · Semana 16
+
+- **3.4.1** Correlación
+- **3.4.2** Modelo de regresión lineal simple
+- **3.4.3** Interpretación del modelo
+- **3.4.4** Predicción
+- **3.4.5** Aplicaciones en Ciencias Navales
+:::
+
 ## Uso del material
 
 Cada tema es una página con sus subtemas numerados según el sílabo. La barra lateral izquierda navega entre temas; el índice de la derecha, entre los subtemas de la página en la que esté.

@@ -7,7 +7,7 @@ subtitle: "UC 3 · Inferencia y regresión · Semana 14"
 
 {{< include ../unidad-1/_setup.qmd >}}
 
-El tema anterior estableció cómo varía la media muestral alrededor de $\mu$. Este lo usa al revés: a partir de una muestra, acotar dónde puede estar el parámetro.
+El tema anterior estableció cómo se distribuye la media muestral en torno a $\mu$. Este invierte el razonamiento: a partir de una sola muestra, delimita un intervalo de valores admisibles para el parámetro.
 
 **La variable sigue siendo la misma:** la **velocidad en nudos** de su flota. La población son los 40 valores de velocidad, con media $\mu$ y desviación típica $\sigma$ conocidas; la muestra, **50 mediciones** tomadas al azar con reposición, en el sentido explicado en el tema 3.1.
 
@@ -55,7 +55,7 @@ round(c(estimacion = mean(mi_muestra),
 ::: {.inferencia}
 La línea `error` no da cero: la estimación no acierta el valor exacto, y no tenía por qué. Insesgado no significa correcto en cada muestra, sino **correcto en promedio a lo largo de muchas muestras**. Es una propiedad del procedimiento, no del número que salió hoy.
 
-De ahí la limitación de fondo de la estimación puntual: entrega un número y no dice nada sobre su precisión. Anunciar una velocidad media sin más no distingue entre una estimación hecha con 5 mediciones y otra hecha con 500. Para eso hace falta acompañar la estimación de su error estándar, y de ahí se pasa al intervalo.
+De ahí la limitación esencial de la estimación puntual: proporciona un valor, pero no informa sobre su precisión. Una velocidad media enunciada aisladamente no permite distinguir entre una estimación obtenida con 5 mediciones y otra obtenida con 500. Para establecer esa diferencia es necesario acompañar la estimación de su error estándar, y de ahí se llega al intervalo.
 :::
 
 ::: {.definicion}
@@ -96,6 +96,20 @@ es un intervalo de confianza para $\mu$ con nivel de confianza aproximadamente $
 En general, $n > 40$ será suficiente para justificar su uso. Devore lo advierte: es algo más exigente que la regla de $n > 30$ del teorema del límite central, «debido a la variabilidad adicional introducida por el uso de $S$ en lugar de $\sigma$».
 
 [Devore, 2016, §7.2.]{.fuente}
+:::
+
+::: {.ampliacion}
+**La distribución t de Student y el caso de muestra pequeña.** El intervalo anterior exige $n > 40$. Cuando la muestra es menor y $\sigma$ se desconoce, el procedimiento correcto sustituye el valor crítico $z_{\alpha/2}$ por $t_{\alpha/2,\,n-1}$, de la distribución **t de Student** con $n-1$ grados de libertad:
+
+$$\bar{x} \;\pm\; t_{\alpha/2,\,n-1}\,\frac{s}{\sqrt{n}}$$
+
+La curva t tiene forma de campana y está centrada en cero, como la normal estándar, pero **más extendida**, de modo que produce intervalos más anchos: el precio de no conocer $\sigma$. Al crecer los grados de libertad esa extensión disminuye y la curva t tiende a la normal estándar.
+
+Ahí está, de hecho, el origen del umbral que usamos. Devore explica que la regla de $n > 40$ para el intervalo de muestra grande **proviene de la igualdad aproximada entre las distribuciones normal estándar y t para más de 40 grados de libertad**. Es decir: el intervalo $z$ de esta página es el caso límite del intervalo t.
+
+**Dónde leerlo.** Devore, §7.3 «Intervalos basados en una distribución de población normal», páginas 295 a 302, con las propiedades de la curva t y la tabla de valores críticos en el apéndice A.5. Johnson, §7.2 «Estimación por intervalo». Illowsky y Dean, capítulo 8, apartado sobre una media poblacional con desviación típica desconocida.
+
+No entra en la evaluación de esta asignatura: el sílabo no la incluye. Conviene conocerla porque, con datos reales y muestras reducidas, es el procedimiento que corresponde.
 :::
 
 ::: {.definicion}
@@ -174,7 +188,7 @@ c(intervalos = reps, capturaron_mu = sum(captura))
 :::
 
 ::: {.inferencia}
-El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero $\mu$— está fija. Lo que cambia de una muestra a otra es el intervalo, que salta de posición y de ancho. La salida `capturaron_mu` cuenta cuántos de los 100 lo atrapan; los rojos del gráfico son los que no.
+El gráfico lo muestra sin ambigüedad. La línea vertical —el verdadero $\mu$— permanece fija. Lo que varía de una muestra a otra es el intervalo, que cambia de posición y de amplitud. La salida `capturaron_mu` indica cuántos de los 100 contienen el parámetro; los trazados en rojo son los que no lo contienen.
 
 Por eso la frase «hay un 95 % de probabilidad de que $\mu$ esté en mi intervalo» es incorrecta. Una vez calculado el intervalo, $\mu$ está dentro o está fuera: no queda probabilidad que repartir. El 95 % califica al **método**, no al resultado. La formulación correcta es: «este intervalo procede de un procedimiento que acierta el 95 % de las veces».
 :::
@@ -191,11 +205,11 @@ data.frame(n = c(25, 50, 100, 200, 400),
 ```
 
 ::: {.inferencia}
-Los dos mandos de la tabla tiran en sentidos opuestos, y conviene nombrarlos. Siga una columna hacia abajo y luego una fila hacia la derecha.
+Los dos factores que gobiernan la tabla actúan en sentidos opuestos, y conviene identificarlos. Recorra primero una columna hacia abajo y después una fila hacia la derecha.
 
 Bajar por una columna **estrecha** el intervalo: más datos, más precisión, pero al ritmo de $\sqrt{n}$. Cuadruplicar la muestra reduce el ancho a la mitad.
 
-Moverse a la derecha por una fila lo **ensancha**: más confianza cuesta precisión. Exigir 99 % en lugar de 90 % ensancha el intervalo alrededor de un 56 %, con el mismo número de datos. No hay forma de ganar en los dos frentes sin pagar con muestra.
+Recorrer una fila hacia la derecha lo **amplía**: una confianza mayor se obtiene a costa de la precisión. Exigir 99 % en lugar de 90 % amplía el intervalo alrededor de un 56 % con el mismo número de datos. No es posible mejorar ambos aspectos a la vez sin aumentar el tamaño de muestra.
 :::
 
 ### Aplicación naval: tamaño de muestra para una precisión exigida

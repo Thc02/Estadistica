@@ -54,6 +54,8 @@ website:
             text: "3.2 Estimación de parámetros"
           - href: unidad-3/tema-3-3.qmd
             text: "3.3 Contraste de hipótesis"
+          - href: unidad-3/tema-3-4.qmd
+            text: "3.4 Regresión lineal"
   page-footer:
     background: light
     left: "Estadística · Carrera en Ciencias Navales"

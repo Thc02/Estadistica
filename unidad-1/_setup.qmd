@@ -162,7 +162,13 @@ verificar <- function(valor, esperado, tol = 0.01, pista = "") {
   p25 = list(op = "a",
              por = "No rechazar no es demostrar. Significa que la muestra no aporta evidencia suficiente contra H0 en ese nivel de significancia; H0 sigue siendo factible, igual que un acusado absuelto no queda probado inocente."),
   p26 = list(op = "c",
-             por = "El valor-p se calcula SUPONIENDO que H0 es verdadera, de modo que no puede ser la probabilidad de que H0 sea verdadera. Es la probabilidad de obtener una muestra al menos tan contradictoria con H0 como la observada.")
+             por = "El valor-p se calcula SUPONIENDO que H0 es verdadera, de modo que no puede ser la probabilidad de que H0 sea verdadera. Es la probabilidad de obtener una muestra al menos tan contradictoria con H0 como la observada."),
+  p27 = list(op = "b",
+             por = "Correlacion no es causalidad. Un coeficiente alto dice que las dos variables se mueven juntas, no que una produzca la otra: puede haber una tercera causa comun, o la relacion puede ir en sentido contrario al supuesto."),
+  p28 = list(op = "a",
+             por = "Extrapolar es usar la recta fuera del rango de x con el que se ajusto. Nada garantiza que la relacion siga siendo lineal alli: el modelo solo esta respaldado por los datos observados."),
+  p29 = list(op = "c",
+             por = "El coeficiente de determinacion es la proporcion de la variacion de y que el modelo explica. No mide si el modelo es correcto ni si la relacion es causal: un r2 alto con un patron curvo sigue siendo un mal ajuste.")
 )
 
 revisar <- function(id, letra) {
@@ -356,6 +362,60 @@ verificar_valor_p <- function(x) {
        (sd(mi_muestra) / sqrt(length(mi_muestra)))
   verificar(x, 2 * (1 - pnorm(abs(z))), tol = 0.03,
             pista = "La alternativa es de dos colas: el valor-p es 2*(1 - pnorm(abs(z))).")
+}
+
+# --- Unidad 3, tema 3.4: pruebas de mar para regresion ----------------------
+# Generador independiente. Los campos de generar_flota() se producen por
+# separado y por tanto no guardan relacion entre si: no sirven para regresion.
+# Aqui el consumo SI depende de la velocidad, mas una dispersion aleatoria.
+
+ensayos_mar <- function(correo) {
+  set.seed(semilla_desde(correo) + 15485863L)   # desplazamiento primo
+  n <- 30
+  velocidad <- round(runif(n, 12, 22), 1)
+  b1 <- runif(1, 3.6, 4.6)                      # m3/dia por cada nudo
+  b0 <- runif(1, 10, 26)
+  consumo <- round(b0 + b1 * velocidad + rnorm(n, 0, 6), 1)
+  data.frame(
+    ensayo          = paste0("E-", formatC(1:n, width = 2, flag = "0")),
+    velocidad_nudos = velocidad,
+    consumo_m3_dia  = consumo,
+    dotacion        = sample(38:72, n, replace = TRUE),  # sin relacion con el consumo
+    stringsAsFactors = FALSE
+  )
+}
+
+diccionario_ensayos <- data.frame(
+  campo = c("ensayo", "velocidad_nudos", "consumo_m3_dia", "dotacion"),
+  significado = c(
+    "Identificador de la prueba de mar",
+    "Velocidad sostenida durante la prueba",
+    "Consumo de combustible medido en la prueba",
+    "Numero de tripulantes embarcados ese dia"),
+  unidad = c("—", "nudos", "metros cubicos por dia", "personas"),
+  papel = c("—", "variable independiente (x)", "variable dependiente (y)", "variable de control"),
+  stringsAsFactors = FALSE
+)
+
+mis_ensayos <- ensayos_mar(mi_correo)
+
+verificar_r <- function(x) {
+  e <- mis_ensayos
+  verificar(x, cor(e$velocidad_nudos, e$consumo_m3_dia), tol = 0.02,
+            pista = "En R, cor(x, y). A mano: Sxy / sqrt(Sxx * Syy).")
+}
+
+verificar_pendiente <- function(x) {
+  e <- mis_ensayos
+  verificar(x, unname(coef(lm(consumo_m3_dia ~ velocidad_nudos, data = e))[2]), tol = 0.02,
+            pista = "La pendiente es Sxy / Sxx. En R, coef(lm(y ~ x))[2].")
+}
+
+verificar_prediccion <- function(x) {
+  e <- mis_ensayos
+  b <- coef(lm(consumo_m3_dia ~ velocidad_nudos, data = e))
+  verificar(x, unname(b[1] + b[2] * 18), tol = 0.02,
+            pista = "Sustituya x = 18 en la recta ajustada: b0 + b1 * 18.")
 }
 
 # --- Banco de clasificacion: elegir el modelo sin calcular -------------------

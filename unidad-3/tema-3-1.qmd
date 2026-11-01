@@ -147,7 +147,7 @@ min(n[sigma/sqrt(n) < 0.5])
 ```
 
 ::: {.recomendacion}
-Cuando alguien proponga «medir unas cuantas unidades más» para mejorar una estimación, pida el número. La raíz cuadrada castiga la improvisación: pasar de 16 a 20 unidades apenas mueve la precisión, mientras que pasar de 16 a 64 la duplica. Conviene calcular el $n$ necesario antes de salir a medir, no después.
+Ante la propuesta de «medir unas cuantas unidades más» para mejorar una estimación, conviene exigir una cifra concreta. La raíz cuadrada penaliza la improvisación: pasar de 16 a 20 mediciones apenas modifica la precisión, mientras que pasar de 16 a 64 la duplica. El tamaño de muestra necesario debe calcularse antes de iniciar la campaña de medición, no después.
 :::
 
 ## 3.1.2 Teorema del Límite Central
