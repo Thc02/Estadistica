@@ -182,6 +182,21 @@ round(c(pendiente_m3_por_dia_y_nudo = unname(coef(modelo)[2]),
         subida_de_15_a_18_nudos     = unname(coef(modelo)[2]) * 3), 3)
 ```
 
+### Aplicación naval: el ahorro por cada nudo
+
+La pendiente responde a una pregunta operativa directa: cuánto combustible se ahorra por cada nudo que se reduzca la velocidad de crucero.
+
+```{webr}
+p <- unname(coef(modelo)[2])
+round(c(ahorro_por_nudo_m3_dia = p,
+        ahorro_de_18_a_15_nudos = p * 3,
+        ahorro_en_un_transito_de_6_dias = p * 3 * 6), 2)
+```
+
+::: {.inferencia}
+La última cifra es la que interesa al planificador: lo que se deja de embarcar en un tránsito de seis días si se navega tres nudos más despacio. La estadística aporta esa mitad del cálculo; la otra —que la travesía dura más— es doctrina de empleo.
+:::
+
 ### La ordenada en el origen
 
 ::: {.recomendacion}
@@ -264,20 +279,10 @@ El caso del consumo lo ilustra bien desde la física. La resistencia al avance d
 revisar("p28", "escriba aquí a, b o c")
 ```
 
-::: {.ejercicio}
-**Calcular y verificar.** Prediga el consumo diario a una velocidad sostenida de 18 nudos.
-:::
-
-```{webr}
-mi_prediccion <- 0       # sustituya
-
-verificar_prediccion(mi_prediccion)
-```
-
-## 3.4.5 Aplicaciones en Ciencias Navales
+### Aplicación naval: planificación de combustible
 
 ::: {.ejemplo}
-**Planificación de combustible.** Con la recta ajustada, fijada una velocidad de tránsito se obtiene el consumo diario previsto, y de ahí la autonomía y el combustible a embarcar. La pendiente responde además a la pregunta operativa inversa: cuánto combustible se ahorra por cada nudo que se reduzca la velocidad de crucero.
+Fijada la velocidad de tránsito, la recta da el consumo diario previsto, y de ahí el combustible a embarcar y la autonomía.
 :::
 
 ```{webr}
@@ -289,17 +294,23 @@ data.frame(velocidad_nudos = v,
            total_6_dias    = round(predict(modelo, data.frame(velocidad_nudos = v)) * dias, 1))
 ```
 
-::: {.inferencia}
-La tabla pone en números una decisión de mando. Bajar la velocidad de tránsito reduce el combustible embarcado, pero alarga la travesía, de modo que el ahorro por día compite con los días de más. La estadística aporta la primera mitad del cálculo; la segunda es doctrina de empleo.
-:::
-
 ::: {.recomendacion}
-**Dos comprobaciones antes de usar un modelo de regresión en un informe.**
+**Dos comprobaciones antes de llevar un modelo de regresión a un informe.**
 
 Mire el gráfico de dispersión y confirme que el patrón es efectivamente lineal, con una dispersión parecida a lo largo de todo el rango. Devore insiste en ello antes de cualquier ajuste.
 
 Y declare el rango de validez junto al modelo. Una recta sin el intervalo de $x$ en que se ajustó es una invitación a extrapolar.
 :::
+
+::: {.ejercicio}
+**Calcular y verificar.** Prediga el consumo diario a una velocidad sostenida de 18 nudos.
+:::
+
+```{webr}
+mi_prediccion <- 0       # sustituya
+
+verificar_prediccion(mi_prediccion)
+```
 
 ## Para leer esta semana
 
