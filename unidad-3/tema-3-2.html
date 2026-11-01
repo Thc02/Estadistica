@@ -413,14 +413,6 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZXJyb3JfZXN0YW5kYXIgPC0g
 <p>En general, <span class="math inline">\(n &gt; 40\)</span> será suficiente para justificar su uso. Devore lo advierte: es algo más exigente que la regla de <span class="math inline">\(n &gt; 30\)</span> del teorema del límite central, «debido a la variabilidad adicional introducida por el uso de <span class="math inline">\(S\)</span> en lugar de <span class="math inline">\(\sigma\)</span>».</p>
 <p><span class="fuente">Devore, 2016, §7.2.</span></p>
 </div>
-<div class="ampliacion">
-<p><strong>La distribución t de Student y el caso de muestra pequeña.</strong> El intervalo anterior exige <span class="math inline">\(n &gt; 40\)</span>. Cuando la muestra es menor y <span class="math inline">\(\sigma\)</span> se desconoce, el procedimiento correcto sustituye el valor crítico <span class="math inline">\(z_{\alpha/2}\)</span> por <span class="math inline">\(t_{\alpha/2,\,n-1}\)</span>, de la distribución <strong>t de Student</strong> con <span class="math inline">\(n-1\)</span> grados de libertad:</p>
-<p><span class="math display">\[\bar{x} \;\pm\; t_{\alpha/2,\,n-1}\,\frac{s}{\sqrt{n}}\]</span></p>
-<p>La curva t tiene forma de campana y está centrada en cero, como la normal estándar, pero <strong>más extendida</strong>, de modo que produce intervalos más anchos: el precio de no conocer <span class="math inline">\(\sigma\)</span>. Al crecer los grados de libertad esa extensión disminuye y la curva t tiende a la normal estándar.</p>
-<p>Ahí está, de hecho, el origen del umbral que usamos. Devore explica que la regla de <span class="math inline">\(n &gt; 40\)</span> para el intervalo de muestra grande <strong>proviene de la igualdad aproximada entre las distribuciones normal estándar y t para más de 40 grados de libertad</strong>. Es decir: el intervalo <span class="math inline">\(z\)</span> de esta página es el caso límite del intervalo t.</p>
-<p><strong>Dónde leerlo.</strong> Devore, §7.3 «Intervalos basados en una distribución de población normal», páginas 295 a 302, con las propiedades de la curva t y la tabla de valores críticos en el apéndice A.5. Johnson, §7.2 «Estimación por intervalo». Illowsky y Dean, capítulo 8, apartado sobre una media poblacional con desviación típica desconocida.</p>
-<p>No entra en la evaluación de esta asignatura: el sílabo no la incluye. Conviene conocerla porque, con datos reales y muestras reducidas, es el procedimiento que corresponde.</p>
-</div>
 <div class="definicion">
 <p><strong>Notación de los valores críticos.</strong> En Devore el subíndice de <span class="math inline">\(z_\alpha\)</span> es el <strong>área de la cola derecha</strong>, no el percentil. Así, <span class="math inline">\(z_{0.025} = 1.96\)</span> y <span class="math inline">\(z_{0.05} = 1.645\)</span>. Para un intervalo al 95 % se usa <span class="math inline">\(\alpha = 0.05\)</span> y por tanto <span class="math inline">\(z_{\alpha/2} = z_{0.025} = 1.96\)</span>.</p>
 <p>R sigue el convenio contrario: <code>qnorm(0.975)</code> devuelve ese mismo 1.96, porque su argumento es la probabilidad acumulada a la izquierda. Los dos símbolos nombran el mismo número.</p>
@@ -580,6 +572,14 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfaW5mZXJpb3IgPC0gMCAg
 <li><strong>3.2.1</strong> · Devore, §6.1 «Algunos conceptos generales de estimación puntual»; Johnson, §7.1 «Estimación puntual».</li>
 <li><strong>3.2.2</strong> · Johnson, §7.2 «Estimación por intervalo»; Illowsky y Dean, cap. 8 «Intervalos de confianza».</li>
 </ul>
+<div class="ampliacion">
+<p><strong>La distribución t de Student y el caso de muestra pequeña.</strong> El intervalo anterior exige <span class="math inline">\(n &gt; 40\)</span>. Cuando la muestra es menor y <span class="math inline">\(\sigma\)</span> se desconoce, el procedimiento correcto sustituye el valor crítico <span class="math inline">\(z_{\alpha/2}\)</span> por <span class="math inline">\(t_{\alpha/2,\,n-1}\)</span>, de la distribución <strong>t de Student</strong> con <span class="math inline">\(n-1\)</span> grados de libertad:</p>
+<p><span class="math display">\[\bar{x} \;\pm\; t_{\alpha/2,\,n-1}\,\frac{s}{\sqrt{n}}\]</span></p>
+<p>La curva t tiene forma de campana y está centrada en cero, como la normal estándar, pero <strong>más extendida</strong>, de modo que produce intervalos más anchos: el precio de no conocer <span class="math inline">\(\sigma\)</span>. Al crecer los grados de libertad esa extensión disminuye y la curva t tiende a la normal estándar.</p>
+<p>Ahí está, de hecho, el origen del umbral que usamos. Devore explica que la regla de <span class="math inline">\(n &gt; 40\)</span> para el intervalo de muestra grande <strong>proviene de la igualdad aproximada entre las distribuciones normal estándar y t para más de 40 grados de libertad</strong>. Es decir: el intervalo <span class="math inline">\(z\)</span> de esta página es el caso límite del intervalo t.</p>
+<p><strong>Dónde leerlo.</strong> Devore, §7.3 «Intervalos basados en una distribución de población normal», páginas 295 a 302, con las propiedades de la curva t y la tabla de valores críticos en el apéndice A.5. Johnson, §7.2 «Estimación por intervalo». Illowsky y Dean, capítulo 8, apartado sobre una media poblacional con desviación típica desconocida.</p>
+<p>No entra en la evaluación de esta asignatura: el sílabo no la incluye. Conviene conocerla porque, con datos reales y muestras reducidas, es el procedimiento que corresponde.</p>
+</div>
 </section>
 <section id="apoyo-complementario" class="level4">
 <h4 class="anchored" data-anchor-id="apoyo-complementario">Apoyo complementario</h4>

@@ -641,12 +641,6 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfcHJlZGljY2lvbiA8LSAw
 </script>
 </div>
 </div>
-<div class="ampliacion">
-<p><strong>Inferencia sobre la pendiente.</strong> Esta página estima <span class="math inline">\(\beta_1\)</span> y lo interpreta, pero no se pregunta si la relación observada podría deberse al azar. Esa pregunta se responde con las herramientas del tema 3.3 aplicadas al coeficiente: un intervalo de confianza para <span class="math inline">\(\beta_1\)</span> y un contraste de <span class="math inline">\(H_0:\beta_1 = 0\)</span>, que es la hipótesis de que la velocidad no influye en el consumo.</p>
-<p>En R, <code>summary(modelo)</code> devuelve ese contraste en la columna del valor-p, y <code>confint(modelo)</code> el intervalo.</p>
-<p><strong>Dónde leerlo.</strong> Devore, §12.3 «Inferencias sobre el parámetro de la pendiente», y §12.4 para el intervalo de predicción, que acota un valor futuro de <span class="math inline">\(y\)</span> y no solo su media. Johnson, §11.2 «Inferencias con base en los estimadores de mínimos cuadrados». Illowsky y Dean, capítulo 12.</p>
-<p>No entra en la evaluación: el sílabo llega hasta la predicción.</p>
-</div>
 </section>
 <section id="aplicaciones-en-ciencias-navales" class="level2">
 <h2 class="anchored" data-anchor-id="aplicaciones-en-ciencias-navales">3.4.5 Aplicaciones en Ciencias Navales</h2>
@@ -687,6 +681,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDb21idXN0aWJsZSBwcmV2
 <li><strong>3.4.2</strong> · Johnson, §11.1 «El método de mínimos cuadrados».</li>
 <li><strong>3.4.3 y 3.4.4</strong> · Illowsky y Dean, capítulo 12 «Regresión lineal y correlación».</li>
 </ul>
+<div class="ampliacion">
+<p><strong>Inferencia sobre la pendiente.</strong> Esta página estima <span class="math inline">\(\beta_1\)</span> y lo interpreta, pero no se pregunta si la relación observada podría deberse al azar. Esa pregunta se responde con las herramientas del tema 3.3 aplicadas al coeficiente: un intervalo de confianza para <span class="math inline">\(\beta_1\)</span> y un contraste de <span class="math inline">\(H_0:\beta_1 = 0\)</span>, que es la hipótesis de que la velocidad no influye en el consumo.</p>
+<p>En R, <code>summary(modelo)</code> devuelve ese contraste en la columna del valor-p, y <code>confint(modelo)</code> el intervalo.</p>
+<p><strong>Dónde leerlo.</strong> Devore, §12.3 «Inferencias sobre el parámetro de la pendiente», y §12.4 para el intervalo de predicción, que acota un valor futuro de <span class="math inline">\(y\)</span> y no solo su media. Johnson, §11.2 «Inferencias con base en los estimadores de mínimos cuadrados». Illowsky y Dean, capítulo 12.</p>
+<p>No entra en la evaluación: el sílabo llega hasta la predicción.</p>
+</div>
 </section>
 <section id="apoyo-complementario" class="level4">
 <h4 class="anchored" data-anchor-id="apoyo-complementario">Apoyo complementario</h4>

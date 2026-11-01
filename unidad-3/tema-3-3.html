@@ -526,14 +526,6 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBl
 </table>
 <p><span class="fuente">Devore, 2016, §8.2.</span></p>
 </div>
-<div class="ampliacion">
-<p><strong>La prueba t de una sola muestra.</strong> La prueba <span class="math inline">\(z\)</span> de esta página supone muestra grande. Con <span class="math inline">\(n\)</span> pequeña y <span class="math inline">\(\sigma\)</span> desconocida, el estadístico es formalmente el mismo,</p>
-<p><span class="math display">\[t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}\]</span></p>
-<p>pero su distribución bajo <span class="math inline">\(H_0\)</span> ya no es la normal estándar, sino una <strong>t de Student con <span class="math inline">\(n-1\)</span> grados de libertad</strong>. La consecuencia práctica es que el valor-p se obtiene de la curva t y resulta <strong>mayor</strong> que el que daría la curva normal: con poca muestra se exige más evidencia para rechazar, que es exactamente lo razonable.</p>
-<p>Al crecer la muestra las dos curvas se confunden, y por eso la prueba <span class="math inline">\(z\)</span> es válida cuando <span class="math inline">\(n\)</span> es grande.</p>
-<p><strong>Dónde leerlo.</strong> Devore, §8.3 «Prueba t de una sola muestra», páginas 335 a 345, con el procedimiento en los mismos siete pasos que usa esta página. Johnson, §7.6 «Hipótesis concernientes a una media». Illowsky y Dean, capítulo 9, apartado sobre la prueba de una sola media poblacional.</p>
-<p>No entra en la evaluación: el sílabo no la incluye. En R basta <code>t.test()</code>, que devuelve a la vez el valor-p y el intervalo de confianza, y hace explícita la equivalencia entre ambos que se discute más abajo.</p>
-</div>
 <section id="el-procedimiento-paso-a-paso" class="level3">
 <h3 class="anchored" data-anchor-id="el-procedimiento-paso-a-paso">El procedimiento, paso a paso</h3>
 <p>Devore resuelve sus ejemplos con una secuencia fija que conviene adoptar:</p>
@@ -703,6 +695,14 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfeiA8LSAwICAgICAgICAg
 <li><strong>3.3.4</strong> · Illowsky y Dean, §9.2 «Resultados y errores de tipo I y II», con sus ejemplos de consecuencias desiguales.</li>
 <li><strong>3.3.5</strong> · Johnson, §7.6 «Hipótesis concernientes a una media».</li>
 </ul>
+<div class="ampliacion">
+<p><strong>La prueba t de una sola muestra.</strong> La prueba <span class="math inline">\(z\)</span> de esta página supone muestra grande. Con <span class="math inline">\(n\)</span> pequeña y <span class="math inline">\(\sigma\)</span> desconocida, el estadístico es formalmente el mismo,</p>
+<p><span class="math display">\[t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}\]</span></p>
+<p>pero su distribución bajo <span class="math inline">\(H_0\)</span> ya no es la normal estándar, sino una <strong>t de Student con <span class="math inline">\(n-1\)</span> grados de libertad</strong>. La consecuencia práctica es que el valor-p se obtiene de la curva t y resulta <strong>mayor</strong> que el que daría la curva normal: con poca muestra se exige más evidencia para rechazar, que es exactamente lo razonable.</p>
+<p>Al crecer la muestra las dos curvas se confunden, y por eso la prueba <span class="math inline">\(z\)</span> es válida cuando <span class="math inline">\(n\)</span> es grande.</p>
+<p><strong>Dónde leerlo.</strong> Devore, §8.3 «Prueba t de una sola muestra», páginas 335 a 345, con el procedimiento en los mismos siete pasos que usa esta página. Johnson, §7.6 «Hipótesis concernientes a una media». Illowsky y Dean, capítulo 9, apartado sobre la prueba de una sola media poblacional.</p>
+<p>No entra en la evaluación: el sílabo no la incluye. En R basta <code>t.test()</code>, que devuelve a la vez el valor-p y el intervalo de confianza, y hace explícita la equivalencia entre ambos que se discute más abajo.</p>
+</div>
 </section>
 <section id="apoyo-complementario" class="level4">
 <h4 class="anchored" data-anchor-id="apoyo-complementario">Apoyo complementario</h4>
