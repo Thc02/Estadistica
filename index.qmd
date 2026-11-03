@@ -126,9 +126,3 @@ Las celdas de código son **ejecutables en el navegador**. No hace falta instala
 ::: {.predice}
 Cada celda va precedida de una pregunta. Escriba su respuesta en el cuaderno **antes** de ejecutar. Una celda ejecutada sin haber predicho el resultado no enseña nada.
 :::
-
-## Fuentes del curso
-
-Illowsky, B., & Dean, S. *Introducción a la estadística.* OpenStax, Rice University. Licencia CC BY 4.0.
-
-Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa.* Universidad de las Fuerzas Armadas–ESPE / Academia de Guerra del Ejército. ISBN 978-9942-652-21-8.

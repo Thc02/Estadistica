@@ -116,11 +116,3 @@ Taller o actividad autónoma sobre la flota propia de cada guardiamarina. Los da
 ::: {.franja}
 **Los datos son distintos para cada guardiamarina.** La flota de cuarenta unidades con la que se trabaja se genera a partir del correo institucional `@espe.edu.ec`. Treinta guardiamarinas, treinta flotas. Copiar un número ajeno no sirve, y el docente puede regenerar la flota de cualquiera para comprobar que el resultado entregado corresponde de verdad a sus datos.
 :::
-
-## Bibliografía
-
-**Texto guía.** Ordóñez Moreno, F. M., Rosero Camacho, W. N., & Paredes Calderón, D. M. (2025). *Estadística para la Seguridad y Defensa.* Universidad de las Fuerzas Armadas–ESPE. ISBN 978-9942-652-21-8.
-
-**Lecturas principales.** Bologna, E. (2018). *Métodos Estadísticos de Investigación.* Editorial Brujas & Encuentro Grupo Editor — «Los datos estadísticos» (pp. 17–35), «Obtención de la muestra» (pp. 155–171), «Probabilidad – Modelos» (pp. 197–224).
-
-**Complementaria.** Monroy Saldívar, S. (2024). *Estadística y probabilidad.* · Klinger Angarita, R. (2024). *Muestreo estadístico: métodos básicos.* · García Pérez, A. (2023). *Estadísticas con R.*

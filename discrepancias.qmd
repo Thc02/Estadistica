@@ -32,6 +32,10 @@ Aprender a hacer esa distinción —y a comprobar antes de dar por bueno— es p
 | 7 | **«Permutación de tamaño k» frente a «variación»** | Misma fórmula, dos nombres según la tradición del texto | Se usa «permutación»; se declara la equivalencia |
 | 8 | **Uniforme: intervalo sin recortar** | El ejercicio 4.9 da 80 %; el valor correcto es 70 % | Se recorta siempre el tramo al soporte |
 | 9 | **Exponencial: valor imposible** | El ejercicio 4.10c da 32.13 %; el máximo que la distribución admite es 25 % | Se usa 23.25 %, verificado y acotado |
+| 10 | **Notación de los valores críticos** | En Devore el subíndice de $z_\alpha$ es el área de la cola; en R, la probabilidad acumulada | La de Devore; se declara la equivalencia con `qnorm()` |
+| 11 | **Vocabulario de la unidad 3** | Tres nombres para el mismo teorema y dos verbos para la misma operación | «Teorema del Límite Central» y «tipificar»; se declaran los sinónimos |
+| 12 | **`sd()` y la desviación típica poblacional** | R divide siempre entre $n-1$; con una población finita el divisor es $N$ | `sigma_poblacional()` cuando los datos son la población |
+| 13 | **Accidentes marítimos: cuarta cifra** | El texto guía da 51.34 % y R devuelve 51.32 % | Se acepta: es redondeo del libro, no un error |
 
 : Discrepancias verificadas {.striped}
 
@@ -284,6 +288,69 @@ optimize(function(u) u - u^2, c(0, 1), maximum = TRUE)
 
 ::: {.franja}
 Reténgase el método, más que el caso. Se ha refutado un resultado publicado **sin recalcularlo**, mostrando que excede una cota que la distribución impone. Comprobar que un número cae dentro del rango que su modelo permite es la verificación más barata que existe, y detecta errores que el recálculo puede repetir.
+:::
+
+## 10. La notación de los valores críticos
+
+Aparece en cuanto se construye un intervalo de confianza, y confunde porque los dos convenios escriben **el mismo número** con subíndices distintos.
+
+| Fuente | Qué denota el subíndice | Para el 95 % |
+|---|---|---|
+| **Devore** (§4.3, tabla 4.1) | el área de la **cola derecha** | $z_{0.025} = 1.96$ |
+| **R**, `qnorm()` | la probabilidad **acumulada a la izquierda** | `qnorm(0.975)` $= 1.96$ |
+
+: El mismo 1.96 con dos nombres {.striped}
+
+```{webr}
+# Las dos formas de nombrar el mismo valor critico
+c(devore_z_0025 = qnorm(1 - 0.025),
+  r_qnorm_0975  = qnorm(0.975),
+  devore_z_005  = qnorm(1 - 0.05),
+  r_qnorm_095   = qnorm(0.95))
+```
+
+No es una discrepancia de cálculo: es que Devore tabula las colas porque su tabla A.3 está pensada para la inferencia, donde lo que se fija es $\alpha$. R expone la función de distribución acumulada, que es la definición matemática.
+
+::: {.recomendacion}
+Este curso usa la notación de Devore, $z_{\alpha/2}$ con el subíndice como área de cola, porque es la del texto que se lee. En las celdas aparece `qnorm(1 - alfa/2)`, escrito así a propósito para que se vea la conversión.
+:::
+
+## 11. Vocabulario de la unidad 3
+
+Dos cuestiones de nombre, ninguna de cálculo, que afectan a la búsqueda en los índices.
+
+**El nombre del teorema.** El sílabo de la asignatura lo llama «Teorema Central del Límite»; la traducción de Devore, «teorema del límite central (TLC)»; el capítulo 7 de Illowsky y Dean, «El teorema central del límite». Este curso adopta **Teorema del Límite Central**, con la sigla **TLC**, por indicación del docente y por coincidir con el texto que desarrolla la demostración. Las citas a los capítulos conservan el título literal de cada obra.
+
+**Tipificar o estandarizar.** Devore escribe «estandarizar» y «variable estandarizada»; la tradición española, que sigue el texto guía, dice «tipificar» y «puntuación tipificada». Son sinónimos exactos. Este curso usa **tipificar**, pero conviene saberlo: quien busque «tipificar» en el índice de Devore no lo encontrará.
+
+## 12. `sd()` y la desviación típica de una población
+
+La función `sd()` de R divide siempre entre $n-1$, porque supone que los datos son una **muestra** y estima la dispersión de una población mayor. Cuando los datos **son** la población entera —como las cuarenta unidades de la flota en la unidad 3— el divisor correcto es $N$.
+
+```{webr}
+# El factor que separa a las dos, con N = 40
+c(razon = sqrt(40/39), diferencia_porcentual = 100*(sqrt(40/39) - 1))
+```
+
+La diferencia es del 1.3 % con $N = 40$, pequeña en el número y no en el concepto: una es un parámetro y la otra un estimador. R no distingue entre ambos casos porque la función no sabe qué papel juegan los datos; lo sabe quien la usa.
+
+::: {.recomendacion}
+En el tema 3.1 se define `sigma_poblacional()` para el caso de la población, y se conserva `sd()` para las muestras. Al leer una salida, pregúntese siempre qué papel tienen esos datos antes de elegir la función.
+:::
+
+## 13. Accidentes marítimos: una diferencia en la cuarta cifra
+
+El ejercicio 4.5 del texto guía, con 2.3 accidentes por semestre, reporta dos resultados: **23.06 %** y **51.34 %**.
+
+```{webr}
+c(uno_en_el_semestre = dpois(1, 2.3),
+  hasta_4_en_el_anio = ppois(4, 4.6))
+```
+
+El primero coincide exactamente. El segundo da **51.32 %** en R, frente al 51.34 % del libro: concuerdan hasta la tercera cifra y difieren en la cuarta.
+
+::: {.recomendacion}
+Se acepta el valor del libro como correcto. La diferencia procede del redondeo intermedio al operar con tablas, no de un error de método, y se recoge aquí únicamente para que nadie la tome por una errata. **No toda discrepancia numérica es un fallo**: distinguir el redondeo del error es parte de lo que esta página enseña.
 :::
 
 ## Declaración de la convención en un informe
