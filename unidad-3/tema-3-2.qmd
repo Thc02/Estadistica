@@ -204,14 +204,31 @@ Si se fija de antemano el semiancho admisible $E$ —el margen de error—, el n
 
 $$n = \left(\frac{z_{\alpha/2}\,s}{E}\right)^{2}$$
 
-```{webr}
-# Mediciones necesarias para estimar la velocidad media con +-0.5 nudos al 95 %
-E <- 0.5
-ceiling((qnorm(0.975) * s / E)^2)
-```
+La cuenta tiene un problema de orden: exige un valor de $s$ que todavía no se tiene, porque la campaña de mediciones aún no se ha hecho. Si ya dispusiera de la muestra, dimensionarla carecería de objeto.
 
 ::: {.recomendacion}
-Esta cuenta exige un valor de $s$ que todavía no se tiene, porque los datos no se han recogido. Devore propone una salida práctica: si se puede estimar el **rango** de la población —la diferencia entre el valor mayor y el menor— y la distribución no es muy asimétrica, dividirlo entre 4 da un valor aproximado de $s$. Es una estimación conservadora y suficiente para planificar.
+Devore propone una salida práctica: si se puede estimar el **rango** de la población —la diferencia entre el valor mayor y el menor— y la distribución no es muy asimétrica, dividirlo entre 4 da un valor aproximado de $s$. Es una estimación conservadora y suficiente para planificar.
+:::
+
+Las fichas técnicas del astillero declaran, para las unidades de esta flota, velocidades sostenidas de entre **10 y 26 nudos**. Ese rango se conoce antes de salir a la mar.
+
+```{webr}
+# PLANIFICACION: aun no hay datos. s se estima por el criterio rango / 4.
+s_previo <- (26 - 10) / 4
+E <- 0.5                       # semiancho admisible, en nudos
+ceiling((qnorm(0.975) * s_previo / E)^2)
+```
+
+Hecha la campaña, la pregunta se puede revisar: con la desviación típica realmente observada, ¿cuántas mediciones habrían bastado?
+
+```{webr}
+# VERIFICACION a posteriori, con la s de las 50 mediciones ya tomadas
+rbind(planificado = ceiling((qnorm(0.975) * s_previo / E)^2),
+      necesario   = ceiling((qnorm(0.975) * s / E)^2))
+```
+
+::: {.inferencia}
+Compare las dos filas. El rango declarado es un envolvente nominal del astillero, más ancho que la dispersión real de las velocidades, de modo que `planificado` suele quedar por encima de `necesario`: el criterio pide mediciones de más. Es el comportamiento buscado, porque quedarse corto obliga a repetir la campaña entera. Si en su caso las dos filas están próximas, o la segunda supera a la primera, significa que su flota es más dispersa de lo que la ficha técnica sugiere, y el margen de seguridad se consumió.
 :::
 
 ::: {.ejercicio}
