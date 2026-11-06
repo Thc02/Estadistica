@@ -105,9 +105,9 @@ Cada una de las dos partes de la definición hace falta.
 | | $H_0$ verdadera | $H_0$ falsa |
 |---|---|---|
 | **No rechazar $H_0$** | decisión correcta | **error de tipo II** ($\beta$) |
-| **Rechazar $H_0$** | **error de tipo I** ($\alpha$) | decisión correcta (potencia) |
+| **Rechazar $H_0$** | **error de tipo I** ($\alpha$) | decisión correcta (**potencia de la prueba**) |
 
-$\alpha = P(\text{error de tipo I})$, $\;\beta = P(\text{error de tipo II})$, y la **potencia** de la prueba es $1 - \beta$.
+$\alpha = P(\text{error de tipo I})$, $\;\beta = P(\text{error de tipo II})$, y la **potencia de la prueba** —la probabilidad de rechazar $H_0$ cuando efectivamente es falsa— es $1 - \beta$.
 
 [Devore, 2016, §8.1; Illowsky y Dean (OpenStax, 2022), §9.2.]{.fuente}
 :::
@@ -213,6 +213,26 @@ if (valor_p < alfa) {
 **Región de rechazo.** El conjunto de valores del estadístico de prueba para los cuales se rechaza $H_0$. Para una prueba bilateral de nivel $\alpha$ es $|z| > z_{\alpha/2}$.
 
 [Devore, 2016, §8.1.]{.fuente}
+:::
+
+::: {.franja}
+**Las tres regiones.** El ejemplo de esta página es bilateral, pero la alternativa puede ser unilateral. La regla es siempre la misma: **toda la probabilidad $\alpha$ se coloca en la cola que señala $H_a$**, y por eso en los casos unilaterales aparece $z_\alpha$ y no $z_{\alpha/2}$.
+
+| $H_a$ | Región de rechazo | Con $\alpha = 0.05$ |
+|---|---|---|
+| $\mu > \mu_0$ | $z \ge z_\alpha$ | $z \ge 1.645$ |
+| $\mu < \mu_0$ | $z \le -z_\alpha$ | $z \le -1.645$ |
+| $\mu \ne \mu_0$ | $\lvert z \rvert \ge z_{\alpha/2}$ | $\lvert z \rvert \ge 1.96$ |
+
+Para recordarlo: **la región de rechazo apunta hacia donde apunta la desigualdad de $H_a$**. Si la alternativa dice «mayor», se rechaza por la derecha.
+
+En R, atendiendo al convenio inverso de los subíndices: `qnorm(1 - alfa)` para la cola derecha, `qnorm(alfa)` para la izquierda, `qnorm(1 - alfa/2)` para la bilateral.
+
+[Devore, 2016, §8.2.]{.fuente}
+:::
+
+::: {.recomendacion}
+La prueba unilateral rechaza con menos evidencia en su dirección —1.645 frente a 1.96— y a cambio es ciega en la contraria: una media muy por encima de $\mu_0$ nunca llevará a rechazar en una prueba de cola inferior, por extremo que sea el dato. Es correcto, porque esa posibilidad quedó descartada al plantear $H_a$. De ahí que la dirección deba fijarse **antes de ver los datos**: elegirla después, mirando hacia dónde cayó $\bar{x}$, convierte un $\alpha$ nominal del 5 % en uno real del 10 %.
 :::
 
 ::: {.predice}
