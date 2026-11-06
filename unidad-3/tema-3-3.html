@@ -461,11 +461,11 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibWlfY29ycmVvIDwtIFwiYXBl
 <tr class="even">
 <td><strong>Rechazar <span class="math inline">\(H_0\)</span></strong></td>
 <td><strong>error de tipo I</strong> (<span class="math inline">\(\alpha\)</span>)</td>
-<td>decisión correcta (potencia)</td>
+<td>decisión correcta (<strong>potencia de la prueba</strong>)</td>
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\(\alpha = P(\text{error de tipo I})\)</span>, <span class="math inline">\(\;\beta = P(\text{error de tipo II})\)</span>, y la <strong>potencia</strong> de la prueba es <span class="math inline">\(1 - \beta\)</span>.</p>
+<p><span class="math inline">\(\alpha = P(\text{error de tipo I})\)</span>, <span class="math inline">\(\;\beta = P(\text{error de tipo II})\)</span>, y la <strong>potencia de la prueba</strong> —la probabilidad de rechazar <span class="math inline">\(H_0\)</span> cuando efectivamente es falsa— es <span class="math inline">\(1 - \beta\)</span>.</p>
 <p><span class="fuente">Devore, 2016, §8.1; Illowsky y Dean (OpenStax, 2022), §9.2.</span></p>
 </div>
 <div class="definicion">
@@ -564,6 +564,46 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYWxmYSA8LSAwLjA1XG5cbmlm
 <div class="definicion">
 <p><strong>Región de rechazo.</strong> El conjunto de valores del estadístico de prueba para los cuales se rechaza <span class="math inline">\(H_0\)</span>. Para una prueba bilateral de nivel <span class="math inline">\(\alpha\)</span> es <span class="math inline">\(|z| &gt; z_{\alpha/2}\)</span>.</p>
 <p><span class="fuente">Devore, 2016, §8.1.</span></p>
+</div>
+<div class="franja">
+<p><strong>Las tres regiones.</strong> El ejemplo de esta página es bilateral, pero la alternativa puede ser unilateral. La regla es siempre la misma: <strong>toda la probabilidad <span class="math inline">\(\alpha\)</span> se coloca en la cola que señala <span class="math inline">\(H_a\)</span></strong>, y por eso en los casos unilaterales aparece <span class="math inline">\(z_\alpha\)</span> y no <span class="math inline">\(z_{\alpha/2}\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(H_a\)</span></th>
+<th>Región de rechazo</th>
+<th>Con <span class="math inline">\(\alpha = 0.05\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mu &gt; \mu_0\)</span></td>
+<td><span class="math inline">\(z \ge z_\alpha\)</span></td>
+<td><span class="math inline">\(z \ge 1.645\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu &lt; \mu_0\)</span></td>
+<td><span class="math inline">\(z \le -z_\alpha\)</span></td>
+<td><span class="math inline">\(z \le -1.645\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu \ne \mu_0\)</span></td>
+<td><span class="math inline">\(\lvert z \rvert \ge z_{\alpha/2}\)</span></td>
+<td><span class="math inline">\(\lvert z \rvert \ge 1.96\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Para recordarlo: <strong>la región de rechazo apunta hacia donde apunta la desigualdad de <span class="math inline">\(H_a\)</span></strong>. Si la alternativa dice «mayor», se rechaza por la derecha.</p>
+<p>En R, atendiendo al convenio inverso de los subíndices: <code>qnorm(1 - alfa)</code> para la cola derecha, <code>qnorm(alfa)</code> para la izquierda, <code>qnorm(1 - alfa/2)</code> para la bilateral.</p>
+<p><span class="fuente">Devore, 2016, §8.2.</span></p>
+</div>
+<div class="recomendacion">
+<p>La prueba unilateral rechaza con menos evidencia en su dirección —1.645 frente a 1.96— y a cambio es ciega en la contraria: una media muy por encima de <span class="math inline">\(\mu_0\)</span> nunca llevará a rechazar en una prueba de cola inferior, por extremo que sea el dato. Es correcto, porque esa posibilidad quedó descartada al plantear <span class="math inline">\(H_a\)</span>. De ahí que la dirección deba fijarse <strong>antes de ver los datos</strong>: elegirla después, mirando hacia dónde cayó <span class="math inline">\(\bar{x}\)</span>, convierte un <span class="math inline">\(\alpha\)</span> nominal del 5 % en uno real del 10 %.</p>
 </div>
 <div class="predice">
 <p>Las dos reglas —comparar <span class="math inline">\(|z|\)</span> con el valor crítico, o comparar el valor-p con <span class="math inline">\(\alpha\)</span>— ¿pueden dar conclusiones distintas sobre la misma muestra de velocidades?</p>
